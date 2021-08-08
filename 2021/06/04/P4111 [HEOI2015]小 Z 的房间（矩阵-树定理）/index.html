@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">P4111 [HEOI2015]小 Z 的房间（矩阵-树定理） | LawrenceSivan</title>
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "LawrenceSivan";
+  mashiro_option.author_name = "LawrenceSivan";
+  mashiro_option.site_url = "https://lawrencesivan.github.io/";
+  mashiro_option.v_appId = "dIwCuws5ndk9l6KNX62Yp2v6-gzGzoHsz";
+  mashiro_option.v_appKey = "5KBdadEbfMMamh1KsfIlVDqD";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://i.loli.net/2021/06/05/Czs9LlShTk3IZq8.jpg,https://i.loli.net/2021/06/05/AlLP7zvaumFdJ8i.jpg,https://i.loli.net/2021/06/05/25dk6Te1HcMLQFt.jpg,https://i.loli.net/2021/06/05/pPuHo6egLxDqB5j.jpg,https://i.loli.net/2021/08/07/y93LDV7mNIb4hlF.jpg".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop filter-dot">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a href="https://lawrencesivan.github.io/">
+          <img src="/images/avatar.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>I was so much older then, I′m younger than that now.</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="https://github.com/LawrenceSivan" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://weibo.com/7464138878/profile?topnav=1&amp;wvr=6" target="_blank" class="social-github" title="sina">
+                    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/sina.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://music.163.com/#/user/home?id=296743009" target="_blank" class="social-github" title="wangyiyun">
+                    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/wangyiyun.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.zhihu.com/people/lawrence-73-19" target="_blank" class="social-github" title="zhihu">
+                    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/zhihu.png">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono"></span>
+            <span class="shironeko">LawrenceSivan</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="https://lawrencesivan.github.io/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E7%94%9F%E6%B4%BB/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E8%B5%84%E6%BA%90/">
+                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                          资源
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E9%9A%8F%E6%83%B3/">
+                          <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                          随想
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E8%BD%AC%E8%BD%BD/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          转载
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    清单
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/%E6%82%A6%E8%AF%BB/">
+                          <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                          书单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags/%E5%9B%BE%E9%9B%86/">
+                          <i class="fa fa-photo" aria-hidden="true"></i>
+                          图集
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/theme-sakura/">
+                          <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                          主题
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/lab/">
+                          <i class="fa fa-cogs" aria-hidden="true"></i>
+                          Lab
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/client/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-android faa-vertical" aria-hidden="true"></i>
+                    客户端
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+                    RSS
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://images.pexels.com/photos/1428277/pexels-photo-1428277.jpeg?auto=compress&amp;cs=tinysrgb&amp;h=650&amp;w=940);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://images.pexels.com/photos/1428277/pexels-photo-1428277.jpeg?auto=compress&amp;cs=tinysrgb&amp;h=650&amp;w=940">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      P4111 [HEOI2015]小 Z 的房间（矩阵-树定理）</h1>
+      <p class="entry-census">
+        <span>
+          <a href="https://lawrencesivan.github.io/">
+            <img src="/images/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="https://lawrencesivan.github.io/">LawrenceSivan</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2021-6-4<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="矩阵-树定理"><a href="#矩阵-树定理" class="headerlink" title="矩阵-树定理"></a>矩阵-树定理</h1><p><strong>（<em>Kirchhoff’s</em> <em>matrix</em> <em>tree</em> _theorem_）</strong></p>
+<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>首先这个玩意集训的时候就已经讲过了。</p>
+<p>但是当时并没有认真听。</p>
+<p>现在回头看这玩意……</p>
+<h2 id="前置知识："><a href="#前置知识：" class="headerlink" title="前置知识："></a>前置知识：</h2><p>$1$：<a href="https://baike.baidu.com/item/%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E7%9F%A9%E9%98%B5/5583042?fr=aladdin">拉普拉斯</a><a href="https://blog.csdn.net/qq_30159015/article/details/83271065">矩阵</a> <strong>极其重要</strong></p>
+<p>$2$：<a href="https://blog.csdn.net/zhoufenqin/article/details/7779707">行列式</a> <strong>极其重要</strong></p>
+<p>$3$：<a href="https://lawrencesivan.github.io/2021/02/18/p2455%20%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84%EF%BC%88%E9%AB%98%E6%96%AF%E6%B6%88%E5%85%83%EF%BC%89/">高斯消元</a> <strong>极其重要</strong></p>
+<p>$4$：<a href="https://baike.baidu.com/item/%E7%9F%A9%E9%98%B5-%E6%A0%91%E5%AE%9A%E7%90%86/18894498?fr=aladdin">矩阵树定理</a>  <del>这个了解一下这个名字就行了，要不然你直接看会了还看我的博客干屁</del> <del><strong>不重要</strong></del></p>
+<p>$5$：<a href="https://baike.baidu.com/item/%E6%9F%AF%E8%A5%BF-%E6%AF%94%E5%86%85%E5%85%AC%E5%BC%8F/18882044?fr=aladdin">柯西–比内公式</a>  <del>这个其实不用掌握</del></p>
+<p>$6$：一些奇怪的人名：</p>
+<p><a href="https://baike.baidu.com/item/%E5%8F%A4%E6%96%AF%E5%A1%94%E5%A4%AB%C2%B7%E7%BD%97%E4%BC%AF%E7%89%B9%C2%B7%E5%9F%BA%E5%B0%94%E9%9C%8D%E5%A4%AB/2371618?fromtitle=%E5%9F%BA%E5%B0%94%E9%9C%8D%E5%A4%AB&fromid=639565&fr=aladdin">基尔霍夫</a></p>
+<p><a href="https://baike.baidu.com/item/%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF/5189?fromtitle=Laplace&fromid=5028043&fr=aladdin">拉普拉斯</a></p>
+<h2 id="矩阵-树定理内容："><a href="#矩阵-树定理内容：" class="headerlink" title="矩阵-树定理内容："></a>矩阵-树定理内容：</h2><p><strong>官方定义</strong>：矩阵-树定理是一个计数定理.若连通图 $G$ 的邻接矩阵为 $A$ ，将 $A$ 的对角线 $(i,i)$ 元素依次换为节点 $i$ 的度 $d(i)$，其余元素 $(i,j) (j!=i)$ 取 $A(i,j)$ 的相反数，所得矩阵记为 $M$ ，则 $M$ 的每个代数余子式相等，且等于 $G$ 的生成树的数目.这就是矩阵一树定理.我们常常称矩阵 $M$ 为基尔霍夫矩阵。</p>
+<p>其实这玩意还有一些其他的说法：</p>
+<p>比如比较阳间的<strong>说法一</strong>：将拉普拉斯矩阵去掉任意的一行和一列，得到的矩阵求行列式，即是原图的生成树数量。（拉普拉斯矩阵下面会说到）</p>
+<p>还有更通俗易懂的<strong>说法二</strong>：（度数矩阵（对角线矩阵）-邻接矩阵）的行列式等于该图生成树个数（行列式下面也会说到）。</p>
+<p>还有一些奇奇怪怪的<strong>说法三</strong>：对于一个无向图 $G$ ，它的生成树个数等于其基尔霍夫 <em>Kirchhoff</em> 矩阵任何一个 $N−1$ 阶主子式的行列式的绝对值。</p>
+<p><del>其实他们说的是一回事，完全一样。</del></p>
+<p>随便记一个就行了。</p>
+<h2 id="拉普拉斯矩阵-（Laplacian-Matrix-）"><a href="#拉普拉斯矩阵-（Laplacian-Matrix-）" class="headerlink" title="拉普拉斯矩阵 （Laplacian _Matrix_）"></a>拉普拉斯矩阵 （<em>Laplacian</em> _Matrix_）</h2><p>其实，它还有一个别的名字：基尔霍夫矩阵（基尔霍夫就是矩阵-树定理的提出者）。</p>
+<p>设<strong>无向图</strong> $G$（允许重边，可以扩展到加权，但是不能有自环） 有 $n$ 个节点。拉普拉斯矩阵 $L:=(l_{i,j})_{n\times n}$ 定义如下：</p>
+<ul>
+<li><p>若 $i==j$ 则 $l_{i,j}=\deg(v_i)$ , $\deg(v_i)$ 为定点 $v_i$ 的度。（如果是有向图，那么我们只考虑出度或者入度中的一个）.</p>
+</li>
+<li><p>若 $i\neq j $ ，但是顶点 $v_i$ 和 $v_j$ 之间有边相连，那么 $l_{i,j}=-1$.</p>
+</li>
+<li><p>其他情况 $l_{i,j}=0$.</p>
+</li>
+</ul>
+<p>根据说法一，我们去掉拉普拉斯矩阵的最后一列和最后一行，然后求行列式就得到了问题的解。</p>
+<p>说白了，我们首先求出度数矩阵 $D$（也就是对角线矩阵，具体意义是这个点有多少个另外的点与他相连，那么对应位置就是几）。</p>
+<p>然后求出邻接矩阵 $A$（就是表明点与点的连接关系的那个，具体可以参考一些矩阵快速幂的题或者联想一下 _floyd_）。</p>
+<p>之后求出拉普拉斯矩阵（基尔霍夫矩阵） $W=D-A$.</p>
+<p>然后将 $W$ 去掉任意一行和一列得到 $K’$ （一般为了方便我们直接去除最后一行和最后一列）。</p>
+<p>那么生成树的个数就等于 $\det(K’)$ （就是 $K’$ 的行列式）。</p>
+<p>下面还会提到有向图的拉普拉斯矩阵以及如何推广到到带权。</p>
+<h2 id="行列式"><a href="#行列式" class="headerlink" title="行列式"></a>行列式</h2><p>一个矩阵对应一个行列式（就是一个数字）。</p>
+<p>计算行列式就是需要矩阵化成上三角或下三角，然后观察对角线的元素，如果其中有个一元素为 $0$ 则整体为 $0$，否则<strong>行列式的值就是对角线上各个元素的乘积</strong>。</p>
+<p>首先需要知道一些性质：</p>
+<ul>
+<li><p>一个行列式和它的转置行列式相等.</p>
+</li>
+<li><p><strong>互换行列式的两行或者两列，行列式的值变号</strong>.</p>
+</li>
+<li><p>如果行列式中有两行或者两列完全相同，那么行列式为零.</p>
+</li>
+<li><p>行列式中某一行或者一列中所有元素同乘同一个数 $k$ ，等于用 $k$ 乘以行列式.</p>
+</li>
+<li><p>行列式中如果有两行或者或者两列元素对应成比例，那么行列式为零.</p>
+</li>
+<li><p><strong>把行列式的某一行或者某一列的各个元素乘以同一个数以后加到另外一行或者一列的对应元素上去，行列式的值不变</strong>.</p>
+</li>
+</ul>
+<p>以上加黑部分提示我们应该使用高斯消元来转化成三角，然后求得行列式。</p>
+<p><strong>需要注意的是一定是三角而不是对角线矩阵</strong>。</p>
+<p><del>于是特别喜欢 高斯-约旦 消元的同学还是要学一学经典高斯的。</del></p>
+<p>在把矩阵化成三角时需要注意，在题目中模数可能为任意，这样在剩余系就不一定存在逆元，所以需要使用辗转相除法。</p>
+<p>或者如果这道题的模数是质数的话也可以使用乘法逆元。</p>
+<p>消元结束以后直接算出行列式的值就好了。</p>
+<pre><code class="cpp">int ans=1;
+for(re int i=1;i&lt;=tmp;i++)&#123;
+    for(re int j=i+1;j&lt;=tmp;j++)&#123;
+        while(a[j][i])&#123;
+            int t=a[i][i]/a[j][i];
+            for(re int k=i;k&lt;=tmp;k++)a[i][k]=(a[i][k]-a[j][k]*t%mod+mod)%mod;
+            swap(a[i],a[j]);
+            ans*=-1;
+        &#125;
+    &#125;
+    ans=(ans*a[i][i]%mod+mod)%mod;
+&#125;
+return (ans%mod+mod)%mod;
+</code></pre>
+<p>这里同时给出对于模数是质数时，求解行列式的方法：</p>
+<pre><code class="cpp">inline int det()&#123;
+    int ans=1;
+    for(re int i=1;i&lt;=tmp;i++)&#123;
+        for(re int j=i;j&lt;=tmp;j++)&#123;
+            if(a[j][i])&#123;
+                swap(a[i],a[j]);
+                if(i!=j)ans=mod-ans;
+                break;
+            &#125;
+        &#125;
+                
+        int t=qpow(a[i][i],mod-2);
+            
+        for(re int j=i+1;j&lt;=tmp;j++)&#123;
+            if(a[j][i])&#123;
+                for(re int k=tmp;k&gt;=i;k--)&#123;
+                    a[j][k]=(a[j][k]-a[i][k]*t%mod*a[j][i]%mod+mod)%mod;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+         
+    for(re int i=1;i&lt;=tmp;i++)ans=ans*a[i][i]%mod;    
+        
+    return ans;
+&#125;
+</code></pre>
+<p>需要处理一下负数情况，否则会出问题：</p>
+<pre><code class="cpp">inline void check()&#123;
+     for(re int i=1;i&lt;=n;i++)&#123;
+           for(re int j=1;j&lt;=n;j++)&#123;
+               if(a[i][j]&lt;0) a[i][j]+=mod;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>对于本题，并不是所有的点都可以用来求行列式，只有不是墙的点才能放进矩阵。</p>
+<p>否则根据上面的性质：<strong>如果其中有个一元素为 $0$ 则整体为 $0$</strong> 。</p>
+<p>就会直接 <em>WA</em> 了。</p>
+<p>对于加边，只加向下或者向右的边，可以保证不重复。</p>
+<pre><code class="cpp">for(re int i=1;i&lt;=n;i++)&#123;
+        for(re int j=1;j&lt;=m;j++)&#123;
+            cin&gt;&gt;a[i][j];
+            if(a[i][j]==&#39;.&#39;)id[i][j]=++cnt;//用cnt来重新编号
+        &#125;
+    &#125;
+</code></pre>
+<h2 id="本题相关："><a href="#本题相关：" class="headerlink" title="本题相关："></a>本题相关：</h2><p>$1$：这个题需要注意，一定要开 <em>long</em> <em>long</em>.</p>
+<p>我们可以观察一下这个题的样例一：</p>
+<p>构建出来拉普拉斯矩阵之后并且去掉最后一行和最后一列，矩阵是这样的：</p>
+<p>$\begin{bmatrix} -1&amp;0&amp;2\\0&amp;1&amp;1\\0&amp;0&amp;999999996\end{bmatrix}$​</p>
+<p>然后 ，不开 <em>long</em> <em>long</em> 就没有然后了。</p>
+<p>$2$：构建完拉普拉斯矩阵以后千万不要忘记减掉最后一行和最后一列（不要上头。</p>
+<p>$3$：上三角，上三角，上三角！（针对某些高斯-约旦党。</p>
+<p>$4$：取 $mod$ 的时候注意处理负数。</p>
+<h2 id="复杂度分析："><a href="#复杂度分析：" class="headerlink" title="复杂度分析："></a>复杂度分析：</h2><p>由于我们使用了辗转相除法来进行高斯消元，所以原来 $O(n^3)$ 的高斯消元被加了一个 $log$ ，时间复杂度 $O(n^3m^3log(nm))$</p>
+<h2 id="CODE："><a href="#CODE：" class="headerlink" title="CODE："></a>CODE：</h2><pre><code class="cpp">//#define LawrenceSivan
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+#define re register
+const int N=150;
+const int mod=1e9;
+#define INF 0x3f3f3f3f
+
+#define int long long//记得long long
+
+struct matrix &#123;//这里是矩阵的板子
+    int n,m;
+    int tmp;
+    int a[N][N];
+
+    matrix()&#123;&#125;
+    matrix(const int &amp;_n,const int &amp;_m):n(_n+1),m(_m+1)&#123;
+        memset(a,0,sizeof(a));
+    &#125;
+
+    inline void clear()&#123;
+        memset(a,0,sizeof(a));
+        for(int i=0;i&lt;=n;i++)&#123;
+            a[i][i]=1;
+        &#125;
+    &#125;
+
+    inline void id()&#123;
+        for(int i=0;i&lt;=n;i++)&#123;
+            a[i][i]=1;
+        &#125; 
+    &#125; 
+
+    inline matrix operator + (const matrix &amp;b)const&#123;
+        matrix res(n,b.m);
+        for(int i=0;i&lt;=n;i++)&#123;
+            for(int j=0;j&lt;=m;j++)&#123;
+                res.a[i][j]=(a[i][j]+b.a[i][j])%mod;
+            &#125;
+        &#125;
+        return res;
+    &#125; 
+
+    inline matrix operator - (const matrix &amp;b)const&#123;
+        matrix res(n,b.m);
+        for(int i=0;i&lt;=n;i++)&#123;
+            for(int j=0;j&lt;=m;j++)&#123;
+                res.a[i][j]=(a[i][j]-b.a[i][j])%mod;
+            &#125;
+        &#125;
+        return res;
+    &#125; 
+
+    inline matrix operator * (int c)const&#123;
+        matrix res(n,m);
+        for(int i=0;i&lt;=n;i++)&#123;
+            for(int j=0;j&lt;=m;j++)&#123;
+                res.a[i][j]=(c*a[i][j])%mod;
+            &#125;
+        &#125;
+        return res;
+    &#125;
+
+    inline matrix operator * (const matrix &amp;b)const&#123;
+        matrix res(n,b.m);
+        for(int i=0;i&lt;=n;i++)&#123;
+            for(int j=0;j&lt;=b.m;j++)&#123;
+                for(int k=0;k&lt;=m;k++)&#123;
+                    res.a[i][j]=(res.a[i][j]+a[i][k]*b.a[k][j])%mod;        
+                &#125;
+            &#125;
+        &#125; 
+        return res;
+    &#125;
+
+    inline matrix operator ^ (int p)const&#123;
+        matrix res(n,m),x = *this; 
+        res.clear();
+        for(;p;p&gt;&gt;=1,x=x*x)&#123;
+            if(p&amp;1)res=res*x;
+        &#125;
+        return res;
+    &#125;
+
+    inline matrix trans()&#123;
+        matrix res(m,n);
+        for(int i=0;i&lt;=n;i++)&#123;
+            for(int j=0;j&lt;=m;j++)&#123;
+                res.a[i][j]=a[j][i];
+            &#125;
+        &#125;
+        return res;
+    &#125;
+    
+    inline int det()&#123;//高斯消元与求行列式
+        int ans=1;
+        for(re int i=1;i&lt;=tmp;i++)&#123;
+            for(re int j=i+1;j&lt;=tmp;j++)&#123;
+                while(a[j][i])&#123;//辗转相除
+                    int t=a[i][i]/a[j][i];
+                    for(re int k=i;k&lt;=tmp;k++)&#123;
+                        a[i][k]=(a[i][k]-a[j][k]*t%mod+mod)%mod;
+                        
+                    &#125;
+                    swap(a[i],a[j]);
+                    ans*=-1;//交换以后需要变号
+                &#125;
+            &#125;
+            ans=(ans*a[i][i]%mod+mod)%mod;//勤处理负数
+        &#125;
+        return (ans%mod+mod)%mod;
+    &#125;
+&#125;W,D,A;
+//W 基尔霍夫矩阵（拉普拉斯矩阵）
+//D 度数矩阵（对角线矩阵）
+//A 邻接矩阵
+
+int n,m;
+
+char a[15][15];
+
+int id[15][15],cnt;//id 用于重新编号
+
+inline void add(int u,int v)&#123;
+    A.a[u][v]=1;
+    A.a[v][u]=1;
+&#125;
+
+inline int read()&#123;
+    int x=0,f=1;char ch=getchar();
+    while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+    while(isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+    return x*f;
+&#125;
+
+signed main()&#123;
+#ifdef LawrenceSivan
+    freopen(&quot;aa.in&quot;,&quot;r&quot;,stdin);
+    freopen(&quot;aa.out&quot;,&quot;w&quot;,stdout);
+#endif
+    n=read();m=read();
+    for(re int i=1;i&lt;=n;i++)&#123;
+        for(re int j=1;j&lt;=m;j++)&#123;
+            cin&gt;&gt;a[i][j];
+            if(a[i][j]==&#39;.&#39;)id[i][j]=++cnt;
+        &#125;
+    &#125;
+    
+    W=matrix(cnt,cnt);//初始化矩阵
+    D=matrix(cnt,cnt);
+    A=matrix(cnt,cnt);
+    
+    for(re int i=1;i&lt;=n;i++)&#123;//构造邻接矩阵
+        for(re int j=1;j&lt;=m;j++)&#123;
+            if(id[i][j]&amp;&amp;id[i][j-1])add(id[i][j],id[i][j-1]); 
+            if(id[i][j]&amp;&amp;id[i-1][j])add(id[i][j],id[i-1][j]);    
+        &#125;
+    &#125;
+    
+    for(re int i=1;i&lt;=cnt;i++)&#123;//构造度数矩阵
+        for(re int j=1;j&lt;=cnt;j++)&#123;
+            if(A.a[i][j]) D.a[i][i]++;
+        &#125;
+    &#125;
+    
+    W=D-A;//两者作差得到基尔霍夫矩阵（拉普拉斯矩阵）
+    
+    W.tmp=--cnt;//除掉最后一行与最后一列
+    
+    /*for(re int i=1;i&lt;=cnt;i++)&#123;
+        for(re int j=1;j&lt;=cnt;j++)&#123;
+            cout&lt;&lt;W.a[i][j]&lt;&lt;&quot; &quot;;
+        &#125;
+        cout&lt;&lt;endl;
+    &#125;*/
+    
+    printf(&quot;%lld\n&quot;,W.det());//求行列式
+    
+    
+
+    return 0;
+&#125;
+</code></pre>
+<h2 id="关于拉普拉斯矩阵的有向图情况："><a href="#关于拉普拉斯矩阵的有向图情况：" class="headerlink" title="关于拉普拉斯矩阵的有向图情况："></a>关于拉普拉斯矩阵的有向图情况：</h2><p>像我们上面所说的，只考虑入度或者出度就可以了。</p>
+<p>但是考虑这两种是不一样的。</p>
+<p>设<strong>有向图</strong> $G$（允许重边，可以扩展到加权，但是不能有自环） 有 $n$ 个节点。出度矩阵 $D=(l_{i,j})_{n\times n}$ 定义如下：</p>
+<ul>
+<li><p>若 $i==j$ 则 $l_{i,j}=\deg^{out}(v_i)$ , $\deg^{out}(v_i)$ 为定点 $v_i$ 的出度。</p>
+</li>
+<li><p>若 $i\neq j $ ，则 $l_{i,j}=0$</p>
+</li>
+</ul>
+<p>类似地可以定义入度矩阵。</p>
+<p>定义 $edge(i,j)$ 为点 $i$ 指向点 $j$ 的有向边数。</p>
+<p>定义邻接矩阵 $A=(l_{i,j})_{n\times n}$ </p>
+<ul>
+<li>若 $i\neq j$ , $l_{i,j}=edge(i,j)$</li>
+</ul>
+<p>于是 就可以定义 $Laplace$ 矩阵 $L^{out}$ 和 $L^{in}$ 。</p>
+<ul>
+<li><p>当为 $L^{in}$ 时，统计的是外向树。（所有边指向叶节点）</p>
+</li>
+<li><p>当为 $L^{out}$ 时，统计的是内向树。（所有边指向根节点）</p>
+</li>
+</ul>
+<p><strong>内向是出度，外向是入度</strong>（一定要记牢，不要混淆）</p>
+<p>如果指定了根节点为$root$ 那么要在计算行列式的时候要去掉的就不是任意一行和一列了，<strong>而是第 $root$ 行和第 $root$ 列</strong>。</p>
+<pre><code class="cpp">inline void add(int t,int u,int v,int w)&#123;
+    if(t==0)&#123;//内向树，出度矩阵
+        (D.a[u][u]+=w)%=mod;
+        (A.a[u][v]+=w)%=mod;
+    &#125;
+    
+    else&#123;//外向树，入度矩阵
+        (D.a[v][v]+=w)%=mod;
+        (A.a[u][v]+=w)%=mod;
+    &#125;
+&#125;
+</code></pre>
+<p>因此如果要统计一张图所有的内向树形图，只要枚举所有的根 $root$ 并对所有的行列式求和即可。</p>
+<p>如果要统计一张图所有的外向树形图，只要枚举所有的根 $root$ 并对所有的行列式求和即可。</p>
+<h2 id="关于拉普拉斯矩阵扩展到带权"><a href="#关于拉普拉斯矩阵扩展到带权" class="headerlink" title="关于拉普拉斯矩阵扩展到带权"></a>关于拉普拉斯矩阵扩展到带权</h2><ul>
+<li>求生成树边权积之和</li>
+</ul>
+<p>将上述中的 $D$ , $A$ 改为记录相应边边权和，则行列式从生成树个数变为对应的生成树所有边权之积的和。</p>
+<p>于是可以发现，只要把边权全都看成 $1$ ，就是上面这道题我们解决的情况：求生成树个数。</p>
+
+        </div>
+        <!-- .entry-content -->
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2021/06/05/%E6%82%A6%E8%AF%BB/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2021/06/05/gZXlGj2z6DF8TMR.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2021/06/05/gZXlGj2z6DF8TMR.jpg">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                悦读</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2021/06/01/2021%E5%B9%B46%E6%9C%88%E6%9C%88%E8%AE%B0/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/18.jpeg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="/images/cover/18.jpeg">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                2021年6月月记</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "dIwCuws5ndk9l6KNX62Yp2v6-gzGzoHsz",
+        appKey: "5KBdadEbfMMamh1KsfIlVDqD",
+        path: window.location.pathname,
+        placeholder: "I will always be here for you."
+      })
+  }
+</script>
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="https://lawrencesivan.github.io/" class="profile gravatar"><img src="/images/avatar.jpg" itemprop="image" alt="LawrenceSivan" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="https://lawrencesivan.github.io/" itemprop="url" rel="author">LawrenceSivan</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i></p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 LawrenceSivan<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2021</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> by <a href="https://2heng.xin/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Mashiro</a>&<a href="https://www.hojun.cn/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hojun</a>, Powered by Hexo, Hosted by Coding Pages</a>
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script>
+<script src="/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://zhengzheng-my.sharepoint.com/personal/non_fried_chips_acshl_me/_layouts/15/download.aspx?SourceUrl=%2Fpersonal%2Fnon_fried_chips_acshl_me%2FDocuments%2Fshare%2Fvideo.mp4&correlationId=20d234da-d0b5-49f9-99a5-c0291e744d73&psi=656be9bc-5258-44ab-bf84-0f9bcd27b12f&ccat=2&cs=fHxPbmVVcFdlYlBsYXllcg%3D%3D&App=OneDriveWebVideo","name":"video.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://zhengzheng-my.sharepoint.com/personal/non_fried_chips_acshl_me/_layouts/15/download.aspx?SourceUrl=%2Fpersonal%2Fnon_fried_chips_acshl_me%2FDocuments%2Fshare%2Fvideo.mp4&correlationId=20d234da-d0b5-49f9-99a5-c0291e744d73&psi=656be9bc-5258-44ab-bf84-0f9bcd27b12f&ccat=2&cs=fHxPbmVVcFdlYlBsYXllcg%3D%3D&App=OneDriveWebVideo","name":"video.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="/images/avatar.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">LawrenceSivan</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="https://github.com/LawrenceSivan" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="https://weibo.com/7464138878/profile?topnav=1&wvr=6" class="fa fa-weibo" target="_blank" style="color: #dd4b39; margin-left:20px"></a>
+      
+        <a href="https://user.qzone.qq.com/1641374235/infocenter" class="fa fa-qq" target="_blank" style="color: #25c6fe; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="https://lawrencesivan.github.io/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E7%94%9F%E6%B4%BB/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E8%B5%84%E6%BA%90/">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                  资源
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E9%9A%8F%E6%83%B3/">
+                  <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                  随想
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E8%BD%AC%E8%BD%BD/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  转载
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            清单
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/%E6%82%A6%E8%AF%BB/">
+                  <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                  书单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags/%E5%9B%BE%E9%9B%86/">
+                  <i class="fa fa-photo" aria-hidden="true"></i>
+                  图集
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+              <li>
+                <a href="/theme-sakura/">
+                  <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                  主题
+                </a>
+              </li>
+            
+              <li>
+                <a href="/lab/">
+                  <i class="fa fa-cogs" aria-hidden="true"></i>
+                  Lab
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/client/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-android faa-vertical" aria-hidden="true"></i>
+            客户端
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/atom.xml">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+            RSS
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2021 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<meting-js
+
+    id="6748556286"
+
+    server="netease"
+
+    type="playlist"
+
+    fixed="true"
+
+    autoplay="false"
+
+    loop="all"
+
+    order="random"
+
+    preload="auto"
+
+    volume="0.7"
+
+    mutex="true"
+
+</meting-js>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+</body>
+</html>

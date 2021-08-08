@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">FFT快速傅里叶变换学习笔记 | LawrenceSivan</title>
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "LawrenceSivan";
+  mashiro_option.author_name = "LawrenceSivan";
+  mashiro_option.site_url = "https://lawrencesivan.github.io/";
+  mashiro_option.v_appId = "dIwCuws5ndk9l6KNX62Yp2v6-gzGzoHsz";
+  mashiro_option.v_appKey = "5KBdadEbfMMamh1KsfIlVDqD";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://i.loli.net/2021/06/05/Czs9LlShTk3IZq8.jpg,https://i.loli.net/2021/06/05/AlLP7zvaumFdJ8i.jpg,https://i.loli.net/2021/06/05/25dk6Te1HcMLQFt.jpg,https://i.loli.net/2021/06/05/pPuHo6egLxDqB5j.jpg,https://i.loli.net/2021/08/07/y93LDV7mNIb4hlF.jpg".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop filter-dot">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a href="https://lawrencesivan.github.io/">
+          <img src="/images/avatar.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>I was so much older then, I′m younger than that now.</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="https://github.com/LawrenceSivan" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://weibo.com/7464138878/profile?topnav=1&amp;wvr=6" target="_blank" class="social-github" title="sina">
+                    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/sina.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://music.163.com/#/user/home?id=296743009" target="_blank" class="social-github" title="wangyiyun">
+                    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/wangyiyun.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.zhihu.com/people/lawrence-73-19" target="_blank" class="social-github" title="zhihu">
+                    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/zhihu.png">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono"></span>
+            <span class="shironeko">LawrenceSivan</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="https://lawrencesivan.github.io/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E7%94%9F%E6%B4%BB/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E8%B5%84%E6%BA%90/">
+                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                          资源
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E9%9A%8F%E6%83%B3/">
+                          <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                          随想
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E8%BD%AC%E8%BD%BD/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          转载
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    清单
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/%E6%82%A6%E8%AF%BB/">
+                          <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                          书单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags/%E5%9B%BE%E9%9B%86/">
+                          <i class="fa fa-photo" aria-hidden="true"></i>
+                          图集
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/theme-sakura/">
+                          <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                          主题
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/lab/">
+                          <i class="fa fa-cogs" aria-hidden="true"></i>
+                          Lab
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/client/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-android faa-vertical" aria-hidden="true"></i>
+                    客户端
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+                    RSS
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://i.loli.net/2021/08/06/HQoZWX4zh8O3fND.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2021/08/06/HQoZWX4zh8O3fND.jpg">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      FFT快速傅里叶变换学习笔记</h1>
+      <p class="entry-census">
+        <span>
+          <a href="https://lawrencesivan.github.io/">
+            <img src="/images/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="https://lawrencesivan.github.io/">LawrenceSivan</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2021-8-6<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="FFT-快速傅里叶变换学习笔记"><a href="#FFT-快速傅里叶变换学习笔记" class="headerlink" title="FFT 快速傅里叶变换学习笔记"></a>FFT 快速傅里叶变换学习笔记</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>考虑到时间及能力有限，并且诸位大佬写的学习笔记已经是十分详尽，本人目前不可能也不打算写一篇详细度超越各位先人的学习笔记，只是帮助自己理清思路，整理过程并且贯彻一些证明。</p>
+<p>自然文章中会有诸多不妥之处，希望各位不吝赐教。</p>
+<p>部分比较简单的前置知识就跳过了。</p>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><ol>
+<li><p>复数基本知识</p>
+</li>
+<li><p>弧度制与三角函数</p>
+</li>
+<li><p>耐心稳定的心态</p>
+</li>
+</ol>
+<h2 id="FFT-简述"><a href="#FFT-简述" class="headerlink" title="FFT 简述"></a>FFT 简述</h2><p>FFT（Fast Fourier Transformation），中文名是 “<strong>快速傅里叶离散变换</strong>”。</p>
+<p>作用是：以 $\mathcal{O(n\log n)}$ 的时间复杂度计算多项式乘法。</p>
+<p>在 OI 中的应用：利用卷积思想，化乘为加，加速多项式乘法计算。</p>
+<h2 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h2><p>形如 $C[k]=\sum\limits_{i\oplus j=k}A[i]B[j]$​ 的式子称为卷积。</p>
+<p>多项式乘法就是加法卷积。</p>
+<h2 id="多项式的表示"><a href="#多项式的表示" class="headerlink" title="多项式的表示"></a>多项式的表示</h2><p>多项式指的是单项式相加组成的代数式。</p>
+<h3 id="多项式的系数表示"><a href="#多项式的系数表示" class="headerlink" title="多项式的系数表示"></a>多项式的系数表示</h3><p>每一项单项式都有其对应的系数，将系数提炼出来就得到了多项式的系数表示。</p>
+<p>一般的，我们把一个 $n-1$ 次的 $n$ 项多项式表示为：</p>
+<p>$f(x)=\sum\limits_{i=0}^{n-1}a_i x^i=a_0x^0+a_1x^1+a_2x^2…+a_{n-1}x^{n-1}$</p>
+<p>系数表示即为：</p>
+<p>$f(x)={a_0.a_1,a_2…a_{n-1}}$</p>
+<p>对于两个 $n$ 项多项式卷积，那么需要枚举每一对系数的乘积结果，复杂度 $\mathcal{O(n^2)}$。</p>
+<h3 id="多项式的点值表示"><a href="#多项式的点值表示" class="headerlink" title="多项式的点值表示"></a>多项式的点值表示</h3><p>给定 $n+1$ 个互不相同的点，我们可以唯一确定一个 $n$ 次多项式函数。</p>
+<p>可以使用 $n+1$ 个点值（有序数对）来描述一个多项式。</p>
+<p>点值表示即为 ：</p>
+<p>$f(x)={(x_0,f(x_0)),(x_1,f(x_1)),(x_2,f(x_2))…(x_n,f(x_n) )}$​</p>
+<p>进行乘法即为函数值相乘，复杂度 $\mathcal{O(n)}$​。</p>
+<p>点值表示远快于暴力卷积。</p>
+<h2 id="基本复数运算"><a href="#基本复数运算" class="headerlink" title="基本复数运算"></a>基本复数运算</h2><p>说是不讲复数，但是怎么样还是应该说一说。</p>
+<p>复数相加为实部虚部对应相加。</p>
+<p>相减同理。</p>
+<p>相乘形式为：</p>
+<p>$(a+bi)\times (c+di)=ac+adi+bci+bdi^2=(ac-bd)+(ad+bc)i$</p>
+<p>相除形式为：</p>
+<p>$\frac{a+bi}{c+di}=\frac{(a+bi)(c-di)}{(c+di)(c-di)}=\frac{(ac+bd)+(bc-ad)i}{c^2+d^2}=\frac{ac+bd}{c^2+d^2}+\frac{bc-ad}{c^2+d^2}$</p>
+<p>复数相乘还有一个几何意义：模相乘，角相加。</p>
+<p>具体地，$(a_1,\theta_1)(a_2,\theta_2)=(a_1a_2,\theta_1+\theta_2)$​。</p>
+<pre><code class="cpp">struct Complex&#123;
+    double x,y;
+    Complex()&#123;&#125;
+    Complex(const double &amp;_x,const double &amp;_y):x(_x),y(_y)&#123;&#125;;
+
+    inline Complex operator + (const Complex &amp;a)const&#123;
+        return Complex(x+a.x,y+a.y);
+    &#125;
+
+    inline Complex operator - (const Complex &amp;a)const&#123;
+        return Complex(x-a.x,y-a.y);
+    &#125;
+
+    inline Complex operator * (const Complex &amp;a)const&#123;
+        return Complex(x*a.x-y*a.y,x*a.y+y*a.x);
+    &#125;
+
+    inline Complex operator / (const Complex &amp;a)const&#123;
+        double tmp=a.x*a.x+a.y*a.y;
+        return Complex((x*a.x+y*a.y)/tmp,(y*a.x-x*a.y)/tmp);
+    &#125;
+&#125;f[maxn],p[maxn];
+</code></pre>
+<h2 id="单位根"><a href="#单位根" class="headerlink" title="单位根"></a>单位根</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><blockquote>
+<p> $n$ 次单位根 $\omega_n^k$ 是 $n$ 次幂为 $1$ 的复数，即方程 $x^n=1$ 的复数解。</p>
+</blockquote>
+<p>单位根出现在复平面的单位圆上。</p>
+<p>$n$ 次单位根 $n$​ 等分单位圆。</p>
+<p><img src="https://i.loli.net/2021/07/29/S4bs9vC1MENVUyn.png"></p>
+<p>图片来自 @<a href="https://www.luogu.com.cn/user/212283">Aw顿顿</a></p>
+<p>对于单位圆上的点，可以表示为 $\cos \theta+i \sin \theta$。</p>
+<p>从 $1$ 开始，沿着单位圆逆时针给单位根标号：</p>
+<p>$\omega_n^0=1,\omega_n^1$是第二个为单位根…</p>
+<p>$\omega_n^k=\cos\frac{k}{n}2\pi+i\sin\frac{k}{n}2\pi$​。</p>
+<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><ol>
+<li><p>$\omega _n ^k=\omega _n ^{k \mod n}$​​​​​​</p>
+</li>
+<li><p>$\omega _n^0=1$</p>
+</li>
+<li><p>$\omega_n ^k=(\omega_n^1)^k$</p>
+<p>（$\omega _n^k=\omega _n^1\times \omega _n^1\times \omega _n^1…\times \omega _n^1$ 共 $k$ 个，可以理解为每次逆时针转动 $\frac{1}{n}$ 个圆周，转了 $k$ 次。或者类比同底数幂相乘 ）</p>
+</li>
+<li><p>$\omega_n^j\times \omega_n^k =\omega_n^{j+k}$​</p>
+</li>
+<li><p>$(\omega _n^k)^{-1}=(\omega_n^{-k})=(\omega_n^{n-k})$</p>
+<p>可以倒过来反向回推：</p>
+<p>$\omega_n^{n-k}\times \omega_n^k=\omega_n^{n-k+k}=\omega_n^n=\omega_n^n=1$</p>
+<p>所以 $(\omega _n^k)^{-1}=\omega_n^{n-k}$</p>
+</li>
+<li><p>$(\omega_n^k)^j=\omega_n^{kj}$​</p>
+</li>
+<li><p>$\omega_{pn}^{pk}=\omega_n^k$</p>
+<p>想象成切蛋糕，多切了几刀，但是相应的多取了几倍。</p>
+</li>
+<li><p>如果 $n$ 是偶数，$\omega_n^{(k+\frac{n}{2})}=-\omega_n^k$ </p>
+<p>$\omega_n^{(k+\frac{n}{2})}=\omega_n^k\times\omega_n^{(\frac{n}{2})}$</p>
+<p>对于 $\omega_n^{(\frac{n}{2})}$ ，可以理解为把幅角转动 $\frac{1}{2}$ 个圆周，关于原点对称。</p>
+</li>
+</ol>
+<h2 id="DFT-与-IDFT-概述"><a href="#DFT-与-IDFT-概述" class="headerlink" title="DFT 与 IDFT 概述"></a>DFT 与 IDFT 概述</h2><p>把<strong>系数表示</strong>转化为<strong>点值表示</strong>的算法叫做 DFT；</p>
+<p>把<strong>点值表示</strong>转化为<strong>系数表示</strong>的算法叫做 IDFT（或者称为 DFT 的逆运算）</p>
+<p>从系数表示确定点值表示的过程叫做求值，从点值表示确定系数表示的过程叫做插值。</p>
+<h2 id="FFT-快速傅里叶变换"><a href="#FFT-快速傅里叶变换" class="headerlink" title="FFT 快速傅里叶变换"></a>FFT 快速傅里叶变换</h2><p>FFT 是将系数表示转化为点值表示进行计算，之后再转化成系数表示。</p>
+<p>主要过程分为了两步：系数表示转化为点值表示，点值表示转化为系数表示。</p>
+<p>就是 DFT 和 IDFT 了。</p>
+<p>不使用 FFT 直接进行朴素转化是 $\mathcal{O(n^2)}$​ 的。</p>
+<p>考虑更高效的方法。</p>
+<h3 id="DFT（系数表示转化成点值表示）"><a href="#DFT（系数表示转化成点值表示）" class="headerlink" title="DFT（系数表示转化成点值表示）"></a>DFT（系数表示转化成点值表示）</h3><p>设多项式:</p>
+<p> $A(x)=\sum\limits_{i=0}^{n-1}a_i x^i=a_0x^0+a_1x^1+a_2x^2…+a_{n-1}x^{n-1}$</p>
+<p>按奇偶分类（分治思路）：</p>
+<p>$A(x)=（a_0x^0+a_2x^2+a_4x^4…+a_{n-2}x^{n-2}）\\+\\（a_1x^1+a_3x^3+a_5x^5…+a_{n-1}x^{n-1}）$​​</p>
+<p>两边统一次数，提出后面的 $x$：</p>
+<p>$A(x)=（a_0+a_2x^2+a_4x^4…+a_{n-2}x^{n-2}）\\+\\x\times（a_1+a_3x^2+a_5x^4…+a_{n-1}x^{n-2}）$​​</p>
+<p>设两个 $\frac{n}{2}$ 项的多项式 $L(x)$ 和 $R(x)$ ，考虑降低 $A(x)$ 的次数，执行分治过程：</p>
+<p>$L(x)=（a_0+a_2x^1+a_4x^2…+a_{n-2}x^{\frac{n}{2}-1}）\\R(x)=（a_1+a_3x^1+a_5x^2…+a_{n-1}x^{\frac{n}{2}-1}）$​​​​​​</p>
+<p>原式可以表示为 $A(x)=L(x^2)+x\times R(x^2)$ </p>
+<p>注意式子中需要带入 $x^2$ ，由于我们为了执行分治降低了次数，现在要保持式子不变。</p>
+<p>之后考虑把单位根 $\omega_n ^k$ 带入原式</p>
+<ul>
+<li><p>$k&lt;\frac{n}{2}$ ，代入 $\omega_n^ k$ :</p>
+<p>$A(\omega_n^k)=L((\omega_n^k)^2)+\omega_n^k\times R((\omega_n^k)^2)$</p>
+<p>根据单位根性质 $7$ $\omega_{pn}^{pk}=\omega_n^k$:</p>
+<p>$(\omega_n^k)^2=(\omega_n^{2k})=(\omega_{\frac{n}{2}}^{k})$ </p>
+<p>$A(\omega_n^k)=L(\omega_{\frac{n}{2}}^{k})+\omega_n^k\times R(\omega_{\frac{n}{2}}^{k})$​</p>
+</li>
+</ul>
+<ul>
+<li><p>$k&lt;\frac{n}{2}$,代入 $\omega_n^ {k+\frac{n}{2}}$</p>
+<p>$A(\omega_n^ {k+\frac{n}{2}})=L((\omega_n^ {k+\frac{n}{2}})^2)+\omega_n^ {k+\frac{n}{2}}\times R((\omega_n^ {k+\frac{n}{2}})^2)$</p>
+<p>由单位根的性质 $6$ $(\omega_n^k)^j=\omega_n^{kj}$​得：</p>
+<p>$A(\omega_n^ {k+\frac{n}{2}})=L(\omega_n^ {2k+n})+\omega_n^ {k+\frac{n}{2}}\times R(\omega _n^{2k+n})$</p>
+<p>由单位根的性质 $1$​​ $\omega_n^k=\omega_n^{k\mod n}$​​ 得到：</p>
+<p>$A(\omega_n^ {k+\frac{n}{2}})=L(\omega_n^ {2k})+\omega_n^ {k+\frac{n}{2}}\times R(\omega _n^{2k})$</p>
+<p>由单位根的性质 $7$ $\omega_{pn}^{pk}=\omega_n^k$ 得到：</p>
+<p>$A(\omega_n^ {k+\frac{n}{2}})=L(\omega_{\frac{n}{2}}^ {k})+\omega_n^ {k+\frac{n}{2}}\times R(\omega_{\frac{n}{2}}^ {k})$</p>
+<p>由单位根的性质 $8$ $\omega_n^{(k+\frac{n}{2})}=-\omega_n^k$ 得：</p>
+<p>$A(\omega_n^ {k+\frac{n}{2}})=L(\omega_{\frac{n}{2}}^ {k})-\omega_n^ {k}\times R(\omega_{\frac{n}{2}}^ {k})$</p>
+</li>
+</ul>
+<p>对比两个式子：</p>
+<p>​    $A(\omega_n^k)=L(\omega_{\frac{n}{2}}^{k})+\omega_n^k\times R(\omega_{\frac{n}{2}}^{k})$​</p>
+<p>​    $A(\omega_n^ {k+\frac{n}{2}})=L(\omega_{\frac{n}{2}}^ {k})-\omega_n^ {k}\times R(\omega_{\frac{n}{2}}^ {k})$</p>
+<p>发现右侧只有一个符号的差别。于是他们可以同步计算。</p>
+<p>换句话说，FFT 就是把单位根上下半圆的部分分别带入 $A(x)=L(x^2)+x\times R(x^2)$​  </p>
+<p>于是我们在 $\mathcal{O(n\log n)}$ 时间复杂度内完成了系数表示转成点值表示的过程。</p>
+<h3 id="IDFT-（点值表示转化成系数表示）"><a href="#IDFT-（点值表示转化成系数表示）" class="headerlink" title="IDFT （点值表示转化成系数表示）"></a>IDFT （点值表示转化成系数表示）</h3><p>由于代入时我们选择了单位根，现在我们十分方便地就可以完成 点值表示转化成系数表示。</p>
+<p>首先写出结论：<strong>把 DFT 中的 $\omega_n^1$ 换成 $\omega_n^{-1}$ 做完之后除以 $n$​ 即可</strong>。</p>
+<p>证明与<a href="https://www.luogu.com.cn/blog/command-block/dan-wei-gen-fan-yan-xiao-ji">单位根反演</a>有关。</p>
+<p>设 多项式 $A(x)$ 经过了 DFT 变换之后得到的点值数列为 $G$。</p>
+<p>即 $G=DFT(A)$</p>
+<p>回忆代入的过程，可以得到：</p>
+<p>$G[k]=\sum\limits^{n-1}_{i=0}(\omega_n^k)^iA[i]$​（含义是每一个点值都是把单位根代进每一项中乘以系数得到的）</p>
+<p>结论是 $n\times A[k]=\sum\limits^{n-1}_{i=0}(\omega_n^{-k})^iG[i]$​</p>
+<p>证明：</p>
+<p>把点值代入右边可以得到：</p>
+<p>$\sum\limits _{i=0} ^{n-1}\left( (\omega_n^{-k})G[i] \right)=\sum\limits _{i=0}^{n-1}\left( \left( \sum\limits^{n-1}_{j=0}(\omega_n^i)^jA[j] \right) \times(\omega_n^{-k})^i \right)$​​​​</p>
+<p>化简得到：</p>
+<p>$\sum\limits^{n-1}_{i=0}\left( (\omega_n^{-k})G[i] \right)=\sum\limits^{n-1}_{i=0}\left( \sum\limits^{n-1}_{j=0}(\omega_n^{i(j-k)})A[j] \right)$​</p>
+<p>分类讨论：</p>
+<ul>
+<li><p>$j=k$ </p>
+<p>贡献是 $\sum\limits^{n-1}_{i=0} \sum\limits^{n-1}_{j=0}(\omega_n^{i(j-k)})A[j] \times[j==k]$​​</p>
+<p>$=\sum\limits^{n-1}_{i=0}\omega_n^{i(k-k)}A[k]$​​</p>
+<p>$=\sum\limits^{n-1}_{i=0}A[k]$​</p>
+<p>$=n\times A[k]$</p>
+</li>
+<li><p>$j\ne k$</p>
+<p>设 $p=j-k$</p>
+<p>贡献就是 $\sum\limits_{i=0}^{n-1}\omega_n^{ip}A[k+p]$</p>
+<p>$=\omega_n^p\left(\sum\limits_{i=0}^{n-1}\omega_n^{i}\right)A[k+p]$​</p>
+<p>等比数列求和得到：</p>
+<p>$\left(\sum\limits_{i=0}^{n-1}\omega_n^{i}\right)=\frac{1-\omega_n^{np}}{1-\omega_n^{p}}=\frac{1-\omega_n^{0}}{1-\omega_n^{p}}=0$</p>
+<p>所以这一部分贡献是 $0$。</p>
+</li>
+</ul>
+<p>证毕。</p>
+<p>于是把 $G$ 数列当作系数再代入一遍，单位根换成所谓的 $\omega _n^{-1}$ 就行了。</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>有了上述思路，我们就可以开始着手代码实现了。</p>
+<ol>
+<li><p>补充 $n$ 至 $2$ 的整次幂。</p>
+<p>我们上面的过程都是针对 $n$ 是 $2$ 的整次幂进行的，原因是这样可以保证分的足够均匀。</p>
+<p>实际中不满足这个条件？补项就行了。在最高次强行添加系数为 $0$ 的项。</p>
+</li>
+<li><p>预处理单位根</p>
+<p>根据单位根的性质 $3$ $\omega_n ^k=(\omega_n^1)^k$，我们可以把他乘 $n$ 次，就能得到所有想要的单位根。</p>
+<p>第一个单位根是有的，肯定是 $1$。</p>
+<p>第二个单位根 $\omega_n ^1$​ 必然是第一个不与实轴重合的单位根，所以他的坐标就是 $(\cos(\frac{2\pi}{n}),\sin(\frac{2\pi}{n}))$​​</p>
+<pre><code class="cpp">Complex omega(cos(2*Pi/p),sin(2*Pi/p));
+for(re int i=0;i&lt;n;i++)&#123;
+    w[i]=buf;
+    buf=buf*omega;
+&#125;
+</code></pre>
+</li>
+<li><p>蝴蝶变换</p>
+<p>大概意思是递归版效率太低，我们需要找到迭代解法。</p>
+<p>可以发现多项式的第 $i$ 次项到达递归底层时下标为 $i$ 二进制翻转后的数，所以就可以自底向上迭代合并。</p>
+<p>可以 $\mathcal{O(n)}$ 递推求出。</p>
+<pre><code class="cpp">for(re int i=0;i&lt;n;i++)&#123;
+    trans[i]=(trans[i&gt;&gt;1]&gt;&gt;1)|((i&amp;1)?n&gt;&gt;1:0);
+&#125;
+</code></pre>
+<p>具体证明以及    详细信息以后再补，今天没时间了。</p>
+</li>
+</ol>
+<p>CODE:</p>
+<pre><code class="cpp">//#define LawrenceSivan
+
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+typedef unsigned long long ull;
+
+#define INF 0x3f3f3f3f
+#define re register
+
+const int maxn=1e7+5;
+const int maxm=1;
+const double Pi=acos(-1);
+
+struct Complex&#123;
+    double x,y;
+    Complex()&#123;&#125;
+    Complex(const double &amp;_x,const double &amp;_y):x(_x),y(_y)&#123;&#125;;
+
+    inline Complex operator + (const Complex &amp;a)const&#123;
+        return Complex(x+a.x,y+a.y);
+    &#125;
+
+    inline Complex operator - (const Complex &amp;a)const&#123;
+        return Complex(x-a.x,y-a.y);
+    &#125;
+
+    inline Complex operator * (const Complex &amp;a)const&#123;
+        return Complex(x*a.x-y*a.y,x*a.y+y*a.x);
+    &#125;
+
+    inline Complex operator / (const Complex &amp;a)const&#123;
+        double tmp=a.x*a.x+a.y*a.y;
+        return Complex((x*a.x+y*a.y)/tmp,(y*a.x-x*a.y)/tmp);
+    &#125;
+&#125;f[maxn],p[maxn];
+
+int trans[maxn];
+
+int n,m;
+
+inline void FFT(Complex *f,bool op)&#123;
+    for(re int i=0;i&lt;n;i++)&#123;
+        if(i&lt;trans[i])swap(f[i],f[trans[i]]);
+    &#125;
+    for(re int p=2;p&lt;=n;p&lt;&lt;=1)&#123;
+        int len=p&gt;&gt;1;
+        Complex omega(cos(2*Pi/p),sin(2*Pi/p));
+        if(!op)omega.y*=-1;
+        for(re int k=0;k&lt;n;k+=p)&#123;
+            Complex buf(1,0);
+            for(re int l=k;l&lt;k+len;l++)&#123;
+                Complex tmp=buf*f[l+len];
+                f[l+len]=f[l]-tmp;
+                f[l]=f[l]+tmp;
+                buf=buf*omega;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+
+namespace IO&#123;
+    template&lt;typename T&gt;
+    inline void read(T &amp;x)&#123;
+        x=0;T f=1;char ch=getchar();
+        while (!isdigit(ch)) &#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+        while (isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+        x*=f;
+    &#125;
+
+    template &lt;typename T, typename... Args&gt;
+    inline void read(T&amp; t, Args&amp;... args) &#123;
+        read(t); read(args...);
+    &#125;
+
+    template&lt;typename T&gt;
+    void write(T x)&#123;
+        if(x&lt;0)putchar(&#39;-&#39;),x=-x;
+        if(x&gt;9)write(x/10);
+        putchar(x%10+&#39;0&#39;);
+    &#125;
+
+    template&lt;typename T,typename... Args&gt;
+    void write(T t,Args... args)&#123;
+        write(t);putchar(&#39; &#39;);write(args...);
+    &#125;
+&#125;
+
+using namespace IO;
+
+signed main() &#123;
+#ifdef LawrenceSivan
+    freopen(&quot;aa.in&quot;,&quot;r&quot;, stdin);
+    freopen(&quot;aa.out&quot;,&quot;w&quot;, stdout);
+#endif
+    read(n,m);
+    for(re int i=0;i&lt;=n;i++)scanf(&quot;%lf&quot;,&amp;f[i].x);
+    for(re int i=0;i&lt;=m;i++)scanf(&quot;%lf&quot;,&amp;p[i].x);
+    for(m+=n,n=1;n&lt;=m;n&lt;&lt;=1);
+    for(re int i=0;i&lt;n;i++)&#123;
+        trans[i]=(trans[i&gt;&gt;1]&gt;&gt;1)|((i&amp;1)?n&gt;&gt;1:0);
+    &#125;
+    FFT(f,1),FFT(p,1);
+    for(re int i=0;i&lt;n;i++)f[i]=f[i]*p[i];
+    FFT(f,0);
+    for(re int i=0;i&lt;=m;i++)write((int)(f[i].x/n+0.5)),putchar(&#39; &#39;);
+    puts(&quot;&quot;);
+
+    return 0;
+&#125;
+</code></pre>
+
+        </div>
+        <!-- .entry-content -->
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2021/08/08/dd/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                dd</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2021/08/01/2021%E5%B9%B48%E6%9C%88%E6%9C%88%E8%AE%B0/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2021/08/04/8cDRzqrjfyOxPHa.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2021/08/04/8cDRzqrjfyOxPHa.jpg">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                2021年8月月记</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "dIwCuws5ndk9l6KNX62Yp2v6-gzGzoHsz",
+        appKey: "5KBdadEbfMMamh1KsfIlVDqD",
+        path: window.location.pathname,
+        placeholder: "I will always be here for you."
+      })
+  }
+</script>
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="https://lawrencesivan.github.io/" class="profile gravatar"><img src="/images/avatar.jpg" itemprop="image" alt="LawrenceSivan" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="https://lawrencesivan.github.io/" itemprop="url" rel="author">LawrenceSivan</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i>I was so much older then, I′m younger than that now.</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 LawrenceSivan<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2021</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> by <a href="https://2heng.xin/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Mashiro</a>&<a href="https://www.hojun.cn/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hojun</a>, Powered by Hexo, Hosted by Coding Pages</a>
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script>
+<script src="/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://zhengzheng-my.sharepoint.com/personal/non_fried_chips_acshl_me/_layouts/15/download.aspx?SourceUrl=%2Fpersonal%2Fnon_fried_chips_acshl_me%2FDocuments%2Fshare%2Fvideo.mp4&correlationId=20d234da-d0b5-49f9-99a5-c0291e744d73&psi=656be9bc-5258-44ab-bf84-0f9bcd27b12f&ccat=2&cs=fHxPbmVVcFdlYlBsYXllcg%3D%3D&App=OneDriveWebVideo","name":"video.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://zhengzheng-my.sharepoint.com/personal/non_fried_chips_acshl_me/_layouts/15/download.aspx?SourceUrl=%2Fpersonal%2Fnon_fried_chips_acshl_me%2FDocuments%2Fshare%2Fvideo.mp4&correlationId=20d234da-d0b5-49f9-99a5-c0291e744d73&psi=656be9bc-5258-44ab-bf84-0f9bcd27b12f&ccat=2&cs=fHxPbmVVcFdlYlBsYXllcg%3D%3D&App=OneDriveWebVideo","name":"video.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="/images/avatar.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">LawrenceSivan</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="https://github.com/LawrenceSivan" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="https://weibo.com/7464138878/profile?topnav=1&wvr=6" class="fa fa-weibo" target="_blank" style="color: #dd4b39; margin-left:20px"></a>
+      
+        <a href="https://user.qzone.qq.com/1641374235/infocenter" class="fa fa-qq" target="_blank" style="color: #25c6fe; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="https://lawrencesivan.github.io/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E7%94%9F%E6%B4%BB/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E8%B5%84%E6%BA%90/">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                  资源
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E9%9A%8F%E6%83%B3/">
+                  <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                  随想
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E8%BD%AC%E8%BD%BD/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  转载
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            清单
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/%E6%82%A6%E8%AF%BB/">
+                  <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                  书单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags/%E5%9B%BE%E9%9B%86/">
+                  <i class="fa fa-photo" aria-hidden="true"></i>
+                  图集
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+              <li>
+                <a href="/theme-sakura/">
+                  <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                  主题
+                </a>
+              </li>
+            
+              <li>
+                <a href="/lab/">
+                  <i class="fa fa-cogs" aria-hidden="true"></i>
+                  Lab
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/client/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-android faa-vertical" aria-hidden="true"></i>
+            客户端
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/atom.xml">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+            RSS
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2021 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<meting-js
+
+    id="6748556286"
+
+    server="netease"
+
+    type="playlist"
+
+    fixed="true"
+
+    autoplay="false"
+
+    loop="all"
+
+    order="random"
+
+    preload="auto"
+
+    volume="0.7"
+
+    mutex="true"
+
+</meting-js>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+</body>
+</html>

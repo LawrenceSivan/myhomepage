@@ -1,0 +1,2468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  
+  <title itemprop="name">莫队全家桶 | LawrenceSivan</title>
+  
+    <link rel="shortcut icon" href="/images/favicon.ico">
+  
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all">
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+  <link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all">
+  <link rel="stylesheet" href="/css/lib.min.css" media="all">
+  <link rel="stylesheet" href="/css/font.css" media="all">
+  <link rel="stylesheet" href="/css/insight.css" media="all">
+  <link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all">
+  <link rel="stylesheet" href="/css/zoom.css" media="all">
+  <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<!--   <link rel="stylesheet" id="saukra_css-css" href="https://2heng.xin/wp-content/cache/autoptimize/css/autoptimize_ad42a61f4c7d4bdd9f91afcff6b5dda5.css
+" type="text/css" media="all"> -->
+  <script>
+  /*Initial Variables*/
+  var mashiro_option = new Object();
+  var mashiro_global = new Object();
+  mashiro_option.NProgressON = true;
+  /* 
+   * 邮箱信息之类的东西可以填在这里，这些js变量基本都作用于sakura-app.js
+   * 这样的设置仅是为了方便在基于PHP开发的主题中设置js变量，既然移植到了Node上，我想或许可以精简这一逻辑吧
+   */
+  mashiro_option.email_domain = "";
+  mashiro_option.email_name = "";
+  mashiro_option.cookie_version_control = "";
+  mashiro_option.qzone_autocomplete = false;
+  mashiro_option.site_name = "LawrenceSivan";
+  mashiro_option.author_name = "LawrenceSivan";
+  mashiro_option.site_url = "https://lawrencesivan.github.io/";
+  mashiro_option.v_appId = "dIwCuws5ndk9l6KNX62Yp2v6-gzGzoHsz";
+  mashiro_option.v_appKey = "5KBdadEbfMMamh1KsfIlVDqD";
+  mashiro_option.mathjax = "0";
+  mashiro_option.qq_api_url = "https://api.mashiro.top/qqinfo/"; 
+  mashiro_option.qq_avatar_api_url = "https://api.mashiro.top/qqinfo/";
+
+  // mashiro_option.jsdelivr_css_src = "https://cdn.jsdelivr.net/gh/moezx/cdn@3.4.5/css/lib.min.css";
+  // mashiro_option.float_player_on = true;
+
+  /*End of Initial Variables*/
+  </script>
+  <script type="text/javascript">
+  var bg = "https://i.loli.net/2021/06/05/Czs9LlShTk3IZq8.jpg,https://i.loli.net/2021/06/05/AlLP7zvaumFdJ8i.jpg,https://i.loli.net/2021/06/05/25dk6Te1HcMLQFt.jpg,https://i.loli.net/2021/06/05/pPuHo6egLxDqB5j.jpg,https://i.loli.net/2021/08/07/y93LDV7mNIb4hlF.jpg".split(",");
+  var bgindex = Math.floor(Math.random()*bg.length);
+  if (!!window.ActiveXObject || "ActiveXObject" in window) { //is IE?
+    alert('朋友，IE浏览器未适配哦~');
+  }
+  </script>
+  <style type="text/css">
+  .hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}
+  </style>
+  <style type="text/css">.site-top .lower nav{display:block !important;}.author-profile i,.post-like a,.post-share .show-share,.sub-text,.we-info a,span.sitename,.post-more i:hover,#pagination a:hover,.post-content a:hover,.float-content i:hover{color:#FE9600}.feature i,.download,.navigator i:hover,.links ul li:before,.ar-time i,span.ar-circle,.object,.comment .comment-reply-link,.siren-checkbox-radio:checked + .siren-checkbox-radioInput:after{background:#FE9600}::-webkit-scrollbar-thumb{background:#FE9600}.download,.navigator i:hover,.link-title,.links ul li:hover,#pagination a:hover,.comment-respond input[type='submit']:hover{border-color:#FE9600}.entry-content a:hover,.site-info a:hover,.comment h4 a,#comments-navi a.prev,#comments-navi a.next,.comment h4 a:hover,.site-top ul li a:hover,.entry-title a:hover,#archives-temp h3,span.page-numbers.current,.sorry li a:hover,.site-title a:hover,i.iconfont.js-toggle-search.iconsearch:hover,.comment-respond input[type='submit']:hover{color:#FE9600}.comments .comments-main{display:block !important;}.comments .comments-hidden{display:none !important;}background-position:center center;background-attachment:inherit;}
+  </style>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit">
+  <div class="scrollbar" id="bar">
+  </div>
+  <a href="#" class="cd-top faa-float animated"></a>
+  <section id="main-container">
+    <div class="headertop filter-dot">
+  <div id="banner_wave_1"></div>
+  <div id="banner_wave_2"></div>
+  <figure id="centerbg" class="centerbg">
+    <div class="focusinfo no-select">
+      <div class="header-tou">
+        <a href="https://lawrencesivan.github.io/">
+          <img src="/images/avatar.jpg">
+        </a>
+      </div>
+      <div class="header-info">
+        <p>I was so much older then, I′m younger than that now.</p>
+        <div class="top-social_v2">
+          <li id="bg-pre">
+            <img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+          
+            
+              
+                <li>
+                  <a href="https://github.com/LawrenceSivan" target="_blank" class="social-github" title="github">
+                    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/github.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://weibo.com/7464138878/profile?topnav=1&amp;wvr=6" target="_blank" class="social-github" title="sina">
+                    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/sina.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://music.163.com/#/user/home?id=296743009" target="_blank" class="social-github" title="wangyiyun">
+                    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/wangyiyun.png">
+                  </a>
+                </li>
+              
+            
+              
+                <li>
+                  <a href="https://www.zhihu.com/people/lawrence-73-19" target="_blank" class="social-github" title="zhihu">
+                    <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/zhihu.png">
+                  </a>
+                </li>
+              
+            
+          
+          <li id="bg-next">
+            <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg">
+          </li>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div id="video-container" style="">
+    <video style="object-fit: fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto">
+    </video>
+    <div id="video-btn" class="loadvideo videolive">
+    </div>
+    <div id="video-add">
+    </div>
+    <div class="video-stu">
+    </div>
+  </div>
+  <div class="headertop-down faa-float animated" onclick="headertop_down()">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true">
+      </i>
+    </span>
+  </div>
+</div>
+    <div id="page" class="site wrapper">
+      <header class="site-header no-select gizle sabit" role="banner">
+  <div class="site-top">
+    <div class="site-branding">
+      <span class="site-title">
+        <span class="logolink moe-mashiro">
+          <a href="/">
+            <span class="sakurasono"></span>
+            <span class="shironeko">LawrenceSivan</span>
+          </a>
+        </span>
+      </span>
+    </div>
+    <div class="searchbox search-form-submit">
+      <i class="iconfont js-toggle-search iconsearch icon-search">
+      </i>
+    </div>
+    <div id="show-nav" class="showNav mobile-fit">
+      <div class="line line1">
+      </div>
+      <div class="line line2">
+      </div>
+      <div class="line line3">
+      </div>
+    </div>
+    <div class="lower-cantiner">
+      <div class="lower">
+        <nav class="mobile-fit-control hide">
+          <ul id="menu-new" class="menu">
+            
+              <li>
+                <a href="https://lawrencesivan.github.io/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+                    首页
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+                    归档
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                          <i class="fa fa-code" aria-hidden="true"></i>
+                          技术
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E7%94%9F%E6%B4%BB/">
+                          <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                          生活
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E8%B5%84%E6%BA%90/">
+                          <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                          资源
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E9%9A%8F%E6%83%B3/">
+                          <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                          随想
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/categories/%E8%BD%AC%E8%BD%BD/">
+                          <i class="fa fa-book" aria-hidden="true"></i>
+                          转载
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="javascript:;">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+                    清单
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/tags/%E6%82%A6%E8%AF%BB/">
+                          <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                          书单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/bangumi/">
+                          <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                          番组
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/music/">
+                          <i class="fa fa-headphones" aria-hidden="true"></i>
+                          歌单
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/tags/%E5%9B%BE%E9%9B%86/">
+                          <i class="fa fa-photo" aria-hidden="true"></i>
+                          图集
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/comment/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+                    留言板
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/links/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+                    友人帐
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+                    关于
+                  </span>
+                </a>
+                
+                  <ul class="sub-menu">
+                    
+                      <li>
+                        <a href="/about/">
+                          <i class="fa fa-meetup" aria-hidden="true"></i>
+                          我？
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/theme-sakura/">
+                          <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                          主题
+                        </a>
+                      </li>
+                    
+                      <li>
+                        <a href="/lab/">
+                          <i class="fa fa-cogs" aria-hidden="true"></i>
+                          Lab
+                        </a>
+                      </li>
+                    
+                  </ul>
+                
+              </li>
+            
+              <li>
+                <a href="/client/">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-android faa-vertical" aria-hidden="true"></i>
+                    客户端
+                  </span>
+                </a>
+                
+              </li>
+            
+              <li>
+                <a href="/atom.xml">
+                  <span class="faa-parent animated-hover">
+                    <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+                    RSS
+                  </span>
+                </a>
+                
+              </li>
+            
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(/images/cover/17.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/17.jpg">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      莫队全家桶</h1>
+      <p class="entry-census">
+        <span>
+          <a href="https://lawrencesivan.github.io/">
+            <img src="/images/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="https://lawrencesivan.github.io/">LawrenceSivan</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2021-4-22<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
+<div id="content" class="site-content">
+  <div id="primary" class="content-area">
+    <main id="main" class="site-main" role="main">
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <p><strong>今天学习了莫队</strong><br><del>实在是太有魅力了</del></p>
+<p>来写个学习笔记</p>
+<h1 id="莫队"><a href="#莫队" class="headerlink" title="莫队"></a>莫队</h1><h2 id="普通莫队"><a href="#普通莫队" class="headerlink" title="普通莫队"></a>普通莫队</h2><h3 id="莫队讲解"><a href="#莫队讲解" class="headerlink" title="莫队讲解"></a>莫队讲解</h3><h4 id="一，什么是莫队"><a href="#一，什么是莫队" class="headerlink" title="一，什么是莫队"></a>一，什么是莫队</h4><p>莫队其实就是一种优雅的暴力，它十分玄学巧妙地将分块和暴力结合在了一起，主要用来处理离线区间查询等问题</p>
+<p>由于莫队算法是由莫涛队长提出的，因此我们称这种算法为莫队</p>
+<h4 id="二，莫队原理"><a href="#二，莫队原理" class="headerlink" title="二，莫队原理"></a>二，莫队原理</h4><p>大概说一下，莫队就是对询问进行排序，然后通过左右端点的移动来维护区间信息。</p>
+<p><strong>那显而易见，莫队是离线算法</strong></p>
+<p>当然莫队还有一些神奇的拓展：带修莫队，回滚莫队等等（等我学会了再来补博客</p>
+<h4 id="三，莫队的操作过程"><a href="#三，莫队的操作过程" class="headerlink" title="三，莫队的操作过程"></a>三，莫队的操作过程</h4><p>1，对于多段区间的询问,先将询问离线存储下来,然后再从左到右扫一遍,在过程中维护一段区间,就可以得到每个询问的答案.</p>
+<p>2，但暴力扫肯定不行，所以在扫的过程中,需要对 $l$ 进行排序,以求能够在移动次数最少的情况下,得到所有希望求出的区间.（就是说，我们要调整$m$次询问的顺序，使之有序，这样我们在移动时，就可以不反复来回移动，而单向的用较少的次数就可以进行维护与查询操作</p>
+<p>3，首先对每个区间进行分块操作,再将左端点在一起的区间询问放在一起进行处理,对于每个块处理一遍,那么就可以得到所有询问的答案.（分块的结合就是在这里</p>
+<p>最严格的顺序是每个区间求一次曼哈顿距离最小生成树</p>
+<h4 id="四，莫队的代码实现"><a href="#四，莫队的代码实现" class="headerlink" title="四，莫队的代码实现"></a>四，莫队的代码实现</h4><p>自然我们要记录原数组，还要开一个 $cnt$ （用于统计答案个数，还有一个答案数组</p>
+<pre><code class="cpp">ll ans[maxn],sum;
+int a[maxn],cnt[maxn],lal=1,lar=0;//lal lar分别是上一次的左右端点
+</code></pre>
+<p>按照顺序如何处理呢？</p>
+<p>把 $[1,n]$ 分成$ \sqrt n$ 块</p>
+<p>还有一种奇妙而玄学的分法：</p>
+<pre><code class="cpp">block=n/sqrt(m*2/3);
+</code></pre>
+<p>这样会更快一些；</p>
+<p>我们先把这些区间按照左端点 $l$ 所在的块从左往右排序</p>
+<p>再把l所在块相同的区间按 $r$ 从小到大排序</p>
+<p>结构体数组存储查询的区间以及下标</p>
+<pre><code class="cpp">struct node&#123;
+    int l,r,id;//l是左端点，r是右端点，id是下标
+    
+        inline bool operator &lt; (const node &amp;a)const&#123;
+        return (belong[l]==belong[a.l])?r&lt;a.r:belong[l]&lt;belong[a.l];
+    &#125;
+&#125;mocap[maxn];//mo captain，即莫队
+</code></pre>
+<p>这里再提一种玄学的玩意，名曰：<strong>奇偶优化</strong></p>
+<p>按奇偶块排序。这也是比较通用的。如果区间左端点所在块不同，那么就直接按左端点从小到大排；如果相同，奇块按右端点从小到大排，偶块按右端点从大到小排。</p>
+<pre><code class="cpp">inline bool operator &lt; (const node &amp;a)const&#123;
+    return belong[l]^belong[a.l]?belong[l]&lt;belong[a.l]:((belong[l]&amp;1)?r&lt;a.r:r&gt;a.r);
+&#125;
+</code></pre>
+<p>排好了序自然就要开始进行询问和维护操作了</p>
+<p><strong>这里也正是莫队的精髓</strong></p>
+<pre><code class="cpp">for(re int i=1;i&lt;=m;i++)&#123;
+        int l=mocap[i].l,r=mocap[i].r;
+        while(lal&gt;l)lal--,add(a[lal]);
+        while(lar&lt;r)lar++,add(a[lar]);
+        while(lal&lt;l)del(a[lal]),lal++;
+        while(lar&gt;r)del(a[lar]),lar--;
+        ans[mocap[i].id]=sum;
+    &#125;
+</code></pre>
+<p>想象一个区间的移动；</p>
+<p>$add$ 和 $del$ 函数</p>
+<pre><code class="cpp">inline void add(int x)&#123;
+    sum+=2*cnt[x]+1;
+    cnt[x]++;
+&#125;
+
+inline void del(int x)&#123;
+    sum-=2*cnt[x]-1;
+    cnt[x]--;
+&#125;
+</code></pre>
+<h4 id="五，莫队的复杂度证明"><a href="#五，莫队的复杂度证明" class="headerlink" title="五，莫队的复杂度证明"></a>五，莫队的复杂度证明</h4><p>对于区间进行分块那么可以得到 $\sqrt{n}$ 个块,那么对于就存在于 $\sqrt{n}$  个区间,而每次对于每个区间块中的 $l,r$ 的最坏情况是对于每个块都遍历到序列的最右端,共 $n$ 个点.每次移动指针复杂度为 $O(1)$ ,所以整个算法的复杂度 $O (n\sqrt{n})$</p>
+<p><strong>纠正：这东西是 $\text O((n+m)\sqrt n)$ 的，如果分成 $\frac{n}{\sqrt m}$ 是 $\text O(n\sqrt m)$ 的（感谢 <a href="https://www.luogu.com.cn/user/46099">YCS_GG</a>）</strong></p>
+<p>（真是太美妙了</p>
+<h3 id="例题："><a href="#例题：" class="headerlink" title="例题："></a>例题：</h3><h4 id="洛谷-P2709-小B的询问"><a href="#洛谷-P2709-小B的询问" class="headerlink" title="洛谷 P2709 小B的询问"></a><a href="https://www.luogu.com.cn/problem/P2709">洛谷 P2709 小B的询问</a></h4><h5 id="CODE："><a href="#CODE：" class="headerlink" title="CODE："></a>CODE：</h5><pre><code class="cpp">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+#define re register
+const int maxn=5e5+5;
+
+int n,m,k,block;
+ll ans[maxn],sum;
+int a[maxn],cnt[maxn],lal=1,lar=0;
+
+struct node&#123;
+    int l,r,id;
+    
+    inline bool operator &lt; (const node &amp;a)const&#123;
+        return ((l-1)/block==(a.l-1)/block)?r&lt;a.r:l/block&lt;a.l/block;
+    &#125;
+&#125;mocap[maxn];
+
+inline int read()&#123;
+    int x=0,f=1;char ch=getchar();
+    while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+    while(isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+    return x*f;
+&#125;
+
+inline void add(int x)&#123;
+    sum+=2*cnt[x]+1;
+    cnt[x]++;
+&#125;
+
+inline void del(int x)&#123;
+    sum-=2*cnt[x]-1;
+    cnt[x]--;
+&#125;
+int main()&#123;
+    n=read();m=read();k=read();
+    block=sqrt(n);
+    
+    for(re int i=1;i&lt;=n;i++)&#123;
+        a[i]=read();
+    &#125; 
+    for(re int i=1;i&lt;=m;i++)&#123;
+        mocap[i].l=read();
+        mocap[i].r=read();
+        mocap[i].id=i; 
+    &#125;
+    
+    sort(mocap+1,mocap+1+m);
+    
+    for(re int i=1;i&lt;=m;i++)&#123;
+        int l=mocap[i].l,r=mocap[i].r;
+        while(lal&gt;l)lal--,add(a[lal]);
+        while(lar&lt;r)lar++,add(a[lar]);
+        while(lal&lt;l)del(a[lal]),lal++;
+        while(lar&gt;r)del(a[lar]),lar--;
+        ans[mocap[i].id]=sum;
+    &#125;
+
+    for(re int i=1;i&lt;=m;i++)&#123;
+        printf(&quot;%lld\n&quot;,ans[i]);
+    &#125;
+    
+    return 0;
+&#125;
+</code></pre>
+<h4 id="洛谷-P1494-国家集训队-小Z的袜子"><a href="#洛谷-P1494-国家集训队-小Z的袜子" class="headerlink" title="洛谷 P1494 [国家集训队]小Z的袜子"></a><a href="https://www.luogu.com.cn/problem/P1494">洛谷 P1494 [国家集训队]小Z的袜子</a></h4><p>首先我们明确莫队一般来讲是只能搞一个区间内某一些东西的出现次数的，如果让我们去求出概率该怎么办呢？</p>
+<p>我们用 $cnt$ 数组来记录区间 $[l,r]$ 内某种颜色的袜子出现的次数.</p>
+<p>我们考虑在区间 $[l,r]$ 中取出两个相同颜色 $x$ 的情况有：</p>
+<p>$C_{cnt[x]}^2= \dfrac{cnt[x] \times (cnt[x]-1)}{2}$</p>
+<p>在区间 $[l,r]$ 中取出两个任意颜色的情况有：</p>
+<p>$C_{len}^2= \dfrac{len \times (len-1)}{2}$</p>
+<p>于是在区间 $[l,r]$ 中取出两个相同颜色 $x$ 的概率就可以搞得出来了：</p>
+<p>$C_{cnt[x]}^2= \dfrac{cnt[x] \times (cnt[x]-1)}{len \times (len-1)}=\dfrac{cnt[x] \times (cnt[x]-1)}{(r-l+1) \times (r-l)}=\dfrac{cnt[x]^2-cnt[x]}{(r-l+1) \times (r-l)}$</p>
+<p>于是在区间内抽到两个相同数字的概率就是：</p>
+<p>$\sum\limits_{i=1}^n \dfrac{cnt[i]^2-cnt[i]}{(r-l+1) \times (r-l)}= \dfrac{\sum\limits_{i=1}^n cnt[i]^2-cnt[i]}{(r-l+1) \times (r-l)}$</p>
+<p>对于区间 $[l,r]$ 我们有</p>
+<p>$\sum\limits_{i=1}^n cnt[i]=r-l+1$</p>
+<p>所以答案为：</p>
+<p>$\dfrac{\sum\limits_{i=1}^n cnt[i]^2-(r-l+1)}{(r-l+1) \times (r-l)}$</p>
+<p>最后只需要用 $gcd$ 化简就可以了.</p>
+<p>于是我们用 $cnt$ 数组维护平方和.</p>
+<h5 id="CODE"><a href="#CODE" class="headerlink" title="CODE:"></a>CODE:</h5><pre><code class="cpp">
+//#define LawrenceSivan
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+#define re register
+const int maxn=5e5+5;
+#define INF 0x3f3f3f3f
+
+int n,m,k,a[maxn],ans[maxn],lal=1,lar=0,sum,block,cnt[maxn];
+
+ll l1[maxn],r1[maxn];
+
+struct node&#123;
+    int l,r,id;
+    
+    inline bool operator &lt; (const node &amp;a)const&#123;
+        return ((l-1)/block==(a.l-1)/block)?r&lt;a.r:l/block&lt;a.l/block;
+    &#125;
+&#125;mocap[maxn];
+
+ll gcd(int a,int b)&#123;
+    return b==0?a:gcd(b,a%b);
+&#125;
+
+inline void add(int x)&#123;
+    sum-=cnt[x]*(cnt[x]-1)/2;
+    cnt[x]++;
+    sum+=cnt[x]*(cnt[x]-1)/2;
+&#125;
+
+inline void del(int x)&#123;
+    sum-=cnt[x]*(cnt[x]-1)/2;
+    cnt[x]--;
+    sum+=cnt[x]*(cnt[x]-1)/2;
+&#125;
+
+
+inline int read()&#123;
+    int x=0,f=1;char ch=getchar();
+    while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+    while(isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+    return x*f;
+&#125;
+
+int main()&#123;
+#ifdef LawrenceSivan
+    freopen(&quot;aa.in&quot;,&quot;r&quot;,stdin);
+    freopen(&quot;aa.out&quot;,&quot;w&quot;,stdout);
+#endif
+    n=read();m=read();
+    
+    block=n/sqrt(m*2/3);
+    
+    for(re int i=1;i&lt;=n;i++)&#123;
+        a[i]=read();
+    &#125;
+    
+    for(re int i=1;i&lt;=m;i++)&#123;
+        mocap[i].l=read();mocap[i].r=read();mocap[i].id=i;
+        l1[i]=mocap[i].l,r1[i]=mocap[i].r;
+    &#125;
+
+    sort(mocap+1,mocap+1+m);
+
+    for(re int i=1;i&lt;=m;i++)&#123;
+        int l=mocap[i].l,r=mocap[i].r;
+        while(lal&gt;l)lal--,add(a[lal]);
+        while(lar&lt;r)lar++,add(a[lar]);
+        while(lal&lt;l)del(a[lal]),lal++;
+        while(lar&gt;r)del(a[lar]),lar--;
+        ans[mocap[i].id]=sum;
+    &#125;
+    
+    for(re int i=1;i&lt;=m;i++)&#123;
+        int tmp;
+        tmp=gcd((ll)ans[i],(ll)(r1[i]-l1[i]+1)*(r1[i]-l1[i])/2);
+        if(l1[i]==r1[i])printf(&quot;0/1\n&quot;);
+        else printf(&quot;%d/%lld\n&quot;,ans[i]/tmp,(ll)((r1[i]-l1[i]+1)*(r1[i]-l1[i])/2)/tmp);
+    &#125;
+    
+
+    return 0;
+&#125;
+</code></pre>
+<h2 id="带修莫队"><a href="#带修莫队" class="headerlink" title="带修莫队"></a>带修莫队</h2><p><a href="https://www.luogu.com.cn/problem/P1903">P1903 [国家集训队]数颜色 / 维护队列</a></p>
+<p><del>其实这道题在智能推荐里躺了很久了，但是我一直没有打开他，然后还一直大喊lj洛谷为什么没有带修莫队的板子题</del></p>
+<p><del>wssb</del></p>
+<p>首先我们知道普通的莫队是不能修改的。</p>
+<p>因为我们每个询问的答案都是根据上一次询问的答案稍加调整得出来的，于是每一次修改操作就会导致对答案产生了严重的影响。</p>
+<p>于是我们想办法消除这种影响。</p>
+<p>考虑把查询操作和修改操作分别记录下来。</p>
+<p>在记录查询操作的时候，需要增加一个变量来记录离本次查询最近的修改的位置（这种玩意其实类似于 $HH$ 的项链)</p>
+<p>然后需要用一个变量记录当前已经进行了几次修改.</p>
+<p>对于查询操作，如果上一次改的比本次查询需要改的少，就改过去</p>
+<p>反之如果改多了就改回来。</p>
+<p>简单来说，就是比较这次与上一次修改的操作次数不一样，我们就暴力的搞成一样的就行了。</p>
+<p>也有一种说法是，在原有的 $l$ , $r$ 的基础上，增加一个时间轴 $t$ ,如果 $t$ 在  $l$ , $r$  之间就更新。</p>
+<p>关于结构体的改进：</p>
+<pre><code class="cpp">struct MOCAP&#123;//其实结构体应该开两个，就是说查询和修改都开，但是为了简便，我直接开了一个，一表两用
+    int l,r,id,pre;//l和r分别是查询中的左右端点和更改中的位置以及权值
+    
+    inline bool operator &lt; (const MOCAP &amp;a)const&#123;//改进后的排序
+        return belong[l]==belong[a.l]?(belong[r]==belong[a.r]?pre&lt;a.pre:belong[r]&lt;belong[a.r]):belong[l]&lt;belong[a.l];
+    &#125;
+&#125;mocap[maxn],modi[maxn];
+</code></pre>
+<p>排序的方法：</p>
+<ul>
+<li>关于左右端点的排序，与原来是一样的。</li>
+<li>关于修改的排序，修改位置在前面的就排在前面</li>
+</ul>
+<hr>
+<p>之后还有一个问题，就是说虽然是存在修改操作的，但是之后再查询的区间内进行修改对答案才是有影响的。</p>
+<p>所以在暴力调整修改的时候保证一下区间端点位置就行了</p>
+<p>之后还有一个小细节：在每次修改操作之后，下一次的操作一定是与这步是相反的</p>
+<p>也就是改后-&gt;还原-&gt;修改-&gt;还原</p>
+<p>所以我们直接交换就行了：</p>
+<pre><code class="cpp">inline void update(int x,int t)&#123;
+    if(mocap[x].l&lt;=modi[t].l&amp;&amp;mocap[x].r&gt;=modi[t].l)&#123;
+        del(a[modi[t].l]);
+        add(modi[t].r);
+    &#125;
+    swap(a[modi[t].l],modi[t].r);
+&#125;
+</code></pre>
+<p>于是最后的操作就是这样的：</p>
+<pre><code class="cpp">for(re int i=1;i&lt;=cntq;i++)&#123;
+    while(l&gt;mocap[i].l)l--,add(a[l]);
+    while(l&lt;mocap[i].l)del(a[l]),l++;
+    while(r&gt;mocap[i].r)del(a[r]),r--;
+    while(r&lt;mocap[i].r)r++,add(a[r]);
+    while(t&lt;mocap[i].pre)t++,update(i,t);//改少了
+    while(t&gt;mocap[i].pre)update(i,t),t--;//改多了
+    ans[mocap[i].id]=sum; 
+&#125;
+
+</code></pre>
+<p>最后优化块长：</p>
+<ul>
+<li>时间上的优化：将块的大小从 $sqrt(n)$ 改为 $n $的二分之三次方:</li>
+</ul>
+<pre><code class="cpp">block=pow(n,(double)2/(double)3);
+</code></pre>
+<p>然后复杂度大概就是 $O( n^ \frac {5}{3})$.</p>
+<h3 id="CODE-1"><a href="#CODE-1" class="headerlink" title="CODE:"></a>CODE:</h3><pre><code class="cpp">//#define LawrenceSivan
+
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+typedef unsigned long long ull;
+#define INF 0x3f3f3f3f
+#define re register
+const int maxn=3e5+5;
+const int maxm=2e6+5;
+
+int n,m,block;
+
+int l=1,r,t;
+
+int sum,c[maxm],a[maxn],ans[maxn],belong[maxn];
+
+char op[5];
+
+struct MOCAP&#123;
+    int l,r,id,pre;
+    
+    inline bool operator &lt; (const MOCAP &amp;a)const&#123;
+        return belong[l]==belong[a.l]?(belong[r]==belong[a.r]?pre&lt;a.pre:belong[r]&lt;belong[a.r]):belong[l]&lt;belong[a.l];
+    &#125;
+&#125;mocap[maxn],modi[maxn];
+
+int cntq,cntc;
+
+inline void add(int x)&#123;
+    sum+= (++c[x]==1);
+&#125;
+
+inline void del(int x)&#123;
+    sum-= (--c[x]==0);
+&#125;
+
+inline void update(int x,int t)&#123;
+    if(mocap[x].l&lt;=modi[t].l&amp;&amp;mocap[x].r&gt;=modi[t].l)&#123;
+        del(a[modi[t].l]);
+        add(modi[t].r);
+    &#125;
+    swap(a[modi[t].l],modi[t].r);
+&#125;
+
+inline int read()&#123;
+    int x=0, f=1;char ch=getchar();
+    while (!isdigit(ch)) &#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+    while (isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+    return x*f;
+&#125;
+
+int main() &#123;
+#ifdef LawrenceSivan
+    freopen(&quot;aa.in&quot;, &quot;r&quot;, stdin);
+    freopen(&quot;aa.out&quot;, &quot;w&quot;, stdout);
+#endif
+    n=read();m=read();
+    block=pow(n,(double)2/(double)3);
+    
+    for(re int i=1;i&lt;=n;i++)&#123;
+        a[i]=read();
+        belong[i]=(i-1)/block+1;
+    &#125;
+    
+    for(re int i=1;i&lt;=m;i++)&#123;
+        cin&gt;&gt;op;
+        if(op[0]==&#39;Q&#39;)&#123;
+            mocap[++cntq].l=read();
+            mocap[cntq].r=read();
+            mocap[cntq].pre=cntc;
+            mocap[cntq].id=cntq;
+        &#125;
+        
+        if(op[0]==&#39;R&#39;)&#123;
+            modi[++cntc].l=read();//注意这里的l指的是修改位置pos
+            modi[cntc].r=read();//注意这里的r是修改权值val
+        &#125;
+    &#125;
+    
+    sort(mocap+1,mocap+1+cntq);
+    
+    for(re int i=1;i&lt;=cntq;i++)&#123;
+        while(l&gt;mocap[i].l)l--,add(a[l]);
+        while(l&lt;mocap[i].l)del(a[l]),l++;
+        while(r&gt;mocap[i].r)del(a[r]),r--;
+        while(r&lt;mocap[i].r)r++,add(a[r]);
+        while(t&lt;mocap[i].pre)t++,update(i,t);
+        while(t&gt;mocap[i].pre)update(i,t),t--;
+        ans[mocap[i].id]=sum; 
+    &#125;
+    
+    for(re int i=1;i&lt;=cntq;i++)&#123;
+        printf(&quot;%d\n&quot;,ans[i]);
+    &#125;
+
+
+    return 0;
+&#125;
+
+</code></pre>
+<h2 id="树上莫队"><a href="#树上莫队" class="headerlink" title="树上莫队"></a>树上莫队</h2><p><a href="https://www.luogu.com.cn/problem/SP10707">SP10707 COT2 - Count on a tree II</a></p>
+<p>这就是树上莫队板子题了。</p>
+<p>顾名思义，树上莫队就是树上的莫队<del>这不nm废话吗</del></p>
+<p>所以显然我们的策略就是要首先对树进行树剖，然后转化成线性结构，然后我们大力搞莫队就行了。</p>
+<p>那么问题就来了，如何把他变成线性结构？</p>
+<h3 id="前置知识-欧拉序"><a href="#前置知识-欧拉序" class="headerlink" title="前置知识 欧拉序"></a>前置知识 欧拉序</h3><p>众所周知，我们对树的遍历通常是两种序。<del>如果不知道那你现在知道了</del></p>
+<p>分别是 $DFS$ 序和欧拉序。首先来区别一下这两种序。</p>
+<h4 id="DFS序"><a href="#DFS序" class="headerlink" title="DFS序"></a>DFS序</h4><p>如图，我们的 $dfs$ 一般是这样的</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/xuar7g8t.png" alt="dfs"></p>
+<p>这张图的dfs序为A-B-D-E-G-C-F-H</p>
+<p>好 $DFS$ 就说完了。</p>
+<p><del>什么？？这就说完了？</del></p>
+<p><del>确实，毕竟咱这里主要不说这玩意</del></p>
+<p>接下来进入正题，欧拉序！</p>
+<h4 id="欧拉序"><a href="#欧拉序" class="headerlink" title="欧拉序"></a>欧拉序</h4><p>欧拉序<strong>就是从根结点出发，按dfs的顺序在绕回原点所经过所有点的顺序</strong></p>
+<p>所以对于这棵树，他的欧拉序就是这样的：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/bt9j4wzf.png" alt="欧拉序"></p>
+<p>欧拉序为A-B-D-D-E-G-G-E-B-C-F-H-H-F-C-A</p>
+<p>其实欧拉序是有两种的，一种是记录入度个，另一个是入度和出度都记录。</p>
+<p>树上莫队用的是第二种，也就是我们上面说到的这种。</p>
+<h3 id="本题"><a href="#本题" class="headerlink" title="本题"></a>本题</h3><p>为什么要用到欧拉序呢？</p>
+<p>首先回顾一下题意，要求我们找到一条路径上的颜色个数，也就是不同的数字个数。</p>
+<p>从欧拉序的形式上看，我们其实可以借助欧拉序去找一找路径上究竟有哪些点，以及该如何记录。</p>
+<p>这里我们设 $st[i]$ 表示访问到 $i$ 时加入欧拉序的时间，$ed[i]$ 表示回溯经过 $i$ 时加入欧拉序的时间</p>
+<p>不妨设 $st[x]$&lt;$st[y]$（也就是先访问 $x$，再访问 $y$）</p>
+<p>分情况讨论;</p>
+<h4 id="情况一："><a href="#情况一：" class="headerlink" title="情况一："></a>情况一：</h4><p>如果 $LCA(x,y)=x$ ，这显然说明 $x$,$y$ 在同一条路径上。</p>
+<p>于是我们取出 $st[x]$ 到 $st[y]$ 这一段区间，有的点会出现两次，有的点出现一次，应该明确出现两次的点对答案是没有贡献的，因为它进入了递归又在回溯时出去了，这证明这条路径一定是不经过这个子树的，于是我们只需要统计路径上出现两次的点。</p>
+<p>我们拿上面的图来举例子：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/bt9j4wzf.png" alt="欧拉序"></p>
+<p>如果两个点分别是 $A$,$G$ ,那么 $st[A]-st[G]$ 显然是 $A-B-D-D-E-G$</p>
+<p>出现两次的点是 $D$。</p>
+<p>于是我们发现我们的路径 $A-G$ 上恰好是没有点 $D$ 的，于是……</p>
+<p>懂了吧</p>
+<h4 id="情况二："><a href="#情况二：" class="headerlink" title="情况二："></a>情况二：</h4><p>如果 $LCA(x,y) \ne x$ ，这显然说明 $x$,$y$ 在两棵不同的子树内。</p>
+<p>于是我们取出 $ed[x]-st[y]$</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/bt9j4wzf.png" alt="欧拉序"></p>
+<p>依然对于这张图，我们举例子：</p>
+<p>如果两个点分别是 $D$,$C$</p>
+<p>于是 $ed[D]-st[C]$ 显然就是：</p>
+<p>$D-E-G-G-E-B-C$</p>
+<p>同样的，我们只统计出现一次的点，两次的点也不统计。</p>
+<p>但是有这样一个问题，我们上面的过程是有一个小问题的。</p>
+<p>我们没有统计 $LCA$ ！</p>
+<p>后果不太严重，加上就好了 <del>/cy</del></p>
+<p>至于如何判断第一次与第二次的问题，这个很简单，我们多记录一个 $use[x]$，表示 $x$ 这个点有没有被加入，每次处理的时候如果 $use[x]=0$ 则需要添加节点；如果 $use[x]=1$ 则需要删除节点，每次处理之后都对 $use[x]$ 异或 $1$ 就可以了.</p>
+<pre><code class="cpp">inline void calc(int x)&#123;
+    used[x]?del(x):add(x);
+    used[x]^=1;
+&#125;
+</code></pre>
+<h4 id="下面是一些细节"><a href="#下面是一些细节" class="headerlink" title="下面是一些细节"></a>下面是一些细节</h4><ul>
+<li>欧拉序直接用树剖就行了，在 $dfs1$ 中顺便就搞出来了。</li>
+</ul>
+<p>$LCA$ 顺便也就搞出来了，<del>多香</del></p>
+<pre><code class="cpp">void dfs1(int u,int f)&#123;
+    fa[u]=f;
+    size[u]=1;
+    deep[u]=deep[f]+1;
+    st[u]=++tot;
+    pot[tot]=u;
+    
+    for(re int i=head[u];i;i=nxt[i])&#123;
+        int v=to[i];
+        if(v==f)continue;
+        dfs1(v,u);
+        size[u]+=size[v];
+        if(size[v]&gt;size[son[u]])son[u]=v;
+    &#125;
+    
+    ed[u]=++tot;pot[tot]=u;
+&#125;
+
+void dfs2(int u,int topf)&#123;
+    top[u]=topf;
+    if(!son[u])return;
+    dfs2(son[u],topf);
+    for(re int i=head[u];i;i=nxt[i])&#123;
+        int v=to[i];
+        if(top[v])continue;
+        dfs2(v,v);
+    &#125;
+&#125;
+
+inline int LCA(int x,int y)&#123;
+    while(top[x]!=top[y])&#123;
+        if(deep[top[x]]&lt;deep[top[y]])swap(x,y);
+        x=fa[top[x]];
+    &#125;
+    return deep[x]&lt;deep[y]?x:y;
+&#125;
+</code></pre>
+<ul>
+<li>一定要记得，欧拉序的长度是节点长度的 $2$ 倍，所以分块的时候要分 $n&lt;&lt;1$ </li>
+</ul>
+<pre><code class="cpp">for(re int i=1;i&lt;=(n&lt;&lt;1);i++)&#123;
+        belong[i]=i/block+1;
+    &#125;
+</code></pre>
+<ul>
+<li>这个题要离散化。</li>
+</ul>
+<pre><code class="cpp">inline void Discretization()&#123;
+    sort(data+1,data+1+n);
+    int len=unique(data+1,data+1+n)-data-1;
+    for(re int i=1;i&lt;=n;i++) a[i]=lower_bound(data+1,data+1+len,a[i])-data;
+&#125;
+</code></pre>
+<p><del>其实我觉得还是挺恶心的</del></p>
+<h3 id="CODE：-1"><a href="#CODE：-1" class="headerlink" title="CODE："></a>CODE：</h3><pre><code class="cpp">//#define LawrenceSivan
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+#define re register
+const int maxn=1e5+5;
+#define INF 0x3f3f3f3f
+
+int n,m,block;
+int a[maxn],data[maxn];
+int st[maxn],ed[maxn],tot;
+int belong[maxn];
+
+struct MOCAP&#123;
+    int l,r,id,lca,ans;
+    inline bool operator &lt; (const MOCAP &amp;a)const&#123;
+        return belong[l]==belong[a.l]?r&lt;a.r:belong[l]&lt;belong[a.l];
+    &#125;
+&#125;mocap[maxn];
+
+int nxt[maxn&lt;&lt;1],to[maxn&lt;&lt;1],head[maxn],cnt;
+
+inline void add(int u,int v)&#123;
+    nxt[++cnt]=head[u];
+    to[cnt]=v;
+    head[u]=cnt;
+&#125;
+
+int deep[maxn],fa[maxn],top[maxn],son[maxn],size[maxn],pot[maxn];
+
+void dfs1(int u,int f)&#123;
+    fa[u]=f;
+    size[u]=1;
+    deep[u]=deep[f]+1;
+    st[u]=++tot;
+    pot[tot]=u;
+    
+    for(re int i=head[u];i;i=nxt[i])&#123;
+        int v=to[i];
+        if(v==f)continue;
+        dfs1(v,u);
+        size[u]+=size[v];
+        if(size[v]&gt;size[son[u]])son[u]=v;
+    &#125;
+    
+    ed[u]=++tot;pot[tot]=u;
+&#125;
+
+void dfs2(int u,int topf)&#123;
+    top[u]=topf;
+    if(!son[u])return;
+    dfs2(son[u],topf);
+    for(re int i=head[u];i;i=nxt[i])&#123;
+        int v=to[i];
+        if(top[v])continue;
+        dfs2(v,v);
+    &#125;
+&#125;
+
+inline void Discretization()&#123;
+    sort(data+1,data+1+n);
+    int len=unique(data+1,data+1+n)-data-1;
+    for(re int i=1;i&lt;=n;i++) a[i]=lower_bound(data+1,data+1+len,a[i])-data;
+&#125;
+
+inline int LCA(int x,int y)&#123;
+    while(top[x]!=top[y])&#123;
+        if(deep[top[x]]&lt;deep[top[y]])swap(x,y);
+        x=fa[top[x]];
+    &#125;
+    return deep[x]&lt;deep[y]?x:y;
+&#125;
+
+int used[maxn],c[maxn],sum,ans[maxn];
+int l=1,r=0;
+
+inline void add(int x)&#123;
+    sum+=(++c[a[x]]==1);
+&#125;
+
+inline void del(int x)&#123;
+    sum-=(--c[a[x]]==0);
+&#125;
+
+inline void calc(int x)&#123;
+    used[x]?del(x):add(x);
+    used[x]^=1;
+&#125;
+
+inline int read()&#123;
+    int x=0,f=1;char ch=getchar();
+    while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+    while(isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+    return x*f;
+&#125;
+
+int main()&#123;
+#ifdef LawrenceSivan
+    freopen(&quot;aa.in&quot;,&quot;r&quot;,stdin);
+    freopen(&quot;aa.out&quot;,&quot;w&quot;,stdout);
+#endif
+    n=read();m=read();
+    
+    block=n/sqrt(m*2/3);
+    
+    for(re int i=1;i&lt;=n;i++)&#123;
+        a[i]=data[i]=read();
+    &#125;
+    
+    for(re int i=1;i&lt;=(n&lt;&lt;1);i++)&#123;
+        belong[i]=i/block+1;
+    &#125;
+    
+    Discretization();
+    
+    for(re int i=1,x,y;i&lt;n;i++)&#123;
+        x=read();y=read();
+        add(x,y);
+        add(y,x);
+    &#125;
+    
+    deep[1]=1;
+    dfs1(1,0);
+    dfs2(1,1);
+    
+    for(re int i=1,x,y;i&lt;=m;i++)&#123;
+        x=read();y=read();
+        if(st[x]&gt;st[y])swap(x,y);
+        int lca=LCA(x,y);
+        mocap[i].id=i;
+        if(lca==x) mocap[i].l=st[x],mocap[i].r=st[y];
+        else mocap[i].l=ed[x],mocap[i].r=st[y],mocap[i].lca=lca;
+    &#125;
+    
+    sort(mocap+1,mocap+1+m);
+    for(re int i=1;i&lt;=m;i++)&#123;
+        while(l&lt;mocap[i].l)calc(pot[l]),l++;
+        while(l&gt;mocap[i].l)l--,calc(pot[l]);
+        while(r&lt;mocap[i].r)r++,calc(pot[r]);
+        while(r&gt;mocap[i].r)calc(pot[r]),r--;
+        if(mocap[i].lca)calc(mocap[i].lca);
+        mocap[i].ans=sum;
+        if(mocap[i].lca)calc(mocap[i].lca);
+    &#125;
+    
+    for(re int i=1;i&lt;=m;i++)&#123;
+        ans[mocap[i].id]=mocap[i].ans;
+    &#125;
+    
+    for(re int i=1;i&lt;=m;i++)&#123;
+        printf(&quot;%d\n&quot;,ans[i]);
+    &#125;
+
+
+    return 0;
+&#125;
+</code></pre>
+<h3 id="练习题：P4074-WC2013-糖果公园"><a href="#练习题：P4074-WC2013-糖果公园" class="headerlink" title="练习题：P4074 [WC2013] 糖果公园"></a>练习题：<a href="https://www.luogu.com.cn/problem/P4074">P4074 [WC2013] 糖果公园</a></h3><p>好啦，你现在学到了带修莫队和树上莫队的精髓啦，快来做这道超级无敌<del>傻逼</del>二合一题目吧！</p>
+<p><del>想当年我第一次见他的时候他还是个黑的，几天不见这么拉了</del></p>
+<p>首先可以注意到这玩意的题目真的是非常长，这就预示着这是一道非常非常非常毒瘤的题目。</p>
+<p><del>其实也没有很毒瘤，只是因为我太菜调不出来而已</del></p>
+<h4 id="简要题意："><a href="#简要题意：" class="headerlink" title="简要题意："></a>简要题意：</h4><ul>
+<li><p>给定一张 $n$ 个节点的树形图，每个节点 $i$ 有一种颜色 $C_i$,权值是 $V_{C_i}$（各个节点可能会有同样的颜色）。</p>
+</li>
+<li><p>每次讯问<del>（？</del>一条路径，对于其中的每一个节点，经过时可以获得 $V_i\times W_i$ 的贡献.</p>
+</li>
+<li><p>每次经过同样的颜色时，$W_i$ 会发生变化。</p>
+</li>
+<li><p>求路径上 $\sum \limits_{C} val_c \sum \limits_{i=1}^{cnt_c}W_i$</p>
+</li>
+</ul>
+<p> 于是这就是比较显然的莫队了。</p>
+<p>只不过他不仅要查询，而且还要支持更改操作。</p>
+<p>于是这要求我们的莫队还得要带修。</p>
+<p>于是就可以发现这是一道树上莫队加带修莫队的题了。</p>
+<p>还是一样的思路，首先解决莫队上树的问题。</p>
+<p>参考上面的树上莫队，首先需要使用欧拉序将树上路径提取出来使之成为线性结构，之后再进行莫队操作</p>
+<p>依然使用树剖，顺带过程中求出 <code>LCA</code></p>
+<pre><code class="cpp">namespace Tree_chain_partition&#123;
+    int fa[maxn],size[maxn],son[maxn],dep[maxn],top[maxn];
+
+    int st[maxn],ed[maxn],pot[maxn],dfn;
+    //前括号序st，后括号序ed，存储欧拉序的pot，以及时间戳
+    
+    void dfs1(int u,int f)&#123;//树剖同时记录欧拉序
+        st[u]=++dfn;pot[dfn]=u;
+        size[u]=1;
+        fa[u]=f;
+        dep[u]=dep[f]+1;
+        for(re int i=head[u];i;i=nxt[i])&#123;
+            int v=to[i];
+            if(v==f)continue;
+            dfs1(v,u);
+            size[u]+=size[v];
+            if(size[v]&gt;size[son[u]])son[u]=v;
+        &#125;
+        ed[u]=++dfn;pot[dfn]=u;
+    &#125;
+    
+    void dfs2(int u,int topf)&#123;
+        top[u]=topf;
+        if(!son[u])return;
+        dfs2(son[u],topf);
+        for(re int i=head[u];i;i=nxt[i])&#123;
+            int v=to[i];
+            if(v==fa[u]||v==son[u])continue;
+            dfs2(v,v);
+        &#125;
+    &#125;
+    
+    inline int lca(int x,int y)&#123;
+        while(top[x]!=top[y])&#123;
+            if(dep[top[x]]&lt;dep[top[y]])swap(x,y);
+            x=fa[top[x]];
+        &#125;
+        return dep[x]&lt;dep[y]?x:y;
+    &#125;
+    
+&#125;
+</code></pre>
+<p>之后考虑带修的问题。</p>
+<p>回忆上面讲过的带修莫队，需要在莫队基础上增加一个维度。</p>
+<p>排序依旧是先按照左端点，其次是右端点，最后是时间维度。</p>
+<pre><code class="cpp">int belong[maxn];
+
+struct Mocap&#123;
+    int l,r,id,lca,ans,pre;
+
+    int pos,val;
+
+    inline bool operator &lt; (Mocap &amp;a)const&#123;
+        return belong[l]==belong[a.l]?
+            belong[r]==belong[a.r]?
+            pre&lt;a.pre:
+        belong[r]&lt;belong[a.r]:
+        belong[l]&lt;belong[a.l];
+    &#125;
+&#125;mocap[maxn],modi[maxn];
+</code></pre>
+<p>修改操作和查询操作的记录完全可以使用同一个结构体，比较方便，缺点是一个结构体里面变量太多，可能不大好调试</p>
+<p>读入操作的时候和普通的树上莫队与带修莫队差别并不算大，直接把他们融合一下。</p>
+<p>别忘了记录时间维度</p>
+<pre><code class="cpp">for(re int i=1,op;i&lt;=q;i++)&#123;
+    read(op);
+    if(op==0)&#123;
+        read(modi[++cntm].pos);
+        read(modi[cntm].val);
+    &#125;
+    if(op==1)&#123;
+        int x,y;
+        read(x),read(y);
+        if(st[x]&gt;st[y])swap(x,y);
+        int LCA=lca(x,y);
+        mocap[++cntq].id=cntq,mocap[cntq].pre=cntm;//记录时间维度
+        if(LCA==x)mocap[cntq].l=st[x],mocap[cntq].r=st[y];
+        else mocap[cntq].l=ed[x],mocap[cntq].r=st[y],mocap[cntq].lca=LCA;
+    &#125;
+&#125;
+</code></pre>
+<p>对于过程中的移动操作，依然需要借用欧拉序节点重复的原理，使用访问判断，而不能使用一般莫队的直接 <code>add</code> 与 <code>del</code> 操作。</p>
+<pre><code class="cpp">ll c[maxn],sum;
+
+inline void add(int x)&#123;
+    sum+= V[C[x]]*W[++c[C[x]]];
+&#125;
+
+inline void del(int x)&#123;
+    sum-= V[C[x]]*W[c[C[x]]--];
+&#125;
+
+bool vis[maxn];
+
+inline void calc(int x)&#123;
+    vis[x]?del(x):add(x);
+    vis[x]^=1;
+&#125;
+</code></pre>
+<p>移动完了区间别忘了还要把修改也暴力调整一下。</p>
+<pre><code class="cpp">inline void update(int x)&#123;
+    if(vis[modi[x].pos])&#123;
+        calc(modi[x].pos);
+        swap(C[modi[x].pos],modi[x].val);
+        calc(modi[x].pos);
+    &#125;
+    else swap(C[modi[x].pos],modi[x].val);
+&#125;
+</code></pre>
+<p><code>lca</code> 的贡献不要忘记。</p>
+<pre><code class="cpp">for(re int i=1;i&lt;=cntq;i++)&#123;
+    while(l&gt;mocap[i].l)calc(pot[--l]);//常规莫队
+    while(l&lt;mocap[i].l)calc(pot[l++]);
+    while(r&gt;mocap[i].r)calc(pot[r--]);
+    while(r&lt;mocap[i].r)calc(pot[++r]);
+    while(tim&lt;mocap[i].pre)update(++tim);//修改
+    while(tim&gt;mocap[i].pre)update(tim--);
+    if(mocap[i].lca)calc(mocap[i].lca);//统计lca贡献
+    ans[mocap[i].id]=sum;
+    if(mocap[i].lca)calc(mocap[i].lca);
+&#125;
+</code></pre>
+<p>大概到这里就算是结束了，虽然过程非常繁琐，码量也不算小，但是如果封装几个 <code>namespace</code> 其实还是会好调很多的。</p>
+<p><del>强烈谴责搞这么多读入，还有这么长的题面</del></p>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
+<li>由于使用了欧拉序来提出序列，所以一条路径会变成原来的两倍，在分块的时候千万不要忘记这个事情。</li>
+<li>同理由于上面的原因，数组也需要开两倍空间（这就是我 WA 了这么长时间的原因</li>
+<li>一定要记得开  <code>long long</code> ！</li>
+</ul>
+<p>就这么多。</p>
+<p>留个代码吧</p>
+<pre><code class="cpp">//#define LawrenceSivan
+
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+typedef unsigned long long ull;
+#define INF 0x3f3f3f3f
+#define re register
+const int maxn=2e5+5;
+#define int ll
+#define debug cerr&lt;&lt;&quot;!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!&quot;&lt;&lt;endl;
+
+int n,m,q,block;
+
+int head[maxn],to[maxn&lt;&lt;1],nxt[maxn&lt;&lt;1],cnt;
+
+inline void add(int u,int v)&#123;
+    nxt[++cnt]=head[u];
+    to[cnt]=v;
+    head[u]=cnt;
+&#125;
+
+int V[maxn],W[maxn],C[maxn];
+
+namespace MOCAP&#123;
+    int belong[maxn];
+
+    struct Mocap&#123;
+        int l,r,id,lca,ans,pre;
+        
+        int pos,val;
+        
+        inline bool operator &lt; (Mocap &amp;a)const&#123;
+            return belong[l]==belong[a.l]?
+                   belong[r]==belong[a.r]?
+                   pre&lt;a.pre:
+                   belong[r]&lt;belong[a.r]:
+                   belong[l]&lt;belong[a.l];
+        &#125;
+    &#125;mocap[maxn],modi[maxn];
+    
+    int cntm,cntq,l=1,r,tim=0;
+    
+    ll c[maxn],sum;
+
+    inline void add(int x)&#123;
+        sum+= V[C[x]]*W[++c[C[x]]];
+    &#125;
+    
+    inline void del(int x)&#123;
+        sum-= V[C[x]]*W[c[C[x]]--];
+    &#125;
+    
+    bool vis[maxn];
+    
+    inline void calc(int x)&#123;
+        vis[x]?del(x):add(x);
+        vis[x]^=1;
+    &#125;
+    
+    inline void update(int x)&#123;
+        if(vis[modi[x].pos])&#123;
+            calc(modi[x].pos);
+            swap(C[modi[x].pos],modi[x].val);
+            calc(modi[x].pos);
+        &#125;
+        else swap(C[modi[x].pos],modi[x].val);
+    &#125;
+    
+    ll ans[maxn];
+&#125;
+
+using namespace MOCAP;
+
+namespace Tree_chain_partition&#123;
+    int fa[maxn],size[maxn],son[maxn],dep[maxn],top[maxn];
+
+    int st[maxn],ed[maxn],pot[maxn],dfn;
+    
+    void dfs1(int u,int f)&#123;
+        st[u]=++dfn;pot[dfn]=u;
+        size[u]=1;
+        fa[u]=f;
+        dep[u]=dep[f]+1;
+        for(re int i=head[u];i;i=nxt[i])&#123;
+            int v=to[i];
+            if(v==f)continue;
+            dfs1(v,u);
+            size[u]+=size[v];
+            if(size[v]&gt;size[son[u]])son[u]=v;
+        &#125;
+        ed[u]=++dfn;pot[dfn]=u;
+    &#125;
+    
+    void dfs2(int u,int topf)&#123;
+        top[u]=topf;
+        if(!son[u])return;
+        dfs2(son[u],topf);
+        for(re int i=head[u];i;i=nxt[i])&#123;
+            int v=to[i];
+            if(v==fa[u]||v==son[u])continue;
+            dfs2(v,v);
+        &#125;
+    &#125;
+    
+    inline int lca(int x,int y)&#123;
+        while(top[x]!=top[y])&#123;
+            if(dep[top[x]]&lt;dep[top[y]])swap(x,y);
+            x=fa[top[x]];
+        &#125;
+        return dep[x]&lt;dep[y]?x:y;
+    &#125;
+    
+&#125;
+
+using namespace Tree_chain_partition;
+
+template&lt;typename T&gt;
+inline void read(T &amp;x)&#123;
+    x=0;T f=1;char ch=getchar();
+    while (!isdigit(ch)) &#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+    while (isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+    x*=f;
+&#125;
+
+inline void init()&#123;
+    read(n),read(m),read(q);
+    
+    block=pow(n,(double)2/(double)3);
+    
+    for(re int i=1;i&lt;=n&lt;&lt;1;i++)&#123;
+        belong[i]=(i-1)/block+1;
+    &#125;
+    
+    for(re int i=1;i&lt;=m;i++)&#123;
+        read(V[i]);
+    &#125;
+    for(re int i=1;i&lt;=n;i++)&#123;
+        read(W[i]);
+    &#125;
+    for(re int i=1,u,v;i&lt;n;i++)&#123;
+        read(u),read(v);
+        add(u,v);add(v,u);
+    &#125;
+    for(re int i=1;i&lt;=n;i++)&#123;
+        read(C[i]);
+    &#125;
+    
+    dfs1(1,0);
+    dfs2(1,1);
+&#125;
+
+signed main() &#123;
+#ifdef LawrenceSivan
+    freopen(&quot;aa.in&quot;,&quot;r&quot;, stdin);
+    freopen(&quot;aa.out&quot;,&quot;w&quot;, stdout);
+#endif
+    init();
+    
+    for(re int i=1,op;i&lt;=q;i++)&#123;
+        read(op);
+        if(op==0)&#123;
+            read(modi[++cntm].pos);
+            read(modi[cntm].val);
+        &#125;
+        if(op==1)&#123;
+            int x,y;
+            read(x),read(y);
+            if(st[x]&gt;st[y])swap(x,y);
+            int LCA=lca(x,y);
+            mocap[++cntq].id=cntq,mocap[cntq].pre=cntm;
+            if(LCA==x)mocap[cntq].l=st[x],mocap[cntq].r=st[y];
+            else mocap[cntq].l=ed[x],mocap[cntq].r=st[y],mocap[cntq].lca=LCA;
+        &#125;
+    &#125;
+    
+    sort(mocap+1,mocap+1+cntq);
+    
+    for(re int i=1;i&lt;=cntq;i++)&#123;
+        while(l&gt;mocap[i].l)calc(pot[--l]);
+        while(l&lt;mocap[i].l)calc(pot[l++]);
+        while(r&gt;mocap[i].r)calc(pot[r--]);
+        while(r&lt;mocap[i].r)calc(pot[++r]);
+        while(tim&lt;mocap[i].pre)update(++tim);
+        while(tim&gt;mocap[i].pre)update(tim--);
+        if(mocap[i].lca)calc(mocap[i].lca);
+        ans[mocap[i].id]=sum;
+        if(mocap[i].lca)calc(mocap[i].lca);
+    &#125;
+    
+    for(re int i=1;i&lt;=cntq;i++)&#123;
+        printf(&quot;%lld\n&quot;,ans[i]);
+    &#125;
+
+
+    return 0;
+&#125;
+</code></pre>
+<h2 id="回滚莫队（不删除莫队（少删除莫队））"><a href="#回滚莫队（不删除莫队（少删除莫队））" class="headerlink" title="回滚莫队（不删除莫队（少删除莫队））"></a>回滚莫队（不删除莫队（少删除莫队））</h2><p><del>首先这个玄学的名字是从题解里看到的。</del></p>
+<p><a href="https://www.luogu.com.cn/problem/P5906">P5906 【模板】回滚莫队&amp;不删除莫队</a></p>
+<p>这个题让我们求的玩意就非常诡异。</p>
+<p>给定一个序列，多次询问一段区间 $[l,r]$，求区间中相同的数的最远间隔距离。</p>
+<p>序列中两个元素的间隔距离指的是两个元素下标差的绝对值。</p>
+<p>对于普通的莫队操作，一般是需要支持增加和修改两种操作。</p>
+<p>可是有这样的一类题目，在你进行完移动操作以后需要立即更新答案（例如本题）</p>
+<p>于是可以发现一个问题：在删除左侧以后，我们需要知道次左，然后又需要知道次左的次左……</p>
+<p>于是这玩意就直接凉了。</p>
+<p>于是有这么个玩意名字叫回滚莫队，就可以解决这样的问题。</p>
+<p>既然我们删除操作不好搞，那我们就不删除！（或者是少删除（这也是不删除莫队名字的由来））</p>
+<p>就是说要用增加来代替删除操作。</p>
+<p>右端点的增加很好说，我们在排序的时候已经保证右端点有序。</p>
+<p>于是就是左端点的问题了。</p>
+<p>我们可以把左指针强行拉到右端点，然后让左指针往左走。然后再拉回右端点，然后再往左走。</p>
+<p>记录答案只需要先算一算右边的答案，然后再算一算左边的（ $add()$ ） </p>
+<p>然后算完以后我们就把左端点拉回来，然后把左边的贡献删掉就行了。</p>
+<h3 id="本题-1"><a href="#本题-1" class="headerlink" title="本题"></a>本题</h3><p>我们记左指针为 $l$，右指针为 $r$，当前块的右边界（分界线）为 $mid$， $[l,mid]$ 为左区间，$[mid,r]$ 为右区间</p>
+<p>然后答案会有三种情况出现：</p>
+<ul>
+<li><p>答案完全在左区间中</p>
+</li>
+<li><p>答案完全在右区间中</p>
+</li>
+<li><p>答案一部分在左区间中，一部分在右区间中</p>
+</li>
+</ul>
+<p>首先答案的右端点是单调的，因此取个 $\max$ 即可，与当前扫到的下标相减就解决了情况 $1$ 和 $3$,</p>
+<p>对于情况 $2$，我们要额外记录一个值，记录一个数在右区间中第一次出现的位置</p>
+<p>假如 $max$ 也在右区间中，相减，就得到了情况2的答案。</p>
+<h4 id="细节相关"><a href="#细节相关" class="headerlink" title="细节相关"></a>细节相关</h4><p>$1$：如果左右边界都在同一个块内就暴力计算</p>
+<pre><code class="cpp">int calc(int l,int r)&#123;
+    int last[maxn],res=0;
+    for(re int i=l;i&lt;=r;i++)last[a[i]]=0;
+    for(re int i=l;i&lt;=r;i++)&#123;
+        if(!last[a[i]])last[a[i]]=i;
+        else res=max(res,i-last[a[i]]);
+    &#125;
+    return res;
+&#125;
+</code></pre>
+<p>$2$：本题需要离散化</p>
+<pre><code class="cpp">inline void Discretization()&#123;
+    sort(num+1,num+1+n);
+    int tmp=unique(num+1,num+1+n)-num-1;
+    for(re int i=1;i&lt;=n;i++)a[i]=lower_bound(num+1,num+1+tmp,a[i])-num;
+&#125;
+</code></pre>
+<p>$3$ :由于回滚的原因，所以现在的左询问一定是小于上一次的左询问，现在的右询问一定大于上一次的右询问，所以原来莫队的四个 $while$ 只剩下了两个</p>
+<pre><code class="cpp">while(r&lt;mocap[i].r)&#123;
+    r++;mr[a[r]]=r;
+    if(!ml[a[r]])ml[a[r]]=r;
+    ans=max(ans,r-ml[a[r]]);
+&#125;
+        
+while(l&gt;mocap[i].l)&#123;
+    l--;
+    if(mr[a[l]])ans=max(ans,mr[a[l]]-l);
+    else mr[a[l]]=l;
+&#125;
+        
+Ans[mocap[i].id]=ans;
+</code></pre>
+<p>$4$：最后不要忘记把左端点再拉回来：</p>
+<p>同时有这样一个问题，再左端点走过去的时候，会影响贡献，又因为我们每次都要把左端点拉回最右侧，所以这个贡献对以后的询问是没什么用的，于是我们需要先记录一下当前的答案，再统计完左侧，记录完答案以后，把左端点拉回最右侧的时候去掉左侧的贡献，再把 $ans$ 更新回来就好了。</p>
+<pre><code class="cpp">while(l&lt;=nowr)&#123;
+    if(mr[a[l]]==l)mr[a[l]]=0;
+    l++;
+&#125;
+</code></pre>
+<pre><code class="cpp">int tmp=ans;//在l,r之间
+
+ans=tmp;//把左端点拉回来以后
+</code></pre>
+<p>$5$：其实还有一个细节，就是 $memset$ 也许会影响常数大小，于是我们不必要每次清空整个数组，只需要记录每次更改了哪些就可以了。</p>
+<p>最后再把这些清零就行了。</p>
+<pre><code class="cpp">for()&#123;
+    while(r&lt;q[i].r)&#123;
+        r++;
+        mr[a[r]]=r; 
+        if(!st[a[r]]) st[a[r]]=r,clear[++cn]=a[r]; //就是这里
+        ans=max(ans,r-st[a[r]]); 
+    &#125;
+&#125;
+
+for(int i=1;i&lt;=cn;i++) ma[clear[i]]=st[clear[i]]=0;//在大循环外
+</code></pre>
+<p>不过我没用，其实 $memset$ 的常数并不算太大，常数瓶颈并不在这里。<del>确信</del></p>
+<p>细节大概就这么多了。</p>
+<h3 id="CODE-2"><a href="#CODE-2" class="headerlink" title="CODE:"></a>CODE:</h3><pre><code class="cpp">//#define LawrenceSivan
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+#define re register
+const int maxn=2e5+5;
+#define INF 0x3f3f3f3f
+
+int n,m,block,tot,ans;
+
+int a[maxn],num[maxn],belong[maxn],Ans[maxn];
+
+int ml[maxn],mr[maxn];//ml是最早出现的位置，mr是最晚出现的位置
+
+int nowr,l,r;
+
+struct MOCAP&#123;
+    int l,r,id;
+    
+    inline bool operator &lt;(const MOCAP &amp;a)const&#123;
+        return belong[l]==belong[a.l]?r&lt;a.r:belong[l]&lt;belong[a.l];
+    &#125;
+&#125;mocap[maxn]; 
+
+inline void Discretization()&#123;
+    sort(num+1,num+1+n);
+    int tmp=unique(num+1,num+1+n)-num-1;
+    for(re int i=1;i&lt;=n;i++)a[i]=lower_bound(num+1,num+1+tmp,a[i])-num;
+&#125;
+
+int calc(int l,int r)&#123;
+    int last[maxn],res=0;
+    for(re int i=l;i&lt;=r;i++)last[a[i]]=0;
+    for(re int i=l;i&lt;=r;i++)&#123;
+        if(!last[a[i]])last[a[i]]=i;
+        else res=max(res,i-last[a[i]]);
+    &#125;
+    return res;
+&#125;
+
+
+inline int read()&#123;
+    int x=0,f=1;char ch=getchar();
+    while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+    while(isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+    return x*f;
+&#125;
+
+int main()&#123;
+#ifdef LawrenceSivan
+    freopen(&quot;aa.in&quot;,&quot;r&quot;,stdin);
+    freopen(&quot;aa.out&quot;,&quot;w&quot;,stdout);
+#endif
+    n=read();
+    block=sqrt(n);
+    
+    for(re int i=1;i&lt;=n;i++)&#123;
+        a[i]=num[i]=read();
+        belong[i]=(i-1)/block+1;
+    &#125;
+
+    tot=belong[n];
+    
+    Discretization();
+    
+    m=read();
+    
+    for(re int i=1;i&lt;=m;i++)&#123;
+        mocap[i].l=read();mocap[i].r=read();
+        mocap[i].id=i;
+    &#125;
+    
+    sort(mocap+1,mocap+1+m);
+    
+    for(re int j=1,i=1;j&lt;=tot;j++)&#123;
+        int nowr=min(n,j*block),l=nowr+1,r=l-1,ans=0;
+        
+        memset(ml,0,sizeof(ml));
+        memset(mr,0,sizeof(mr));
+        
+        for(;belong[mocap[i].l]==j;i++)&#123;
+            if(belong[mocap[i].r]==j)&#123;
+                Ans[mocap[i].id]=calc(mocap[i].l,mocap[i].r);
+                continue;
+            &#125;
+            while(r&lt;mocap[i].r)&#123;
+                r++;mr[a[r]]=r;
+                if(!ml[a[r]])ml[a[r]]=r;
+                ans=max(ans,r-ml[a[r]]);
+            &#125;
+            
+            int tmp=ans;
+            
+            while(l&gt;mocap[i].l)&#123;
+                l--;
+                if(mr[a[l]])ans=max(ans,mr[a[l]]-l);
+                else mr[a[l]]=l;//最后出现的位置可能在左区间中
+            &#125;
+            
+            Ans[mocap[i].id]=ans;
+            
+            while(l&lt;=nowr)&#123;
+                if(mr[a[l]]==l)mr[a[l]]=0;
+                l++;
+            &#125;
+            
+            ans=tmp;
+        &#125;
+    &#125;
+    
+    for(re int i=1;i&lt;=m;i++)&#123;
+        printf(&quot;%d\n&quot;,Ans[i]);
+    &#125;
+
+
+    return 0;
+&#125;
+
+</code></pre>
+<h3 id="例题-AT1219-歴史の研究"><a href="#例题-AT1219-歴史の研究" class="headerlink" title="例题 AT1219 歴史の研究"></a>例题 AT1219 歴史の研究</h3><p><a href="https://www.luogu.com.cn/problem/AT1219">AT1219 歴史の研究</a></p>
+<p>首先这个题比上一个好写一些</p>
+<p>但是作为一个菜鸡还是调了很久。</p>
+<p>总结了以下槽点：</p>
+<p>$1$：这个题依然要离散化。</p>
+<p>离散化完了以后千万别忘记你已经离散化了！！！</p>
+<p>不要傻乎乎的再使用原来的数据了</p>
+<p><del>这充分说明我是个傻逼，这么低级的错误也能犯</del></p>
+<p>$2$：这个题要开 $long \ long$</p>
+<p>开了 $int$ 然后 $WA$ 了，百思不得其解，然后发现要 $long \ long$</p>
+<p>好了其实别的几乎没有了，都是我比较傻逼</p>
+<p>代码放这了</p>
+<h4 id="CODE-3"><a href="#CODE-3" class="headerlink" title="CODE:"></a>CODE:</h4><pre><code class="cpp">//#define LawrenceSivan
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+#define re register
+const int maxn=1e5+5;
+#define INF 0x3f3f3f3f
+#define int long long
+
+int n,m,block,tot;
+
+int a[maxn],num[maxn],ans[maxn],belong[maxn];
+
+int c[maxn];
+
+inline void Discretization()&#123;
+    sort(num+1,num+1+n);
+    int tmp=unique(num+1,num+1+n)-num-1;
+    for(re int i=1;i&lt;=n;i++)a[i]=lower_bound(num+1,num+1+tmp,a[i])-num;
+&#125;
+
+struct MOCAP&#123;
+    int l,r,id;
+    
+    inline bool operator &lt; (const MOCAP &amp;a)const&#123;
+        return belong[l]==belong[a.l]?r&lt;a.r:belong[l]&lt;belong[a.l];
+    &#125;
+&#125;mocap[maxn];
+
+inline int calc(int l,int r)&#123;
+    int res=0;
+    int cntt[maxn];
+    for(re int i=l;i&lt;=r;i++)&#123;
+        cntt[a[i]]=0;
+    &#125;
+    for(re int i=l;i&lt;=r;i++)&#123;
+        cntt[a[i]]++;
+        res=max(res,cntt[a[i]]*num[a[i]]);
+    &#125;
+    
+    return res;
+&#125;
+
+inline int read()&#123;
+    int x=0,f=1;char ch=getchar();
+    while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+    while(isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+    return x*f;
+&#125;
+
+signed main()&#123;
+#ifdef LawrenceSivan
+    freopen(&quot;aa.in&quot;,&quot;r&quot;,stdin);
+    freopen(&quot;aa.out&quot;,&quot;w&quot;,stdout);
+#endif
+    n=read();m=read();
+    block=sqrt(n);
+    
+    for(re int i=1;i&lt;=n;i++)&#123;
+        a[i]=num[i]=read();
+        belong[i]=(i-1)/block+1;
+    &#125;
+    
+    tot=belong[n];
+    
+    Discretization();
+    
+    for(re int i=1;i&lt;=m;i++)&#123;
+        mocap[i].l=read();mocap[i].r=read();
+        mocap[i].id=i;
+    &#125;
+    
+    sort(mocap+1,mocap+1+m);
+    
+    for(re int j=1,i=1;j&lt;=tot;j++)&#123;
+        int nowr=min(n,j*block),l=nowr+1,r=l-1,sum=0;
+        memset(c,0,sizeof(c));
+        for(;belong[mocap[i].l]==j;i++)&#123;
+            if(belong[mocap[i].r]==j)&#123;
+                ans[mocap[i].id]=calc(mocap[i].l,mocap[i].r);
+                continue;
+            &#125;
+            
+            while(r&lt;mocap[i].r)&#123;
+                r++;
+                c[a[r]]++;
+                sum=max(sum,c[a[r]]*num[a[r]]);
+            &#125;
+            
+            int tmp=sum;
+            
+            while(l&gt;mocap[i].l)&#123;
+                l--;
+                c[a[l]]++;
+                sum=max(sum,c[a[l]]*num[a[l]]);
+            &#125;
+            
+            ans[mocap[i].id]=sum;
+            
+            while(l&lt;=nowr)&#123;
+                c[a[l]]--;
+                l++;
+            &#125;
+            
+            sum=tmp;
+        &#125;
+    &#125;
+    
+    for(re int i=1;i&lt;=m;i++)&#123;
+        printf(&quot;%lld\n&quot;,ans[i]);
+    &#125;
+    
+    
+    return 0;
+&#125;
+</code></pre>
+<h3 id="变式-Rmq-Problem-mex"><a href="#变式-Rmq-Problem-mex" class="headerlink" title="变式 Rmq Problem / mex"></a>变式 Rmq Problem / mex</h3><p><a href="https://www.luogu.com.cn/problem/P4137">P4137 Rmq Problem / mex</a></p>
+<p>后来我在智能推荐里找到了这道题。</p>
+<p>一眼看上去这个题面，貌似之前讲过的。</p>
+<p>之前讲的是可持久化线段树的做法。</p>
+<p>但是现在发现这玩意还可以用回滚莫队来搞。</p>
+<p>不过做了这道题确实颠覆和加深了我对回滚莫队的认识。</p>
+<p>题目很简洁：求给定区间内没有出现的最小的自然数是多少。</p>
+<p>稍加思考可以发现，这个东西的加入操作是没有办法做到 $O(1)$ 的。</p>
+<p>比如目前有一个序列：$0,6,3,5,4,2$ ，现在没有出现的最小自然数是 $1$。</p>
+<p>如果随着查询端点的移动，下一个位置要加入的数字恰好是 $1$，那么现在这个区间就出现 $1$ 了，于是我们要统计最小没有出现过的自然数的话就要从新统计。</p>
+<p>这是不好的。</p>
+<p>反观删除操作，如果还是上面的例子，现在右端点收缩，$2$ 就会被删除，于是我们只需要比较一下 $2,1$ 的大小关系，就可以在 $O(1)$ 的时间内确定新的 $mex$.</p>
+<p>这启示我们需要使用一个只资瓷删除而不资瓷增加的莫队。</p>
+<p>而根据我们刚刚学回滚莫队所联想的只资瓷增加不资瓷删除的回滚莫队相类比，我们可以将每个块按照<strong>左端点递增排序，右端点递减排序</strong>。</p>
+<p>首先求出整个序列的 $mex$.</p>
+<p>然后我们让右端点从整个序列的右侧不断地向左删除，同时左端点向右删除，处理完了以后我们让左端点回滚到块的左端点。这样就可以实现了。</p>
+<pre><code class="cpp">struct MOCAP&#123;
+    int l,r,id;
+    
+    inline bool operator &lt;(const MOCAP &amp;a)const&#123;
+        return belong[l]==belong[a.l]?r&gt;a.r:belong[l]&lt;belong[a.l];
+    &#125;
+&#125;mocap[maxn];     
+</code></pre>
+<p>可以画个图理解一下：</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/rahnqr3l.png"></p>
+<p>这个是普通的回滚莫队</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/7ov6gaxr.png"></p>
+<p>这个是只减不增的回滚莫队</p>
+<p>处理完一个块的询问之后，左指针必然会回滚到块的左端点</p>
+<p>这时，类似只加不减的回滚莫队，先暴力地把右指针遍历到整个序列的最右端，然后左指针向右删除到下一个块的左端点。</p>
+<h4 id="细节相关："><a href="#细节相关：" class="headerlink" title="细节相关："></a>细节相关：</h4><h5 id="贡献与端点移动的先后关系："><a href="#贡献与端点移动的先后关系：" class="headerlink" title="贡献与端点移动的先后关系："></a>贡献与端点移动的先后关系：</h5><p>之前我们写的回滚莫队是只增不减的，现在的是只减不增的。</p>
+<ul>
+<li>在只增不减的回滚莫队中：</li>
+</ul>
+<p>我们已经处理过当前询问内的贡献，现在需要扩大范围，但是当前的贡献也要保留，所以应该先跳动端点指针，然后再增加贡献：</p>
+<pre><code class="cpp">while(r&lt;mocap[i].r)&#123;
+    r++;
+    c[a[r]]++;
+    sum=max(sum,c[a[r]]*num[a[r]]);
+&#125;
+while(l&gt;mocap[i].l)&#123;
+    l--;
+    c[a[l]]++;
+    sum=max(sum,c[a[l]]*num[a[l]]);
+&#125;
+</code></pre>
+<p>（这两个片段是歴史の研究里面的）</p>
+<ul>
+<li>在只减不增的回滚莫队中：</li>
+</ul>
+<p>再来看这道题，只删除不增加：</p>
+<p>我们需要缩小范围，也就是要逐个删除贡献，于是当前位置的贡献已经没有用了，所以要先删掉，才能移动指针去修改下一个位置：</p>
+<pre><code class="cpp">while(r&gt;mocap[i].r)&#123;
+    if(a[r]&lt;=n+1&amp;&amp;!--cnt[a[r]])p=min(p,a[r]);
+    r--;
+&#125;
+
+while(l&lt;mocap[i].l)&#123;
+    if(a[l]&lt;=n+1&amp;&amp;!--cnt[a[l]])tmp=min(tmp,a[l]);
+    l++;
+&#125;
+</code></pre>
+<h5 id="关于左右端点的位置记录与移动"><a href="#关于左右端点的位置记录与移动" class="headerlink" title="关于左右端点的位置记录与移动"></a>关于左右端点的位置记录与移动</h5><p>因为以往的回滚都是要回到当前块的右端点，所以我们每次只记录右端点就可以了，但是这道题是要回到左端点，所以需要记录左端点。</p>
+<p>处理完一个块以后，我们要控制左端点移动到下一个快的左端点，所以这些问题都要注意：</p>
+<pre><code class="cpp">int nowr=min(n,j*block),l=nowr+1,r=l-1,sum=0;
+</code></pre>
+<p>（依然是歴史の研究里面的）</p>
+<pre><code class="cpp">int nowl=min(n,(j-1)*block)+1,l=nowl,r=n,p=mex,nxtl=min(n,j*block)+1;
+</code></pre>
+<p>（本题目）</p>
+<p>而且要注意，我们的右端点是要从整个序列的右端开始走的，所以要 $r=n$ .</p>
+<p>然后就是把右端点拉回最右侧，左端点拉到下一个块，这个东西也是平常的回滚莫队没有的：</p>
+<pre><code class="cpp">while(r&lt;n)&#123;
+    r++;
+    if(a[r]&lt;=n+1)cnt[a[r]]++; 
+&#125;
+        
+while(l&lt;nxtl)&#123;
+    if(a[l]&lt;=n+1&amp;&amp;!--cnt[a[l]])mex=min(mex,a[l]);
+    l++;
+&#125;
+</code></pre>
+<h5 id="关于在同一个块内的暴力计算"><a href="#关于在同一个块内的暴力计算" class="headerlink" title="关于在同一个块内的暴力计算"></a>关于在同一个块内的暴力计算</h5><p>首先这个东西有两种实现方法;</p>
+<p>$1$：开一个全局数组，每次暴力算就先用一用，然后统计完再把贡献删掉：</p>
+<pre><code class="cpp">if(belong[mocap[i].r]==j)&#123;
+    int res=0;
+    for(re int k=mocap[i].l;k&lt;=mocap[i].r;k++)&#123;
+        if(a[k]&lt;=n+1)cntt[a[k]]++;
+    &#125;
+    while(cntt[res])res++;
+    ans[mocap[i].id]=res;
+    for(re int k=mocap[i].l;k&lt;=mocap[i].r;k++)&#123;
+        if(a[k]&lt;=n+1)cntt[a[k]]--;
+    &#125;
+                
+    continue;
+&#125;
+</code></pre>
+<p>但是我不喜欢。</p>
+<p>如果你和我一样，都喜欢单独搞一个函数，然后在函数里直接统计，这样就可以不删除贡献了，用完就可以扔了。<del>可以不负责的感觉好爽</del></p>
+<p>但是一定要记得初始化！！</p>
+<p>不然你会 $WA$ 的很惨~</p>
+<pre><code class="cpp">inline int calc(int l,int r)&#123;
+    int res=0,cntt[maxn];
+    memset(cntt,0,sizeof(cntt));
+    
+    for(re int i=l;i&lt;=r;i++)&#123;
+        if(a[i]&lt;=n+1)cntt[a[i]]++;
+    &#125;
+    
+    while(cntt[res])res++;
+    
+    return res;
+&#125;
+</code></pre>
+<p>其他问题就没啥可说的了。</p>
+<p>放下代码</p>
+<h4 id="CODE：-2"><a href="#CODE：-2" class="headerlink" title="CODE："></a>CODE：</h4><pre><code class="cpp">//#define LawrenceSivan
+
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+#define INF 0x3f3f3f3f
+#define re register
+const int maxn=2e5+5;
+
+int n,m,belong[maxn],block,tot;
+
+int cnt[maxn],mex,ans[maxn];
+
+int a[maxn];
+
+struct MOCAP&#123;
+    int l,r,id;
+    
+    inline bool operator &lt;(const MOCAP &amp;a)const&#123;
+        return belong[l]==belong[a.l]?r&gt;a.r:belong[l]&lt;belong[a.l];
+    &#125;
+&#125;mocap[maxn]; 
+
+inline int calc(int l,int r)&#123;
+    int res=0,cntt[maxn];
+    memset(cntt,0,sizeof(cntt));
+    
+    for(re int i=l;i&lt;=r;i++)&#123;
+        if(a[i]&lt;=n+1)cntt[a[i]]++;
+    &#125;
+    
+    while(cntt[res])res++;
+    
+    return res;
+&#125;
+
+inline int read()&#123;
+    int x=0, f=1;char ch=getchar();
+    while (!isdigit(ch)) &#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+    while (isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+    return x*f;
+&#125;
+
+int main() &#123;
+#ifdef LawrenceSivan
+    freopen(&quot;aa.in&quot;, &quot;r&quot;, stdin);
+    freopen(&quot;aa.out&quot;, &quot;w&quot;, stdout);
+#endif
+    n=read();m=read();
+    block=sqrt(n);
+    
+    for(re int i=1;i&lt;=n;i++)&#123;
+        a[i]=read();
+        belong[i]=(i-1)/block+1;
+        if(a[i]&lt;=n+1)cnt[a[i]]++;
+    &#125;
+    
+    while(cnt[mex])mex++;
+    
+    tot=belong[n];
+    
+    for(re int i=1;i&lt;=m;i++)&#123;
+        mocap[i].l=read();mocap[i].r=read();
+        mocap[i].id=i;
+    &#125;
+    
+    sort(mocap+1,mocap+1+m);
+    
+    for(re int i=1,j=1;j&lt;=tot;j++)&#123;
+        int nowl=min(n,(j-1)*block)+1,l=nowl,r=n,p=mex,nxtl=min(n,j*block)+1;
+        for(;belong[mocap[i].l]==j;i++)&#123;
+            if(belong[mocap[i].r]==j)&#123;
+                ans[mocap[i].id]=calc(mocap[i].l,mocap[i].r);
+                continue;
+            &#125;
+            
+            while(r&gt;mocap[i].r)&#123;
+                if(a[r]&lt;=n+1&amp;&amp;!--cnt[a[r]])p=min(p,a[r]);
+                r--;
+            &#125;
+            
+            int tmp=p;
+            
+            while(l&lt;mocap[i].l)&#123;
+                if(a[l]&lt;=n+1&amp;&amp;!--cnt[a[l]])tmp=min(tmp,a[l]);
+                l++;
+            &#125;
+            
+            ans[mocap[i].id]=tmp;
+            
+            while(l&gt;nowl)&#123;
+                l--;
+                if(a[l]&lt;=n+1)cnt[a[l]]++;
+            &#125;
+        &#125;
+        
+        while(r&lt;n)&#123;
+            r++;
+            if(a[r]&lt;=n+1)cnt[a[r]]++; 
+        &#125;
+        
+        while(l&lt;nxtl)&#123;
+            if(a[l]&lt;=n+1&amp;&amp;!--cnt[a[l]])mex=min(mex,a[l]);
+            l++;
+        &#125;
+    &#125;
+    
+    for(re int i=1;i&lt;=m;i++)&#123;
+        printf(&quot;%d\n&quot;,ans[i]);
+    &#125;
+
+
+    return 0;
+&#125;
+
+</code></pre>
+
+        </div>
+        <!-- .entry-content -->
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2021/04/29/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%B0%8F%E7%BB%93/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/8.jpeg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="/images/cover/8.jpeg">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                计算几何小结</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2021/04/21/P3960%20%E5%88%97%E9%98%9F%EF%BC%88%E5%8A%A8%E6%80%81%E5%BC%80%E7%82%B9%E7%BA%BF%E6%AE%B5%E6%A0%91%EF%BC%89/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://images.pexels.com/photos/3417015/pexels-photo-3417015.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://images.pexels.com/photos/3417015/pexels-photo-3417015.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                P3960 列队（动态开点线段树）</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
+      
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "dIwCuws5ndk9l6KNX62Yp2v6-gzGzoHsz",
+        appKey: "5KBdadEbfMMamh1KsfIlVDqD",
+        path: window.location.pathname,
+        placeholder: "I will always be here for you."
+      })
+  }
+</script>
+
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="https://lawrencesivan.github.io/" class="profile gravatar"><img src="/images/avatar.jpg" itemprop="image" alt="LawrenceSivan" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="https://lawrencesivan.github.io/" itemprop="url" rel="author">LawrenceSivan</a>
+            </h3>
+          </div>
+        </div>
+        <hr>
+        <p><i class="iconfont icon-write"></i></p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
+</div>
+
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+
+
+    </div>    
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..."/>
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            // PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+    <!-- <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 LawrenceSivan<br>
+      powered_by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer> -->
+<footer id="colophon" class="site-footer" role="contentinfo">
+  <div class="site-info">
+    <div class="footertext">
+      <div class="img-preload">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/wordpress-rotating-ball-o.svg">
+        <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/disqus-preloader.svg">
+      </div>
+      <p style="color: #666666;">&copy 2021</p>
+    </div>
+    <div class="footer-device">
+    <p style="font-family: 'Ubuntu', sans-serif;">
+        <span style="color: #b9b9b9;">Theme <a href="https://github.com/honjun/hexo-theme-sakura" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Sakura</a> <i class="iconfont icon-sakura rotating" style="color: #ffc0cb;display:inline-block"></i> by <a href="https://2heng.xin/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Mashiro</a>&<a href="https://www.hojun.cn/" target="_blank" style="color: #b9b9b9;;text-decoration: underline dotted rgba(0, 0, 0, .1);">Hojun</a>, Powered by Hexo, Hosted by Coding Pages</a>
+        </span>
+      </p>
+    </div>
+  </div><!-- .site-info -->
+</footer>
+
+
+
+<!-- <script src="/js/tocbot.js"></script> -->
+<script type="text/javascript" src="/js/lib.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script type="text/javascript" src="/js/InsightSearch.js"></script>
+<script type="text/javascript" src="/js/jquery.fancybox.min.js"></script>
+<script type="text/javascript" src="/js/zoom.min.js"></script>
+<script type="text/javascript" src="/js/sakura-app.js"></script>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine@1.3.4/dist/Valine.min.js'></script>
+<script src="/js/botui.js"></script>
+<!-- 不蒜子 网页计数器 -->
+<script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script> -->
+<script type="text/javascript">
+/* <![CDATA[ */
+if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  var Poi = {"pjax":"1","movies":{"url": "https://zhengzheng-my.sharepoint.com/personal/non_fried_chips_acshl_me/_layouts/15/download.aspx?SourceUrl=%2Fpersonal%2Fnon_fried_chips_acshl_me%2FDocuments%2Fshare%2Fvideo.mp4&correlationId=20d234da-d0b5-49f9-99a5-c0291e744d73&psi=656be9bc-5258-44ab-bf84-0f9bcd27b12f&ccat=2&cs=fHxPbmVVcFdlYlBsYXllcg%3D%3D&App=OneDriveWebVideo","name":"video.mp4","live":"close"},"windowheight":"fixed","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+} else {
+  var Poi = {"pjax":"1","movies":{"url": "https://zhengzheng-my.sharepoint.com/personal/non_fried_chips_acshl_me/_layouts/15/download.aspx?SourceUrl=%2Fpersonal%2Fnon_fried_chips_acshl_me%2FDocuments%2Fshare%2Fvideo.mp4&correlationId=20d234da-d0b5-49f9-99a5-c0291e744d73&psi=656be9bc-5258-44ab-bf84-0f9bcd27b12f&ccat=2&cs=fHxPbmVVcFdlYlBsYXllcg%3D%3D&App=OneDriveWebVideo","name":"video.mp4","live":"open"},"windowheight":"auto","codelamp":"close","ajaxurl":"","order":"asc","formpostion":"bottom"};
+}
+/* ]]> */
+
+</script>
+<script>
+$(document).ready(function() {
+  if ($(".toc").length > 0 && document.body.clientWidth > 1200) {
+    if ($(".pattern-center").length > 0) { //有图的情况
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -400,
+          scrollSmoothOffset: -85
+      });
+    } else {
+      tocbot.init({
+          // Where to render the table of contents.
+          tocSelector: '.toc', // 放置目录的容器
+          // Where to grab the headings to build the table of contents.
+          contentSelector: '.entry-content', // 正文内容所在
+          // Which headings to grab inside of the contentSelector element.
+          scrollSmooth: true,
+          headingSelector: 'h1, h2, h3, h4, h5', // 需要索引的标题级别
+          headingsOffset: -85,
+          scrollSmoothOffset: -85
+      });
+    }
+    var offsetTop = $('.toc').offset().top - 95;
+    window.onscroll = function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop >= offsetTop) {
+        $('.toc').addClass('toc-fixed');
+      } else {
+        $('.toc').removeClass('toc-fixed');
+      }
+    }
+  }
+});
+</script>
+
+    <div class="openNav no-select" style="height: 50px;">
+      <div class="iconflat no-select" style="width: 50px; height: 50px;">
+        <div class="icon"></div>
+      </div>
+      <div class="site-branding search-form-submit">
+        <i class="iconfont js-toggle-search iconsearch icon-search"></i>
+      </div>
+    </div>
+  </section>
+  <div id="mo-nav" class="">
+  <div class="m-avatar">
+    <img src="/images/avatar.jpg">
+  </div>
+  <p style="text-align: center; color: #333; font-weight: 900; font-family: 'Ubuntu', sans-serif; letter-spacing: 1.5px">LawrenceSivan</p>
+  <p style="text-align: center; word-spacing: 20px;">
+    
+      
+        <a href="https://github.com/LawrenceSivan" class="fa fa-github" target="_blank" style="color: #333; margin-left:20px"></a>
+      
+        <a href="https://weibo.com/7464138878/profile?topnav=1&wvr=6" class="fa fa-weibo" target="_blank" style="color: #dd4b39; margin-left:20px"></a>
+      
+        <a href="https://user.qzone.qq.com/1641374235/infocenter" class="fa fa-qq" target="_blank" style="color: #25c6fe; margin-left:20px"></a>
+      
+    
+  </p>
+  <ul id="menu-new-1" class="menu">
+    
+      <li>
+        <a href="https://lawrencesivan.github.io/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-fort-awesome faa-shake" aria-hidden="true"></i>
+            首页
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/archives">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-archive faa-shake" aria-hidden="true"></i>
+            归档
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                  技术
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E7%94%9F%E6%B4%BB/">
+                  <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                  生活
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E8%B5%84%E6%BA%90/">
+                  <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                  资源
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E9%9A%8F%E6%83%B3/">
+                  <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                  随想
+                </a>
+              </li>
+            
+              <li>
+                <a href="/categories/%E8%BD%AC%E8%BD%BD/">
+                  <i class="fa fa-book" aria-hidden="true"></i>
+                  转载
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="javascript:;">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-list-ul faa-vertical" aria-hidden="true"></i>
+            清单
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/tags/%E6%82%A6%E8%AF%BB/">
+                  <i class="fa fa-th-list faa-bounce" aria-hidden="true"></i>
+                  书单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/bangumi/">
+                  <i class="fa fa-film faa-vertical" aria-hidden="true"></i>
+                  番组
+                </a>
+              </li>
+            
+              <li>
+                <a href="/music/">
+                  <i class="fa fa-headphones" aria-hidden="true"></i>
+                  歌单
+                </a>
+              </li>
+            
+              <li>
+                <a href="/tags/%E5%9B%BE%E9%9B%86/">
+                  <i class="fa fa-photo" aria-hidden="true"></i>
+                  图集
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/comment/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-pencil-square-o faa-tada" aria-hidden="true"></i>
+            留言板
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/links/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-link faa-shake" aria-hidden="true"></i>
+            友人帐
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-leaf faa-wrench" aria-hidden="true"></i>
+            关于
+          </span>
+        </a>
+        
+          <ul class="sub-menu">
+            
+              <li>
+                <a href="/about/">
+                  <i class="fa fa-meetup" aria-hidden="true"></i>
+                  我？
+                </a>
+              </li>
+            
+              <li>
+                <a href="/theme-sakura/">
+                  <i class="fa iconfont icon-sakura" aria-hidden="true"></i>
+                  主题
+                </a>
+              </li>
+            
+              <li>
+                <a href="/lab/">
+                  <i class="fa fa-cogs" aria-hidden="true"></i>
+                  Lab
+                </a>
+              </li>
+            
+          </ul>
+        
+      </li>
+    
+      <li>
+        <a href="/client/">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-android faa-vertical" aria-hidden="true"></i>
+            客户端
+          </span>
+        </a>
+        
+      </li>
+    
+      <li>
+        <a href="/atom.xml">
+          <span class="faa-parent animated-hover">
+            <i class="fa  fa-rss faa-pulse" aria-hidden="true"></i>
+            RSS
+          </span>
+        </a>
+        
+      </li>
+    
+  </ul>
+  <p style="text-align: center; font-size: 13px; color: #b9b9b9;">&copy 2021 hexo-sakura</p>
+</div>
+<button onclick="topFunction()" class="mobile-cd-top" id="moblieGoTop" title="Go to top" style="display: none;"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+<script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+<style>
+  .aplayer .aplayer-lrc {
+    height: 35px;
+  }
+  .aplayer .aplayer-lrc p{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 18px !important;
+  }
+  .aplayer .aplayer-lrc p.aplayer-lrc-current{
+    color: #FF1493;
+  }
+  .aplayer.aplayer-narrow .aplayer-body{
+    left: -66px !important;
+  }
+  .aplayer.aplayer-fixed .aplayer-lrc {
+    display: none;
+  }
+  .aplayer .aplayer-lrc.aplayer-lrc-hide {
+      display:none !important;
+  }
+  .aplayer.aplayer-fixed .lrc-show {
+    display: block;
+    background: rgba(255, 255, 255, 0.8);
+  }
+</style>
+<meting-js
+
+    id="6748556286"
+
+    server="netease"
+
+    type="playlist"
+
+    fixed="true"
+
+    autoplay="false"
+
+    loop="all"
+
+    order="random"
+
+    preload="auto"
+
+    volume="0.7"
+
+    mutex="true"
+
+</meting-js>
+<script>
+  $(function(){
+    $('body').on('click', '.aplayer', function(){
+      if($('.aplayer-button').hasClass('aplayer-play')) {
+        $('.aplayer-lrc').removeClass('lrc-show');
+      } else {
+        $('.aplayer-lrc').addClass('lrc-show');
+      }
+    })
+  });
+</script>
+</body>
+</html>
