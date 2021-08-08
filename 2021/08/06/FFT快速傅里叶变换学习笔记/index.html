@@ -409,23 +409,23 @@
 <h2 id="多项式的表示"><a href="#多项式的表示" class="headerlink" title="多项式的表示"></a>多项式的表示</h2><p>多项式指的是单项式相加组成的代数式。</p>
 <h3 id="多项式的系数表示"><a href="#多项式的系数表示" class="headerlink" title="多项式的系数表示"></a>多项式的系数表示</h3><p>每一项单项式都有其对应的系数，将系数提炼出来就得到了多项式的系数表示。</p>
 <p>一般的，我们把一个 $n-1$ 次的 $n$ 项多项式表示为：</p>
-<p>$f(x)=\sum\limits_{i=0}^{n-1}a_i x^i=a_0x^0+a_1x^1+a_2x^2…+a_{n-1}x^{n-1}$</p>
+<p>$$f(x)=\sum\limits_{i=0}^{n-1}a_i x^i=a_0x^0+a_1x^1+a_2x^2…+a_{n-1}x^{n-1}$$</p>
 <p>系数表示即为：</p>
-<p>$f(x)={a_0.a_1,a_2…a_{n-1}}$</p>
+<p>$$f(x)={a_0.a_1,a_2…a_{n-1}}$$​</p>
 <p>对于两个 $n$ 项多项式卷积，那么需要枚举每一对系数的乘积结果，复杂度 $\mathcal{O(n^2)}$。</p>
 <h3 id="多项式的点值表示"><a href="#多项式的点值表示" class="headerlink" title="多项式的点值表示"></a>多项式的点值表示</h3><p>给定 $n+1$ 个互不相同的点，我们可以唯一确定一个 $n$ 次多项式函数。</p>
 <p>可以使用 $n+1$ 个点值（有序数对）来描述一个多项式。</p>
 <p>点值表示即为 ：</p>
-<p>$f(x)={(x_0,f(x_0)),(x_1,f(x_1)),(x_2,f(x_2))…(x_n,f(x_n) )}$​</p>
+<p>$$f(x)={(x_0,f(x_0)),(x_1,f(x_1)),(x_2,f(x_2))…(x_n,f(x_n) )}$$​​</p>
 <p>进行乘法即为函数值相乘，复杂度 $\mathcal{O(n)}$​。</p>
 <p>点值表示远快于暴力卷积。</p>
 <h2 id="基本复数运算"><a href="#基本复数运算" class="headerlink" title="基本复数运算"></a>基本复数运算</h2><p>说是不讲复数，但是怎么样还是应该说一说。</p>
 <p>复数相加为实部虚部对应相加。</p>
 <p>相减同理。</p>
 <p>相乘形式为：</p>
-<p>$(a+bi)\times (c+di)=ac+adi+bci+bdi^2=(ac-bd)+(ad+bc)i$</p>
+<p>$$(a+bi)\times (c+di)=ac+adi+bci+bdi^2=(ac-bd)+(ad+bc)i$$​</p>
 <p>相除形式为：</p>
-<p>$\frac{a+bi}{c+di}=\frac{(a+bi)(c-di)}{(c+di)(c-di)}=\frac{(ac+bd)+(bc-ad)i}{c^2+d^2}=\frac{ac+bd}{c^2+d^2}+\frac{bc-ad}{c^2+d^2}$</p>
+<p>$$\dfrac{a+bi}{c+di}=\dfrac{(a+bi)(c-di)}{(c+di)(c-di)}=\dfrac{(ac+bd)+(bc-ad)i}{c^2+d^2}=\dfrac{ac+bd}{c^2+d^2}+\dfrac{bc-ad}{c^2+d^2}$$​</p>
 <p>复数相乘还有一个几何意义：模相乘，角相加。</p>
 <p>具体地，$(a_1,\theta_1)(a_2,\theta_2)=(a_1a_2,\theta_1+\theta_2)$​。</p>
 <pre><code class="cpp">struct Complex&#123;
@@ -496,40 +496,45 @@
 <p>不使用 FFT 直接进行朴素转化是 $\mathcal{O(n^2)}$​ 的。</p>
 <p>考虑更高效的方法。</p>
 <h3 id="DFT（系数表示转化成点值表示）"><a href="#DFT（系数表示转化成点值表示）" class="headerlink" title="DFT（系数表示转化成点值表示）"></a>DFT（系数表示转化成点值表示）</h3><p>设多项式:</p>
-<p> $A(x)=\sum\limits_{i=0}^{n-1}a_i x^i=a_0x^0+a_1x^1+a_2x^2…+a_{n-1}x^{n-1}$</p>
+<p> $$A(x)=\sum\limits_{i=0}^{n-1}a_i x^i=a_0x^0+a_1x^1+a_2x^2…+a_{n-1}x^{n-1}$$​</p>
 <p>按奇偶分类（分治思路）：</p>
-<p>$A(x)=（a_0x^0+a_2x^2+a_4x^4…+a_{n-2}x^{n-2}）\\+\\（a_1x^1+a_3x^3+a_5x^5…+a_{n-1}x^{n-1}）$​​</p>
+<p>$$A(x)=（a_0x^0+a_2x^2+a_4x^4…+a_{n-2}x^{n-2}）$$</p>
+<p>$$+$$</p>
+<p>$$（a_1x^1+a_3x^3+a_5x^5…+a_{n-1}x^{n-1}）$$​​​​</p>
 <p>两边统一次数，提出后面的 $x$：</p>
-<p>$A(x)=（a_0+a_2x^2+a_4x^4…+a_{n-2}x^{n-2}）\\+\\x\times（a_1+a_3x^2+a_5x^4…+a_{n-1}x^{n-2}）$​​</p>
+<p>$$A(x)=（a_0+a_2x^2+a_4x^4…+a_{n-2}x^{n-2}）$$</p>
+<p>$$+$$</p>
+<p>$$x\times（a_1+a_3x^2+a_5x^4…+a_{n-1}x^{n-2}）$$​</p>
 <p>设两个 $\frac{n}{2}$ 项的多项式 $L(x)$ 和 $R(x)$ ，考虑降低 $A(x)$ 的次数，执行分治过程：</p>
-<p>$L(x)=（a_0+a_2x^1+a_4x^2…+a_{n-2}x^{\frac{n}{2}-1}）\\R(x)=（a_1+a_3x^1+a_5x^2…+a_{n-1}x^{\frac{n}{2}-1}）$​​​​​​</p>
+<p>$$L(x)=（a_0+a_2x^1+a_4x^2…+a_{n-2}x^{\frac{n}{2}-1}）$$</p>
+<p>$$R(x)=（a_1+a_3x^1+a_5x^2…+a_{n-1}x^{\frac{n}{2}-1}）$$​​​​​​​​</p>
 <p>原式可以表示为 $A(x)=L(x^2)+x\times R(x^2)$ </p>
 <p>注意式子中需要带入 $x^2$ ，由于我们为了执行分治降低了次数，现在要保持式子不变。</p>
 <p>之后考虑把单位根 $\omega_n ^k$ 带入原式</p>
 <ul>
 <li><p>$k&lt;\frac{n}{2}$ ，代入 $\omega_n^ k$ :</p>
-<p>$A(\omega_n^k)=L((\omega_n^k)^2)+\omega_n^k\times R((\omega_n^k)^2)$</p>
+<p>$$A(\omega_n^k)=L((\omega_n^k)^2)+\omega_n^k\times R((\omega_n^k)^2)$$​</p>
 <p>根据单位根性质 $7$ $\omega_{pn}^{pk}=\omega_n^k$:</p>
-<p>$(\omega_n^k)^2=(\omega_n^{2k})=(\omega_{\frac{n}{2}}^{k})$ </p>
-<p>$A(\omega_n^k)=L(\omega_{\frac{n}{2}}^{k})+\omega_n^k\times R(\omega_{\frac{n}{2}}^{k})$​</p>
+<p>$$(\omega_n^k)^2=(\omega_n^{2k})=(\omega_{\frac{n}{2}}^{k})$$​</p>
+<p>$$A(\omega_n^k)=L(\omega_{\frac{n}{2}}^{k})+\omega_n^k\times R(\omega_{\frac{n}{2}}^{k})$$​​</p>
 </li>
 </ul>
 <ul>
 <li><p>$k&lt;\frac{n}{2}$,代入 $\omega_n^ {k+\frac{n}{2}}$</p>
-<p>$A(\omega_n^ {k+\frac{n}{2}})=L((\omega_n^ {k+\frac{n}{2}})^2)+\omega_n^ {k+\frac{n}{2}}\times R((\omega_n^ {k+\frac{n}{2}})^2)$</p>
+<p>$$A(\omega_n^ {k+\frac{n}{2}})=L((\omega_n^ {k+\frac{n}{2}})^2)+\omega_n^ {k+\frac{n}{2}}\times R((\omega_n^ {k+\frac{n}{2}})^2)$$​</p>
 <p>由单位根的性质 $6$ $(\omega_n^k)^j=\omega_n^{kj}$​得：</p>
-<p>$A(\omega_n^ {k+\frac{n}{2}})=L(\omega_n^ {2k+n})+\omega_n^ {k+\frac{n}{2}}\times R(\omega _n^{2k+n})$</p>
+<p>$$A(\omega_n^ {k+\frac{n}{2}})=L(\omega_n^ {2k+n})+\omega_n^ {k+\frac{n}{2}}\times R(\omega _n^{2k+n})$$​</p>
 <p>由单位根的性质 $1$​​ $\omega_n^k=\omega_n^{k\mod n}$​​ 得到：</p>
-<p>$A(\omega_n^ {k+\frac{n}{2}})=L(\omega_n^ {2k})+\omega_n^ {k+\frac{n}{2}}\times R(\omega _n^{2k})$</p>
+<p>$$A(\omega_n^ {k+\frac{n}{2}})=L(\omega_n^ {2k})+\omega_n^ {k+\frac{n}{2}}\times R(\omega _n^{2k})$$​</p>
 <p>由单位根的性质 $7$ $\omega_{pn}^{pk}=\omega_n^k$ 得到：</p>
-<p>$A(\omega_n^ {k+\frac{n}{2}})=L(\omega_{\frac{n}{2}}^ {k})+\omega_n^ {k+\frac{n}{2}}\times R(\omega_{\frac{n}{2}}^ {k})$</p>
+<p>$$A(\omega_n^ {k+\frac{n}{2}})=L(\omega_{\frac{n}{2}}^ {k})+\omega_n^ {k+\frac{n}{2}}\times R(\omega_{\frac{n}{2}}^ {k})$$​</p>
 <p>由单位根的性质 $8$ $\omega_n^{(k+\frac{n}{2})}=-\omega_n^k$ 得：</p>
-<p>$A(\omega_n^ {k+\frac{n}{2}})=L(\omega_{\frac{n}{2}}^ {k})-\omega_n^ {k}\times R(\omega_{\frac{n}{2}}^ {k})$</p>
+<p>$$A(\omega_n^ {k+\frac{n}{2}})=L(\omega_{\frac{n}{2}}^ {k})-\omega_n^ {k}\times R(\omega_{\frac{n}{2}}^ {k})$$​</p>
 </li>
 </ul>
 <p>对比两个式子：</p>
-<p>​    $A(\omega_n^k)=L(\omega_{\frac{n}{2}}^{k})+\omega_n^k\times R(\omega_{\frac{n}{2}}^{k})$​</p>
-<p>​    $A(\omega_n^ {k+\frac{n}{2}})=L(\omega_{\frac{n}{2}}^ {k})-\omega_n^ {k}\times R(\omega_{\frac{n}{2}}^ {k})$</p>
+<p>​    $$A(\omega_n^k)=L(\omega_{\frac{n}{2}}^{k})+\omega_n^k\times R(\omega_{\frac{n}{2}}^{k})$$​​</p>
+<p>​    $$A(\omega_n^ {k+\frac{n}{2}})=L(\omega_{\frac{n}{2}}^ {k})-\omega_n^ {k}\times R(\omega_{\frac{n}{2}}^ {k})$$​</p>
 <p>发现右侧只有一个符号的差别。于是他们可以同步计算。</p>
 <p>换句话说，FFT 就是把单位根上下半圆的部分分别带入 $A(x)=L(x^2)+x\times R(x^2)$​  </p>
 <p>于是我们在 $\mathcal{O(n\log n)}$ 时间复杂度内完成了系数表示转成点值表示的过程。</p>
@@ -543,23 +548,25 @@
 <p>结论是 $n\times A[k]=\sum\limits^{n-1}_{i=0}(\omega_n^{-k})^iG[i]$​</p>
 <p>证明：</p>
 <p>把点值代入右边可以得到：</p>
-<p>$\sum\limits _{i=0} ^{n-1}\left( (\omega_n^{-k})G[i] \right)=\sum\limits _{i=0}^{n-1}\left( \left( \sum\limits^{n-1}_{j=0}(\omega_n^i)^jA[j] \right) \times(\omega_n^{-k})^i \right)$​​​​</p>
+<p>$$\sum\limits _{i=0} ^{n-1}\left( (\omega_n^{-k})G[i] \right)=\sum\limits _{i=0}^{n-1}\left( \left( \sum\limits^{n-1}_{j=0}(\omega_n^i)^jA[j] \right) \times(\omega_n^{-k})^i \right)$$​​​​​</p>
 <p>化简得到：</p>
-<p>$\sum\limits^{n-1}_{i=0}\left( (\omega_n^{-k})G[i] \right)=\sum\limits^{n-1}_{i=0}\left( \sum\limits^{n-1}_{j=0}(\omega_n^{i(j-k)})A[j] \right)$​</p>
+<p>$$\sum\limits^{n-1}_{i=0}\left( (\omega_n^{-k})G[i] \right)=\sum\limits^{n-1}_{i=0}\left( \sum\limits^{n-1}_{j=0}(\omega_n^{i(j-k)})A[j] \right)$$​​</p>
 <p>分类讨论：</p>
 <ul>
 <li><p>$j=k$ </p>
-<p>贡献是 $\sum\limits^{n-1}_{i=0} \sum\limits^{n-1}_{j=0}(\omega_n^{i(j-k)})A[j] \times[j==k]$​​</p>
-<p>$=\sum\limits^{n-1}_{i=0}\omega_n^{i(k-k)}A[k]$​​</p>
-<p>$=\sum\limits^{n-1}_{i=0}A[k]$​</p>
-<p>$=n\times A[k]$</p>
+<p>贡献是 </p>
+<p>$$\sum\limits^{n-1}_{i=0} \sum\limits^{n-1}_{j=0}(\omega_n^{i(j-k)})A[j] \times[j==k]$$​​​</p>
+<p>$$=\sum\limits^{n-1}_{i=0}\omega_n^{i(k-k)}A[k]$$​​​</p>
+<p>$$=\sum\limits^{n-1}_{i=0}A[k]$$​​</p>
+<p>$$=n\times A[k]$$</p>
 </li>
 <li><p>$j\ne k$</p>
 <p>设 $p=j-k$</p>
-<p>贡献就是 $\sum\limits_{i=0}^{n-1}\omega_n^{ip}A[k+p]$</p>
-<p>$=\omega_n^p\left(\sum\limits_{i=0}^{n-1}\omega_n^{i}\right)A[k+p]$​</p>
+<p>贡献就是</p>
+<p> $$\sum\limits_{i=0}^{n-1}\omega_n^{ip}A[k+p]$$​​</p>
+<p>$$=\omega_n^p\left(\sum\limits_{i=0}^{n-1}\omega_n^{i}\right)A[k+p]$$​​</p>
 <p>等比数列求和得到：</p>
-<p>$\left(\sum\limits_{i=0}^{n-1}\omega_n^{i}\right)=\frac{1-\omega_n^{np}}{1-\omega_n^{p}}=\frac{1-\omega_n^{0}}{1-\omega_n^{p}}=0$</p>
+<p>$$\left(\sum\limits_{i=0}^{n-1}\omega_n^{i}\right)=\frac{1-\omega_n^{np}}{1-\omega_n^{p}}=\frac{1-\omega_n^{0}}{1-\omega_n^{p}}=0$$​</p>
 <p>所以这一部分贡献是 $0$。</p>
 </li>
 </ul>
