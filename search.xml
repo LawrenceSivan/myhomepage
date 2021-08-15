@@ -1714,9 +1714,15 @@ int main()&#123;
 </li>
 <li><p>如果 $n$ 是偶数，$\omega_n^{(k+\frac{n}{2})}=-\omega_n^k$ </p>
 <p>$\omega_n^{(k+\frac{n}{2})}=\omega_n^k\times\omega_n^{(\frac{n}{2})}$</p>
-<p>对于 $\omega_n^{(\frac{n}{2})}$ ，可以理解为把幅角转动 $\frac{1}{2}$ 个圆周，关于原点对称。</p>
+<p>对于 $\omega_n^{(\frac{n}{2})}$​ ，可以理解为把幅角转动 $\frac{1}{2}$​ 个圆周，关于原点对称。</p>
 </li>
 </ol>
+<h3 id="求和引理"><a href="#求和引理" class="headerlink" title="求和引理"></a>求和引理</h3><p>求和引理的一般形式是:</p>
+<p>$$\sum\limits^{n-1}_{i=0}(\omega_n^k)^i=0,(k \ne n)$$</p>
+<p>由等比数列的求和公式可得：</p>
+<p>$$\sum\limits^{n-1}_{i=0}(\omega_n^k)^i=\frac{(\omega_n^k)^n-1}{\omega_n^k-1}=\dfrac{1-1}{1-\omega_n^k}=0$$​</p>
+<p>对于 $(k==n)$</p>
+<p>$$\sum\limits^{n-1}_{i=0}(\omega_n^k)^i=n$$</p>
 <h2 id="DFT-与-IDFT-概述"><a href="#DFT-与-IDFT-概述" class="headerlink" title="DFT 与 IDFT 概述"></a>DFT 与 IDFT 概述</h2><p>把<strong>系数表示</strong>转化为<strong>点值表示</strong>的算法叫做 DFT；</p>
 <p>把<strong>点值表示</strong>转化为<strong>系数表示</strong>的算法叫做 IDFT（或者称为 DFT 的逆运算）</p>
 <p>从系数表示确定点值表示的过程叫做求值，从点值表示确定系数表示的过程叫做插值。</p>
@@ -1780,8 +1786,8 @@ int main()&#123;
 <p>把点值代入右边可以得到：</p>
 <p>$$\sum\limits _{i=0} ^{n-1}\left( (\omega_n^{-k})G[i] \right)=\sum\limits _{i=0}^{n-1}\left( \left( \sum\limits^{n-1}_{j=0}(\omega_n^i)^jA[j] \right) \times(\omega_n^{-k})^i \right)$$​​​​​</p>
 <p>化简得到：</p>
-<p>$$\sum\limits^{n-1}_{i=0}\left( (\omega_n^{-k})G[i] \right)=\sum\limits^{n-1}_{i=0}\left( \sum\limits^{n-1}_{j=0}(\omega_n^{i(j-k)})A[j] \right)$$​​</p>
-<p>分类讨论：</p>
+<p>$$\sum\limits^{n-1}_{i=0}\left( (\omega_n^{-k})G[i] \right)=\sum\limits^{n-1}_{i=0}\left( \sum\limits^{n-1}_{j=0}(\omega_n^{i(j-k)})A[j] \right)$$​</p>
+<p>根据<strong>求和引理</strong>分类讨论：</p>
 <ul>
 <li><p>$j=k$ </p>
 <p>贡献是 </p>
@@ -1796,8 +1802,8 @@ int main()&#123;
 <p> $$\sum\limits_{i=0}^{n-1}\omega_n^{ip}A[k+p]$$​​</p>
 <p>$$=\omega_n^p\left(\sum\limits_{i=0}^{n-1}\omega_n^{i}\right)A[k+p]$$​​</p>
 <p>等比数列求和得到：</p>
-<p>$$\left(\sum\limits_{i=0}^{n-1}\omega_n^{i}\right)=\frac{1-\omega_n^{np}}{1-\omega_n^{p}}=\frac{1-\omega_n^{0}}{1-\omega_n^{p}}=0$$​</p>
-<p>所以这一部分贡献是 $0$。</p>
+<p>$$\left(\sum\limits_{i=0}^{n-1}\omega_n^{i}\right)=\dfrac{\omega_n^{np}-1}{\omega_n^{p}-1}=\dfrac{\omega_n^{0}-1}{\omega_n^{p}-1}=0$$​​​</p>
+<p>所以这一部分贡献是 $0$​。</p>
 </li>
 </ul>
 <p>证毕。</p>
