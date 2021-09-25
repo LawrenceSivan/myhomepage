@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   
-  <title itemprop="name">LawrenceSivan</title>
+  <title itemprop="name">快速莫比乌斯&amp;沃尔什变换(FMT&amp;FWT)学习笔记 | LawrenceSivan</title>
   
     <link rel="shortcut icon" href="/images/favicon.ico">
   
@@ -354,449 +354,463 @@
   </div>
 </header>
 
-      <div class="blank" style="padding-top: 0px;"></div>
+      <link rel="stylesheet" type="text/css" href="/css/sharejs.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+<div class="pattern-center-blank"></div>
+
+  <div class="pattern-center single-center">
+    <!-- 有配图默认渲染第一张 -->
+    <div class="pattern-attachment-img lazyload" style="background-image: url(https://i.loli.net/2021/08/25/Vk1wgbxQWcTPhJB.jpg);" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2021/08/25/Vk1wgbxQWcTPhJB.jpg">
+    </div>
+    <header class="pattern-header single-header">
+      <h1 class="entry-title">
+      快速莫比乌斯&沃尔什变换(FMT&FWT)学习笔记</h1>
+      <p class="entry-census">
+        <span>
+          <a href="https://lawrencesivan.github.io/">
+            <img src="/images/avatar.jpg">
+          </a>
+        </span>
+        <span>
+          <a href="https://lawrencesivan.github.io/">LawrenceSivan</a>
+        </span>
+        <span class="bull">
+        ·</span>
+        2021-8-25<span class="bull">
+        ·</span>
+      <span id="busuanzi_value_page_pv"></span>次阅读</p>
+    </header>
+  </div>
+
 <div id="content" class="site-content">
-  
-  <div class="notice" style="margin-top:60px">
-    <i class="iconfont icon-notification">
-    </i>
-    <div class="notice-content">Github博客搭建完成！，文章将同步更新至洛谷，Cnblogs和Github。</div>
-  </div>
-  
-  <div class="top-feature-row">
-  <h1 class="fes-title" style="font-family: 'Ubuntu', sans-serif;">
-  <i class="fa fa-anchor" aria-hidden="true">
-  </i>
-  START:DASH!!</h1>
-  
-  <div class="top-feature-v2">
-    <div class="the-feature square from_left_and_right">
-      <a href="/theme-sakura/" target="_blank">
-        <div class="img">
-          <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/startdash/sakura.md.png">
-        </div>
-        <div class="info">
-          <h3>Sakura</h3>
-          <p>本站 hexo 主题</p>
-        </div>
-      </a>
-    </div>
-  </div>
-  
-  <div class="top-feature-v2">
-    <div class="the-feature square from_left_and_right">
-      <a href="https://space.bilibili.com/671229125" target="_blank">
-        <div class="img">
-          <img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/startdash/bilibili.jpg">
-        </div>
-        <div class="info">
-          <h3>Bilibili</h3>
-          <p>博主的b站视频</p>
-        </div>
-      </a>
-    </div>
-  </div>
-  
-</div>
   <div id="primary" class="content-area">
     <main id="main" class="site-main" role="main">
-      <h1 class="main-title" style="font-family: 'Ubuntu', sans-serif;">
-      <i class="fa fa-envira" aria-hidden="true"></i>
-      Discovery</h1>
+      <article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized">
+        <div class="toc"></div>
+        <!--<div class="toc-entry-content"><!-- 套嵌目录使用（主要为了支援评论）-->
+        
+        <div class="entry-content">
+          <h1 id="快速莫比乌斯-amp-沃尔什变换-FMT-amp-FWT-学习笔记"><a href="#快速莫比乌斯-amp-沃尔什变换-FMT-amp-FWT-学习笔记" class="headerlink" title="快速莫比乌斯&amp;沃尔什变换(FMT&amp;FWT)学习笔记"></a>快速莫比乌斯&amp;沃尔什变换(FMT&amp;FWT)学习笔记</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>就是这个混蛋玩意我学了<del>两个晚上</del>15天才搞定 /fn</p>
+<p><del>其实是因为一直在摸鱼，导致……</del></p>
+<p>好了于是今晚决定不摸！</p>
+<p>（来自未来：这个 sb 又咕咕咕了</p>
+<p>updated on 2021.9.9：被点击哥断电了，气愤</p>
+<p>updated on 2021.9.9：半个小时后：重写的时候发现了一些错误，感谢点击哥。</p>
+<p>updated on 2021.9.9 16:56 ,这只鸽子现在终于写完了</p>
+<h2 id="位运算卷积"><a href="#位运算卷积" class="headerlink" title="位运算卷积"></a>位运算卷积</h2><p>之前提到了 FFT（快速傅里叶变换）、NTT（快速数论变换），他们都是对于加法卷积(多项式乘法)的快速变换。</p>
+<p>回忆一下卷积的一般形式是：</p>
+<p>$$\sum\limits_{i\oplus j=k}{A[i]B[j]}$$</p>
+<p>根据上式我们可以给出位运算卷积的定义：</p>
+<p>将第 $i$ 项与第 $j$ 项的乘积贡献到第 $i\oplus j$ 项，其中 $\oplus$ 是一种位运算。</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>大致思路与 FFT 一致，首先进行正变换，之后逐位相乘，最后经过逆变换得出答案。</p>
+<h2 id="或卷积（FWT-or）"><a href="#或卷积（FWT-or）" class="headerlink" title="或卷积（FWT_or）"></a>或卷积（FWT_or）</h2><p>要求：</p>
+<p>$$C[i]=\sum\limits_{j|k=i}{A[j]B[k]}$$</p>
+<h3 id="正变换-（FWT）"><a href="#正变换-（FWT）" class="headerlink" title="正变换 （FWT）"></a>正变换 （FWT）</h3><p>有个显然的性质是 $j|i=i,k|i=i \rightarrow(j|k)|i=i$。</p>
+<p>于是可以构造：</p>
+<p>$$FWT[A]<em>i=\sum\limits</em>{j|i=i}A[j]$$</p>
+<p>意义是下标的子集对应位置之和。</p>
+<p>$j|i=i$ 表示 $j$ 是 $i$ 的子集。</p>
+<p>于是有：</p>
+<p>$$FWT[A]<em>i\times FWT[B]<em>i=\left(\sum\limits</em>{j|i=i}{A[j]}\right)\left(\sum\limits</em>{k|i=i}{B[k]}\right)$$</p>
+<p>$$=\sum\limits_{j|i=i}\sum\limits_{k|i=i}{A[j]B[k]}$$</p>
+<p>$$=\sum\limits_{(j|k)|i=i}{A[j]B[k]}$$</p>
+<p>$$=\sum\limits_{x|i=i}\sum\limits_{j|k=x}{A[j]B[k]}$$</p>
+<p>$$=\sum\limits_{x|i=i}C[x]$$</p>
+<p>$$=FWT[C]_i$$</p>
+<p>依照这个思路，我们就完成了正变换。</p>
+<p>直接做显然是 $\mathcal{O(n^2)}$ 的。</p>
+<p>考虑如何快速实现这个过程：</p>
+<p>回忆 FFT 的实现过程，我们通过分治降低了复杂度。</p>
+<p>于是将整个区间分成两部分，进行分治。</p>
+<p>对于一个长度为 $2^n$ 的多项式，我们使用 $A_0$ 表示前 $2^{n-1}$ 项，$A_1$ 表示后 $2^{n-1}$ 项。</p>
+<p>可以发现，对于 $A_0$ ，他的下标最高位一定是 $0$，于是他的子集只能是自己的子集。</p>
+<p>对于 $A_1$ 由于最高位是 $1$，所以它的子集除了包括自己的部分，还要包括 $A_0$ 的部分。</p>
+<p>于是可以写出以下式子：</p>
+<p>$$FWT[A]= \begin{cases}{\text{merge}(FWT[A_0],FWT[A_0]+FWT[A_1]),(n&gt;0)}\{A,(n=0)} \end{cases} $$</p>
+<p>其中， $\text{merge}$ 表示拼接，$+$ 表示对应位置相加。</p>
+<p>这就是分治手段。</p>
+<p>事实上是高维前缀和.</p>
+<h3 id="逆变换-IFWT"><a href="#逆变换-IFWT" class="headerlink" title="逆变换 (IFWT)"></a>逆变换 (IFWT)</h3><p>满足 $A=IFWT(FWT(A))$。</p>
+<h4 id="感性理解-amp-做法"><a href="#感性理解-amp-做法" class="headerlink" title="感性理解&amp;做法"></a>感性理解&amp;做法</h4><p>嗯，写这个主要是为了方便 <del>（逃</del></p>
+<p>把正变换的符号换一下就行了。</p>
+<p>由 </p>
+<p>$${\text{merge}(FWT[A_0],FWT[A_0]+FWT[A_1]),(n&gt;0)}$$ </p>
+<p>得：</p>
+<p>$$IFWT(FWT(A))=merge(IFWT(FWT(A_0)),IFWT(FWT(A_1))-IFWT(FWT(A_0)))$$</p>
+<p>简单一点就是：</p>
+<p>$$A=merge(A_0,A_1-A_0)$$</p>
+<p>感性理解就是前缀和与差分的关系。</p>
+<p>实际上是高维前缀差分.</p>
+<h4 id="理性理解-amp-证明"><a href="#理性理解-amp-证明" class="headerlink" title="理性理解&amp;证明"></a>理性理解&amp;证明</h4><p>证明：</p>
+<p>现在我们已知 $FWT[A]_0,FWT[A]_1$ ，要求出 $A_0,A_1$。</p>
+<p>根据上面提到的 $A_0$ 的子集只包括自己的那一部分，得到：</p>
+<p>$$FWT[A]_0=FWT[A_0]$$</p>
+<p>所以:</p>
+<p>$$A_0=IFWT(FWT(A_0))=IFWT(FWT(A)_0)$$</p>
+<p>其实我认为证明到这里就应该结束了。</p>
+<p>但是他居然还有一部分，而且我认为越扯越远.</p>
+<p>依据上面提到的 $A_1$ 还要包括 $A_0$ 的那一部分，得到：</p>
+<p>$$FWT[A]_1=FWT[A_0]+FWT[A_1]$$</p>
+<p>$$FWT[A_1]=FWT[A]_1-FWT[A_0]=FWT[A]_1-FWT[A]_0$$</p>
+<p>所以：</p>
+<p>$$A_1=IFWT(FWT(A_1))=IFWT(FWT[A]_1-FWT[A]_0)$$</p>
+<p>之后合并：</p>
+<p>$$A=merge(IFWT(FWT(A)_0),IFWT(FWT[A]_1-FWT[A]_0))$$</p>
+<p><del>似乎感性理解已经完全够用了</del></p>
+<h3 id="CODE"><a href="#CODE" class="headerlink" title="CODE:"></a>CODE:</h3><pre><code class="cpp">inline void FWT_or(int *a,int op)&#123;
+    for(re int i=1;i&lt;n;i&lt;&lt;=1)&#123;
+        for(re int p=i&lt;&lt;1,j=0;j&lt;n;j+=p)&#123;
+            for(re int k=0;k&lt;i;k++)&#123;
+                (a[i+j+k]+=a[j+k]*op+mod)%=mod;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="与卷积（FWT-and）"><a href="#与卷积（FWT-and）" class="headerlink" title="与卷积（FWT_and）"></a>与卷积（FWT_and）</h2><p>要求：</p>
+<p>$$C[i]=\sum\limits_{j &amp; k=i}{A[j]B[k]}$$</p>
+<h3 id="正变换-（FWT）-1"><a href="#正变换-（FWT）-1" class="headerlink" title="正变换 （FWT）"></a>正变换 （FWT）</h3><p>有了前面的构造经验，我们可以类似地得出以下构造方式：</p>
+<p>$$FWT[A]<em>i=\sum\limits</em>{i|j=j}A[j]$$</p>
+<p>意义依旧是是下标的子集对应位置之和。</p>
+<p>$i|j=j$ 表示 $i$ 是 $j$ 的子集。</p>
+<p>证明：</p>
+<p>$$FWT[A]<em>i\times FWT[B]<em>i=\left(\sum\limits</em>{i|j=j}{A[j]}\right)\left(\sum\limits</em>{i|k=k}{B[k]}\right)$$</p>
+<p>$$=\sum\limits_{i|j=j}\sum\limits_{i|k=k}A[j]B[k]$$</p>
+<p>$$=\sum\limits_{i|(j&amp;k)=(j&amp;k)}A[j]B[k]$$</p>
+<p>$$=\sum\limits_{i|x=x}\sum\limits_{j&amp;k=x}{A[j]B[k]}$$</p>
+<p>$$=\sum\limits_{i|x=x}C[x]$$</p>
+<p>$$=FWT[C]_i$$</p>
+<p>可以发现与卷积和或卷积十分相似，前者是后面对前面有贡献，后者是前面对后面有贡献。</p>
+<p>类比或卷积即可得到递归公式：</p>
+<p>$$FWT[A]= \begin{cases}{\text{merge}(FWT[A_0]+FWT[A_1]，FWT[A_1]),(n&gt;0)}\{A,(n=0)} \end{cases} $$</p>
+<p>证明：</p>
+<p>依旧考虑分治：</p>
+<p>对于一个长度为 $2^n$ 的多项式，我们使用 $A_0$ 表示前 $2^{n-1}$ 项，$A_1$ 表示后 $2^{n-1}$ 项。</p>
+<p>可以发现，由于按位与的性质是集合只会变小不会变大，所以分成左右两个部分之后 $A_1$ 与 $A_0$ 按位与得到的结果只能是首位为 $0$ ，这么说来后面会变成前面的子集，而前面只会包含自己，所以后面的贡献要加到前面去。</p>
+<p>实际上是高维后缀和。</p>
+<h3 id="逆变换-IFWT-1"><a href="#逆变换-IFWT-1" class="headerlink" title="逆变换 (IFWT)"></a>逆变换 (IFWT)</h3><p>满足 $A=IFWT(FWT(A))$。</p>
+<h4 id="感性理解-amp-做法-1"><a href="#感性理解-amp-做法-1" class="headerlink" title="感性理解&amp;做法"></a>感性理解&amp;做法</h4><p>依旧是把正变换的符号换一下就行了。</p>
+<p>由 </p>
+<p>$${\text{merge}(FWT[A_0]+FWT[A_1]+FWT[A_1]),(n&gt;0)}$$ </p>
+<p>得：</p>
+<p>$$IFWT(FWT(A))=merge(IFWT(FWT(A_0))-IFWT(FWT(A_1)),IFWT(FWT(A_1))$$</p>
+<p>简单一点就是：</p>
+<p>$$A=merge(A_0-A_1,A_1)$$</p>
+<p>实际上是高维后缀差分.</p>
+<h4 id="理性理解-amp-证明-1"><a href="#理性理解-amp-证明-1" class="headerlink" title="理性理解&amp;证明"></a>理性理解&amp;证明</h4><p>是真的不太清楚这玩意有啥用，咕了。</p>
+<h3 id="CODE-1"><a href="#CODE-1" class="headerlink" title="CODE:"></a>CODE:</h3><pre><code class="cpp">inline void FWT_and(int *a,int op)&#123;
+    for(re int i=1;i&lt;n;i&lt;&lt;=1)&#123;
+        for(re int p=i&lt;&lt;1,j=0;j&lt;n;j+=p)&#123;
+            for(re int k=0;k&lt;i;k++)&#123;
+                (a[j+k]+=a[i+j+k]*op+mod)%=mod;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="异或卷积（FWT-xor）"><a href="#异或卷积（FWT-xor）" class="headerlink" title="异或卷积（FWT_xor）"></a>异或卷积（FWT_xor）</h2><p>要求：</p>
+<p>$$C[i]=\sum\limits_{j \oplus k=i}{A[j]B[k]}$$</p>
+<h3 id="正变换-（FWT）-2"><a href="#正变换-（FWT）-2" class="headerlink" title="正变换 （FWT）"></a>正变换 （FWT）</h3><p>参照上面的构造经验，我们需要构造出变换满足：</p>
+<p>$$FWT(C)_x=FWT(A)_xFWT(B)_x$$</p>
+<p>考虑到 FWT 是线性变换，所以可以做出以下构造：</p>
+<p>$$FWT(F)<em>x=\sum\limits</em>{i=0}^{n}g(x,i)F_i$$</p>
+<p>其中 $g$ 是一个系数。</p>
+<p>于是需要做到：</p>
+<p>$$\sum\limits_{i=0}^{n}g(x,i)C_i=\left(\sum\limits_{j=0}^{n}g(x,j)A_j\right)\left(\sum\limits_{k=0}^{n}g(x,k)B_k\right)$$</p>
+<p>代入 $C_i$ 得到：</p>
+<p>$$\left(\sum\limits_{i=0}^{n}g(x,i)\right)\left(\sum\limits_{j \oplus k=i}{A[j]B[k]}\right)=\left(\sum\limits_{j=0}^{n}g(x,j)A_j\right)\left(\sum\limits_{k=0}^{n}g(x,k)B_k\right)$$</p>
+<p>化简整理可得：</p>
+<p>$$\sum\limits_{j=0}^{n}\sum\limits_{k=0}^{n}g(x,j \oplus k)A[j]B[k]=\sum\limits_{j=0}^{n}\sum\limits_{k=0}^{n}g(x,j)g(x,k)A[j]B[k]$$</p>
+<p>于是只需要令：</p>
+<p>$$g(x,j \oplus k)=g(x,j)g(x,k)$$</p>
+<p>即可。</p>
+<p>接下来的手法就有些奇妙了。</p>
+<p>考虑异或操作之后 $i,j$ 的什么属性会把他们和 $i \oplus j$ 联系起来。</p>
+<p>有个结论是在异或前后 $1$ 的个数的奇偶性不会发生变化。</p>
+<p>具体就是异或前 $i,j$ 的 $1$ 的个数的和与 $i \oplus j$ 的奇偶性相同。</p>
+<p>证明过程是按位考虑的。</p>
+<p>分两种情况：</p>
+<ol>
+<li>两个数对应位相同，如果都是 $1$ ，那么 $1$ 的个数减少 $2$ ，奇偶性不变；如果都是 $0$ ，那么 $1$ 的个数不变化。</li>
+<li>两个数不同，只能是一个 $1$ 一个 $0$ ，所以 $1$ 的数量不变。</li>
+</ol>
+<p>证毕；</p>
+<p>形式化的说法是:</p>
+<blockquote>
+<p> $ \rm{popcount(a)+popcount(b)\equiv popcount(a\ xor\ b)\pmod 2}$</p>
+</blockquote>
+<p>于是我们可以构造：</p>
+<p>$$g(x,i)=(-1)^{|i \cap x|}$$</p>
+<p>每一项是二进制表示的集合</p>
+<p>$i \cap x$ 实际就是取出了 $i$ 中 $x$ 是 $1$ 的位。</p>
+<p>如此构造满足了：</p>
+<p>$$g(x,j \oplus k)=g(x,j)g(x,k)$$</p>
+<p>证明：</p>
+<p>由：</p>
+<p>$$g(x,i)=(-1)^{|i \cap x|}$$</p>
+<p>得：</p>
+<p>$$g(x,j \oplus k)=g(x,j)g(x,k)$$</p>
+<p>$$=(-1)^{|(j \oplus k) \cap x|}=(-1)^{|j \cap x|}(-1)^{|k \cap x|}$$</p>
+<p>$$=(-1)^{|(j \oplus k) \cap x|}=(-1)^{|j \cap x|+|k \cap x|}$$</p>
+<p>其中 $i \cap x$ 表示取出了 $i$ 中 $x$ 是 $1$ 的位。</p>
+<p>其中 $|i \cap x|$ 表示取出了 $i$ 中 $x$ 是 $1$ 的位的个数。</p>
+<p>根据上面的结论，$|(j \oplus k) \cap x|\equiv|j \cap x|+|k \cap x|\pmod 2$</p>
+<p>所以两式确实相等。</p>
+<p>证毕。</p>
+<p>于是我们得到了 FWT_xor 的变换方式：</p>
+<p>$$FWT(F)<em>x=\sum\limits</em>{i=0}^{n}(-1)^{|i \cap x|}F_i$$</p>
+<p>或许你看着这样的比较顺眼：</p>
+<p>$$FWT(F)<em>x=\sum\limits</em>{i=0}^{n}(-1)^{|i &amp; x|}F_i$$</p>
+<p>也可以写成：</p>
+<p>$$FWT(F)<em>x=\sum\limits</em>{\text{c}(x&amp;i)\pmod 2=0}F[i]-\sum\limits_{\text{c}(x&amp;k)\pmod 2=1}F[k]$$</p>
+<p>其中 $c$ 代表 $\text{popcount}$. </p>
+<p>这里似乎有一个关于底数问题的讨论？</p>
+<p><del>但是我觉得似乎比较显然，就放个链接略过吧</del></p>
+<p><a href="https://moyujiang.blog.luogu.org/solution-p4717">关于底数问题的讨论</a></p>
+<p>每一个位置对于 $FWT(F)_x$ 都有贡献，贡献的正负由集合大小的奇偶性决定。</p>
+<p>递归式是这样的：</p>
+<p>$$FWT[A]= \begin{cases}{\text{merge}(FWT[A_0]+FWT[A_1]，FWT[A_0]-FWT[A_1]),(n&gt;0)}\{A,(n=0)} \end{cases} $$</p>
+<p>快速变换还是基于分治增量：</p>
+<p>对于新加入的一位，分两种情况考虑，把当前集合也分成选或不选，取放右边，不取放左边。</p>
+<ol>
+<li>取，如果与取的状态合并，集合大小不变；若和不取的状态合并，那么集合大小-1，所以贡献取反。</li>
+<li>不取，与取或不取状态取并，集合大小都不会变。</li>
+</ol>
+<p>于是取会累加到取，累减到不取。</p>
+<p>不取同时累加到取或者不取。</p>
+<h3 id="逆变换-IFWT-2"><a href="#逆变换-IFWT-2" class="headerlink" title="逆变换 (IFWT)"></a>逆变换 (IFWT)</h3><p>满足 $A=IFWT(FWT(A))$。</p>
+<h4 id="感性理解-amp-做法-2"><a href="#感性理解-amp-做法-2" class="headerlink" title="感性理解&amp;做法"></a>感性理解&amp;做法</h4><p>如果方便记忆的话，那么直接 $\times inv2$ 即可。</p>
+<p>感性一些的做法是直接移项两式和差什么的就好了。</p>
+<p>$$IFWT(FWT(A))=merge\left(\dfrac{IFWT(FWT(A_0))+IFWT(FWT(A_1))}{2},\dfrac{IFWT(FWT(A_0)-IFWT(FWT(A_1)}{2}\right)$$</p>
+<p>即：</p>
+<p>$$A=\text{merge}\left(\dfrac{A_0+A_1}{2},\dfrac{A_0-A_1}{2}\right)$$</p>
+<h3 id="CODE-2"><a href="#CODE-2" class="headerlink" title="CODE:"></a>CODE:</h3><pre><code class="cpp">inline void FWT_xor(int *a,int op)&#123;
+    for(re int i=1;i&lt;n;i&lt;&lt;=1)&#123;
+        for(re int p=i&lt;&lt;1,j=0;j&lt;n;j+=p)&#123;
+            for(re int k=0;k&lt;i;k++)&#123;
+                int X=a[j+k],Y=a[i+j+k];
+                a[j+k]=(X+Y)%mod;
+                a[i+j+k]=(X+mod-Y)%mod;
+                (a[j+k]*=op)%=mod,(a[i+j+k]*=op)%=mod;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>似乎代码还挺<del>好背</del>简单的？</p>
+<h2 id="全部代码："><a href="#全部代码：" class="headerlink" title="全部代码："></a>全部代码：</h2><pre><code class="cpp">//#define LawrenceSivan
+
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+typedef unsigned long long ull;
+
+#define INF 0x3f3f3f3f
+#define re register
+#define int ll
+
+namespace IO&#123;
+    template&lt;typename T&gt;
+    inline void read(T &amp;x)&#123;
+        x=0;T f=1;char ch=getchar();
+        while (!isdigit(ch)) &#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+        while (isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+        x*=f;
+    &#125;
+
+    template &lt;typename T, typename... Args&gt;
+    inline void read(T&amp; t, Args&amp;... args)&#123;
+        read(t); read(args...);
+    &#125;
+
+    template&lt;typename T&gt;
+    void write(T x)&#123;
+        if(x&lt;0)putchar(&#39;-&#39;),x=-x;
+        if(x&gt;9)write(x/10);
+        putchar(x%10+&#39;0&#39;);
+    &#125;
+
+    template&lt;typename T,typename... Args&gt;
+    void write(T t,Args... args)&#123;
+        write(t);putchar(&#39; &#39;);write(args...);
+    &#125;
+&#125;
+
+using namespace IO;
+
+const int maxn=1&lt;&lt;17|1;
+const int mod=998244353;
+
+int n,inv2=(mod+1)&gt;&gt;1;
+
+int A[maxn],B[maxn],a[maxn],b[maxn];
+
+inline void copy()&#123;
+    memcpy(a,A,sizeof(A));
+    memcpy(b,B,sizeof(B));
+&#125;
+
+inline void mul()&#123;
+    for(re int i=0;i&lt;n;i++)&#123;
+        a[i]=(a[i]*b[i])%mod;
+    &#125;
+&#125;
+
+inline void print()&#123;
+    for(re int i=0;i&lt;n;i++)&#123;
+        write(a[i]),putchar(&#39; &#39;);
+    &#125;
+    puts(&quot;&quot;);
+&#125;
+
+inline void FWT_or(int *a,int op)&#123;
+    for(re int i=1;i&lt;n;i&lt;&lt;=1)&#123;
+        for(re int p=i&lt;&lt;1,j=0;j&lt;n;j+=p)&#123;
+            for(re int k=0;k&lt;i;k++)&#123;
+                (a[i+j+k]+=a[j+k]*op+mod)%=mod;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+
+inline void FWT_and(int *a,int op)&#123;
+    for(re int i=1;i&lt;n;i&lt;&lt;=1)&#123;
+        for(re int p=i&lt;&lt;1,j=0;j&lt;n;j+=p)&#123;
+            for(re int k=0;k&lt;i;k++)&#123;
+                (a[j+k]+=a[i+j+k]*op+mod)%=mod;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+
+inline void FWT_xor(int *a,int op)&#123;
+    for(re int i=1;i&lt;n;i&lt;&lt;=1)&#123;
+        for(re int p=i&lt;&lt;1,j=0;j&lt;n;j+=p)&#123;
+            for(re int k=0;k&lt;i;k++)&#123;
+                int X=a[j+k],Y=a[i+j+k];
+                a[j+k]=(X+Y)%mod;
+                a[i+j+k]=(X+mod-Y)%mod;
+                (a[j+k]*=op)%=mod,(a[i+j+k]*=op)%=mod;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+
+signed main()&#123;
+#ifdef LawrenceSivan
+    freopen(&quot;aa.in&quot;,&quot;r&quot;, stdin);
+    freopen(&quot;aa.out&quot;,&quot;w&quot;, stdout);
+#endif
+    read(n);n=1&lt;&lt;n;
+    for(re int i=0;i&lt;n;i++)read(A[i]);
+    for(re int i=0;i&lt;n;i++)read(B[i]);
+    copy();FWT_or(a,1),FWT_or(b,1),mul(),FWT_or(a,-1),print();
+    copy();FWT_and(a,1),FWT_and(b,1),mul(),FWT_and(a,-1),print();
+    copy();FWT_xor(a,1),FWT_xor(b,1),mul(),FWT_xor(a,inv2),print();
+
+
+    return 0;
+&#125;
+</code></pre>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://moyujiang.blog.luogu.org/solution-p4717">题解 快速莫比乌斯/沃尔什变换 (FMT/FWT) - 摸鱼酱的博客 - 洛谷博客 (luogu.org)</a></p>
+<p><a href="https://www.luogu.com.cn/blog/xht37/solution-p4717">题解 P4717 【模板】快速沃尔什变换 - xht37 的洛谷博客 - 洛谷博客 (luogu.com.cn)</a></p>
+<p><a href="https://blog.csdn.net/a_forever_dream/article/details/105110089">快速沃尔什变换（FWT）详详详解_a_forever_dream的博客-CSDN博客_fwt符号意思</a></p>
+<p><a href="http://blog.leanote.com/post/rockdu/TX20">真正理解快速沃尔什变换/快速莫比乌斯变换(FWT|FMT) (已完结) (leanote.com)</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/41867199">FWT(快速沃尔什变换)零基础详解qaq（ACM/OI） - 知乎 (zhihu.com)</a></p>
+<p><a href="https://gauss0320.blog.luogu.org/zong-xian-xing-bian-huan-di-jiao-du-kan-dai-fwt">从线性变换的角度看待 FWT - Gauss’s blog - 洛谷博客 (luogu.org)</a></p>
+
+        </div>
+        <!-- .entry-content -->
+        <div style="text-align:center; width: 100%" class="social-share share-mobile" data-disabled="diandian, tencent"></div>
+        <footer class="post-footer">
+          <div class="post-lincenses"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="nofollow"><i class="fa fa-creative-commons" aria-hidden="true"></i> 知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议</a></div>
+          <div class="post-tags">
+          </div>
+          <div class="post-share">
+            <div class="social-share sharehidden share-component"></div>
+            <i class="iconfont show-share icon-forward"></i>
+          </div>
+        </footer><!-- .entry-footer -->
+      </article>
+      <!-- #post-## -->
+      <div class="toc" style="background: none;"></div>
+      <section class="post-squares nextprev">
+        
+          
+            <div class="post-nepre half previous">
+          
+            <a href="/2021/09/01/2021%E5%B9%B49%E6%9C%88%E6%9C%88%E8%AE%B0/" rel="prev">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2021/09/01/T3V4fbyoeMuh7WZ.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2021/09/01/T3V4fbyoeMuh7WZ.jpg">
+              </div>
+              <span class="label">
+              Previous Post</span>
+              <div class="info">
+                <h3>
+                2021年9月月记</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+        
+          
+            <div class="post-nepre half next">
+          
+            <a href="/2021/08/20/%E5%8F%A6%E4%B8%80%E6%96%B9%E9%9D%A2%E7%9A%84%E6%88%91%20and%20something%20to%20say/" rel="next">
+              <div class="background">
+                <img class="lazyload" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2021/08/20/3bdP2aDWHsFn694.jpg" style="width: 100%; height: 100%; object-fit: cover; pointer-events: none;" onerror="imgError(this,3)" src="https://i.loli.net/2021/08/20/3bdP2aDWHsFn694.jpg">
+              </div>
+              <span class="label">
+              Next Post</span>
+              <div class="info">
+                <h3>
+                另一方面的我 and something to say</h3>
+                <hr>
+              </div>
+            </a>
+          </div>
+        
+      </section>
       
-  <!-- 首页默认取最最新文章集 -->
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="https://schema.org/BlogPosting">
+<div id="vcomments"></div>
+<script>
+  window.onload = function(){
+      var valine = new Valine();
+      valine.init({
+        el: '#vcomments',
+        appId: "dIwCuws5ndk9l6KNX62Yp2v6-gzGzoHsz",
+        appKey: "5KBdadEbfMMamh1KsfIlVDqD",
+        path: window.location.pathname,
+        placeholder: "总之岁月漫长，然而值得等待。"
+      })
+  }
+</script>
 
-  <div class="post-thumb">
-    <a href="/2021/07/01/2021%E5%B9%B47%E6%9C%88%E6%9C%88%E8%AE%B0/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2021/07/01/12FQG8V9wbu6PMf.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2021-7-1 07:07</div>
-      <a href="/2021/07/01/2021%E5%B9%B47%E6%9C%88%E6%9C%88%E8%AE%B0/" class="post-title">
-        <h3>2021年7月月记</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>这是2021年7月月记.</p>
-        <div class="post-bottom">
-          <a href="/2021/07/01/2021%E5%B9%B47%E6%9C%88%E6%9C%88%E8%AE%B0/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
+      <section class="author-profile">
+        <div class="info" itemprop="author" itemscope="" itemtype="https://schema.org/Person">
+          <a href="https://lawrencesivan.github.io/" class="profile gravatar"><img src="/images/avatar.jpg" itemprop="image" alt="LawrenceSivan" height="70" width="70"></a>
+          <div class="meta">
+            <span class="title">Author</span>
+            <h3 itemprop="name">
+            <a href="https://lawrencesivan.github.io/" itemprop="url" rel="author">LawrenceSivan</a>
+            </h3>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="https://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2021/06/30/%E5%8A%A8%E6%80%81%E5%8C%BA%E9%97%B4%E7%AC%AC%20k%20%E5%B0%8F%20%EF%BC%88%E6%A0%91%E5%A5%97%E6%A0%91%EF%BC%89/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2021/06/30/CNtkfjQndr1EyFH.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2021-6-30 19:06</div>
-      <a href="/2021/06/30/%E5%8A%A8%E6%80%81%E5%8C%BA%E9%97%B4%E7%AC%AC%20k%20%E5%B0%8F%20%EF%BC%88%E6%A0%91%E5%A5%97%E6%A0%91%EF%BC%89/" class="post-title">
-        <h3>动态区间第 k 小 （树套树）</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>区间第 k 大问题小总结以及动态区间第 k 大的树套树（树状数组，线段树）解法</p>
-        <div class="post-bottom">
-          <a href="/2021/06/30/%E5%8A%A8%E6%80%81%E5%8C%BA%E9%97%B4%E7%AC%AC%20k%20%E5%B0%8F%20%EF%BC%88%E6%A0%91%E5%A5%97%E6%A0%91%EF%BC%89/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="https://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2021/06/22/P4363%20%5B%E4%B9%9D%E7%9C%81%E8%81%94%E8%80%832018%5D%E4%B8%80%E5%8F%8C%E6%9C%A8%E6%A3%8Bchess%EF%BC%88%E8%BD%AE%E5%BB%93%E7%BA%BF%E7%8A%B6%E5%8E%8B%EF%BC%89/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2021/06/22/7xKdnH9aXjsmicp.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2021-6-22 11:06</div>
-      <a href="/2021/06/22/P4363%20%5B%E4%B9%9D%E7%9C%81%E8%81%94%E8%80%832018%5D%E4%B8%80%E5%8F%8C%E6%9C%A8%E6%A3%8Bchess%EF%BC%88%E8%BD%AE%E5%BB%93%E7%BA%BF%E7%8A%B6%E5%8E%8B%EF%BC%89/" class="post-title">
-        <h3>P4363 [九省联考2018]一双木棋chess（轮廓线状压）</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>轮廓线状压好题</p>
-        <div class="post-bottom">
-          <a href="/2021/06/22/P4363%20%5B%E4%B9%9D%E7%9C%81%E8%81%94%E8%80%832018%5D%E4%B8%80%E5%8F%8C%E6%9C%A8%E6%A3%8Bchess%EF%BC%88%E8%BD%AE%E5%BB%93%E7%BA%BF%E7%8A%B6%E5%8E%8B%EF%BC%89/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="https://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2021/06/21/Kruskal%20%E9%87%8D%E6%9E%84%E6%A0%91%E6%80%BB%E7%BB%93/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2021/06/21/UC2tJEwvhTRGF6x.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2021-6-21 12:06</div>
-      <a href="/2021/06/21/Kruskal%20%E9%87%8D%E6%9E%84%E6%A0%91%E6%80%BB%E7%BB%93/" class="post-title">
-        <h3>Kruskal 重构树总结</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>Kruskal重构树总结以及一些题目</p>
-        <div class="post-bottom">
-          <a href="/2021/06/21/Kruskal%20%E9%87%8D%E6%9E%84%E6%A0%91%E6%80%BB%E7%BB%93/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="https://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2021/06/14/%E6%A0%91%E4%B8%8A%E5%B7%AE%E5%88%86%E6%80%BB%E7%BB%93/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2021/06/14/t7g8PHbfiWuv9qC.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2021-6-14 17:06</div>
-      <a href="/2021/06/14/%E6%A0%91%E4%B8%8A%E5%B7%AE%E5%88%86%E6%80%BB%E7%BB%93/" class="post-title">
-        <h3>树上差分总结</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>树上差分以及一些题目讲解</p>
-        <div class="post-bottom">
-          <a href="/2021/06/14/%E6%A0%91%E4%B8%8A%E5%B7%AE%E5%88%86%E6%80%BB%E7%BB%93/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="https://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2021/06/07/CF545E%20Paths%20and%20Trees%EF%BC%88%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E6%A0%91%EF%BC%89/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2021/06/08/wgNRIoZETlXfCtQ.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2021-6-7 11:06</div>
-      <a href="/2021/06/07/CF545E%20Paths%20and%20Trees%EF%BC%88%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E6%A0%91%EF%BC%89/" class="post-title">
-        <h3>CF545E Paths and Trees（最短路径树）</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>最短路径树的详细讲解与一些思考</p>
-        <div class="post-bottom">
-          <a href="/2021/06/07/CF545E%20Paths%20and%20Trees%EF%BC%88%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E6%A0%91%EF%BC%89/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="https://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2021/06/05/%E6%82%A6%E8%AF%BB/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://i.loli.net/2021/06/05/gZXlGj2z6DF8TMR.jpg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2021-6-5 11:06</div>
-      <a href="/2021/06/05/%E6%82%A6%E8%AF%BB/" class="post-title">
-        <h3>悦读</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-            <a href="/tags/%E6%82%A6%E8%AF%BB/">悦读<em>·</em></a>
-          
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>还没想好写什么</p>
-        <div class="post-bottom">
-          <a href="/2021/06/05/%E6%82%A6%E8%AF%BB/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="https://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2021/06/04/P4111%20%5BHEOI2015%5D%E5%B0%8F%20Z%20%E7%9A%84%E6%88%BF%E9%97%B4%EF%BC%88%E7%9F%A9%E9%98%B5-%E6%A0%91%E5%AE%9A%E7%90%86%EF%BC%89/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://images.pexels.com/photos/1428277/pexels-photo-1428277.jpeg?auto=compress&amp;cs=tinysrgb&amp;h=650&amp;w=940">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2021-6-4 19:06</div>
-      <a href="/2021/06/04/P4111%20%5BHEOI2015%5D%E5%B0%8F%20Z%20%E7%9A%84%E6%88%BF%E9%97%B4%EF%BC%88%E7%9F%A9%E9%98%B5-%E6%A0%91%E5%AE%9A%E7%90%86%EF%BC%89/" class="post-title">
-        <h3>P4111 [HEOI2015]小 Z 的房间（矩阵-树定理）</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>浅谈矩阵树定理，以及一道裸题</p>
-        <div class="post-bottom">
-          <a href="/2021/06/04/P4111%20%5BHEOI2015%5D%E5%B0%8F%20Z%20%E7%9A%84%E6%88%BF%E9%97%B4%EF%BC%88%E7%9F%A9%E9%98%B5-%E6%A0%91%E5%AE%9A%E7%90%86%EF%BC%89/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb post-list-thumb-left"  class="post post-list-thumb" itemscope="" itemtype="https://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2021/06/01/2021%E5%B9%B46%E6%9C%88%E6%9C%88%E8%AE%B0/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="/images/cover/18.jpeg">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2021-6-1 20:06</div>
-      <a href="/2021/06/01/2021%E5%B9%B46%E6%9C%88%E6%9C%88%E8%AE%B0/" class="post-title">
-        <h3>2021年6月月记</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-            <a href="/categories/%E7%94%9F%E6%B4%BB/">生活</a>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>这是2021年6月月记，也是第一次写月记，大概记录了我的无趣生活</p>
-        <div class="post-bottom">
-          <a href="/2021/06/01/2021%E5%B9%B46%E6%9C%88%E6%9C%88%E8%AE%B0/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-    
-<article  class="post post-list-thumb" itemscope="" itemtype="https://schema.org/BlogPosting">
-
-  <div class="post-thumb">
-    <a href="/2021/05/31/%E6%9B%BF%E7%BD%AA%E7%BE%8A%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-      <img class="lazyload" onerror="imgError(this,3)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://images.pexels.com/photos/4386973/pexels-photo-4386973.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=650&amp;w=940">
-    </a>
-  </div>
-  <div class="post-content-wrap">
-    <div class="post-content">
-      <div class="post-date">
-        <i class="iconfont icon-time">
-        </i>2021-5-31 20:05</div>
-      <a href="/2021/05/31/%E6%9B%BF%E7%BD%AA%E7%BE%8A%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title">
-        <h3>替罪羊树学习笔记</h3>
-      </a>
-      <div class="post-meta">
-        <span><i class="fa fa-tags"></i>
-        
-        </span>
-        <span>
-          <i class="iconfont icon-file"></i>
-          
-        </span>
-      </div>
-      <div class="float-content">
-        <p>一种基于暴力重构的重量级平衡树</p>
-        <div class="post-bottom">
-          <a href="/2021/05/31/%E6%9B%BF%E7%BD%AA%E7%BE%8A%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="button-normal">
-            <i class="iconfont icon-caidan"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</article>
-  
-
-
-    </main>
-      <!-- 首页默认取最最新文章集 -->
-    <!-- 
-      <nav class="navigator">
-        
-        <a class="extend prev" rel="prev" href="/">&lt;i class&#x3D;&quot;iconfont icon-back&quot;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">&lt;i class&#x3D;&quot;iconfont icon-right&quot;&gt;&lt;&#x2F;i&gt;</a>
-      </nav>
-     -->
-  </div>
-  
-    <div id="pagination"><a href="/page/3/" class="">Previous</a></div>
-  
+        <hr>
+        <p><i class="iconfont icon-write"></i>I was so much older then, I’m younger than that now.</p>
+      </section>
+    </main><!-- #main -->
+  </div><!-- #primary -->
 </div>
+
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=TeX-MML-AM_CHTML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+
 
     </div>    
     <div class="ins-search">

@@ -397,7 +397,7 @@
 <p>高斯消元是一种求解线性方程组的方法。</p>
 <p>所谓线性方程组，就是由$M$个$N$元一次方程组共同构成的。</p>
 <p>线性方程组的所有系数可以写成一个$M$行$N$列的系数矩阵，再加上每个方程等号右侧的常数，可以写成一个$M$行$N+1$列的“增广矩阵”。</p>
-<p>$\begin{cases}x_1+2x_2-x_3=-6\\2x_1+x_2-3x_3=-9\\-x_1-x_2+2x_3=7\end{cases}\Rightarrow\left[\begin{array}{ccc|c}1 &amp;2&amp;-1&amp;-6\\2&amp;1&amp;-3&amp;-9\\-1&amp;-1&amp;2&amp;7 \end{array}\right]<br>$​ </p>
+<p>$\begin{cases}x_1+2x_2-x_3=-6\2x_1+x_2-3x_3=-9\{-x_1-x_2+2x_3=7}\end{cases}\Rightarrow\left[\begin{array}{ccc|c}1 &amp;2&amp;-1&amp;-6\2&amp;1&amp;-3&amp;-9\{-1}&amp;-1&amp;2&amp;7 \end{array}\right]<br>$ </p>
 <p>相信各位小学或者初中一定学过二元一次方程组吧</p>
 <p><del>如果没学过那我觉得宁可以退役了</del></p>
 <p>有个消元的方法相信你记忆犹新：加减消元法；</p>
@@ -405,12 +405,12 @@
 <p>步骤大概就是：</p>
 <p>我们将一行加上另一行的若干倍，这样就可以消去其中一行的某一个系数；</p>
 <p>我们可以来看一下下面的过程：</p>
-<p>$\begin{bmatrix} 1&amp;2&amp;-1&amp;-6\\2&amp;1&amp;-3&amp;-9\\-1&amp;-1&amp;2&amp;7\end{bmatrix}$​</p>
+<p>$\begin{bmatrix} 1&amp;2&amp;-1&amp;-6\2&amp;1&amp;-3&amp;-9\{-1}&amp;-1&amp;2&amp;7\end{bmatrix}$</p>
 <p>我们将第二行每一项分别加上第一行的$-2$倍，于是我们发现，第二行的第一项系数被消成$0$了。如下</p>
-<p>$\begin{bmatrix} 1&amp;2&amp;-1&amp;-6\\0&amp;-3&amp;-1&amp;3\\-1&amp;-1&amp;2&amp;7\end{bmatrix}$​</p>
+<p>$\begin{bmatrix} 1&amp;2&amp;-1&amp;-6\0&amp;-3&amp;-1&amp;3\{-1}&amp;-1&amp;2&amp;7\end{bmatrix}$</p>
 <p>接下来我们都这么操作。</p>
 <p>对于第$n$行，我们让该行的第$n$个元素作为“主元”，并且将其他行的同列的系数都消掉，最后我们可以得到下面的形式：</p>
-<p>$\left[<br>    \begin{array}{ccc|c}<br>    1&amp;0&amp;0&amp;1\\0&amp;1&amp;0&amp;-2\\0&amp;0&amp;1&amp;3<br>    \end{array}<br>\right]$​</p>
+<p>$\left[<br>    \begin{array}{ccc|c}<br>    1&amp;0&amp;0&amp;1\0&amp;1&amp;0&amp;-2\0&amp;0&amp;1&amp;3<br>    \end{array}<br>\right]$</p>
 <p>是的，成了这样以后，发现主对角线上的数和常数一般都不是$0$，其他位置都是$0$了（后面还有一些特殊情况与判定技巧），我们就可以愉快的写出答案：</p>
 <p>$x_1=1$，$x_2=-2$，$x_3=3$；</p>
 <p>是的，这就是高斯消元算法。</p>
@@ -422,7 +422,7 @@
 <p>我们高斯消元结束以后，发现某一行系数全都是$0$，并且常数也是$0$.</p>
 <p>啊就是出现了$0==0$的情况？？</p>
 <p>是的，此时方程组有无数解，如下图：</p>
-<p>$\left[<br>    \begin{array}{ccc|c}<br>    1&amp;2&amp;0&amp;4\\0&amp;0&amp;1&amp;1\\0&amp;0&amp;0&amp;0<br>    \end{array}<br>\right]$​</p>
+<p>$\left[<br>    \begin{array}{ccc|c}<br>    1&amp;2&amp;0&amp;4\0&amp;0&amp;1&amp;1\0&amp;0&amp;0&amp;0<br>    \end{array}<br>\right]$</p>
 <p>那么我们总结一下：</p>
 <p><strong>1.当高斯消元结束以后，如果存在系数全是$0$，但是常数不是$0$的行，那么方程组无解</strong></p>
 <p><strong>2.在高斯消元结束以后，如果存在系数全是$0$，并且常数也是$0$的行，那么方程组有无数解</strong></p>
@@ -472,29 +472,29 @@
 <p>CODE：</p>
 <pre><code class="cpp">#include&lt;bits/stdc++.h&gt;
 using namespace std;
-
+ 
 #define re register
-
+ 
 const int N=105;
 const double eps=1e-8;//精度误差
-
+ 
 double a[N][N];//矩阵
 bool vis[N];
 int n;
-
+ 
 inline int read()&#123;
     int x=0,f=1;char ch=getchar();
     while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
     while(isdigit(ch))&#123;x=x*10+ch-48;ch=getchar();&#125;
     return x*f;
 &#125;
-
+ 
 int main()&#123;
     n=read();
     
     for(re int i=1;i&lt;=n;++i)&#123;
         for(re int j=1;j&lt;=n+1;++j)&#123;//读入矩阵，把常数也读进去所以是n+1
-
+ 
             a[i][j]=read();
         &#125;
     &#125;
@@ -533,6 +533,35 @@ int main()&#123;
     &#125;
     
     return 0;
+&#125;
+</code></pre>
+<p>附上经典高斯：</p>
+<pre><code class="cpp">inline void Gauss()&#123;
+    int maxline=0;
+    double maxx=0;
+    for(re int i=1;i&lt;=n;i++)&#123;
+        maxline=i,maxx=0;
+        for(re int j=i+1;j&lt;=n;j++)&#123;
+            if(fabs(a[j][i])&gt;maxx)maxx=fabs(a[j][i]),maxline=j;
+        &#125;
+        if(fabs(a[maxline][i])&lt;eps)&#123;
+            puts(&quot;No Solution&quot;);
+            exit(0);
+        &#125;
+        if(maxline!=i)swap(a[i],a[maxline]);
+        for(re int j=n+1;j&gt;=i;j--)&#123;
+            for(re int k=i+1;k&lt;=n;k++)&#123;
+                a[k][j]-=a[k][i]/a[i][i]*a[i][j];
+            &#125;
+        &#125;
+    &#125;
+
+    for(re int i=n;i;i--)&#123;
+        for(re int j=i+1;j&lt;=n;j++)&#123;
+            a[i][n+1]-=a[j][n+1]*a[i][j];
+        &#125;
+        a[i][n+1]/=a[i][i];
+    &#125;
 &#125;
 </code></pre>
 
