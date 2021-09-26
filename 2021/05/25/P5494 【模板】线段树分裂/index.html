@@ -1,14 +1,14 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport"><title itemprop="name">P5494 【模板】线段树分裂 | LawrenceSivan</title><link rel="shortcut icon" href="/images/favicon.ico"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all"><link rel="dns-prefetch" href="//cdn.jsdelivr.net"><link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all"><link rel="stylesheet" href="/css/lib.min.css" media="all"><link rel="stylesheet" href="/css/font.css" media="all"><link rel="stylesheet" href="/css/insight.css" media="all"><link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all"><link rel="stylesheet" href="/css/zoom.css" media="all"><link rel="stylesheet" type="text/css" href="/css/sharejs.css"><script>var mashiro_option=new Object,mashiro_global=new Object;mashiro_option.NProgressON=!0,mashiro_option.email_domain="",mashiro_option.email_name="",mashiro_option.cookie_version_control="",mashiro_option.qzone_autocomplete=!1,mashiro_option.site_name="LawrenceSivan",mashiro_option.author_name="LawrenceSivan",mashiro_option.site_url="https://lawrencesivan.github.io/",mashiro_option.v_appId="dIwCuws5ndk9l6KNX62Yp2v6-gzGzoHsz",mashiro_option.v_appKey="5KBdadEbfMMamh1KsfIlVDqD",mashiro_option.mathjax="0",mashiro_option.qq_api_url="https://api.mashiro.top/qqinfo/",mashiro_option.qq_avatar_api_url="https://api.mashiro.top/qqinfo/"</script><script type="text/javascript">var bg="https://i.loli.net/2021/06/05/Czs9LlShTk3IZq8.jpg,https://i.loli.net/2021/06/05/AlLP7zvaumFdJ8i.jpg,https://i.loli.net/2021/06/05/25dk6Te1HcMLQFt.jpg,https://i.loli.net/2021/06/05/pPuHo6egLxDqB5j.jpg,https://i.loli.net/2021/08/07/y93LDV7mNIb4hlF.jpg".split(","),bgindex=Math.floor(Math.random()*bg.length);(window.ActiveXObject||"ActiveXObject"in window)&&alert("朋友，IE浏览器未适配哦~")</script><style type="text/css">.hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}</style><style type="text/css">.site-top .lower nav{display:block!important}#pagination a:hover,.author-profile i,.float-content i:hover,.post-content a:hover,.post-like a,.post-more i:hover,.post-share .show-share,.sub-text,.we-info a,span.sitename{color:#fe9600}.ar-time i,.comment .comment-reply-link,.download,.feature i,.links ul li:before,.navigator i:hover,.object,.siren-checkbox-radio:checked+.siren-checkbox-radioInput:after,span.ar-circle{background:#fe9600}::-webkit-scrollbar-thumb{background:#fe9600}#pagination a:hover,.comment-respond input[type=submit]:hover,.download,.link-title,.links ul li:hover,.navigator i:hover{border-color:#fe9600}#archives-temp h3,#comments-navi a.next,#comments-navi a.prev,.comment h4 a,.comment h4 a:hover,.comment-respond input[type=submit]:hover,.entry-content a:hover,.entry-title a:hover,.site-info a:hover,.site-title a:hover,.site-top ul li a:hover,.sorry li a:hover,i.iconfont.js-toggle-search.iconsearch:hover,span.page-numbers.current{color:#fe9600}.comments .comments-main{display:block!important}.comments .comments-hidden{display:none!important}</style><meta name="generator" content="Hexo 5.4.0"></head><body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit"><div class="scrollbar" id="bar"></div><a href="#" class="cd-top faa-float animated"></a><section id="main-container"><div class="headertop filter-dot"><div id="banner_wave_1"></div><div id="banner_wave_2"></div><figure id="centerbg" class="centerbg"><div class="focusinfo no-select"><div class="header-tou"><a href="https://lawrencesivan.github.io/"><img src="/images/avatar.jpg"></a></div><div class="header-info"><p>I was so much older then, I&#39;m younger than that now.</p><div class="top-social_v2"><li id="bg-pre"><img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg"></li><li><a href="https://github.com/LawrenceSivan" target="_blank" class="social-github" title="github"><img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/github.png"></a></li><li><a href="https://weibo.com/7464138878/profile?topnav=1&amp;wvr=6" target="_blank" class="social-github" title="sina"><img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/sina.png"></a></li><li><a href="https://music.163.com/#/user/home?id=296743009" target="_blank" class="social-github" title="wangyiyun"><img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/wangyiyun.png"></a></li><li><a href="https://www.zhihu.com/people/lawrence-73-19" target="_blank" class="social-github" title="zhihu"><img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/zhihu.png"></a></li><li id="bg-next"><img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg"></li></div></div></div></figure><div id="video-container"><video style="object-fit:fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto"></video><div id="video-btn" class="loadvideo videolive"></div><div id="video-add"></div><div class="video-stu"></div></div><div class="headertop-down faa-float animated" onclick="headertop_down()"><span><i class="fa fa-chevron-down" aria-hidden="true"></i></span></div></div><div id="page" class="site wrapper"><header class="site-header no-select gizle sabit" role="banner"><div class="site-top"><div class="site-branding"><span class="site-title"><span class="logolink moe-mashiro"><a href="/"><span class="sakurasono"></span> <span class="shironeko">LawrenceSivan</span></a></span></span></div><div class="searchbox search-form-submit"><i class="iconfont js-toggle-search iconsearch icon-search"></i></div><div id="show-nav" class="showNav mobile-fit"><div class="line line1"></div><div class="line line2"></div><div class="line line3"></div></div><div class="lower-cantiner"><div class="lower"><nav class="mobile-fit-control hide"><ul id="menu-new" class="menu"><li><a href="https://lawrencesivan.github.io/"><span class="faa-parent animated-hover"><i class="fa fa-fort-awesome faa-shake" aria-hidden="true"></i> 首页</span></a></li><li><a href="/archives"><span class="faa-parent animated-hover"><i class="fa fa-archive faa-shake" aria-hidden="true"></i> 归档</span></a><ul class="sub-menu"><li><a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="fa fa-code" aria-hidden="true"></i> 技术</a></li><li><a href="/categories/%E7%94%9F%E6%B4%BB/"><i class="fa fa-file-text-o" aria-hidden="true"></i> 生活</a></li><li><a href="/categories/%E8%B5%84%E6%BA%90/"><i class="fa fa-cloud-download" aria-hidden="true"></i> 资源</a></li><li><a href="/categories/%E9%9A%8F%E6%83%B3/"><i class="fa fa-commenting-o" aria-hidden="true"></i> 随想</a></li><li><a href="/categories/%E8%BD%AC%E8%BD%BD/"><i class="fa fa-book" aria-hidden="true"></i> 转载</a></li></ul></li><li><a href="javascript:;"><span class="faa-parent animated-hover"><i class="fa fa-list-ul faa-vertical" aria-hidden="true"></i> 清单</span></a><ul class="sub-menu"><li><a href="/tags/%E6%82%A6%E8%AF%BB/"><i class="fa fa-th-list faa-bounce" aria-hidden="true"></i> 书单</a></li><li><a href="/bangumi/"><i class="fa fa-film faa-vertical" aria-hidden="true"></i> 番组</a></li><li><a href="/music/"><i class="fa fa-headphones" aria-hidden="true"></i> 歌单</a></li><li><a href="/tags/%E5%9B%BE%E9%9B%86/"><i class="fa fa-photo" aria-hidden="true"></i> 图集</a></li></ul></li><li><a href="/tags/"><span class="faa-parent animated-hover"><i class="fa fa-tag" aria-hidden="true"></i> 标签</span></a></li><li><a href="/categories/"><span class="faa-parent animated-hover"><i class="fa fa-bookmark" aria-hidden="true"></i> 分类</span></a></li><li><a href="/comment/"><span class="faa-parent animated-hover"><i class="fa fa-pencil-square-o faa-tada" aria-hidden="true"></i> 留言板</span></a></li><li><a href="/links/"><span class="faa-parent animated-hover"><i class="fa fa-link faa-shake" aria-hidden="true"></i> 友人帐</span></a></li><li><a href="/"><span class="faa-parent animated-hover"><i class="fa fa-leaf faa-wrench" aria-hidden="true"></i> 关于</span></a><ul class="sub-menu"><li><a href="/about/"><i class="fa fa-meetup" aria-hidden="true"></i> 我？</a></li><li><a href="/theme-sakura/"><i class="fa iconfont icon-sakura" aria-hidden="true"></i> 主题</a></li><li><a href="/lab/"><i class="fa fa-cogs" aria-hidden="true"></i> Lab</a></li><li><a href="/client/"><i class="fa fa-android faa-vertical" aria-hidden="true"></i> APP</a></li><li><a href="/atom.xml"><i class="fa fa-rss faa-pulse" aria-hidden="true"></i> RSS</a></li></ul></li></ul></nav></div></div></div></header><link rel="stylesheet" type="text/css" href="/css/sharejs.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css"><div class="pattern-center-blank"></div><div class="pattern-center single-center"><div class="pattern-attachment-img lazyload" style="background-image:url(https://images.pexels.com/photos/1139541/pexels-photo-1139541.jpeg)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://images.pexels.com/photos/1139541/pexels-photo-1139541.jpeg"></div><header class="pattern-header single-header"><h1 class="entry-title">P5494 【模板】线段树分裂</h1><p class="entry-census"><span><a href="https://lawrencesivan.github.io/"><img src="/images/avatar.jpg"> </a></span><span><a href="https://lawrencesivan.github.io/">LawrenceSivan</a> </span><span class="bull">·</span> 2021-5-25<span class="bull"> ·</span> <span id="busuanzi_value_page_pv"></span>次阅读</p></header></div><div id="content" class="site-content"><div id="primary" class="content-area"><main id="main" class="site-main" role="main"><article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized"><div class="toc"></div><div class="entry-content"><p>刚写了线段树分裂的板子。</p><h1 id="线段树分裂"><a href="#线段树分裂" class="headerlink" title="线段树分裂"></a>线段树分裂</h1><p><a href="https://www.luogu.com.cn/problem/P5494">传送门</a></p><h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>1.权值线段树</p><p>有一个很好的博客可以看看：<a href="https://www.luogu.com.cn/blog/bfqaq/qian-tan-quan-zhi-xian-duan-shu">传送门</a></p><p>2.动态开点线段树：<a href="https://www.cnblogs.com/LawrenceSivan/p/14686207.html">传送门</a></p><p>3.线段树合并：<a href="https://www.cnblogs.com/LawrenceSivan/p/14681680.html">传送门</a></p><p>4.主席树：<a href="https://www.cnblogs.com/LawrenceSivan/p/14772483.html">传送门</a></p><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>线段树分裂，顾名思义就是将线段树分裂开。为了维护线段树合并所维护的可重集，我们需要将权值线段树中前 $k$ 小的数和其余数分在两颗权值线段树上进行维护。</p><h2 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h2><p>其实很简单，线段树分裂是线段树合并的逆操作。对于待分裂区域与其他区域的公有节点，复制一份；对于独有节点，直接拿过来挂上去；最后记得 pushup。</p><p>其实和主席树是有很高相似度的。</p><pre><code class="cpp">int split(int rt,int l,int r,int ql,int qr)&#123;
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport"><title itemprop="name">P5494 【模板】线段树分裂 | LawrenceSivan</title><link rel="shortcut icon" href="/images/favicon.ico"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+SerifMerriweather|Merriweather+Sans|Source+Code+Pro|Ubuntu:400,700|Noto+Serif+SC" media="all"><link rel="dns-prefetch" href="//cdn.jsdelivr.net"><link rel="stylesheet" id="saukra_css-css" href="/css/style.css" type="text/css" media="all"><link rel="stylesheet" href="/css/lib.min.css" media="all"><link rel="stylesheet" href="/css/font.css" media="all"><link rel="stylesheet" href="/css/insight.css" media="all"><link rel="stylesheet" href="/css/jquery.fancybox.min.css" media="all"><link rel="stylesheet" href="/css/zoom.css" media="all"><link rel="stylesheet" type="text/css" href="/css/sharejs.css"><script>var mashiro_option=new Object,mashiro_global=new Object;mashiro_option.NProgressON=!0,mashiro_option.email_domain="",mashiro_option.email_name="",mashiro_option.cookie_version_control="",mashiro_option.qzone_autocomplete=!1,mashiro_option.site_name="LawrenceSivan",mashiro_option.author_name="LawrenceSivan",mashiro_option.site_url="https://lawrencesivan.github.io/",mashiro_option.v_appId="dIwCuws5ndk9l6KNX62Yp2v6-gzGzoHsz",mashiro_option.v_appKey="5KBdadEbfMMamh1KsfIlVDqD",mashiro_option.mathjax="0",mashiro_option.qq_api_url="https://api.mashiro.top/qqinfo/",mashiro_option.qq_avatar_api_url="https://api.mashiro.top/qqinfo/"</script><script type="text/javascript">var bg="https://i.loli.net/2021/06/05/Czs9LlShTk3IZq8.jpg,https://i.loli.net/2021/06/05/AlLP7zvaumFdJ8i.jpg,https://i.loli.net/2021/06/05/25dk6Te1HcMLQFt.jpg,https://i.loli.net/2021/06/05/pPuHo6egLxDqB5j.jpg,https://i.loli.net/2021/08/07/y93LDV7mNIb4hlF.jpg".split(","),bgindex=Math.floor(Math.random()*bg.length);(window.ActiveXObject||"ActiveXObject"in window)&&alert("朋友，IE浏览器未适配哦~")</script><style type="text/css">.hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}</style><style type="text/css">.site-top .lower nav{display:block!important}#pagination a:hover,.author-profile i,.float-content i:hover,.post-content a:hover,.post-like a,.post-more i:hover,.post-share .show-share,.sub-text,.we-info a,span.sitename{color:#fe9600}.ar-time i,.comment .comment-reply-link,.download,.feature i,.links ul li:before,.navigator i:hover,.object,.siren-checkbox-radio:checked+.siren-checkbox-radioInput:after,span.ar-circle{background:#fe9600}::-webkit-scrollbar-thumb{background:#fe9600}#pagination a:hover,.comment-respond input[type=submit]:hover,.download,.link-title,.links ul li:hover,.navigator i:hover{border-color:#fe9600}#archives-temp h3,#comments-navi a.next,#comments-navi a.prev,.comment h4 a,.comment h4 a:hover,.comment-respond input[type=submit]:hover,.entry-content a:hover,.entry-title a:hover,.site-info a:hover,.site-title a:hover,.site-top ul li a:hover,.sorry li a:hover,i.iconfont.js-toggle-search.iconsearch:hover,span.page-numbers.current{color:#fe9600}.comments .comments-main{display:block!important}.comments .comments-hidden{display:none!important}</style><meta name="generator" content="Hexo 5.4.0"></head><body class="page-template page-template-user page-template-page-analytics page-template-userpage-analytics-php page page-id-1297 chinese-font serif isWebKit"><div class="scrollbar" id="bar"></div><a href="#" class="cd-top faa-float animated"></a><section id="main-container"><div class="headertop filter-dot"><div id="banner_wave_1"></div><div id="banner_wave_2"></div><figure id="centerbg" class="centerbg"><div class="focusinfo no-select"><div class="header-tou"><a href="https://lawrencesivan.github.io/"><img src="/images/avatar.jpg"></a></div><div class="header-info"><p>I was so much older then, I&#39;m younger than that now.</p><div class="top-social_v2"><li id="bg-pre"><img class="flipx" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg"></li><li><a href="https://github.com/LawrenceSivan" target="_blank" class="social-github" title="github"><img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/github.png"></a></li><li><a href="https://weibo.com/7464138878/profile?topnav=1&amp;wvr=6" target="_blank" class="social-github" title="sina"><img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/sina.png"></a></li><li><a href="https://music.163.com/#/user/home?id=296743009" target="_blank" class="social-github" title="wangyiyun"><img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/wangyiyun.png"></a></li><li><a href="https://www.zhihu.com/people/lawrence-73-19" target="_blank" class="social-github" title="zhihu"><img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/social/zhihu.png"></a></li><li id="bg-next"><img src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/other/next-b.svg"></li></div></div></div></figure><div id="video-container"><video style="object-fit:fill" id="bgvideo" class="video" video-name="" src="" width="auto" preload="auto"></video><div id="video-btn" class="loadvideo videolive"></div><div id="video-add"></div><div class="video-stu"></div></div><div class="headertop-down faa-float animated" onclick="headertop_down()"><span><i class="fa fa-chevron-down" aria-hidden="true"></i></span></div></div><div id="page" class="site wrapper"><header class="site-header no-select gizle sabit" role="banner"><div class="site-top"><div class="site-branding"><span class="site-title"><span class="logolink moe-mashiro"><a href="/"><span class="sakurasono"></span> <span class="shironeko">LawrenceSivan</span></a></span></span></div><div class="searchbox search-form-submit"><i class="iconfont js-toggle-search iconsearch icon-search"></i></div><div id="show-nav" class="showNav mobile-fit"><div class="line line1"></div><div class="line line2"></div><div class="line line3"></div></div><div class="lower-cantiner"><div class="lower"><nav class="mobile-fit-control hide"><ul id="menu-new" class="menu"><li><a href="https://lawrencesivan.github.io/"><span class="faa-parent animated-hover"><i class="fa fa-fort-awesome faa-shake" aria-hidden="true"></i> 首页</span></a></li><li><a href="/archives"><span class="faa-parent animated-hover"><i class="fa fa-archive faa-shake" aria-hidden="true"></i> 归档</span></a><ul class="sub-menu"><li><a href="/categories/%E6%8A%80%E6%9C%AF/"><i class="fa fa-code" aria-hidden="true"></i> 技术</a></li><li><a href="/categories/%E7%94%9F%E6%B4%BB/"><i class="fa fa-file-text-o" aria-hidden="true"></i> 生活</a></li><li><a href="/categories/%E8%B5%84%E6%BA%90/"><i class="fa fa-cloud-download" aria-hidden="true"></i> 资源</a></li><li><a href="/categories/%E9%9A%8F%E6%83%B3/"><i class="fa fa-commenting-o" aria-hidden="true"></i> 随想</a></li><li><a href="/categories/%E8%BD%AC%E8%BD%BD/"><i class="fa fa-book" aria-hidden="true"></i> 转载</a></li></ul></li><li><a href="javascript:;"><span class="faa-parent animated-hover"><i class="fa fa-list-ul faa-vertical" aria-hidden="true"></i> 清单</span></a><ul class="sub-menu"><li><a href="/tags/%E6%82%A6%E8%AF%BB/"><i class="fa fa-th-list faa-bounce" aria-hidden="true"></i> 书单</a></li><li><a href="/bangumi/"><i class="fa fa-film faa-vertical" aria-hidden="true"></i> 番组</a></li><li><a href="/music/"><i class="fa fa-headphones" aria-hidden="true"></i> 歌单</a></li><li><a href="/tags/%E5%9B%BE%E9%9B%86/"><i class="fa fa-photo" aria-hidden="true"></i> 图集</a></li></ul></li><li><a href="/tags/"><span class="faa-parent animated-hover"><i class="fa fa-tag" aria-hidden="true"></i> 标签</span></a></li><li><a href="/categories/"><span class="faa-parent animated-hover"><i class="fa fa-bookmark" aria-hidden="true"></i> 分类</span></a></li><li><a href="/comment/"><span class="faa-parent animated-hover"><i class="fa fa-pencil-square-o faa-tada" aria-hidden="true"></i> 留言板</span></a></li><li><a href="/links/"><span class="faa-parent animated-hover"><i class="fa fa-link faa-shake" aria-hidden="true"></i> 友人帐</span></a></li><li><a href="/"><span class="faa-parent animated-hover"><i class="fa fa-leaf faa-wrench" aria-hidden="true"></i> 关于</span></a><ul class="sub-menu"><li><a href="/about/"><i class="fa fa-meetup" aria-hidden="true"></i> 我？</a></li><li><a href="/theme-sakura/"><i class="fa iconfont icon-sakura" aria-hidden="true"></i> 主题</a></li><li><a href="/lab/"><i class="fa fa-cogs" aria-hidden="true"></i> Lab</a></li><li><a href="/client/"><i class="fa fa-android faa-vertical" aria-hidden="true"></i> APP</a></li><li><a href="/atom.xml"><i class="fa fa-rss faa-pulse" aria-hidden="true"></i> RSS</a></li></ul></li></ul></nav></div></div></div></header><link rel="stylesheet" type="text/css" href="/css/sharejs.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css"><div class="pattern-center-blank"></div><div class="pattern-center single-center"><div class="pattern-attachment-img lazyload" style="background-image:url(https://images.pexels.com/photos/1139541/pexels-photo-1139541.jpeg)" src="https://cdn.jsdelivr.net/gh/honjun/cdn@1.6/img/loader/orange.progress-bar-stripe-loader.svg" data-src="https://images.pexels.com/photos/1139541/pexels-photo-1139541.jpeg"></div><header class="pattern-header single-header"><h1 class="entry-title">P5494 【模板】线段树分裂</h1><p class="entry-census"><span><a href="https://lawrencesivan.github.io/"><img src="/images/avatar.jpg"> </a></span><span><a href="https://lawrencesivan.github.io/">LawrenceSivan</a> </span><span class="bull">·</span> 2021-5-25<span class="bull"> ·</span> <span id="busuanzi_value_page_pv"></span>次阅读</p></header></div><div id="content" class="site-content"><div id="primary" class="content-area"><main id="main" class="site-main" role="main"><article id="post-1" class="post-1 post type-post status-publish format-standard has-post-thumbnail hentry category-uncategorized"><div class="toc"></div><div class="entry-content"><p>刚写了线段树分裂的板子。</p><h1 id="线段树分裂"><a href="#线段树分裂" class="headerlink" title="线段树分裂"></a>线段树分裂</h1><p><a href="https://www.luogu.com.cn/problem/P5494">传送门</a></p><h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>1.权值线段树</p><p>有一个很好的博客可以看看：<a href="https://www.luogu.com.cn/blog/bfqaq/qian-tan-quan-zhi-xian-duan-shu">传送门</a></p><p>2.动态开点线段树：<a href="https://www.cnblogs.com/LawrenceSivan/p/14686207.html">传送门</a></p><p>3.线段树合并：<a href="https://www.cnblogs.com/LawrenceSivan/p/14681680.html">传送门</a></p><p>4.主席树：<a href="https://www.cnblogs.com/LawrenceSivan/p/14772483.html">传送门</a></p><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>线段树分裂，顾名思义就是将线段树分裂开。为了维护线段树合并所维护的可重集，我们需要将权值线段树中前 $k$ 小的数和其余数分在两颗权值线段树上进行维护。</p><h2 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h2><p>其实很简单，线段树分裂是线段树合并的逆操作。对于待分裂区域与其他区域的公有节点，复制一份；对于独有节点，直接拿过来挂上去；最后记得 pushup。</p><p>其实和主席树是有很高相似度的。</p><pre><code class="lang-cpp">int split(int rt,int l,int r,int ql,int qr)&#123;
     int o=++tot;
-    
+
     if(ql==l&amp;&amp;qr==r)&#123;
         st[o]=st[rt];
         st[rt].v=ls(rt)=rs(rt)=0;
         return o;
     &#125;
-    
+
     int mid=(l+r)&gt;&gt;1;
-    
+
     if(qr&lt;=mid)&#123;
         ls(o)=split(ls(rt),l,mid,ql,qr);
     &#125;else if(ql&gt;mid)&#123;
@@ -17,21 +17,21 @@
         ls(o)=split(ls(rt),l,mid,ql,mid);
         rs(o)=split(rs(rt),mid+1,r,mid+1,qr);
     &#125;
-    
+
     push_up(rt);push_up(o);
     return o;
 &#125;
-</code></pre><p><del>然后这玩意就讲完了</del></p><p>这么说其实权值线段树的操作啥的几乎就都搞定了，再结合别的东西就可以把权值线段树<del>放在手里把玩了</del>运用得得心应手了。</p><h2 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h2><h3 id="单点修改和区间修改"><a href="#单点修改和区间修改" class="headerlink" title="单点修改和区间修改"></a>单点修改和区间修改</h3><p>和普通线段树是一样的，都是 $O(logn)$.</p><h3 id="找第-k-小"><a href="#找第-k-小" class="headerlink" title="找第 k 小"></a>找第 k 小</h3><p>每层只会访问 $1$ 个节点，时间复杂度为 $O(logn)$.</p><h3 id="线段树合并"><a href="#线段树合并" class="headerlink" title="线段树合并"></a>线段树合并</h3><p>仅当两颗线段树在相同的节点都有值时，合并才需要花费时间，否则可以直接返回有值的一边. $O(nlogn)$</p><p>这玩意复杂度确实很玄学，大家的说法也不太一样，于是我摘取了几位大佬的说法：</p><p>@<a href="https://www.luogu.com.cn/blog/gxy001/p5494-solution">gxy001</a>:显然，我们每次只会访问重合节点，那么单次合并的时间复杂度就可以认为是较小树的节点个数，那么显然，多次合并的总复杂度为总点数级别，$O(nlogn)$</p><p>注：不能简单的认为其复杂度为单次合并的最坏复杂度乘询问次数。感性理解，在本题中，显然我们可以花费一次询问使树的节点加一条链，让合并的复杂度增大，但也会失去一次进行线段树合并的机会，这样就保证了其总复杂度不会过高。</p><p>@<a href="https://www.luogu.com.cn/blog/chenxinyang2006/solution-p5494">chenxinyang2006</a>:</p><p>仅当两颗线段树在相同的节点都有值时，合并才需要花费时间，否则可以直接返回有值的一边</p><p>也就是说，合并一次，总节点数量减少1</p><p>一操作会在新线段树上，增加 $logn$ 个节点</p><p>三操作会增加一条链的节点，也是 $logn$ 个</p><p>所以总节点数不超过 $n+mlogn$，合并总复杂度不超过 $n+mlogn$</p><h3 id="线段树分裂-1"><a href="#线段树分裂-1" class="headerlink" title="线段树分裂"></a>线段树分裂</h3><p>我们可以看到，这个操作访问的节点和区间查询是一致的，复制边缘节点，直接拿走完整节点。时间复杂度 $O(logn)$</p><p>之后就是本题：</p><h2 id="本题："><a href="#本题：" class="headerlink" title="本题："></a>本题：</h2><p>对于每个操作我们分着看：</p><h3 id="操作零"><a href="#操作零" class="headerlink" title="操作零"></a>操作零</h3><p>就是分裂了：</p><pre><code class="cpp">int split(int rt,int l,int r,int ql,int qr)&#123;
+</code></pre><p><del>然后这玩意就讲完了</del></p><p>这么说其实权值线段树的操作啥的几乎就都搞定了，再结合别的东西就可以把权值线段树<del>放在手里把玩了</del>运用得得心应手了。</p><h2 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h2><h3 id="单点修改和区间修改"><a href="#单点修改和区间修改" class="headerlink" title="单点修改和区间修改"></a>单点修改和区间修改</h3><p>和普通线段树是一样的，都是 $O(logn)$.</p><h3 id="找第-k-小"><a href="#找第-k-小" class="headerlink" title="找第 k 小"></a>找第 k 小</h3><p>每层只会访问 $1$ 个节点，时间复杂度为 $O(logn)$.</p><h3 id="线段树合并"><a href="#线段树合并" class="headerlink" title="线段树合并"></a>线段树合并</h3><p>仅当两颗线段树在相同的节点都有值时，合并才需要花费时间，否则可以直接返回有值的一边. $O(nlogn)$</p><p>这玩意复杂度确实很玄学，大家的说法也不太一样，于是我摘取了几位大佬的说法：</p><p>@<a href="https://www.luogu.com.cn/blog/gxy001/p5494-solution">gxy001</a>:显然，我们每次只会访问重合节点，那么单次合并的时间复杂度就可以认为是较小树的节点个数，那么显然，多次合并的总复杂度为总点数级别，$O(nlogn)$</p><p>注：不能简单的认为其复杂度为单次合并的最坏复杂度乘询问次数。感性理解，在本题中，显然我们可以花费一次询问使树的节点加一条链，让合并的复杂度增大，但也会失去一次进行线段树合并的机会，这样就保证了其总复杂度不会过高。</p><p>@<a href="https://www.luogu.com.cn/blog/chenxinyang2006/solution-p5494">chenxinyang2006</a>:</p><p>仅当两颗线段树在相同的节点都有值时，合并才需要花费时间，否则可以直接返回有值的一边</p><p>也就是说，合并一次，总节点数量减少1</p><p>一操作会在新线段树上，增加 $logn$ 个节点</p><p>三操作会增加一条链的节点，也是 $logn$ 个</p><p>所以总节点数不超过 $n+mlogn$，合并总复杂度不超过 $n+mlogn$</p><h3 id="线段树分裂-1"><a href="#线段树分裂-1" class="headerlink" title="线段树分裂"></a>线段树分裂</h3><p>我们可以看到，这个操作访问的节点和区间查询是一致的，复制边缘节点，直接拿走完整节点。时间复杂度 $O(logn)$</p><p>之后就是本题：</p><h2 id="本题："><a href="#本题：" class="headerlink" title="本题："></a>本题：</h2><p>对于每个操作我们分着看：</p><h3 id="操作零"><a href="#操作零" class="headerlink" title="操作零"></a>操作零</h3><p>就是分裂了：</p><pre><code class="lang-cpp">int split(int rt,int l,int r,int ql,int qr)&#123;
     int o=++tot;
-    
+
     if(ql==l&amp;&amp;qr==r)&#123;
         st[o]=st[rt];
         st[rt].v=ls(rt)=rs(rt)=0;
         return o;
     &#125;
-    
+
     int mid=(l+r)&gt;&gt;1;
-    
+
     if(qr&lt;=mid)&#123;
         ls(o)=split(ls(rt),l,mid,ql,qr);
     &#125;else if(ql&gt;mid)&#123;
@@ -40,26 +40,26 @@
         ls(o)=split(ls(rt),l,mid,ql,mid);
         rs(o)=split(rs(rt),mid+1,r,mid+1,qr);
     &#125;
-    
+
     push_up(rt);push_up(o);
     return o;
 &#125;
-</code></pre><h3 id="操作一"><a href="#操作一" class="headerlink" title="操作一"></a>操作一</h3><p>合并两棵树即可：</p><pre><code class="cpp">int merge(int p,int q)&#123;
+</code></pre><h3 id="操作一"><a href="#操作一" class="headerlink" title="操作一"></a>操作一</h3><p>合并两棵树即可：</p><pre><code class="lang-cpp">int merge(int p,int q)&#123;
     if(!p||!q)return p|q;
-    
+
     int rt=++tot;
     st[rt].v=st[p].v+st[q].v;
     ls(rt)=merge(ls(p),ls(q));
     rs(rt)=merge(rs(p),rs(q));
-    
+
     return rt;
 &#125;
-</code></pre><h3 id="操作二"><a href="#操作二" class="headerlink" title="操作二"></a>操作二</h3><p>单点修改</p><pre><code class="cpp">void modify(int rt,int l,int r,int pos,int val)&#123;
+</code></pre><h3 id="操作二"><a href="#操作二" class="headerlink" title="操作二"></a>操作二</h3><p>单点修改</p><pre><code class="lang-cpp">void modify(int rt,int l,int r,int pos,int val)&#123;
     if(l==r)&#123;
         st[rt].v+=val;
         return;
     &#125;
-    
+
     int mid=(l+r)&gt;&gt;1;
     if(pos&lt;=mid)&#123;
         if(ls(rt)==0)ls(rt)=++tot;
@@ -69,26 +69,26 @@
         if(rs(rt)==0)rs(rt)=++tot;
         modify(rs(rt),mid+1,r,pos,val);
     &#125;
-    
+
     push_up(rt);
 &#125;
-</code></pre><h3 id="操作三"><a href="#操作三" class="headerlink" title="操作三"></a>操作三</h3><p>区间查询</p><pre><code class="cpp">ll query(int rt,int l,int r,int ql,int qr)&#123;
+</code></pre><h3 id="操作三"><a href="#操作三" class="headerlink" title="操作三"></a>操作三</h3><p>区间查询</p><pre><code class="lang-cpp">ll query(int rt,int l,int r,int ql,int qr)&#123;
     if(ql&gt;r||qr&lt;l)return 0;
     if(ql&lt;=l&amp;&amp;qr&gt;=r)&#123;
         return st[rt].v;
     &#125;
-    
+
     int mid=(l+r)&gt;&gt;1;
     return query(ls(rt),l,mid,ql,qr)+query(rs(rt),mid+1,r,ql,qr);
 &#125;
-</code></pre><h3 id="操作四"><a href="#操作四" class="headerlink" title="操作四"></a>操作四</h3><p>查找第 $k$ 小，直接线段树上二分就行了</p><pre><code class="cpp">int kth(int rt,int l,int r,int k)&#123;
+</code></pre><h3 id="操作四"><a href="#操作四" class="headerlink" title="操作四"></a>操作四</h3><p>查找第 $k$ 小，直接线段树上二分就行了</p><pre><code class="lang-cpp">int kth(int rt,int l,int r,int k)&#123;
     if(l==r)return l;
-    
+
     int mid=(l+r)&gt;&gt;1;
     if(st[ls(rt)].v&gt;=k)return kth(ls(rt),l,mid,k);
     else return kth(rs(rt),mid+1,r,k-st[ls(rt)].v);
 &#125;
-</code></pre><p><del>这么来看这题没啥技术含量，充其量就是学了个分裂函数</del></p><h2 id="CODE"><a href="#CODE" class="headerlink" title="CODE"></a>CODE</h2><pre><code class="cpp">//#define LawrenceSivan
+</code></pre><p><del>这么来看这题没啥技术含量，充其量就是学了个分裂函数</del></p><h2 id="CODE"><a href="#CODE" class="headerlink" title="CODE"></a>CODE</h2><pre><code class="lang-cpp">//#define LawrenceSivan
 
 #include&lt;bits/stdc++.h&gt;
 using namespace std;
@@ -121,26 +121,26 @@ int build(int l,int r)&#123;
         st[rt].v=a[l];
         return rt;
     &#125;
-    
+
     int mid=(l+r)&gt;&gt;1;
     ls(rt)=build(l,mid);
     rs(rt)=build(mid+1,r);
-    
+
     push_up(rt);
     return rt;
 &#125;
 
 int split(int rt,int l,int r,int ql,int qr)&#123;
     int o=++tot;
-    
+
     if(ql==l&amp;&amp;qr==r)&#123;
         st[o]=st[rt];
         st[rt].v=ls(rt)=rs(rt)=0;
         return o;
     &#125;
-    
+
     int mid=(l+r)&gt;&gt;1;
-    
+
     if(qr&lt;=mid)&#123;
         ls(o)=split(ls(rt),l,mid,ql,qr);
     &#125;else if(ql&gt;mid)&#123;
@@ -149,19 +149,19 @@ int split(int rt,int l,int r,int ql,int qr)&#123;
         ls(o)=split(ls(rt),l,mid,ql,mid);
         rs(o)=split(rs(rt),mid+1,r,mid+1,qr);
     &#125;
-    
+
     push_up(rt);push_up(o);
     return o;
 &#125;
 
 int merge(int p,int q)&#123;
     if(!p||!q)return p|q;
-    
+
     int rt=++tot;
     st[rt].v=st[p].v+st[q].v;
     ls(rt)=merge(ls(p),ls(q));
     rs(rt)=merge(rs(p),rs(q));
-    
+
     return rt;
 &#125;
 
@@ -170,7 +170,7 @@ void modify(int rt,int l,int r,int pos,int val)&#123;
         st[rt].v+=val;
         return;
     &#125;
-    
+
     int mid=(l+r)&gt;&gt;1;
     if(pos&lt;=mid)&#123;
         if(ls(rt)==0)ls(rt)=++tot;
@@ -180,7 +180,7 @@ void modify(int rt,int l,int r,int pos,int val)&#123;
         if(rs(rt)==0)rs(rt)=++tot;
         modify(rs(rt),mid+1,r,pos,val);
     &#125;
-    
+
     push_up(rt);
 &#125;
 
@@ -189,14 +189,14 @@ ll query(int rt,int l,int r,int ql,int qr)&#123;
     if(ql&lt;=l&amp;&amp;qr&gt;=r)&#123;
         return st[rt].v;
     &#125;
-    
+
     int mid=(l+r)&gt;&gt;1;
     return query(ls(rt),l,mid,ql,qr)+query(rs(rt),mid+1,r,ql,qr);
 &#125;
 
 int kth(int rt,int l,int r,int k)&#123;
     if(l==r)return l;
-    
+
     int mid=(l+r)&gt;&gt;1;
     if(st[ls(rt)].v&gt;=k)return kth(ls(rt),l,mid,k);
     else return kth(rs(rt),mid+1,r,k-st[ls(rt)].v);
@@ -218,9 +218,9 @@ int main()&#123;
     for(re int i=1;i&lt;=n;i++)&#123;
         a[i]=read();
     &#125;
-    
+
     root[1]=build(1,n);
-    
+
     for(re int i=1;i&lt;=m;i++)&#123;
         op=read();p=read();
         if(op==0)&#123;
