@@ -65,7 +65,7 @@ links:
    
 
   - group: 个人项目
-    desc: 充分说明这家伙是条咸鱼 < (￣︶￣)>
+    desc: 充分说明这家伙是条咸鱼 (￣︶￣)
     items:
     - url: https://shino.cc/fgvf
       img: https://cloud.moezx.cc/Picture/svg/landscape/fields.svg
