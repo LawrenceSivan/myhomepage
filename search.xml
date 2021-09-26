@@ -1631,6 +1631,306 @@
       </categories>
   </entry>
   <entry>
+    <title>FFT快速傅里叶变换学习笔记</title>
+    <url>/2021/08/06/FFT%E5%BF%AB%E9%80%9F%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="FFT-快速傅里叶变换学习笔记"><a href="#FFT-快速傅里叶变换学习笔记" class="headerlink" title="FFT 快速傅里叶变换学习笔记"></a>FFT 快速傅里叶变换学习笔记</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>考虑到时间及能力有限，并且诸位大佬写的学习笔记已经是十分详尽，本人目前不可能也不打算写一篇详细度超越各位先人的学习笔记，只是帮助自己理清思路，整理过程并且贯彻一些证明。</p>
+<p>自然文章中会有诸多不妥之处，希望各位不吝赐教。</p>
+<p>部分比较简单的前置知识就跳过了。</p>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><ol>
+<li><p>复数基本知识</p>
+</li>
+<li><p>弧度制与三角函数</p>
+</li>
+<li><p>耐心稳定的心态</p>
+</li>
+</ol>
+<h2 id="FFT-简述"><a href="#FFT-简述" class="headerlink" title="FFT 简述"></a>FFT 简述</h2><p>FFT（Fast Fourier Transformation），中文名是 “<strong>快速傅里叶离散变换</strong>”。</p>
+<p>作用是：以 $\mathcal{O(n\log n)}$ 的时间复杂度计算多项式乘法。</p>
+<p>在 OI 中的应用：利用卷积思想，化乘为加，加速多项式乘法计算。</p>
+<h2 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h2><p>形如 $C[k]=\sum\limits_{i\oplus j=k}A[i]B[j]$ 的式子称为卷积。</p>
+<p>多项式乘法就是加法卷积。</p>
+<h2 id="多项式的表示"><a href="#多项式的表示" class="headerlink" title="多项式的表示"></a>多项式的表示</h2><p>多项式指的是单项式相加组成的代数式。</p>
+<h3 id="多项式的系数表示"><a href="#多项式的系数表示" class="headerlink" title="多项式的系数表示"></a>多项式的系数表示</h3><p>每一项单项式都有其对应的系数，将系数提炼出来就得到了多项式的系数表示。</p>
+<p>一般的，我们把一个 $n-1$ 次的 $n$ 项多项式表示为：</p>
+<script type="math/tex; mode=display">f(x)=\sum\limits_{i=0}^{n-1}a_i x^i=a_0x^0+a_1x^1+a_2x^2...+a_{n-1}x^{n-1}</script><p>系数表示即为：</p>
+<script type="math/tex; mode=display">f(x)=\{a_0.a_1,a_2...a_{n-1}\}</script><p>对于两个 $n$ 项多项式卷积，那么需要枚举每一对系数的乘积结果，复杂度 $\mathcal{O(n^2)}$。</p>
+<h3 id="多项式的点值表示"><a href="#多项式的点值表示" class="headerlink" title="多项式的点值表示"></a>多项式的点值表示</h3><p>给定 $n+1$ 个互不相同的点，我们可以唯一确定一个 $n$ 次多项式函数。</p>
+<p>可以使用 $n+1$ 个点值（有序数对）来描述一个多项式。</p>
+<p>点值表示即为 ：</p>
+<script type="math/tex; mode=display">f(x)=\{(x_0,f(x_0)),(x_1,f(x_1)),(x_2,f(x_2))...(x_n,f(x_n) )\}</script><p>进行乘法即为函数值相乘，复杂度 $\mathcal{O(n)}$。</p>
+<p>点值表示远快于暴力卷积。</p>
+<h2 id="基本复数运算"><a href="#基本复数运算" class="headerlink" title="基本复数运算"></a>基本复数运算</h2><p>说是不讲复数，但是怎么样还是应该说一说。</p>
+<p>复数相加为实部虚部对应相加。</p>
+<p>相减同理。</p>
+<p>相乘形式为：</p>
+<script type="math/tex; mode=display">(a+bi)\times (c+di)=ac+adi+bci+bdi^2=(ac-bd)+(ad+bc)i</script><p>相除形式为：</p>
+<script type="math/tex; mode=display">\dfrac{a+bi}{c+di}=\dfrac{(a+bi)(c-di)}{(c+di)(c-di)}=\dfrac{(ac+bd)+(bc-ad)i}{c^2+d^2}=\dfrac{ac+bd}{c^2+d^2}+\dfrac{bc-ad}{c^2+d^2}</script><p>复数相乘还有一个几何意义：模相乘，角相加。</p>
+<p>具体地，$(a_1,\theta_1)(a_2,\theta_2)=(a_1a_2,\theta_1+\theta_2)$。</p>
+<pre><code class="lang-cpp">struct Complex&#123;
+    double x,y;
+    Complex()&#123;&#125;
+    Complex(const double &amp;_x,const double &amp;_y):x(_x),y(_y)&#123;&#125;;
+
+    inline Complex operator + (const Complex &amp;a)const&#123;
+        return Complex(x+a.x,y+a.y);
+    &#125;
+
+    inline Complex operator - (const Complex &amp;a)const&#123;
+        return Complex(x-a.x,y-a.y);
+    &#125;
+
+    inline Complex operator * (const Complex &amp;a)const&#123;
+        return Complex(x*a.x-y*a.y,x*a.y+y*a.x);
+    &#125;
+
+    inline Complex operator / (const Complex &amp;a)const&#123;
+        double tmp=a.x*a.x+a.y*a.y;
+        return Complex((x*a.x+y*a.y)/tmp,(y*a.x-x*a.y)/tmp);
+    &#125;
+&#125;f[maxn],p[maxn];
+</code></pre>
+<h2 id="单位根"><a href="#单位根" class="headerlink" title="单位根"></a>单位根</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><blockquote>
+<p> $n$ 次单位根 $\omega_n^k$ 是 $n$ 次幂为 $1$ 的复数，即方程 $x^n=1$ 的复数解。</p>
+</blockquote>
+<p>单位根出现在复平面的单位圆上。</p>
+<p>$n$ 次单位根 $n$ 等分单位圆。</p>
+<p><img src="https://i.loli.net/2021/07/29/S4bs9vC1MENVUyn.png" alt=""></p>
+<p>图片来自 @<a href="https://www.luogu.com.cn/user/212283">Aw顿顿</a></p>
+<p>对于单位圆上的点，可以表示为 $\cos \theta+i \sin \theta$。</p>
+<p>从 $1$ 开始，沿着单位圆逆时针给单位根标号：</p>
+<p>$\omega_n^0=1,\omega_n^1$是第二个为单位根…</p>
+<p>$\omega_n^k=\cos\frac{k}{n}2\pi+i\sin\frac{k}{n}2\pi$。</p>
+<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><ol>
+<li><p>$\omega_n^k=\omega_n^{k\%n}$</p>
+</li>
+<li><p>$\omega _n^0=1$</p>
+</li>
+<li><p>$\omega_n ^k=(\omega_n^1)^k$</p>
+<p>（$\omega _n^k=\omega _n^1\times \omega _n^1\times \omega _n^1…\times \omega _n^1$ 共 $k$ 个，可以理解为每次逆时针转动 $\frac{1}{n}$ 个圆周，转了 $k$ 次。或者类比同底数幂相乘 ）</p>
+</li>
+<li><p>$\omega_n^j\times \omega_n^k =\omega_n^{j+k}$</p>
+</li>
+<li><p>$(\omega _n^k)^{-1}=(\omega_n^{-k})=(\omega_n^{n-k})$</p>
+<p>可以倒过来反向回推：</p>
+<p>$\omega_n^{n-k}\times \omega_n^k=\omega_n^{n-k+k}=\omega_n^n=\omega_n^n=1$</p>
+<p>所以 $(\omega _n^k)^{-1}=\omega_n^{n-k}$</p>
+</li>
+<li><p>$(\omega_n^k)^j=\omega_n^{kj}$</p>
+</li>
+<li><p>$\omega_{pn}^{pk}=\omega_n^k$</p>
+<p>想象成切蛋糕，多切了几刀，但是相应的多取了几倍。</p>
+</li>
+<li><p>如果 $n$ 是偶数，$\omega_n^{(k+\frac{n}{2})}=-\omega_n^k$ </p>
+<p>$\omega_n^{(k+\frac{n}{2})}=\omega_n^k\times\omega_n^{(\frac{n}{2})}$</p>
+<p>对于 $\omega_n^{(\frac{n}{2})}$ ，可以理解为把幅角转动 $\frac{1}{2}$ 个圆周，关于原点对称。</p>
+</li>
+</ol>
+<h2 id="DFT-与-IDFT-概述"><a href="#DFT-与-IDFT-概述" class="headerlink" title="DFT 与 IDFT 概述"></a>DFT 与 IDFT 概述</h2><p>把<strong>系数表示</strong>转化为<strong>点值表示</strong>的算法叫做 DFT；</p>
+<p>把<strong>点值表示</strong>转化为<strong>系数表示</strong>的算法叫做 IDFT（或者称为 DFT 的逆运算）</p>
+<p>从系数表示确定点值表示的过程叫做求值，从点值表示确定系数表示的过程叫做插值。</p>
+<h2 id="FFT-快速傅里叶变换"><a href="#FFT-快速傅里叶变换" class="headerlink" title="FFT 快速傅里叶变换"></a>FFT 快速傅里叶变换</h2><p>FFT 是将系数表示转化为点值表示进行计算，之后再转化成系数表示。</p>
+<p>主要过程分为了两步：系数表示转化为点值表示，点值表示转化为系数表示。</p>
+<p>就是 DFT 和 IDFT 了。</p>
+<p>不使用 FFT 直接进行朴素转化是 $\mathcal{O(n^2)}$ 的。</p>
+<p>考虑更高效的方法。</p>
+<h3 id="DFT（系数表示转化成点值表示）"><a href="#DFT（系数表示转化成点值表示）" class="headerlink" title="DFT（系数表示转化成点值表示）"></a>DFT（系数表示转化成点值表示）</h3><p>设多项式:</p>
+<script type="math/tex; mode=display">A(x)=\sum\limits_{i=0}^{n-1}a_i x^i=a_0x^0+a_1x^1+a_2x^2...+a_{n-1}x^{n-1}</script><p>按奇偶分类（分治思路）：</p>
+<script type="math/tex; mode=display">A(x)=(a_0x^0+a_2x^2+a_4x^4...+a_{n-2}x^{n-2})</script><script type="math/tex; mode=display">+</script><script type="math/tex; mode=display">(a_1x^1+a_3x^3+a_5x^5...+a_{n-1}x^{n-1})</script><p>两边统一次数，提出后面的 $x$：</p>
+<script type="math/tex; mode=display">A(x)=(a_0+a_2x^2+a_4x^4...+a_{n-2}x^{n-2})</script><script type="math/tex; mode=display">+</script><script type="math/tex; mode=display">x\times(a_1+a_3x^2+a_5x^4...+a_{n-1}x^{n-2})</script><p>设两个 $\frac{n}{2}$ 项的多项式 $L(x)$ 和 $R(x)$ ，考虑降低 $A(x)$ 的次数，执行分治过程：</p>
+<script type="math/tex; mode=display">L(x)=(a_0+a_2x^1+a_4x^2...+a_{n-2}x^{\frac{n}{2}-1})</script><script type="math/tex; mode=display">R(x)=(a_1+a_3x^1+a_5x^2...+a_{n-1}x^{\frac{n}{2}-1})</script><p>原式可以表示为 $A(x)=L(x^2)+x\times R(x^2)$ </p>
+<p>注意式子中需要带入 $x^2$ ，由于我们为了执行分治降低了次数，现在要保持式子不变。</p>
+<p>之后考虑把单位根 $\omega_n ^k$ 带入原式</p>
+<ul>
+<li><p>$k&lt;\frac{n}{2}$ ，代入 $\omega_n^ k$ :</p>
+<script type="math/tex; mode=display">A(\omega_n^k)=L((\omega_n^k)^2)+\omega_n^k\times R((\omega_n^k)^2)</script><p>根据单位根性质 $7$ $\omega_{pn}^{pk}=\omega_n^k$:</p>
+<script type="math/tex; mode=display">(\omega_n^k)^2=(\omega_n^{2k})=(\omega_{\frac{n}{2}}^{k})</script><script type="math/tex; mode=display">A(\omega_n^k)=L(\omega_{\frac{n}{2}}^{k})+\omega_n^k\times R(\omega_{\frac{n}{2}}^{k})</script></li>
+</ul>
+<ul>
+<li><p>$k&lt;\frac{n}{2}$,代入 $\omega_n^ {k+\frac{n}{2}}$</p>
+<script type="math/tex; mode=display">A(\omega_n^ {k+\frac{n}{2}})=L((\omega_n^ {k+\frac{n}{2}})^2)+\omega_n^ {k+\frac{n}{2}}\times R((\omega_n^ {k+\frac{n}{2}})^2)</script><p>由单位根的性质 $6$ $(\omega_n^k)^j=\omega_n^{kj}$ 得：</p>
+<script type="math/tex; mode=display">A(\omega_n^ {k+\frac{n}{2}})=L(\omega_n^ {2k+n})+\omega_n^ {k+\frac{n}{2}}\times R(\omega _n^{2k+n})</script><p>由单位根的性质 $1$ $\omega_n^k=\omega_n^{k\%n}$ 得到：</p>
+<script type="math/tex; mode=display">A(\omega_n^ {k+\frac{n}{2}})=L(\omega_n^ {2k})+\omega_n^ {k+\frac{n}{2}}\times R(\omega _n^{2k})</script><p>由单位根的性质 $7$ $\omega_{pn}^{pk}=\omega_n^k$ 得到：</p>
+<script type="math/tex; mode=display">A(\omega_n^ {k+\frac{n}{2}})=L(\omega_{\frac{n}{2}}^ {k})+\omega_n^ {k+\frac{n}{2}}\times R(\omega_{\frac{n}{2}}^ {k})</script><p>由单位根的性质 $8$ $\omega_n^{(k+\frac{n}{2})}=-\omega_n^k$ 得：</p>
+<script type="math/tex; mode=display">A(\omega_n^ {k+\frac{n}{2}})=L(\omega_{\frac{n}{2}}^ {k})-\omega_n^ {k}\times R(\omega_{\frac{n}{2}}^ {k})</script></li>
+</ul>
+<p>对比两个式子：</p>
+<script type="math/tex; mode=display">A(\omega_n^k)=L(\omega_{\frac{n}{2}}^{k})+\omega_n^k\times R(\omega_{\frac{n}{2}}^{k})</script><script type="math/tex; mode=display">A(\omega_n^ {k+\frac{n}{2}})=L(\omega_{\frac{n}{2}}^ {k})-\omega_n^ {k}\times R(\omega_{\frac{n}{2}}^ {k})</script><p>发现右侧只有一个符号的差别。于是他们可以同步计算。</p>
+<p>换句话说，FFT 就是把单位根上下半圆的部分分别带入 $A(x)=L(x^2)+x\times R(x^2)$ </p>
+<p>于是我们在 $\mathcal{O(n\log n)}$ 时间复杂度内完成了系数表示转成点值表示的过程。</p>
+<h3 id="IDFT-（点值表示转化成系数表示）"><a href="#IDFT-（点值表示转化成系数表示）" class="headerlink" title="IDFT （点值表示转化成系数表示）"></a>IDFT （点值表示转化成系数表示）</h3><p>由于代入时我们选择了单位根，现在我们十分方便地就可以完成 点值表示转化成系数表示。</p>
+<p>首先写出结论：<strong>把 DFT 中的 $\omega_n^1$ 换成 $\omega_n^{-1}$ 做完之后除以 $n$ 即可</strong>。</p>
+<p>证明与<a href="https://www.luogu.com.cn/blog/command-block/dan-wei-gen-fan-yan-xiao-ji">单位根反演</a>有关。</p>
+<p>设 多项式 $A(x)$ 经过了 DFT 变换之后得到的点值数列为 $G$。</p>
+<p>即 $G=DFT(A)$</p>
+<p>回忆代入的过程，可以得到：</p>
+<script type="math/tex; mode=display">G[k]=\sum\limits^{n-1}_{i=0}(\omega_n^k)^iA[i]</script><p>（含义是每一个点值都是把单位根代进每一项中乘以系数得到的）</p>
+<p>结论是 $n\times A[k]=\sum\limits^{n-1}_{i=0}(\omega_n^{-k})^iG[i]$</p>
+<p>证明：</p>
+<p>把点值代入右边可以得到：</p>
+<script type="math/tex; mode=display">\sum\limits^{n-1}_{i=0}\left( (\omega_n^{-k})G[i] \right)=\sum\limits^{n-1}_{i=0}\left( \left( \sum\limits^{n-1}_{j=0}(\omega_n^i)^jA[j] \right) \times(\omega_n^{-k})^i \right)</script><p>化简得到：</p>
+<script type="math/tex; mode=display">\sum\limits^{n-1}_{i=0}\left( (\omega_n^{-k})G[i] \right)=\sum\limits^{n-1}_{i=0}\left( \sum\limits^{n-1}_{j=0}(\omega_n^{i(j-k)})A[j] \right)</script><p>分类讨论：</p>
+<ul>
+<li><p>$j=k$ </p>
+<p>贡献是 $\sum\limits^{n-1}_{i=0} \sum\limits^{n-1}_{j=0}(\omega_n^{i(j-k)})A[j] \times[j==k]$</p>
+<p>$=\sum\limits^{n-1}_{i=0}\omega_n^{i(k-k)}A[k]$</p>
+<p>$=\sum\limits^{n-1}_{i=0}A[k]$</p>
+<p>$=n\times A[k]$</p>
+</li>
+<li><p>$j\ne k$</p>
+<p>设 $p=j-k$</p>
+<p>贡献就是 $\sum\limits_{i=0}^{n-1}\omega_n^{ip}A[k+p]$</p>
+<p>$=\omega_n^p\left(\sum\limits_{i=0}^{n-1}\omega_n^{i}\right)A[k+p]$</p>
+<p>等比数列求和得到：</p>
+<script type="math/tex; mode=display">\left(\sum\limits_{i=0}^{n-1}\omega_n^{i}\right)=\dfrac{1-\omega_n^{np}}{1-\omega_n^{p}}=\dfrac{1-\omega_n^{0}}{1-\omega_n^{p}}=0</script><p>所以这一部分贡献是 $0$。</p>
+<p><strong>这一部分就是所谓的求和引理</strong></p>
+</li>
+</ul>
+<p>证毕。</p>
+<p>于是把 $G$ 数列当作系数再代入一遍，单位根换成所谓的 $\omega _n^{-1}$ 就行了。</p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>有了上述思路，我们就可以开始着手代码实现了。</p>
+<ol>
+<li><p>补充 $n$ 至 $2$ 的整次幂。</p>
+<p>我们上面的过程都是针对 $n$ 是 $2$ 的整次幂进行的，原因是这样可以保证分的足够均匀。</p>
+<p>实际中不满足这个条件？补项就行了。在最高次强行添加系数为 $0$ 的项。</p>
+</li>
+<li><p>预处理单位根</p>
+<p>根据单位根的性质 $3$ $\omega_n ^k=(\omega_n^1)^k$，我们可以把他乘 $n$ 次，就能得到所有想要的单位根。</p>
+<p>第一个单位根是有的，肯定是 $1$。</p>
+<p>第二个单位根 $\omega_n ^1$ 必然是第一个不与实轴重合的单位根，所以他的坐标就是 $(\cos(\frac{2\pi}{n}),\sin(\frac{2\pi}{n}))$</p>
+<pre><code class="lang-cpp">Complex omega(cos(2*Pi/p),sin(2*Pi/p));
+for(re int i=0;i&lt;n;i++)&#123;
+    w[i]=buf;
+    buf=buf*omega;
+&#125;
+</code></pre>
+</li>
+<li><p>蝴蝶变换</p>
+<p>大概意思是递归版效率太低，我们需要找到迭代解法。</p>
+<p>可以发现多项式的第 $i$ 次项到达递归底层时下标为 $i$ 二进制翻转后的数，所以就可以自底向上迭代合并。</p>
+<p>可以 $\mathcal{O(n)}$ 递推求出。</p>
+<pre><code class="lang-cpp">for(re int i=0;i&lt;n;i++)&#123;
+    trans[i]=(trans[i&gt;&gt;1]&gt;&gt;1)|((i&amp;1)?n&gt;&gt;1:0);
+&#125;
+</code></pre>
+<p>具体证明以及    详细信息以后再补，今天没时间了。</p>
+</li>
+</ol>
+<p>CODE:</p>
+<pre><code class="lang-cpp">//#define LawrenceSivan
+
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+typedef unsigned long long ull;
+
+#define INF 0x3f3f3f3f
+#define re register
+
+const int maxn=1e7+5;
+const int maxm=1;
+const double Pi=acos(-1);
+
+struct Complex&#123;
+    double x,y;
+    Complex()&#123;&#125;
+    Complex(const double &amp;_x,const double &amp;_y):x(_x),y(_y)&#123;&#125;;
+
+    inline Complex operator + (const Complex &amp;a)const&#123;
+        return Complex(x+a.x,y+a.y);
+    &#125;
+
+    inline Complex operator - (const Complex &amp;a)const&#123;
+        return Complex(x-a.x,y-a.y);
+    &#125;
+
+    inline Complex operator * (const Complex &amp;a)const&#123;
+        return Complex(x*a.x-y*a.y,x*a.y+y*a.x);
+    &#125;
+
+    inline Complex operator / (const Complex &amp;a)const&#123;
+        double tmp=a.x*a.x+a.y*a.y;
+        return Complex((x*a.x+y*a.y)/tmp,(y*a.x-x*a.y)/tmp);
+    &#125;
+&#125;f[maxn],p[maxn];
+
+int trans[maxn];
+
+int n,m;
+
+inline void FFT(Complex *f,bool op)&#123;
+    for(re int i=0;i&lt;n;i++)&#123;
+        if(i&lt;trans[i])swap(f[i],f[trans[i]]);
+    &#125;
+    for(re int p=2;p&lt;=n;p&lt;&lt;=1)&#123;
+        int len=p&gt;&gt;1;
+        Complex omega(cos(2*Pi/p),sin(2*Pi/p));
+        if(!op)omega.y*=-1;
+        for(re int k=0;k&lt;n;k+=p)&#123;
+            Complex buf(1,0);
+            for(re int l=k;l&lt;k+len;l++)&#123;
+                Complex tmp=buf*f[l+len];
+                f[l+len]=f[l]-tmp;
+                f[l]=f[l]+tmp;
+                buf=buf*omega;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+
+namespace IO&#123;
+    template&lt;typename T&gt;
+    inline void read(T &amp;x)&#123;
+        x=0;T f=1;char ch=getchar();
+        while (!isdigit(ch)) &#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+        while (isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+        x*=f;
+    &#125;
+
+    template &lt;typename T, typename... Args&gt;
+    inline void read(T&amp; t, Args&amp;... args) &#123;
+        read(t); read(args...);
+    &#125;
+
+    template&lt;typename T&gt;
+    void write(T x)&#123;
+        if(x&lt;0)putchar(&#39;-&#39;),x=-x;
+        if(x&gt;9)write(x/10);
+        putchar(x%10+&#39;0&#39;);
+    &#125;
+
+    template&lt;typename T,typename... Args&gt;
+    void write(T t,Args... args)&#123;
+        write(t);putchar(&#39; &#39;);write(args...);
+    &#125;
+&#125;
+
+using namespace IO;
+
+signed main() &#123;
+#ifdef LawrenceSivan
+    freopen(&quot;aa.in&quot;,&quot;r&quot;, stdin);
+    freopen(&quot;aa.out&quot;,&quot;w&quot;, stdout);
+#endif
+    read(n,m);
+    for(re int i=0;i&lt;=n;i++)scanf(&quot;%lf&quot;,&amp;f[i].x);
+    for(re int i=0;i&lt;=m;i++)scanf(&quot;%lf&quot;,&amp;p[i].x);
+    for(m+=n,n=1;n&lt;=m;n&lt;&lt;=1);
+    for(re int i=0;i&lt;n;i++)&#123;
+        trans[i]=(trans[i&gt;&gt;1]&gt;&gt;1)|((i&amp;1)?n&gt;&gt;1:0);
+    &#125;
+    FFT(f,1),FFT(p,1);
+    for(re int i=0;i&lt;n;i++)f[i]=f[i]*p[i];
+    FFT(f,0);
+    for(re int i=0;i&lt;=m;i++)write((int)(f[i].x/n+0.5)),putchar(&#39; &#39;);
+    puts(&quot;&quot;);
+
+    return 0;
+&#125;
+</code></pre>
+]]></content>
+  </entry>
+  <entry>
     <title>CF545E Paths and Trees（最短路径树）</title>
     <url>/2021/06/07/CF545E%20Paths%20and%20Trees%EF%BC%88%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E6%A0%91%EF%BC%89/</url>
     <content><![CDATA[<h1 id="CF545E-Paths-and-Trees"><a href="#CF545E-Paths-and-Trees" class="headerlink" title="_CF545E Paths and Trees_"></a>_CF545E Paths and Trees_</h1><h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>学这个的时候看了一些博客，感觉其实这一块网上很多博客和题解其实一些细节没有说太清楚。于是今天主要想说一下关于最短路径树的一些细节与处理问题。</p>
@@ -1970,378 +2270,6 @@ int main()&#123;
 ]]></content>
   </entry>
   <entry>
-    <title>FFT快速傅里叶变换学习笔记</title>
-    <url>/2021/08/06/FFT%E5%BF%AB%E9%80%9F%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="FFT-快速傅里叶变换学习笔记"><a href="#FFT-快速傅里叶变换学习笔记" class="headerlink" title="FFT 快速傅里叶变换学习笔记"></a>FFT 快速傅里叶变换学习笔记</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>考虑到时间及能力有限，并且诸位大佬写的学习笔记已经是十分详尽，本人目前不可能也不打算写一篇详细度超越各位先人的学习笔记，只是帮助自己理清思路，整理过程并且贯彻一些证明。</p>
-<p>自然文章中会有诸多不妥之处，希望各位不吝赐教。</p>
-<p>部分比较简单的前置知识就跳过了。</p>
-<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><ol>
-<li><p>复数基本知识</p>
-</li>
-<li><p>弧度制与三角函数</p>
-</li>
-<li><p>耐心稳定的心态</p>
-</li>
-</ol>
-<h2 id="FFT-简述"><a href="#FFT-简述" class="headerlink" title="FFT 简述"></a>FFT 简述</h2><p>FFT（Fast Fourier Transformation），中文名是 “<strong>快速傅里叶离散变换</strong>”。</p>
-<p>作用是：以 $\mathcal{O(n\log n)}$ 的时间复杂度计算多项式乘法。</p>
-<p>在 OI 中的应用：利用卷积思想，化乘为加，加速多项式乘法计算。</p>
-<h2 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h2><p>形如 $C[k]=\sum\limits_{i\oplus j=k}A[i]B[j]$ 的式子称为卷积。</p>
-<p>多项式乘法就是加法卷积。</p>
-<h2 id="多项式的表示"><a href="#多项式的表示" class="headerlink" title="多项式的表示"></a>多项式的表示</h2><p>多项式指的是单项式相加组成的代数式。</p>
-<h3 id="多项式的系数表示"><a href="#多项式的系数表示" class="headerlink" title="多项式的系数表示"></a>多项式的系数表示</h3><p>每一项单项式都有其对应的系数，将系数提炼出来就得到了多项式的系数表示。</p>
-<p>一般的，我们把一个 $n-1$ 次的 $n$ 项多项式表示为：</p>
-<script type="math/tex; mode=display">f(x)=\sum\limits_{i=0}^{n-1}a_i x^i=a_0x^0+a_1x^1+a_2x^2...+a_{n-1}x^{n-1}</script><p>系数表示即为：</p>
-<script type="math/tex; mode=display">f(x)=\{a_0.a_1,a_2...a_{n-1}\}</script><p>对于两个 $n$ 项多项式卷积，那么需要枚举每一对系数的乘积结果，复杂度 $\mathcal{O(n^2)}$。</p>
-<h3 id="多项式的点值表示"><a href="#多项式的点值表示" class="headerlink" title="多项式的点值表示"></a>多项式的点值表示</h3><p>给定 $n+1$ 个互不相同的点，我们可以唯一确定一个 $n$ 次多项式函数。</p>
-<p>可以使用 $n+1$ 个点值（有序数对）来描述一个多项式。</p>
-<p>点值表示即为 ：</p>
-<script type="math/tex; mode=display">f(x)=\{(x_0,f(x_0)),(x_1,f(x_1)),(x_2,f(x_2))...(x_n,f(x_n) )\}</script><p>进行乘法即为函数值相乘，复杂度 $\mathcal{O(n)}$。</p>
-<p>点值表示远快于暴力卷积。</p>
-<h2 id="基本复数运算"><a href="#基本复数运算" class="headerlink" title="基本复数运算"></a>基本复数运算</h2><p>说是不讲复数，但是怎么样还是应该说一说。</p>
-<p>复数相加为实部虚部对应相加。</p>
-<p>相减同理。</p>
-<p>相乘形式为：</p>
-<script type="math/tex; mode=display">(a+bi)\times (c+di)=ac+adi+bci+bdi^2=(ac-bd)+(ad+bc)i</script><p>相除形式为：</p>
-<script type="math/tex; mode=display">\dfrac{a+bi}{c+di}=\dfrac{(a+bi)(c-di)}{(c+di)(c-di)}=\dfrac{(ac+bd)+(bc-ad)i}{c^2+d^2}=\dfrac{ac+bd}{c^2+d^2}+\dfrac{bc-ad}{c^2+d^2}</script><p>复数相乘还有一个几何意义：模相乘，角相加。</p>
-<p>具体地，$(a_1,\theta_1)(a_2,\theta_2)=(a_1a_2,\theta_1+\theta_2)$。</p>
-<pre><code class="lang-cpp">struct Complex&#123;
-    double x,y;
-    Complex()&#123;&#125;
-    Complex(const double &amp;_x,const double &amp;_y):x(_x),y(_y)&#123;&#125;;
-
-    inline Complex operator + (const Complex &amp;a)const&#123;
-        return Complex(x+a.x,y+a.y);
-    &#125;
-
-    inline Complex operator - (const Complex &amp;a)const&#123;
-        return Complex(x-a.x,y-a.y);
-    &#125;
-
-    inline Complex operator * (const Complex &amp;a)const&#123;
-        return Complex(x*a.x-y*a.y,x*a.y+y*a.x);
-    &#125;
-
-    inline Complex operator / (const Complex &amp;a)const&#123;
-        double tmp=a.x*a.x+a.y*a.y;
-        return Complex((x*a.x+y*a.y)/tmp,(y*a.x-x*a.y)/tmp);
-    &#125;
-&#125;f[maxn],p[maxn];
-</code></pre>
-<h2 id="单位根"><a href="#单位根" class="headerlink" title="单位根"></a>单位根</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><blockquote>
-<p> $n$ 次单位根 $\omega_n^k$ 是 $n$ 次幂为 $1$ 的复数，即方程 $x^n=1$ 的复数解。</p>
-</blockquote>
-<p>单位根出现在复平面的单位圆上。</p>
-<p>$n$ 次单位根 $n$ 等分单位圆。</p>
-<p><img src="https://i.loli.net/2021/07/29/S4bs9vC1MENVUyn.png" alt=""></p>
-<p>图片来自 @<a href="https://www.luogu.com.cn/user/212283">Aw顿顿</a></p>
-<p>对于单位圆上的点，可以表示为 $\cos \theta+i \sin \theta$。</p>
-<p>从 $1$ 开始，沿着单位圆逆时针给单位根标号：</p>
-<p>$\omega_n^0=1,\omega_n^1$是第二个为单位根…</p>
-<p>$\omega_n^k=\cos\frac{k}{n}2\pi+i\sin\frac{k}{n}2\pi$。</p>
-<h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><ol>
-<li><p>$\omega_n^k=\omega_n^{k\%n}$</p>
-</li>
-<li><p>$\omega _n^0=1$</p>
-</li>
-<li><p>$\omega_n ^k=(\omega_n^1)^k$</p>
-<p>（$\omega _n^k=\omega _n^1\times \omega _n^1\times \omega _n^1…\times \omega _n^1$ 共 $k$ 个，可以理解为每次逆时针转动 $\frac{1}{n}$ 个圆周，转了 $k$ 次。或者类比同底数幂相乘 ）</p>
-</li>
-<li><p>$\omega_n^j\times \omega_n^k =\omega_n^{j+k}$</p>
-</li>
-<li><p>$(\omega _n^k)^{-1}=(\omega_n^{-k})=(\omega_n^{n-k})$</p>
-<p>可以倒过来反向回推：</p>
-<p>$\omega_n^{n-k}\times \omega_n^k=\omega_n^{n-k+k}=\omega_n^n=\omega_n^n=1$</p>
-<p>所以 $(\omega _n^k)^{-1}=\omega_n^{n-k}$</p>
-</li>
-<li><p>$(\omega_n^k)^j=\omega_n^{kj}$</p>
-</li>
-<li><p>$\omega_{pn}^{pk}=\omega_n^k$</p>
-<p>想象成切蛋糕，多切了几刀，但是相应的多取了几倍。</p>
-</li>
-<li><p>如果 $n$ 是偶数，$\omega_n^{(k+\frac{n}{2})}=-\omega_n^k$ </p>
-<p>$\omega_n^{(k+\frac{n}{2})}=\omega_n^k\times\omega_n^{(\frac{n}{2})}$</p>
-<p>对于 $\omega_n^{(\frac{n}{2})}$ ，可以理解为把幅角转动 $\frac{1}{2}$ 个圆周，关于原点对称。</p>
-</li>
-</ol>
-<h2 id="DFT-与-IDFT-概述"><a href="#DFT-与-IDFT-概述" class="headerlink" title="DFT 与 IDFT 概述"></a>DFT 与 IDFT 概述</h2><p>把<strong>系数表示</strong>转化为<strong>点值表示</strong>的算法叫做 DFT；</p>
-<p>把<strong>点值表示</strong>转化为<strong>系数表示</strong>的算法叫做 IDFT（或者称为 DFT 的逆运算）</p>
-<p>从系数表示确定点值表示的过程叫做求值，从点值表示确定系数表示的过程叫做插值。</p>
-<h2 id="FFT-快速傅里叶变换"><a href="#FFT-快速傅里叶变换" class="headerlink" title="FFT 快速傅里叶变换"></a>FFT 快速傅里叶变换</h2><p>FFT 是将系数表示转化为点值表示进行计算，之后再转化成系数表示。</p>
-<p>主要过程分为了两步：系数表示转化为点值表示，点值表示转化为系数表示。</p>
-<p>就是 DFT 和 IDFT 了。</p>
-<p>不使用 FFT 直接进行朴素转化是 $\mathcal{O(n^2)}$ 的。</p>
-<p>考虑更高效的方法。</p>
-<h3 id="DFT（系数表示转化成点值表示）"><a href="#DFT（系数表示转化成点值表示）" class="headerlink" title="DFT（系数表示转化成点值表示）"></a>DFT（系数表示转化成点值表示）</h3><p>设多项式:</p>
-<script type="math/tex; mode=display">A(x)=\sum\limits_{i=0}^{n-1}a_i x^i=a_0x^0+a_1x^1+a_2x^2...+a_{n-1}x^{n-1}</script><p>按奇偶分类（分治思路）：</p>
-<script type="math/tex; mode=display">A(x)=(a_0x^0+a_2x^2+a_4x^4...+a_{n-2}x^{n-2})</script><script type="math/tex; mode=display">+</script><script type="math/tex; mode=display">(a_1x^1+a_3x^3+a_5x^5...+a_{n-1}x^{n-1})</script><p>两边统一次数，提出后面的 $x$：</p>
-<script type="math/tex; mode=display">A(x)=(a_0+a_2x^2+a_4x^4...+a_{n-2}x^{n-2})</script><script type="math/tex; mode=display">+</script><script type="math/tex; mode=display">x\times(a_1+a_3x^2+a_5x^4...+a_{n-1}x^{n-2})</script><p>设两个 $\frac{n}{2}$ 项的多项式 $L(x)$ 和 $R(x)$ ，考虑降低 $A(x)$ 的次数，执行分治过程：</p>
-<script type="math/tex; mode=display">L(x)=(a_0+a_2x^1+a_4x^2...+a_{n-2}x^{\frac{n}{2}-1})</script><script type="math/tex; mode=display">R(x)=(a_1+a_3x^1+a_5x^2...+a_{n-1}x^{\frac{n}{2}-1})</script><p>原式可以表示为 $A(x)=L(x^2)+x\times R(x^2)$ </p>
-<p>注意式子中需要带入 $x^2$ ，由于我们为了执行分治降低了次数，现在要保持式子不变。</p>
-<p>之后考虑把单位根 $\omega_n ^k$ 带入原式</p>
-<ul>
-<li><p>$k&lt;\frac{n}{2}$ ，代入 $\omega_n^ k$ :</p>
-<script type="math/tex; mode=display">A(\omega_n^k)=L((\omega_n^k)^2)+\omega_n^k\times R((\omega_n^k)^2)</script><p>根据单位根性质 $7$ $\omega_{pn}^{pk}=\omega_n^k$:</p>
-<script type="math/tex; mode=display">(\omega_n^k)^2=(\omega_n^{2k})=(\omega_{\frac{n}{2}}^{k})</script><script type="math/tex; mode=display">A(\omega_n^k)=L(\omega_{\frac{n}{2}}^{k})+\omega_n^k\times R(\omega_{\frac{n}{2}}^{k})</script></li>
-</ul>
-<ul>
-<li><p>$k&lt;\frac{n}{2}$,代入 $\omega_n^ {k+\frac{n}{2}}$</p>
-<script type="math/tex; mode=display">A(\omega_n^ {k+\frac{n}{2}})=L((\omega_n^ {k+\frac{n}{2}})^2)+\omega_n^ {k+\frac{n}{2}}\times R((\omega_n^ {k+\frac{n}{2}})^2)</script><p>由单位根的性质 $6$ $(\omega_n^k)^j=\omega_n^{kj}$ 得：</p>
-<script type="math/tex; mode=display">A(\omega_n^ {k+\frac{n}{2}})=L(\omega_n^ {2k+n})+\omega_n^ {k+\frac{n}{2}}\times R(\omega _n^{2k+n})</script><p>由单位根的性质 $1$ $\omega_n^k=\omega_n^{k\%n}$ 得到：</p>
-<script type="math/tex; mode=display">A(\omega_n^ {k+\frac{n}{2}})=L(\omega_n^ {2k})+\omega_n^ {k+\frac{n}{2}}\times R(\omega _n^{2k})</script><p>由单位根的性质 $7$ $\omega_{pn}^{pk}=\omega_n^k$ 得到：</p>
-<script type="math/tex; mode=display">A(\omega_n^ {k+\frac{n}{2}})=L(\omega_{\frac{n}{2}}^ {k})+\omega_n^ {k+\frac{n}{2}}\times R(\omega_{\frac{n}{2}}^ {k})</script><p>由单位根的性质 $8$ $\omega_n^{(k+\frac{n}{2})}=-\omega_n^k$ 得：</p>
-<script type="math/tex; mode=display">A(\omega_n^ {k+\frac{n}{2}})=L(\omega_{\frac{n}{2}}^ {k})-\omega_n^ {k}\times R(\omega_{\frac{n}{2}}^ {k})</script></li>
-</ul>
-<p>对比两个式子：</p>
-<script type="math/tex; mode=display">A(\omega_n^k)=L(\omega_{\frac{n}{2}}^{k})+\omega_n^k\times R(\omega_{\frac{n}{2}}^{k})</script><script type="math/tex; mode=display">A(\omega_n^ {k+\frac{n}{2}})=L(\omega_{\frac{n}{2}}^ {k})-\omega_n^ {k}\times R(\omega_{\frac{n}{2}}^ {k})</script><p>发现右侧只有一个符号的差别。于是他们可以同步计算。</p>
-<p>换句话说，FFT 就是把单位根上下半圆的部分分别带入 $A(x)=L(x^2)+x\times R(x^2)$ </p>
-<p>于是我们在 $\mathcal{O(n\log n)}$ 时间复杂度内完成了系数表示转成点值表示的过程。</p>
-<h3 id="IDFT-（点值表示转化成系数表示）"><a href="#IDFT-（点值表示转化成系数表示）" class="headerlink" title="IDFT （点值表示转化成系数表示）"></a>IDFT （点值表示转化成系数表示）</h3><p>由于代入时我们选择了单位根，现在我们十分方便地就可以完成 点值表示转化成系数表示。</p>
-<p>首先写出结论：<strong>把 DFT 中的 $\omega_n^1$ 换成 $\omega_n^{-1}$ 做完之后除以 $n$ 即可</strong>。</p>
-<p>证明与<a href="https://www.luogu.com.cn/blog/command-block/dan-wei-gen-fan-yan-xiao-ji">单位根反演</a>有关。</p>
-<p>设 多项式 $A(x)$ 经过了 DFT 变换之后得到的点值数列为 $G$。</p>
-<p>即 $G=DFT(A)$</p>
-<p>回忆代入的过程，可以得到：</p>
-<script type="math/tex; mode=display">G[k]=\sum\limits^{n-1}_{i=0}(\omega_n^k)^iA[i]</script><p>（含义是每一个点值都是把单位根代进每一项中乘以系数得到的）</p>
-<p>结论是 $n\times A[k]=\sum\limits^{n-1}_{i=0}(\omega_n^{-k})^iG[i]$</p>
-<p>证明：</p>
-<p>把点值代入右边可以得到：</p>
-<script type="math/tex; mode=display">\sum\limits^{n-1}_{i=0}\left( (\omega_n^{-k})G[i] \right)=\sum\limits^{n-1}_{i=0}\left( \left( \sum\limits^{n-1}_{j=0}(\omega_n^i)^jA[j] \right) \times(\omega_n^{-k})^i \right)</script><p>化简得到：</p>
-<script type="math/tex; mode=display">\sum\limits^{n-1}_{i=0}\left( (\omega_n^{-k})G[i] \right)=\sum\limits^{n-1}_{i=0}\left( \sum\limits^{n-1}_{j=0}(\omega_n^{i(j-k)})A[j] \right)</script><p>分类讨论：</p>
-<ul>
-<li><p>$j=k$ </p>
-<p>贡献是 $\sum\limits^{n-1}_{i=0} \sum\limits^{n-1}_{j=0}(\omega_n^{i(j-k)})A[j] \times[j==k]$</p>
-<p>$=\sum\limits^{n-1}_{i=0}\omega_n^{i(k-k)}A[k]$</p>
-<p>$=\sum\limits^{n-1}_{i=0}A[k]$</p>
-<p>$=n\times A[k]$</p>
-</li>
-<li><p>$j\ne k$</p>
-<p>设 $p=j-k$</p>
-<p>贡献就是 $\sum\limits_{i=0}^{n-1}\omega_n^{ip}A[k+p]$</p>
-<p>$=\omega_n^p\left(\sum\limits_{i=0}^{n-1}\omega_n^{i}\right)A[k+p]$</p>
-<p>等比数列求和得到：</p>
-<script type="math/tex; mode=display">\left(\sum\limits_{i=0}^{n-1}\omega_n^{i}\right)=\dfrac{1-\omega_n^{np}}{1-\omega_n^{p}}=\dfrac{1-\omega_n^{0}}{1-\omega_n^{p}}=0</script><p>所以这一部分贡献是 $0$。</p>
-<p><strong>这一部分就是所谓的求和引理</strong></p>
-</li>
-</ul>
-<p>证毕。</p>
-<p>于是把 $G$ 数列当作系数再代入一遍，单位根换成所谓的 $\omega _n^{-1}$ 就行了。</p>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>有了上述思路，我们就可以开始着手代码实现了。</p>
-<ol>
-<li><p>补充 $n$ 至 $2$ 的整次幂。</p>
-<p>我们上面的过程都是针对 $n$ 是 $2$ 的整次幂进行的，原因是这样可以保证分的足够均匀。</p>
-<p>实际中不满足这个条件？补项就行了。在最高次强行添加系数为 $0$ 的项。</p>
-</li>
-<li><p>预处理单位根</p>
-<p>根据单位根的性质 $3$ $\omega_n ^k=(\omega_n^1)^k$，我们可以把他乘 $n$ 次，就能得到所有想要的单位根。</p>
-<p>第一个单位根是有的，肯定是 $1$。</p>
-<p>第二个单位根 $\omega_n ^1$ 必然是第一个不与实轴重合的单位根，所以他的坐标就是 $(\cos(\frac{2\pi}{n}),\sin(\frac{2\pi}{n}))$</p>
-<pre><code class="lang-cpp">Complex omega(cos(2*Pi/p),sin(2*Pi/p));
-for(re int i=0;i&lt;n;i++)&#123;
-    w[i]=buf;
-    buf=buf*omega;
-&#125;
-</code></pre>
-</li>
-<li><p>蝴蝶变换</p>
-<p>大概意思是递归版效率太低，我们需要找到迭代解法。</p>
-<p>可以发现多项式的第 $i$ 次项到达递归底层时下标为 $i$ 二进制翻转后的数，所以就可以自底向上迭代合并。</p>
-<p>可以 $\mathcal{O(n)}$ 递推求出。</p>
-<pre><code class="lang-cpp">for(re int i=0;i&lt;n;i++)&#123;
-    trans[i]=(trans[i&gt;&gt;1]&gt;&gt;1)|((i&amp;1)?n&gt;&gt;1:0);
-&#125;
-</code></pre>
-<p>具体证明以及    详细信息以后再补，今天没时间了。</p>
-</li>
-</ol>
-<p>CODE:</p>
-<pre><code class="lang-cpp">//#define LawrenceSivan
-
-#include &lt;bits/stdc++.h&gt;
-using namespace std;
-
-typedef long long ll;
-typedef unsigned long long ull;
-
-#define INF 0x3f3f3f3f
-#define re register
-
-const int maxn=1e7+5;
-const int maxm=1;
-const double Pi=acos(-1);
-
-struct Complex&#123;
-    double x,y;
-    Complex()&#123;&#125;
-    Complex(const double &amp;_x,const double &amp;_y):x(_x),y(_y)&#123;&#125;;
-
-    inline Complex operator + (const Complex &amp;a)const&#123;
-        return Complex(x+a.x,y+a.y);
-    &#125;
-
-    inline Complex operator - (const Complex &amp;a)const&#123;
-        return Complex(x-a.x,y-a.y);
-    &#125;
-
-    inline Complex operator * (const Complex &amp;a)const&#123;
-        return Complex(x*a.x-y*a.y,x*a.y+y*a.x);
-    &#125;
-
-    inline Complex operator / (const Complex &amp;a)const&#123;
-        double tmp=a.x*a.x+a.y*a.y;
-        return Complex((x*a.x+y*a.y)/tmp,(y*a.x-x*a.y)/tmp);
-    &#125;
-&#125;f[maxn],p[maxn];
-
-int trans[maxn];
-
-int n,m;
-
-inline void FFT(Complex *f,bool op)&#123;
-    for(re int i=0;i&lt;n;i++)&#123;
-        if(i&lt;trans[i])swap(f[i],f[trans[i]]);
-    &#125;
-    for(re int p=2;p&lt;=n;p&lt;&lt;=1)&#123;
-        int len=p&gt;&gt;1;
-        Complex omega(cos(2*Pi/p),sin(2*Pi/p));
-        if(!op)omega.y*=-1;
-        for(re int k=0;k&lt;n;k+=p)&#123;
-            Complex buf(1,0);
-            for(re int l=k;l&lt;k+len;l++)&#123;
-                Complex tmp=buf*f[l+len];
-                f[l+len]=f[l]-tmp;
-                f[l]=f[l]+tmp;
-                buf=buf*omega;
-            &#125;
-        &#125;
-    &#125;
-&#125;
-
-namespace IO&#123;
-    template&lt;typename T&gt;
-    inline void read(T &amp;x)&#123;
-        x=0;T f=1;char ch=getchar();
-        while (!isdigit(ch)) &#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
-        while (isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
-        x*=f;
-    &#125;
-
-    template &lt;typename T, typename... Args&gt;
-    inline void read(T&amp; t, Args&amp;... args) &#123;
-        read(t); read(args...);
-    &#125;
-
-    template&lt;typename T&gt;
-    void write(T x)&#123;
-        if(x&lt;0)putchar(&#39;-&#39;),x=-x;
-        if(x&gt;9)write(x/10);
-        putchar(x%10+&#39;0&#39;);
-    &#125;
-
-    template&lt;typename T,typename... Args&gt;
-    void write(T t,Args... args)&#123;
-        write(t);putchar(&#39; &#39;);write(args...);
-    &#125;
-&#125;
-
-using namespace IO;
-
-signed main() &#123;
-#ifdef LawrenceSivan
-    freopen(&quot;aa.in&quot;,&quot;r&quot;, stdin);
-    freopen(&quot;aa.out&quot;,&quot;w&quot;, stdout);
-#endif
-    read(n,m);
-    for(re int i=0;i&lt;=n;i++)scanf(&quot;%lf&quot;,&amp;f[i].x);
-    for(re int i=0;i&lt;=m;i++)scanf(&quot;%lf&quot;,&amp;p[i].x);
-    for(m+=n,n=1;n&lt;=m;n&lt;&lt;=1);
-    for(re int i=0;i&lt;n;i++)&#123;
-        trans[i]=(trans[i&gt;&gt;1]&gt;&gt;1)|((i&amp;1)?n&gt;&gt;1:0);
-    &#125;
-    FFT(f,1),FFT(p,1);
-    for(re int i=0;i&lt;n;i++)f[i]=f[i]*p[i];
-    FFT(f,0);
-    for(re int i=0;i&lt;=m;i++)write((int)(f[i].x/n+0.5)),putchar(&#39; &#39;);
-    puts(&quot;&quot;);
-
-    return 0;
-&#125;
-</code></pre>
-]]></content>
-  </entry>
-  <entry>
-    <title>Huffman树（荷马史诗）</title>
-    <url>/2021/02/05/Huffman%E6%A0%91%EF%BC%88%E8%8D%B7%E9%A9%AC%E5%8F%B2%E8%AF%97%EF%BC%89/</url>
-    <content><![CDATA[<p>hi </p>
-<p>晚上好啊</p>
-<p>今天讲了基本算法（基本听不懂的算法）——</p>
-<p><del>又被学长虐了呢</del>~~~</p>
-<p>终于在下课前学长讲了一道能写得出来的题，</p>
-<p>为了庆祝，</p>
-<p>我们来写一篇博客。</p>
-<h2 id="Huffman-树"><a href="#Huffman-树" class="headerlink" title="$Huffman$树"></a>$Huffman$树</h2><p>首先，我们来考虑这样一个问题：</p>
-<p>构造一棵包含 $n$ 个叶子节点的 $k$ 叉树，其中第 $i$ 个叶子节点带有权值 $w_i$，要求最小化 $\sum w_i * l_i$，其中 $l_i$ 表示第 $i$ 个叶子节点到根节点的距离。</p>
-<p>该问题的解被称为 $k$ 叉 $Huffman$ 树（哈夫曼树）</p>
-<p>为了最小化 $\sum w_i * l_i$，应该让权值大的叶子节点的深度尽量小（这应该十分显然了）。</p>
-<p>当 $k==2$ 时，我们就可以维护一个小根堆（出门左转合并果子）</p>
-<p>对于 $k&gt;2 $的 $k$ 叉 $Huffman$ 树的求解，直观的想法是在贪心的基础上，改为每次取出最小的 $k$ 个权值。</p>
-<p>然鹅，经过仔细思考，可以发现：</p>
-<p>如果在执行最后一轮循环时，堆的大小在 $2-k$ 之间（也就是说，不足以取出 $k$ 个），那么整棵$Huffman$ 树的根的子节点数就小于 $k$。这显然不是最优解——我们取 $Huffman$ 树中任意一个深度最大的节点，把他改为树根的子节点，就会使 $\sum w_i * l_i$ 变小。</p>
-<p>因此，我们在执行贪心步骤之前，首先要补充一些额外的权值为 $0$ 的叶节点，使得叶节点的个数 $n$ 满足$(n-1)mod(k-1)==0$.</p>
-<p>也就是说，我们让子节点不足k的情况发生在最底层，而不是在根结点处，在 $(n-1)mod(k-1)==0$ 时，执行“每次从堆中取出最小的 $k$ 个权值”的贪心思路是正确的。</p>
-<hr>
-<p>那么，我们现在来看 $p2168$ 荷马史诗</p>
-<p>其实看了上面的，题目自然就很显然了</p>
-<p><del>啊淦为什么我也这么爱说显然了</del></p>
-<p>那我们把单词出现的次数作为权值，然后直接构造 $k$ 叉 $Huffman$ 树，对于每个节点的第 $k$ 个分支，分别标记为 $0-k-1$；</p>
-<p>下面我们需要一点跟 $trie$ 有关的东西</p>
-<p>如果把这个 $Huffman $树看作是一颗 $trie$，那么就得到了总长度最小的编码方式——单词 $i$ 的编码就是从根节点到叶节点 $i$ 上各个字符相连（如果没学过 $trie$ 建议去看一看，反正也不难，一举两得）。</p>
-<p>那么如何保证一个单词不是另一个单词的前缀呢？</p>
-<p>我们只需要保证，单词的结尾是叶子节点就好了啊（这是 $trie $的性质，如果一个串是另一个串的前缀的话，那么这个串的结尾一定还可以向后延伸，也就是可以经变长变为另一个更长的单词。）</p>
-<p>如何保证 $s_i$ 最短呢？</p>
-<p>只需要在构造 $Huffman$ 树的时候，对于权值相同的节，我们优先合并当前深度小（也就是合并次数小的）即可。</p>
-<p>CODE：</p>
-<pre><code class="lang-cpp">#include&quot;bits/stdc++.h&quot;
-using namespace std;
-#define ll long long
-struct node&#123;//结构体，这个是节点，里面有两个域，分别是权值和当前深度（也就代表着合并次数）
-    ll w,h;
-    node(ll w,ll h):w(w),h(h)&#123;&#125;//构造函数赋初值
-    bool operator &lt; (const node &amp;a)const&#123;//我们重载小于号，使之成为一个优先按照权值大小排序，深度（即合并次数）为第二关键字的小根堆
-        return w==a.w?h&gt;a.h:w&gt;a.w;
-    &#125;
-&#125;;
-ll ans;//答案
-priority_queue &lt;node&gt; q;//小根堆
-int main()&#123;
-    ios::sync_with_stdio(false);
-    ll n,k,ans=0;
-    cin&gt;&gt;n&gt;&gt;k;//可以想一下，k进制代表每个数字都是不超过k-1的，那么我们可以联想到，这不就是k叉Huffman的k吗？
-    for(int i=1;i&lt;=n;i++)&#123;
-        ll w;
-        cin&gt;&gt;w;//我们把出现次数看成权值
-        q.push((node)&#123;w,1&#125;);
-    &#125;
-    while((q.size()-1)%(k-1)!=0)q.push((node)&#123;0,1&#125;);//判断是不是要补上空节点
-    while(q.size()&gt;=k)&#123;//合并操作
-        ll h=-1,w=0;
-        for(int i=1;i&lt;=k;i//取出最小的k个
-            node t=q.top();
-            q.pop();
-            h=max(h,t.h);
-            w+=t.w;
-        &#125;
-        ans+=w;
-        q.push((node)&#123;w,h+1&#125;);
-    &#125;
-    cout&lt;&lt;ans&lt;&lt;endl&lt;&lt;q.top().h-1&lt;&lt;endl;
-
-    return 0;
-&#125;
-</code></pre>
-]]></content>
-  </entry>
-  <entry>
     <title>Hexo-Theme-Sakura</title>
     <url>/2018/12/12/Hexo-Theme-Sakura/</url>
     <content><![CDATA[<p>hexo-theme-sakura主题 <a href="https://github.com/honjun/hexo-theme-sakura/blob/master/README.md">English document</a></p>
@@ -2643,193 +2571,75 @@ links:
       </categories>
   </entry>
   <entry>
-    <title>NTT快速数论变换学习笔记</title>
-    <url>/2021/08/15/NTT%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="NTT-快速数论变换学习笔记"><a href="#NTT-快速数论变换学习笔记" class="headerlink" title="NTT 快速数论变换学习笔记"></a>NTT 快速数论变换学习笔记</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>向多项式迈出的勇敢第二步！</p>
-<p><del>虽然也是基础的东西</del>    </p>
-<p>写了这个博客真的是对数论内容有了很多新的认识，也学到了很多新东西。</p>
-<p>甚至解决了很多之前遗留的没有解决的问题。</p>
-<ul>
-<li>以下内容均在剩余系意义下讨论。</li>
-</ul>
-<h2 id="阶"><a href="#阶" class="headerlink" title="阶"></a>阶</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>$a$ 在模 $p$ 意义下的阶：</p>
-<p>最小的整数 $k$ 使得 $a^k\equiv1\ (\mod p)$。</p>
-<p>记为 $δ_p(a)$ 。</p>
-<p>更通俗的说法是幂的最小循环节。</p>
-<h3 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h3><p>上限是 $\varphi(p)$。</p>
-<p>模 $p$ 的阶如果存在，那么一定是 $\varphi(p)$ 的约数。</p>
-<p>证明：</p>
-<ul>
-<li>定理 1：若 $p&gt;1$ 且 $a\perp p$ ，且 $a^n \equiv 1\ (\mod p)$ ，$n&gt;0$ ，则 $δ_p(a)|n$</li>
-<li>定理 2：结合欧拉定理：当 $a,p \in N^+$，并且 $a \perp p$ ，那么有 $a^{\varphi(p)}\equiv 1\ (\mod p)$，并结合定理 1 可知 $δ_p(a)|\varphi(p)$。</li>
-</ul>
-<p>证毕。</p>
-<p>或者以另外一种方式来说：</p>
-<p>如果这个数有阶，那么这个数可以表示为 $g^k$ 的形式。</p>
-<p>能够在 $\varphi(p)$ 大小的环上得到一个 $\dfrac{\varphi(p)}{\gcd(k,\varphi(p))}$ 大小的环，这就是它的阶，这显然是 $\varphi(p)$ 的约数。</p>
-<p>可以从这种角度来理解定理 1 和定理 2。 </p>
-<p>对于 $a \not\perp p$ 的情况，阶认为是 $∞$ 或者不存在。</p>
-<h2 id="原根"><a href="#原根" class="headerlink" title="原根"></a>原根</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>满足 $δ_p(g)=\varphi(p)$ 的 $g$ （达到上界），我们称之为 $p$ 的原根。</p>
-<h3 id="定理-1"><a href="#定理-1" class="headerlink" title="定理"></a>定理</h3><ul>
-<li>只有形如 $2,4,p^x,2p^x$ 才有原根，其中 $p$ 是奇质数。</li>
-</ul>
-<p>一旦求出了其中一个原根，就可以构造出其他的原根。</p>
-<p>所有的 $g^k$ 当 $(k \perp \varphi(p))$ 时，恰好能够构造出 $\varphi(\varphi(p))$ 个，且不重不漏。</p>
-<ul>
-<li>定理 1：若 $g$ 是 $m$ 的原根，则</li>
-</ul>
-<script type="math/tex; mode=display">g,g^2...g^{\varphi(p)}</script><p>各数模 $p$ 的最小剩余，恰好是小于 $p$ 并且与 $p$ 互素的 $\varphi(p)$ 个正整数的一个排列。</p>
-<ul>
-<li>定理 2：每一个质数 $p$ 都有 $\varphi(p-1)$ 个原根。事实上每一个数 $x$ 都有 $\varphi(\varphi(x)$ 个原根（如果他有原根的话）</li>
-</ul>
-<p>推论</p>
-<ul>
-<li>若 $d|(p-1)$ ，则 $x^d \equiv 1\ (\mod p)$ 恰好有 $d$ 个解</li>
-<li>若 $p$ 是质数，且 $d|(p-1)$ ，则阶为 $d$ 的最小剩余 $\mod p$ 的个数为 $\varphi(d)$。</li>
-</ul>
-<h3 id="求法"><a href="#求法" class="headerlink" title="求法"></a>求法</h3><p>由于原根一般不会很大（可以证明 $n$ 的最小原根在 $\mathcal{O(n^{0.25})}$ 级别），因此我们暴力枚举+验证的方法。</p>
-<p>上面我们提到，模 $p$ 的阶如果存在，那么一定是 $\varphi(p)$ 的约数。（详情看上文中 ：阶/定理）</p>
-<p>于是计算阶时，只需要验证 $\varphi(p)$ 的约数即可。</p>
-<p>其实并不需要算出阶是多少,只需要查看阶是否是 $\varphi(p)$ 即可。</p>
-<p>首先将 $\varphi(p)$ 分解质因数：</p>
-<script type="math/tex; mode=display">\varphi(p)=p_1^{c_1}p_2^{c_2}p_3^{c_3}...p_x^{c_x}</script><p>注意到 $a^k \equiv 1\ (\mod p)$ ，那么 $a^{ck}\equiv 1\ (\mod p)$。</p>
-<p>可以取出 $ \varphi(p)$ 的所有质因数 $p_1,p_2,p_3…p_x$ ，要判断 $g$ 是否是原根，只需要判断 $g^{\frac{\varphi(p)}{p_i}}\not\equiv 1\ (\mod p)$ 恒成立，那么 $g$ 就是 $p$ 的一个原根。</p>
-<p>这样可以保证不重不漏地覆盖所有其他约数的倍数，并且达不到 $\varphi(p)$ 本身。</p>
-<p>数据不大的时候枚举所有 $\varphi(p)$ 的因子(除本身)也可。</p>
-<h2 id="原根与单位根"><a href="#原根与单位根" class="headerlink" title="原根与单位根"></a>原根与单位根</h2><p>经过对 FFT 的学习，我们发现由于 FFT 需要使用单位根在复平面上进行系列运算，所以决定它必须要使用浮点数，从而引发精度误差。 </p>
-<p>但是在复数域 $\C$ 中，单位根是唯一满足要求的一类数。</p>
-<p>在剩余系意义下我们可以找到单位根的类似物——<strong>原根</strong></p>
-<p>首先考虑一下单位根的独特性质：</p>
-<ol>
-<li><p>$\omega_n^k=(\omega_n^1)^k$</p>
-</li>
-<li><p>$\omega_n^{0\sim(n-1)}$ 必须互不相同</p>
-<p>否则点值重复，插值不正确。</p>
-</li>
-<li><p>$\omega_n^k=\omega_n^{k\mod n}$</p>
-<p>$n$ 是偶数的时候，可以根据对称引理得出求和引理。</p>
-</li>
-</ol>
-<p>通过以上几条性质可以得出，$\omega_n^1$ 在模意义下的阶恰好是 $n$。</p>
-<ol>
-<li><p>$\omega_{2n}^{2k}=\omega_n^k$</p>
-<p>等价于 $(\omega_{2n})^2=\omega_n$</p>
-</li>
-</ol>
-<p>回顾原根的定义，对于一个<strong>素数</strong> $p$ ，如果 $g$ 的阶达到了 $p-1$ 的上界，则称 $g$ 是 $p$ 的原根。</p>
-<p>显然 $n$ 不一定等于 $p-1$ ，所以原根并不能直接使用。</p>
-<p>上面我们提到阶的两个定理以及另一种证明方法。</p>
-<p>$g^k$ 的阶数恰为 $\dfrac{p-1}{\gcd(k,p-1)}$，这个数仍然是 $p-1$ 的约数。</p>
-<p>所以当 $n\not|\ (p-1)$ 时，找不到阶恰好为 $n$ 的数。</p>
-<p>当 $n|(p-1)$ 时，$g^\frac{(p-1)}{n}$ 的阶恰好是 $\dfrac{p-1}{\gcd(\frac{p-1}{n},p-1)}=n$</p>
-<p>$(\omega_{2n})^2=(g^{\frac{p-1}{2n}})^2=g^{\frac{p-1}{n}}=(\omega_n^1)^k=\omega_n$</p>
-<p>所以 $g^{\frac{p-1}{n}}$ 满足了上述所有要求！</p>
-<p>至于 $n|(p-1)$ 的要求，事实上在分治过程中，$n$ 往往会被补成 $2$ 的次幂，于是我们只需要保证 $p-1$ 包含很多个因子 $2$ 即可。</p>
-<p>常见的 NTT 模数有 </p>
-<script type="math/tex; mode=display">P=998244353=479∗2^{21}+1,g=3</script><script type="math/tex; mode=display">P=1004535809=7∗17∗2^{23}+1,g=3</script><h2 id="get-NTT"><a href="#get-NTT" class="headerlink" title="get_NTT!"></a>get_NTT!</h2><pre><code class="lang-cpp">//#define LawrenceSivan
-
-#include &lt;bits/stdc++.h&gt;
+    <title>Huffman树（荷马史诗）</title>
+    <url>/2021/02/05/Huffman%E6%A0%91%EF%BC%88%E8%8D%B7%E9%A9%AC%E5%8F%B2%E8%AF%97%EF%BC%89/</url>
+    <content><![CDATA[<p>hi </p>
+<p>晚上好啊</p>
+<p>今天讲了基本算法（基本听不懂的算法）——</p>
+<p><del>又被学长虐了呢</del>~~~</p>
+<p>终于在下课前学长讲了一道能写得出来的题，</p>
+<p>为了庆祝，</p>
+<p>我们来写一篇博客。</p>
+<h2 id="Huffman-树"><a href="#Huffman-树" class="headerlink" title="$Huffman$树"></a>$Huffman$树</h2><p>首先，我们来考虑这样一个问题：</p>
+<p>构造一棵包含 $n$ 个叶子节点的 $k$ 叉树，其中第 $i$ 个叶子节点带有权值 $w_i$，要求最小化 $\sum w_i * l_i$，其中 $l_i$ 表示第 $i$ 个叶子节点到根节点的距离。</p>
+<p>该问题的解被称为 $k$ 叉 $Huffman$ 树（哈夫曼树）</p>
+<p>为了最小化 $\sum w_i * l_i$，应该让权值大的叶子节点的深度尽量小（这应该十分显然了）。</p>
+<p>当 $k==2$ 时，我们就可以维护一个小根堆（出门左转合并果子）</p>
+<p>对于 $k&gt;2 $的 $k$ 叉 $Huffman$ 树的求解，直观的想法是在贪心的基础上，改为每次取出最小的 $k$ 个权值。</p>
+<p>然鹅，经过仔细思考，可以发现：</p>
+<p>如果在执行最后一轮循环时，堆的大小在 $2-k$ 之间（也就是说，不足以取出 $k$ 个），那么整棵$Huffman$ 树的根的子节点数就小于 $k$。这显然不是最优解——我们取 $Huffman$ 树中任意一个深度最大的节点，把他改为树根的子节点，就会使 $\sum w_i * l_i$ 变小。</p>
+<p>因此，我们在执行贪心步骤之前，首先要补充一些额外的权值为 $0$ 的叶节点，使得叶节点的个数 $n$ 满足$(n-1)mod(k-1)==0$.</p>
+<p>也就是说，我们让子节点不足k的情况发生在最底层，而不是在根结点处，在 $(n-1)mod(k-1)==0$ 时，执行“每次从堆中取出最小的 $k$ 个权值”的贪心思路是正确的。</p>
+<hr>
+<p>那么，我们现在来看 $p2168$ 荷马史诗</p>
+<p>其实看了上面的，题目自然就很显然了</p>
+<p><del>啊淦为什么我也这么爱说显然了</del></p>
+<p>那我们把单词出现的次数作为权值，然后直接构造 $k$ 叉 $Huffman$ 树，对于每个节点的第 $k$ 个分支，分别标记为 $0-k-1$；</p>
+<p>下面我们需要一点跟 $trie$ 有关的东西</p>
+<p>如果把这个 $Huffman $树看作是一颗 $trie$，那么就得到了总长度最小的编码方式——单词 $i$ 的编码就是从根节点到叶节点 $i$ 上各个字符相连（如果没学过 $trie$ 建议去看一看，反正也不难，一举两得）。</p>
+<p>那么如何保证一个单词不是另一个单词的前缀呢？</p>
+<p>我们只需要保证，单词的结尾是叶子节点就好了啊（这是 $trie $的性质，如果一个串是另一个串的前缀的话，那么这个串的结尾一定还可以向后延伸，也就是可以经变长变为另一个更长的单词。）</p>
+<p>如何保证 $s_i$ 最短呢？</p>
+<p>只需要在构造 $Huffman$ 树的时候，对于权值相同的节，我们优先合并当前深度小（也就是合并次数小的）即可。</p>
+<p>CODE：</p>
+<pre><code class="lang-cpp">#include&quot;bits/stdc++.h&quot;
 using namespace std;
-
-typedef long long ll;
-typedef unsigned long long ull;
-
-#define INF 0x3f3f3f3f
-#define re register
-
-const int maxn=1e7+5;
-const int mod=998244353;
-const int G=3;
-
-ll qpow(ll a,ll b)&#123;
-    ll res=1;
-    for(;b;b&gt;&gt;=1,a=a*a%mod)&#123;
-        if(b&amp;1)res=res*a%mod;
+#define ll long long
+struct node&#123;//结构体，这个是节点，里面有两个域，分别是权值和当前深度（也就代表着合并次数）
+    ll w,h;
+    node(ll w,ll h):w(w),h(h)&#123;&#125;//构造函数赋初值
+    bool operator &lt; (const node &amp;a)const&#123;//我们重载小于号，使之成为一个优先按照权值大小排序，深度（即合并次数）为第二关键字的小根堆
+        return w==a.w?h&gt;a.h:w&gt;a.w;
     &#125;
-    return res%mod;
-&#125;
-
-const ll invG=qpow(G,mod-2);
-
-ll f[maxn],p[maxn];
-
-int trans[maxn];
-
-int n,m,invn;
-
-inline void NTT(ll *f,bool op)&#123;
-    for(re int i=0;i&lt;n;i++)&#123;
-        if(i&lt;trans[i])swap(f[i],f[trans[i]]);
+&#125;;
+ll ans;//答案
+priority_queue &lt;node&gt; q;//小根堆
+int main()&#123;
+    ios::sync_with_stdio(false);
+    ll n,k,ans=0;
+    cin&gt;&gt;n&gt;&gt;k;//可以想一下，k进制代表每个数字都是不超过k-1的，那么我们可以联想到，这不就是k叉Huffman的k吗？
+    for(int i=1;i&lt;=n;i++)&#123;
+        ll w;
+        cin&gt;&gt;w;//我们把出现次数看成权值
+        q.push((node)&#123;w,1&#125;);
     &#125;
-    for(re int p=2;p&lt;=n;p&lt;&lt;=1)&#123;
-        int len=p&gt;&gt;1;
-        int tG=qpow(op?G:invG,(mod-1)/p);
-        for(re int k=0;k&lt;n;k+=p)&#123;
-            ll buf=1;
-            for(re int l=k;l&lt;k+len;l++)&#123;
-                ll tmp=buf*f[l+len]%mod;
-                f[l+len]=f[l]-tmp;
-                if(f[l+len]&lt;0)f[l+len]+=mod;
-                f[l]=f[l]+tmp;
-                if(f[l]&gt;mod)f[l]-=mod;
-                buf=buf*tG%mod;
-            &#125;
+    while((q.size()-1)%(k-1)!=0)q.push((node)&#123;0,1&#125;);//判断是不是要补上空节点
+    while(q.size()&gt;=k)&#123;//合并操作
+        ll h=-1,w=0;
+        for(int i=1;i&lt;=k;i//取出最小的k个
+            node t=q.top();
+            q.pop();
+            h=max(h,t.h);
+            w+=t.w;
         &#125;
+        ans+=w;
+        q.push((node)&#123;w,h+1&#125;);
     &#125;
-&#125;
-
-namespace IO&#123;
-    template&lt;typename T&gt;
-    inline void read(T &amp;x)&#123;
-        x=0;T f=1;char ch=getchar();
-        while (!isdigit(ch)) &#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
-        while (isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
-        x*=f;
-    &#125;
-
-    template &lt;typename T, typename... Args&gt;
-    inline void read(T&amp; t, Args&amp;... args) &#123;
-        read(t); read(args...);
-    &#125;
-
-    template&lt;typename T&gt;
-    void write(T x)&#123;
-        if(x&lt;0)putchar(&#39;-&#39;),x=-x;
-        if(x&gt;9)write(x/10);
-        putchar(x%10+&#39;0&#39;);
-    &#125;
-
-    template&lt;typename T,typename... Args&gt;
-    void write(T t,Args... args)&#123;
-        write(t);putchar(&#39; &#39;);write(args...);
-    &#125;
-&#125;
-
-using namespace IO;
-
-signed main() &#123;
-#ifdef LawrenceSivan
-    freopen(&quot;aa.in&quot;,&quot;r&quot;, stdin);
-    freopen(&quot;aa.out&quot;,&quot;w&quot;, stdout);
-#endif
-    read(n,m);n++,m++;
-    for(re int i=0;i&lt;n;i++)read(f[i]);
-    for(re int i=0;i&lt;m;i++)read(p[i]);
-    for(m+=n,n=1;n&lt;m;n&lt;&lt;=1);
-    for(re int i=0;i&lt;n;i++)&#123;
-        trans[i]=(trans[i&gt;&gt;1]&gt;&gt;1)|((i&amp;1)?n&gt;&gt;1:0);
-    &#125;
-    NTT(f,1),NTT(p,1);
-    for(re int i=0;i&lt;n;i++)f[i]=f[i]*p[i]%mod;
-    NTT(f,0);invn=qpow(n,mod-2);
-    for(re int i=0;i&lt;m-1;i++)write((f[i]*invn)%mod),putchar(&#39; &#39;);
-    puts(&quot;&quot;);
+    cout&lt;&lt;ans&lt;&lt;endl&lt;&lt;q.top().h-1&lt;&lt;endl;
 
     return 0;
 &#125;
 </code></pre>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://www.luogu.com.cn/blog/command-block/ntt-yu-duo-xiang-shi-quan-jia-tong">NTT与多项式全家桶 by command_block</a></p>
-<p><a href="https://blog.csdn.net/a27038/article/details/77203892">阶 和 原根 by _duadua</a></p>
 ]]></content>
   </entry>
   <entry>
@@ -3546,6 +3356,196 @@ int main()&#123;
 ]]></content>
   </entry>
   <entry>
+    <title>NTT快速数论变换学习笔记</title>
+    <url>/2021/08/15/NTT%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="NTT-快速数论变换学习笔记"><a href="#NTT-快速数论变换学习笔记" class="headerlink" title="NTT 快速数论变换学习笔记"></a>NTT 快速数论变换学习笔记</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>向多项式迈出的勇敢第二步！</p>
+<p><del>虽然也是基础的东西</del>    </p>
+<p>写了这个博客真的是对数论内容有了很多新的认识，也学到了很多新东西。</p>
+<p>甚至解决了很多之前遗留的没有解决的问题。</p>
+<ul>
+<li>以下内容均在剩余系意义下讨论。</li>
+</ul>
+<h2 id="阶"><a href="#阶" class="headerlink" title="阶"></a>阶</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>$a$ 在模 $p$ 意义下的阶：</p>
+<p>最小的整数 $k$ 使得 $a^k\equiv1\ (\mod p)$。</p>
+<p>记为 $δ_p(a)$ 。</p>
+<p>更通俗的说法是幂的最小循环节。</p>
+<h3 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h3><p>上限是 $\varphi(p)$。</p>
+<p>模 $p$ 的阶如果存在，那么一定是 $\varphi(p)$ 的约数。</p>
+<p>证明：</p>
+<ul>
+<li>定理 1：若 $p&gt;1$ 且 $a\perp p$ ，且 $a^n \equiv 1\ (\mod p)$ ，$n&gt;0$ ，则 $δ_p(a)|n$</li>
+<li>定理 2：结合欧拉定理：当 $a,p \in N^+$，并且 $a \perp p$ ，那么有 $a^{\varphi(p)}\equiv 1\ (\mod p)$，并结合定理 1 可知 $δ_p(a)|\varphi(p)$。</li>
+</ul>
+<p>证毕。</p>
+<p>或者以另外一种方式来说：</p>
+<p>如果这个数有阶，那么这个数可以表示为 $g^k$ 的形式。</p>
+<p>能够在 $\varphi(p)$ 大小的环上得到一个 $\dfrac{\varphi(p)}{\gcd(k,\varphi(p))}$ 大小的环，这就是它的阶，这显然是 $\varphi(p)$ 的约数。</p>
+<p>可以从这种角度来理解定理 1 和定理 2。 </p>
+<p>对于 $a \not\perp p$ 的情况，阶认为是 $∞$ 或者不存在。</p>
+<h2 id="原根"><a href="#原根" class="headerlink" title="原根"></a>原根</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>满足 $δ_p(g)=\varphi(p)$ 的 $g$ （达到上界），我们称之为 $p$ 的原根。</p>
+<h3 id="定理-1"><a href="#定理-1" class="headerlink" title="定理"></a>定理</h3><ul>
+<li>只有形如 $2,4,p^x,2p^x$ 才有原根，其中 $p$ 是奇质数。</li>
+</ul>
+<p>一旦求出了其中一个原根，就可以构造出其他的原根。</p>
+<p>所有的 $g^k$ 当 $(k \perp \varphi(p))$ 时，恰好能够构造出 $\varphi(\varphi(p))$ 个，且不重不漏。</p>
+<ul>
+<li>定理 1：若 $g$ 是 $m$ 的原根，则</li>
+</ul>
+<script type="math/tex; mode=display">g,g^2...g^{\varphi(p)}</script><p>各数模 $p$ 的最小剩余，恰好是小于 $p$ 并且与 $p$ 互素的 $\varphi(p)$ 个正整数的一个排列。</p>
+<ul>
+<li>定理 2：每一个质数 $p$ 都有 $\varphi(p-1)$ 个原根。事实上每一个数 $x$ 都有 $\varphi(\varphi(x)$ 个原根（如果他有原根的话）</li>
+</ul>
+<p>推论</p>
+<ul>
+<li>若 $d|(p-1)$ ，则 $x^d \equiv 1\ (\mod p)$ 恰好有 $d$ 个解</li>
+<li>若 $p$ 是质数，且 $d|(p-1)$ ，则阶为 $d$ 的最小剩余 $\mod p$ 的个数为 $\varphi(d)$。</li>
+</ul>
+<h3 id="求法"><a href="#求法" class="headerlink" title="求法"></a>求法</h3><p>由于原根一般不会很大（可以证明 $n$ 的最小原根在 $\mathcal{O(n^{0.25})}$ 级别），因此我们暴力枚举+验证的方法。</p>
+<p>上面我们提到，模 $p$ 的阶如果存在，那么一定是 $\varphi(p)$ 的约数。（详情看上文中 ：阶/定理）</p>
+<p>于是计算阶时，只需要验证 $\varphi(p)$ 的约数即可。</p>
+<p>其实并不需要算出阶是多少,只需要查看阶是否是 $\varphi(p)$ 即可。</p>
+<p>首先将 $\varphi(p)$ 分解质因数：</p>
+<script type="math/tex; mode=display">\varphi(p)=p_1^{c_1}p_2^{c_2}p_3^{c_3}...p_x^{c_x}</script><p>注意到 $a^k \equiv 1\ (\mod p)$ ，那么 $a^{ck}\equiv 1\ (\mod p)$。</p>
+<p>可以取出 $ \varphi(p)$ 的所有质因数 $p_1,p_2,p_3…p_x$ ，要判断 $g$ 是否是原根，只需要判断 $g^{\frac{\varphi(p)}{p_i}}\not\equiv 1\ (\mod p)$ 恒成立，那么 $g$ 就是 $p$ 的一个原根。</p>
+<p>这样可以保证不重不漏地覆盖所有其他约数的倍数，并且达不到 $\varphi(p)$ 本身。</p>
+<p>数据不大的时候枚举所有 $\varphi(p)$ 的因子(除本身)也可。</p>
+<h2 id="原根与单位根"><a href="#原根与单位根" class="headerlink" title="原根与单位根"></a>原根与单位根</h2><p>经过对 FFT 的学习，我们发现由于 FFT 需要使用单位根在复平面上进行系列运算，所以决定它必须要使用浮点数，从而引发精度误差。 </p>
+<p>但是在复数域 $\C$ 中，单位根是唯一满足要求的一类数。</p>
+<p>在剩余系意义下我们可以找到单位根的类似物——<strong>原根</strong></p>
+<p>首先考虑一下单位根的独特性质：</p>
+<ol>
+<li><p>$\omega_n^k=(\omega_n^1)^k$</p>
+</li>
+<li><p>$\omega_n^{0\sim(n-1)}$ 必须互不相同</p>
+<p>否则点值重复，插值不正确。</p>
+</li>
+<li><p>$\omega_n^k=\omega_n^{k\mod n}$</p>
+<p>$n$ 是偶数的时候，可以根据对称引理得出求和引理。</p>
+</li>
+</ol>
+<p>通过以上几条性质可以得出，$\omega_n^1$ 在模意义下的阶恰好是 $n$。</p>
+<ol>
+<li><p>$\omega_{2n}^{2k}=\omega_n^k$</p>
+<p>等价于 $(\omega_{2n})^2=\omega_n$</p>
+</li>
+</ol>
+<p>回顾原根的定义，对于一个<strong>素数</strong> $p$ ，如果 $g$ 的阶达到了 $p-1$ 的上界，则称 $g$ 是 $p$ 的原根。</p>
+<p>显然 $n$ 不一定等于 $p-1$ ，所以原根并不能直接使用。</p>
+<p>上面我们提到阶的两个定理以及另一种证明方法。</p>
+<p>$g^k$ 的阶数恰为 $\dfrac{p-1}{\gcd(k,p-1)}$，这个数仍然是 $p-1$ 的约数。</p>
+<p>所以当 $n\not|\ (p-1)$ 时，找不到阶恰好为 $n$ 的数。</p>
+<p>当 $n|(p-1)$ 时，$g^\frac{(p-1)}{n}$ 的阶恰好是 $\dfrac{p-1}{\gcd(\frac{p-1}{n},p-1)}=n$</p>
+<p>$(\omega_{2n})^2=(g^{\frac{p-1}{2n}})^2=g^{\frac{p-1}{n}}=(\omega_n^1)^k=\omega_n$</p>
+<p>所以 $g^{\frac{p-1}{n}}$ 满足了上述所有要求！</p>
+<p>至于 $n|(p-1)$ 的要求，事实上在分治过程中，$n$ 往往会被补成 $2$ 的次幂，于是我们只需要保证 $p-1$ 包含很多个因子 $2$ 即可。</p>
+<p>常见的 NTT 模数有 </p>
+<script type="math/tex; mode=display">P=998244353=479∗2^{21}+1,g=3</script><script type="math/tex; mode=display">P=1004535809=7∗17∗2^{23}+1,g=3</script><h2 id="get-NTT"><a href="#get-NTT" class="headerlink" title="get_NTT!"></a>get_NTT!</h2><pre><code class="lang-cpp">//#define LawrenceSivan
+
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+typedef unsigned long long ull;
+
+#define INF 0x3f3f3f3f
+#define re register
+
+const int maxn=1e7+5;
+const int mod=998244353;
+const int G=3;
+
+ll qpow(ll a,ll b)&#123;
+    ll res=1;
+    for(;b;b&gt;&gt;=1,a=a*a%mod)&#123;
+        if(b&amp;1)res=res*a%mod;
+    &#125;
+    return res%mod;
+&#125;
+
+const ll invG=qpow(G,mod-2);
+
+ll f[maxn],p[maxn];
+
+int trans[maxn];
+
+int n,m,invn;
+
+inline void NTT(ll *f,bool op)&#123;
+    for(re int i=0;i&lt;n;i++)&#123;
+        if(i&lt;trans[i])swap(f[i],f[trans[i]]);
+    &#125;
+    for(re int p=2;p&lt;=n;p&lt;&lt;=1)&#123;
+        int len=p&gt;&gt;1;
+        int tG=qpow(op?G:invG,(mod-1)/p);
+        for(re int k=0;k&lt;n;k+=p)&#123;
+            ll buf=1;
+            for(re int l=k;l&lt;k+len;l++)&#123;
+                ll tmp=buf*f[l+len]%mod;
+                f[l+len]=f[l]-tmp;
+                if(f[l+len]&lt;0)f[l+len]+=mod;
+                f[l]=f[l]+tmp;
+                if(f[l]&gt;mod)f[l]-=mod;
+                buf=buf*tG%mod;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+
+namespace IO&#123;
+    template&lt;typename T&gt;
+    inline void read(T &amp;x)&#123;
+        x=0;T f=1;char ch=getchar();
+        while (!isdigit(ch)) &#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+        while (isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+        x*=f;
+    &#125;
+
+    template &lt;typename T, typename... Args&gt;
+    inline void read(T&amp; t, Args&amp;... args) &#123;
+        read(t); read(args...);
+    &#125;
+
+    template&lt;typename T&gt;
+    void write(T x)&#123;
+        if(x&lt;0)putchar(&#39;-&#39;),x=-x;
+        if(x&gt;9)write(x/10);
+        putchar(x%10+&#39;0&#39;);
+    &#125;
+
+    template&lt;typename T,typename... Args&gt;
+    void write(T t,Args... args)&#123;
+        write(t);putchar(&#39; &#39;);write(args...);
+    &#125;
+&#125;
+
+using namespace IO;
+
+signed main() &#123;
+#ifdef LawrenceSivan
+    freopen(&quot;aa.in&quot;,&quot;r&quot;, stdin);
+    freopen(&quot;aa.out&quot;,&quot;w&quot;, stdout);
+#endif
+    read(n,m);n++,m++;
+    for(re int i=0;i&lt;n;i++)read(f[i]);
+    for(re int i=0;i&lt;m;i++)read(p[i]);
+    for(m+=n,n=1;n&lt;m;n&lt;&lt;=1);
+    for(re int i=0;i&lt;n;i++)&#123;
+        trans[i]=(trans[i&gt;&gt;1]&gt;&gt;1)|((i&amp;1)?n&gt;&gt;1:0);
+    &#125;
+    NTT(f,1),NTT(p,1);
+    for(re int i=0;i&lt;n;i++)f[i]=f[i]*p[i]%mod;
+    NTT(f,0);invn=qpow(n,mod-2);
+    for(re int i=0;i&lt;m-1;i++)write((f[i]*invn)%mod),putchar(&#39; &#39;);
+    puts(&quot;&quot;);
+
+    return 0;
+&#125;
+</code></pre>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://www.luogu.com.cn/blog/command-block/ntt-yu-duo-xiang-shi-quan-jia-tong">NTT与多项式全家桶 by command_block</a></p>
+<p><a href="https://blog.csdn.net/a27038/article/details/77203892">阶 和 原根 by _duadua</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>P3960 列队（动态开点线段树）</title>
     <url>/2021/04/21/P3960%20%E5%88%97%E9%98%9F%EF%BC%88%E5%8A%A8%E6%80%81%E5%BC%80%E7%82%B9%E7%BA%BF%E6%AE%B5%E6%A0%91%EF%BC%89/</url>
     <content><![CDATA[<p>我们都知道，线段树是一种效率较高的数据结构。但是它有一个缺点，就是我们需要的空间比较大。对于权值线段树，如果我们的值域比较大，那么我们所需要的空间就是惊人的，于是我们需要采取一些策略来解决这个问题。</p>
@@ -3832,142 +3832,6 @@ int main() &#123;
 </code></pre>
 <h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><p><strong>1，对于决策转移时，有明显单调性的情况，对于状态移动时，转移决策重复度较大。都可用单调队列优化。（滑动窗口）</strong></p>
 <p><strong>2，对于单调性要主动发现，主动往那方面想</strong></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>P4363 [九省联考2018]一双木棋chess（轮廓线状压）</title>
-    <url>/2021/06/22/P4363%20%5B%E4%B9%9D%E7%9C%81%E8%81%94%E8%80%832018%5D%E4%B8%80%E5%8F%8C%E6%9C%A8%E6%A3%8Bchess%EF%BC%88%E8%BD%AE%E5%BB%93%E7%BA%BF%E7%8A%B6%E5%8E%8B%EF%BC%89/</url>
-    <content><![CDATA[<p><a href="https://www.luogu.com.cn/problem/P4363">P4363 [九省联考2018]一双木棋chess</a></p>
-<p>这两天学了这个。</p>
-<p>是轮廓线状压的或许算是裸题。</p>
-<p>关键在于怎么压状态。</p>
-<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><ul>
-<li><p>有一个 $n \times m$ 的棋盘，两个人轮流下棋。</p>
-</li>
-<li><p>一个位置可以落子当且仅当这个位置的左侧和上面都有棋子。</p>
-</li>
-<li><p>两个人落在对应的位置会收获各自的贡献值。</p>
-</li>
-<li><p>最大化自己的得分减去对方的得分。</p>
-</li>
-</ul>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>博弈论？</p>
-<p>是有 max_min搜索还有一些别的做法的。</p>
-<p><a href="https://blog.csdn.net/qq_39297053/article/details/112130921">max_min搜索</a></p>
-<p>看眼数据范围，都是 $10$ 以内的。</p>
-<p>于是考虑状压。</p>
-<p>问题随之而来：如何存状态？</p>
-<p>由于落子是有限制的，所以需要考虑在什么情况下可以落子。</p>
-<p>由于落子是合法的需要满足左边和上边都有棋子，于是在整个过程中必然会有这样的情况：</p>
-<p><img src="https://i.loli.net/2021/06/22/8r3T4wOgjdlYFvq.png" alt=""></p>
-<p>可以发现这样的轮廓一定是连续的。</p>
-<p>于是这就是我们需要的轮廓线。</p>
-<p>可以考虑存储右下角的轮廓线作为状态。</p>
-<p>如何存储呢？</p>
-<p>首先这个轮廓线的长度肯定是 $n+m$ 的。</p>
-<p>我们用 $0$ 来表示横边，用 $1$ 来表示竖边。</p>
-<p>可以举个例子：</p>
-<p><img src="https://i.loli.net/2021/06/22/cWLYrXvbmUxG4Q2.png" alt=""></p>
-<p>对于当前的状态，从右上角开始，向左下角延伸，如果有横边那么当前位就是 $0$，有竖边就是 $1$；</p>
-<p>所以状态串就是 $000101010101010101$</p>
-<p>之后对于状态的判断以及转移过程，都可以利用这个轮廓线。</p>
-<p>可以发现，经过这样的状压之后，判断是否可以落子的条件就变成了：是否存在一个位置，满足串中有 $01$ 这样的两位，如果有，那么就可以落子。</p>
-<p>落子以后，该位置的 $01$ 就会变成 $10$。</p>
-<p>对于转移过程中的具体操作，由于需要判断状态串中是否存在 $01$，可以采用一种手法：</p>
-<pre><code class="lang-cpp">if(((now&gt;&gt;i)&amp;3)!=1)continue;
-</code></pre>
-<p>由于 $3$ 的二进制是 $011$ ，如果也就是判断是否存在 $01$的情况。</p>
-<p>之后改变状态：</p>
-<pre><code class="lang-cpp">int nxt=now^(3&lt;&lt;i);
-</code></pre>
-<p>之后起始状态和终止状态就很明显了：</p>
-<p>起始状态：$000…00111…11$</p>
-<p>终止状态：$111…11000…00$</p>
-<p>之后就是关于如何 DP 的问题了。</p>
-<p>其实这个事情是不好办的。</p>
-<p>首先这个题目要求我们两个人都要走最优策略。</p>
-<p>如果按照我们常规的 DP 思路的话，自然是要设 $f[S]$ 为在 $S$ 这个状态下可以获得多少得分差。</p>
-<p>但是对于这种博弈论 DP 的题目是不可以这样做的。</p>
-<p>由于两方都要采取最优策略，所以我们不得不考虑将来的行动对现在现在的影响。</p>
-<p>如果正序 dp 的话也许会发生当前确实取到了最大值但是其实并不是最优策略。</p>
-<p>于是我们可以考虑倒过来 dp。</p>
-<p>可以假装我们可以一步看到结局，然后选择对自己最有利的状态。</p>
-<p>显然棋盘被布满的状态下没有人可以获得新的分数，那么如果我们用 $f[S]$ 表示从 $S$ 轮廓线的状态距离游戏结束还能得多少分。</p>
-<p>那么我们会发现，如果这个局面是先手下完以后形成的，那么如何这个局面如何转移的主动权显然是攥在后手的手里，所以此时这个 dp 值应该由所有后继状态的相对于先手最劣的状态转移过来，也就是所有的后继状态取个 $\min$。</p>
-<p>如果是后手的话，dp值就应该是对于后手最劣的状态转移过来，也就是所有的后继状态取个 $\max$。</p>
-<p>也就是第一个人想要最大化两者的差值，第二个人想要最小化这个差值。</p>
-<pre><code class="lang-cpp">//#define LawrenceSivan
-
-#include&lt;bits/stdc++.h&gt;
-using namespace std;
-
-typedef long long ll;
-#define re register
-const int maxn=1e5+5;
-#define INF 0x3f3f3f3f
-
-int n,m;
-
-int f[1&lt;&lt;21];
-
-int a[15][15],b[15][15];
-
-bool vis[1&lt;&lt;21];
-
-int dfs(int now,int who)&#123;
-    if(vis[now])return f[now];//记忆化搜索
-    vis[now]=true;
-    f[now]= who?-INF:INF;//先手取max，所以初始最小，后手取min，所以初始最大
-
-    int x=n,y=0;
-    for(re int i=0;i&lt;n+m-1;i++)&#123;
-        if((now&gt;&gt;i)&amp;1)x--;
-        else y++;
-        if(((now&gt;&gt;i)&amp;3)!=1)continue;
-        int nxt=now^(3&lt;&lt;i);
-        if(who)f[now]=max(f[now],dfs(nxt,0)+a[x][y]);
-        else f[now]=min(f[now],dfs(nxt,1)-b[x][y]);
-    &#125;
-
-    return f[now];
-&#125;
-
-inline int read()&#123;
-    int x=0,f=1;char ch=getchar();
-    while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
-    while(isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
-    return x*f;
-&#125;
-
-int main()&#123;
-#ifdef LawrenceSivan
-    freopen(&quot;aa.in&quot;,&quot;r&quot;,stdin);
-    freopen(&quot;aa.out&quot;,&quot;w&quot;,stdout);
-#endif
-    n=read();m=read();
-    for(re int i=0;i&lt;n;i++)&#123;
-        for(re int j=0;j&lt;m;j++)&#123;
-            a[i][j]=read();
-        &#125;
-    &#125;
-    for(re int i=0;i&lt;n;i++)&#123;
-        for(re int j=0;j&lt;m;j++)&#123;
-            b[i][j]=read();
-        &#125;
-    &#125;
-
-    vis[((1&lt;&lt;n)-1)&lt;&lt;m]=true;//倒过来DP，即从结束状态开始
-    f[((1&lt;&lt;n)-1)&lt;&lt;m]=0;
-
-    dfs((1&lt;&lt;n)-1,1);
-
-    printf(&quot;%d\n&quot;,f[(1&lt;&lt;n)-1]);//最后找到开始状态下对应的答案
-
-
-
-    return 0;
-&#125;
-</code></pre>
 ]]></content>
   </entry>
   <entry>
@@ -4332,6 +4196,142 @@ signed main()&#123;
 </ul>
 <p>将上述中的 $D$ , $A$ 改为记录相应边边权和，则行列式从生成树个数变为对应的生成树所有边权之积的和。</p>
 <p>于是可以发现，只要把边权全都看成 $1$ ，就是上面这道题我们解决的情况：求生成树个数。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>P4363 [九省联考2018]一双木棋chess（轮廓线状压）</title>
+    <url>/2021/06/22/P4363%20%5B%E4%B9%9D%E7%9C%81%E8%81%94%E8%80%832018%5D%E4%B8%80%E5%8F%8C%E6%9C%A8%E6%A3%8Bchess%EF%BC%88%E8%BD%AE%E5%BB%93%E7%BA%BF%E7%8A%B6%E5%8E%8B%EF%BC%89/</url>
+    <content><![CDATA[<p><a href="https://www.luogu.com.cn/problem/P4363">P4363 [九省联考2018]一双木棋chess</a></p>
+<p>这两天学了这个。</p>
+<p>是轮廓线状压的或许算是裸题。</p>
+<p>关键在于怎么压状态。</p>
+<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><ul>
+<li><p>有一个 $n \times m$ 的棋盘，两个人轮流下棋。</p>
+</li>
+<li><p>一个位置可以落子当且仅当这个位置的左侧和上面都有棋子。</p>
+</li>
+<li><p>两个人落在对应的位置会收获各自的贡献值。</p>
+</li>
+<li><p>最大化自己的得分减去对方的得分。</p>
+</li>
+</ul>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>博弈论？</p>
+<p>是有 max_min搜索还有一些别的做法的。</p>
+<p><a href="https://blog.csdn.net/qq_39297053/article/details/112130921">max_min搜索</a></p>
+<p>看眼数据范围，都是 $10$ 以内的。</p>
+<p>于是考虑状压。</p>
+<p>问题随之而来：如何存状态？</p>
+<p>由于落子是有限制的，所以需要考虑在什么情况下可以落子。</p>
+<p>由于落子是合法的需要满足左边和上边都有棋子，于是在整个过程中必然会有这样的情况：</p>
+<p><img src="https://i.loli.net/2021/06/22/8r3T4wOgjdlYFvq.png" alt=""></p>
+<p>可以发现这样的轮廓一定是连续的。</p>
+<p>于是这就是我们需要的轮廓线。</p>
+<p>可以考虑存储右下角的轮廓线作为状态。</p>
+<p>如何存储呢？</p>
+<p>首先这个轮廓线的长度肯定是 $n+m$ 的。</p>
+<p>我们用 $0$ 来表示横边，用 $1$ 来表示竖边。</p>
+<p>可以举个例子：</p>
+<p><img src="https://i.loli.net/2021/06/22/cWLYrXvbmUxG4Q2.png" alt=""></p>
+<p>对于当前的状态，从右上角开始，向左下角延伸，如果有横边那么当前位就是 $0$，有竖边就是 $1$；</p>
+<p>所以状态串就是 $000101010101010101$</p>
+<p>之后对于状态的判断以及转移过程，都可以利用这个轮廓线。</p>
+<p>可以发现，经过这样的状压之后，判断是否可以落子的条件就变成了：是否存在一个位置，满足串中有 $01$ 这样的两位，如果有，那么就可以落子。</p>
+<p>落子以后，该位置的 $01$ 就会变成 $10$。</p>
+<p>对于转移过程中的具体操作，由于需要判断状态串中是否存在 $01$，可以采用一种手法：</p>
+<pre><code class="lang-cpp">if(((now&gt;&gt;i)&amp;3)!=1)continue;
+</code></pre>
+<p>由于 $3$ 的二进制是 $011$ ，如果也就是判断是否存在 $01$的情况。</p>
+<p>之后改变状态：</p>
+<pre><code class="lang-cpp">int nxt=now^(3&lt;&lt;i);
+</code></pre>
+<p>之后起始状态和终止状态就很明显了：</p>
+<p>起始状态：$000…00111…11$</p>
+<p>终止状态：$111…11000…00$</p>
+<p>之后就是关于如何 DP 的问题了。</p>
+<p>其实这个事情是不好办的。</p>
+<p>首先这个题目要求我们两个人都要走最优策略。</p>
+<p>如果按照我们常规的 DP 思路的话，自然是要设 $f[S]$ 为在 $S$ 这个状态下可以获得多少得分差。</p>
+<p>但是对于这种博弈论 DP 的题目是不可以这样做的。</p>
+<p>由于两方都要采取最优策略，所以我们不得不考虑将来的行动对现在现在的影响。</p>
+<p>如果正序 dp 的话也许会发生当前确实取到了最大值但是其实并不是最优策略。</p>
+<p>于是我们可以考虑倒过来 dp。</p>
+<p>可以假装我们可以一步看到结局，然后选择对自己最有利的状态。</p>
+<p>显然棋盘被布满的状态下没有人可以获得新的分数，那么如果我们用 $f[S]$ 表示从 $S$ 轮廓线的状态距离游戏结束还能得多少分。</p>
+<p>那么我们会发现，如果这个局面是先手下完以后形成的，那么如何这个局面如何转移的主动权显然是攥在后手的手里，所以此时这个 dp 值应该由所有后继状态的相对于先手最劣的状态转移过来，也就是所有的后继状态取个 $\min$。</p>
+<p>如果是后手的话，dp值就应该是对于后手最劣的状态转移过来，也就是所有的后继状态取个 $\max$。</p>
+<p>也就是第一个人想要最大化两者的差值，第二个人想要最小化这个差值。</p>
+<pre><code class="lang-cpp">//#define LawrenceSivan
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+#define re register
+const int maxn=1e5+5;
+#define INF 0x3f3f3f3f
+
+int n,m;
+
+int f[1&lt;&lt;21];
+
+int a[15][15],b[15][15];
+
+bool vis[1&lt;&lt;21];
+
+int dfs(int now,int who)&#123;
+    if(vis[now])return f[now];//记忆化搜索
+    vis[now]=true;
+    f[now]= who?-INF:INF;//先手取max，所以初始最小，后手取min，所以初始最大
+
+    int x=n,y=0;
+    for(re int i=0;i&lt;n+m-1;i++)&#123;
+        if((now&gt;&gt;i)&amp;1)x--;
+        else y++;
+        if(((now&gt;&gt;i)&amp;3)!=1)continue;
+        int nxt=now^(3&lt;&lt;i);
+        if(who)f[now]=max(f[now],dfs(nxt,0)+a[x][y]);
+        else f[now]=min(f[now],dfs(nxt,1)-b[x][y]);
+    &#125;
+
+    return f[now];
+&#125;
+
+inline int read()&#123;
+    int x=0,f=1;char ch=getchar();
+    while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+    while(isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+    return x*f;
+&#125;
+
+int main()&#123;
+#ifdef LawrenceSivan
+    freopen(&quot;aa.in&quot;,&quot;r&quot;,stdin);
+    freopen(&quot;aa.out&quot;,&quot;w&quot;,stdout);
+#endif
+    n=read();m=read();
+    for(re int i=0;i&lt;n;i++)&#123;
+        for(re int j=0;j&lt;m;j++)&#123;
+            a[i][j]=read();
+        &#125;
+    &#125;
+    for(re int i=0;i&lt;n;i++)&#123;
+        for(re int j=0;j&lt;m;j++)&#123;
+            b[i][j]=read();
+        &#125;
+    &#125;
+
+    vis[((1&lt;&lt;n)-1)&lt;&lt;m]=true;//倒过来DP，即从结束状态开始
+    f[((1&lt;&lt;n)-1)&lt;&lt;m]=0;
+
+    dfs((1&lt;&lt;n)-1,1);
+
+    printf(&quot;%d\n&quot;,f[(1&lt;&lt;n)-1]);//最后找到开始状态下对应的答案
+
+
+
+    return 0;
+&#125;
+</code></pre>
 ]]></content>
   </entry>
   <entry>
@@ -4985,6 +4985,185 @@ int main()&#123;
 
 
     return 0;
+&#125;
+</code></pre>
+]]></content>
+  </entry>
+  <entry>
+    <title>p2455 线性方程组（高斯消元）</title>
+    <url>/2021/02/18/p2455%20%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84%EF%BC%88%E9%AB%98%E6%96%AF%E6%B6%88%E5%85%83%EF%BC%89/</url>
+    <content><![CDATA[<p>p2455才是高斯消元的真模板题好吧</p>
+<h1 id="高斯消元"><a href="#高斯消元" class="headerlink" title="高斯消元"></a>高斯消元</h1><p>题面：<a href="https://www.luogu.com.cn/problem/P2455">传送门</a></p>
+<p><del>对不起我真的是太懒了</del></p>
+<p>先来明确高斯消元是干什么的：</p>
+<p>高斯消元是一种求解线性方程组的方法。</p>
+<p>所谓线性方程组，就是由$M$个$N$元一次方程组共同构成的。</p>
+<p>线性方程组的所有系数可以写成一个$M$行$N$列的系数矩阵，再加上每个方程等号右侧的常数，可以写成一个$M$行$N+1$列的“增广矩阵”。</p>
+<p>$\begin{cases}x_1+2x_2-x_3=-6\\2x_1+x_2-3x_3=-9\\{-x_1-x_2+2x_3=7}\end{cases}\Rightarrow\left[\begin{array}{ccc|c}1 &amp;2&amp;-1&amp;-6\\2&amp;1&amp;-3&amp;-9\\{-1}&amp;-1&amp;2&amp;7 \end{array}\right]<br>$ </p>
+<p>相信各位小学或者初中一定学过二元一次方程组吧</p>
+<p><del>如果没学过那我觉得宁可以退役了</del></p>
+<p>有个消元的方法相信你记忆犹新：加减消元法；</p>
+<p>其实高斯消元法干的事情和加减消元法是差不多的；</p>
+<p>步骤大概就是：</p>
+<p>我们将一行加上另一行的若干倍，这样就可以消去其中一行的某一个系数；</p>
+<p>我们可以来看一下下面的过程：</p>
+<p>$\begin{bmatrix} 1&amp;2&amp;-1&amp;-6\\2&amp;1&amp;-3&amp;-9\\{-1}&amp;-1&amp;2&amp;7\end{bmatrix}$</p>
+<p>我们将第二行每一项分别加上第一行的$-2$倍，于是我们发现，第二行的第一项系数被消成$0$了。如下</p>
+<p>$\begin{bmatrix} 1&amp;2&amp;-1&amp;-6\\0&amp;-3&amp;-1&amp;3\\{-1}&amp;-1&amp;2&amp;7\end{bmatrix}$</p>
+<p>接下来我们都这么操作。</p>
+<p>对于第$n$行，我们让该行的第$n$个元素作为“主元”，并且将其他行的同列的系数都消掉，最后我们可以得到下面的形式：</p>
+<p>$\left[<br>    \begin{array}{ccc|c}<br>    1&amp;0&amp;0&amp;1\\0&amp;1&amp;0&amp;-2\\0&amp;0&amp;1&amp;3<br>    \end{array}<br>\right]$</p>
+<p>是的，成了这样以后，发现主对角线上的数和常数一般都不是$0$，其他位置都是$0$了（后面还有一些特殊情况与判定技巧），我们就可以愉快的写出答案：</p>
+<p>$x_1=1$，$x_2=-2$，$x_3=3$；</p>
+<p>是的，这就是高斯消元算法。</p>
+<p>但是在实际应用中，我们也许会碰到很多奇奇怪怪的情况。</p>
+<p>就例如你只掌握上面说到的东西是远远不够通过这道题的。</p>
+<p>题目中还有一些更高端的东西：什么时候有无穷多的实数解？什么时候无解？这都是我们需要考虑的；</p>
+<p>首先，在高斯消元的过程中，可能出现$0=d$这样的方程，其中$d$是一个非零常数，这表明这些方程中出现了矛盾，方程组无解。</p>
+<p>其次，我们也可能出现这样的情况：</p>
+<p>我们高斯消元结束以后，发现某一行系数全都是$0$，并且常数也是$0$.</p>
+<p>啊就是出现了$0==0$的情况？？</p>
+<p>是的，此时方程组有无数解，如下图：</p>
+<p>$\left[<br>    \begin{array}{ccc|c}<br>    1&amp;2&amp;0&amp;4\\0&amp;0&amp;1&amp;1\\0&amp;0&amp;0&amp;0<br>    \end{array}<br>\right]$</p>
+<p>那么我们总结一下：</p>
+<p><strong>1.当高斯消元结束以后，如果存在系数全是$0$，但是常数不是$0$的行，那么方程组无解</strong></p>
+<p><strong>2.在高斯消元结束以后，如果存在系数全是$0$，并且常数也是$0$的行，那么方程组有无数解</strong></p>
+<p>学会了这些就能通过这些题了吗？</p>
+<p><strong>当然不是！</strong></p>
+<p>还有一个东西你没有注意到：精度损失</p>
+<p>精度损失是怎么来的?如何降低精度损失呢?</p>
+<p>我们在加减消元的时候，有的时候需要加的也许不是一个整数，可能是某一行的几分之几倍。</p>
+<p>于是，考虑到这，我们发现精度损失的原因了。</p>
+<p>所以，我们就要让产生几分之几倍（确切的说：当式子一的系数是$a_1$，式子二的系数是$a_2$时，我们加的这个数就是$a_2/a_1$倍（注意我们主元系数是在分母上））的这个过程有较小的精度损失</p>
+<p>我们可以思考一下，我们在消元的时候一定要刻意按照题目中给的顺序一行一行来嘛？</p>
+<p>也许可以不这样。</p>
+<p>在什么情况下，我们能产生较小的精度损失呢？</p>
+<p>我们举个例子来看：</p>
+<p>考虑这样的一个方程组：</p>
+<p>$1000x_1+ax_2+bx_3=c$;（这几个都是x不是乘号）</p>
+<p>$0.5x_1+dx_2+ex_3=f$</p>
+<p>我们设精度误差$eps=1e-8$；</p>
+<p>如果我们选择$1000$作为主元，</p>
+<p>那么理论值$ima_1=0.5/1000$</p>
+<p>实际值$rea_1=0.5+eps/1000+eps$</p>
+<p>误差值Δ在$rea_1-ima_1=$一个超级小的数</p>
+<hr>
+<p>如果我们选择$0.5$作为主元，那么理论值$ima_2=1000/0.5$</p>
+<p>实际值$rea_2=1000+eps/0.5+eps$；</p>
+<p>误差值Δ在$rea_2-ima_2=40$左右</p>
+<p>发现差距了吗？？</p>
+<p>知道该怎么做了吗？？</p>
+<p>是的，我们每次选择较大的作为主元就好了！</p>
+<p>代码实现嘛，长这样的;</p>
+<pre><code class="lang-cpp">    double maxx;//最大值
+    int maxline;//最大值所在行
+    for(re int i=1;i&lt;=n;++i)&#123;//枚举每一列
+        maxx=0,maxline=i;
+        for(re int j=1;j&lt;=n;++j)//枚举每一行的同一列位置
+            if(!vis[j]&amp;&amp;abs(a[j][i])&gt;maxx)&#123;//如果没来过并且很大（因为我们加的数正负都可以，所以我们取绝对值
+                maxx=abs(a[j][i]),maxline=j;//记录最大值以及所在的行数
+            &#125;
+
+        //........
+
+        if(maxline!=i)swap(a[i],a[maxline]);//如果发现我们在消元过程中，这个位置不是需要的最大的，我们就把这一行和最大的那一行换一下位置
+        vis[i]=1;//来过了
+    &#125;
+</code></pre>
+<p>掌握了这些，这个题就可以$A$了</p>
+<p>CODE：</p>
+<pre><code class="lang-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+#define re register
+
+const int N=105;
+const double eps=1e-8;//精度误差
+
+double a[N][N];//矩阵
+bool vis[N];
+int n;
+
+inline int read()&#123;
+    int x=0,f=1;char ch=getchar();
+    while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+    while(isdigit(ch))&#123;x=x*10+ch-48;ch=getchar();&#125;
+    return x*f;
+&#125;
+
+int main()&#123;
+    n=read();
+
+    for(re int i=1;i&lt;=n;++i)&#123;
+        for(re int j=1;j&lt;=n+1;++j)&#123;//读入矩阵，把常数也读进去所以是n+1
+
+            a[i][j]=read();
+        &#125;
+    &#125;
+
+    double maxx;
+    int maxline;
+    for(re int i=1;i&lt;=n;++i)&#123;
+        maxx=0,maxline=i;
+        for(re int j=1;j&lt;=n;++j)
+            if(!vis[j]&amp;&amp;abs(a[j][i])&gt;maxx)maxx=abs(a[j][i]),maxline=j;//找最大的
+
+        if(maxx&lt;=eps)continue;//如果太小了，我们可以认为是0，并且把他跳过去，因为已经是0了不需要再操作
+        if(maxline!=i)swap(a[i],a[maxline]);//将系数最大的换到i行
+        vis[i]=1;
+
+        for(re int j=1;j&lt;=n;++j)//对其他行关于i列进行消元
+            if(j!=i)&#123;
+                double t=a[j][i]/a[i][i];
+                for(re int k=i;k&lt;=n+1;++k)&#123;
+                    a[j][k]-=t*a[i][k];
+                &#125;
+            &#125;
+    &#125; 
+
+    bool flag=0;//因为在消元完成后，只有主对角线上系数不是零，所以我们只需要检查一下，如果主对角线上出现了0的那一行的常数是不是0就可以了
+    for(re int i=1;i&lt;=n;++i)
+        if(abs(a[i][i])&lt;=eps)&#123;
+            flag=1;//如果发现主对角线上有0存在，那么一定出了特殊情况，要么是无解，要么是无穷解
+            abs(a[i][n+1])&gt;eps?puts(&quot;-1&quot;):puts(&quot;0&quot;);//如果常数不是零，那么可以认定就是无解，如果主对角线上有0，并且常数是0，那么就一定有无穷多解
+                return 0;
+        &#125;
+
+
+    for(re int i=1;i&lt;=n;i++)&#123;//不然我们就要输出每一项的解是多少
+        printf(&quot;x%d=%.2lf\n&quot;,i,a[i][n+1]/a[i][i]);//这里解释一下，为什么要用常数除以系数：因为我们在消元以后，系数并不一定变成了1，也可能是其他的常数，那么就成了kx=b的形式，所以我们拿b/k就是x了
+    &#125;
+
+    return 0;
+&#125;
+</code></pre>
+<p>附上经典高斯：</p>
+<pre><code class="lang-cpp">inline void Gauss()&#123;
+    int maxline=0;
+    double maxx=0;
+    for(re int i=1;i&lt;=n;i++)&#123;
+        maxline=i,maxx=0;
+        for(re int j=i+1;j&lt;=n;j++)&#123;
+            if(fabs(a[j][i])&gt;maxx)maxx=fabs(a[j][i]),maxline=j;
+        &#125;
+        if(fabs(a[maxline][i])&lt;eps)&#123;
+            puts(&quot;No Solution&quot;);
+            exit(0);
+        &#125;
+        if(maxline!=i)swap(a[i],a[maxline]);
+        for(re int j=n+1;j&gt;=i;j--)&#123;
+            for(re int k=i+1;k&lt;=n;k++)&#123;
+                a[k][j]-=a[k][i]/a[i][i]*a[i][j];
+            &#125;
+        &#125;
+    &#125;
+
+    for(re int i=n;i;i--)&#123;
+        for(re int j=i+1;j&lt;=n;j++)&#123;
+            a[i][n+1]-=a[j][n+1]*a[i][j];
+        &#125;
+        a[i][n+1]/=a[i][i];
+    &#125;
 &#125;
 </code></pre>
 ]]></content>
@@ -6283,185 +6462,6 @@ int main() &#123;
 ]]></content>
   </entry>
   <entry>
-    <title>p2455 线性方程组（高斯消元）</title>
-    <url>/2021/02/18/p2455%20%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84%EF%BC%88%E9%AB%98%E6%96%AF%E6%B6%88%E5%85%83%EF%BC%89/</url>
-    <content><![CDATA[<p>p2455才是高斯消元的真模板题好吧</p>
-<h1 id="高斯消元"><a href="#高斯消元" class="headerlink" title="高斯消元"></a>高斯消元</h1><p>题面：<a href="https://www.luogu.com.cn/problem/P2455">传送门</a></p>
-<p><del>对不起我真的是太懒了</del></p>
-<p>先来明确高斯消元是干什么的：</p>
-<p>高斯消元是一种求解线性方程组的方法。</p>
-<p>所谓线性方程组，就是由$M$个$N$元一次方程组共同构成的。</p>
-<p>线性方程组的所有系数可以写成一个$M$行$N$列的系数矩阵，再加上每个方程等号右侧的常数，可以写成一个$M$行$N+1$列的“增广矩阵”。</p>
-<p>$\begin{cases}x_1+2x_2-x_3=-6\\2x_1+x_2-3x_3=-9\\{-x_1-x_2+2x_3=7}\end{cases}\Rightarrow\left[\begin{array}{ccc|c}1 &amp;2&amp;-1&amp;-6\\2&amp;1&amp;-3&amp;-9\\{-1}&amp;-1&amp;2&amp;7 \end{array}\right]<br>$ </p>
-<p>相信各位小学或者初中一定学过二元一次方程组吧</p>
-<p><del>如果没学过那我觉得宁可以退役了</del></p>
-<p>有个消元的方法相信你记忆犹新：加减消元法；</p>
-<p>其实高斯消元法干的事情和加减消元法是差不多的；</p>
-<p>步骤大概就是：</p>
-<p>我们将一行加上另一行的若干倍，这样就可以消去其中一行的某一个系数；</p>
-<p>我们可以来看一下下面的过程：</p>
-<p>$\begin{bmatrix} 1&amp;2&amp;-1&amp;-6\\2&amp;1&amp;-3&amp;-9\\{-1}&amp;-1&amp;2&amp;7\end{bmatrix}$</p>
-<p>我们将第二行每一项分别加上第一行的$-2$倍，于是我们发现，第二行的第一项系数被消成$0$了。如下</p>
-<p>$\begin{bmatrix} 1&amp;2&amp;-1&amp;-6\\0&amp;-3&amp;-1&amp;3\\{-1}&amp;-1&amp;2&amp;7\end{bmatrix}$</p>
-<p>接下来我们都这么操作。</p>
-<p>对于第$n$行，我们让该行的第$n$个元素作为“主元”，并且将其他行的同列的系数都消掉，最后我们可以得到下面的形式：</p>
-<p>$\left[<br>    \begin{array}{ccc|c}<br>    1&amp;0&amp;0&amp;1\\0&amp;1&amp;0&amp;-2\\0&amp;0&amp;1&amp;3<br>    \end{array}<br>\right]$</p>
-<p>是的，成了这样以后，发现主对角线上的数和常数一般都不是$0$，其他位置都是$0$了（后面还有一些特殊情况与判定技巧），我们就可以愉快的写出答案：</p>
-<p>$x_1=1$，$x_2=-2$，$x_3=3$；</p>
-<p>是的，这就是高斯消元算法。</p>
-<p>但是在实际应用中，我们也许会碰到很多奇奇怪怪的情况。</p>
-<p>就例如你只掌握上面说到的东西是远远不够通过这道题的。</p>
-<p>题目中还有一些更高端的东西：什么时候有无穷多的实数解？什么时候无解？这都是我们需要考虑的；</p>
-<p>首先，在高斯消元的过程中，可能出现$0=d$这样的方程，其中$d$是一个非零常数，这表明这些方程中出现了矛盾，方程组无解。</p>
-<p>其次，我们也可能出现这样的情况：</p>
-<p>我们高斯消元结束以后，发现某一行系数全都是$0$，并且常数也是$0$.</p>
-<p>啊就是出现了$0==0$的情况？？</p>
-<p>是的，此时方程组有无数解，如下图：</p>
-<p>$\left[<br>    \begin{array}{ccc|c}<br>    1&amp;2&amp;0&amp;4\\0&amp;0&amp;1&amp;1\\0&amp;0&amp;0&amp;0<br>    \end{array}<br>\right]$</p>
-<p>那么我们总结一下：</p>
-<p><strong>1.当高斯消元结束以后，如果存在系数全是$0$，但是常数不是$0$的行，那么方程组无解</strong></p>
-<p><strong>2.在高斯消元结束以后，如果存在系数全是$0$，并且常数也是$0$的行，那么方程组有无数解</strong></p>
-<p>学会了这些就能通过这些题了吗？</p>
-<p><strong>当然不是！</strong></p>
-<p>还有一个东西你没有注意到：精度损失</p>
-<p>精度损失是怎么来的?如何降低精度损失呢?</p>
-<p>我们在加减消元的时候，有的时候需要加的也许不是一个整数，可能是某一行的几分之几倍。</p>
-<p>于是，考虑到这，我们发现精度损失的原因了。</p>
-<p>所以，我们就要让产生几分之几倍（确切的说：当式子一的系数是$a_1$，式子二的系数是$a_2$时，我们加的这个数就是$a_2/a_1$倍（注意我们主元系数是在分母上））的这个过程有较小的精度损失</p>
-<p>我们可以思考一下，我们在消元的时候一定要刻意按照题目中给的顺序一行一行来嘛？</p>
-<p>也许可以不这样。</p>
-<p>在什么情况下，我们能产生较小的精度损失呢？</p>
-<p>我们举个例子来看：</p>
-<p>考虑这样的一个方程组：</p>
-<p>$1000x_1+ax_2+bx_3=c$;（这几个都是x不是乘号）</p>
-<p>$0.5x_1+dx_2+ex_3=f$</p>
-<p>我们设精度误差$eps=1e-8$；</p>
-<p>如果我们选择$1000$作为主元，</p>
-<p>那么理论值$ima_1=0.5/1000$</p>
-<p>实际值$rea_1=0.5+eps/1000+eps$</p>
-<p>误差值Δ在$rea_1-ima_1=$一个超级小的数</p>
-<hr>
-<p>如果我们选择$0.5$作为主元，那么理论值$ima_2=1000/0.5$</p>
-<p>实际值$rea_2=1000+eps/0.5+eps$；</p>
-<p>误差值Δ在$rea_2-ima_2=40$左右</p>
-<p>发现差距了吗？？</p>
-<p>知道该怎么做了吗？？</p>
-<p>是的，我们每次选择较大的作为主元就好了！</p>
-<p>代码实现嘛，长这样的;</p>
-<pre><code class="lang-cpp">    double maxx;//最大值
-    int maxline;//最大值所在行
-    for(re int i=1;i&lt;=n;++i)&#123;//枚举每一列
-        maxx=0,maxline=i;
-        for(re int j=1;j&lt;=n;++j)//枚举每一行的同一列位置
-            if(!vis[j]&amp;&amp;abs(a[j][i])&gt;maxx)&#123;//如果没来过并且很大（因为我们加的数正负都可以，所以我们取绝对值
-                maxx=abs(a[j][i]),maxline=j;//记录最大值以及所在的行数
-            &#125;
-
-        //........
-
-        if(maxline!=i)swap(a[i],a[maxline]);//如果发现我们在消元过程中，这个位置不是需要的最大的，我们就把这一行和最大的那一行换一下位置
-        vis[i]=1;//来过了
-    &#125;
-</code></pre>
-<p>掌握了这些，这个题就可以$A$了</p>
-<p>CODE：</p>
-<pre><code class="lang-cpp">#include&lt;bits/stdc++.h&gt;
-using namespace std;
-
-#define re register
-
-const int N=105;
-const double eps=1e-8;//精度误差
-
-double a[N][N];//矩阵
-bool vis[N];
-int n;
-
-inline int read()&#123;
-    int x=0,f=1;char ch=getchar();
-    while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
-    while(isdigit(ch))&#123;x=x*10+ch-48;ch=getchar();&#125;
-    return x*f;
-&#125;
-
-int main()&#123;
-    n=read();
-
-    for(re int i=1;i&lt;=n;++i)&#123;
-        for(re int j=1;j&lt;=n+1;++j)&#123;//读入矩阵，把常数也读进去所以是n+1
-
-            a[i][j]=read();
-        &#125;
-    &#125;
-
-    double maxx;
-    int maxline;
-    for(re int i=1;i&lt;=n;++i)&#123;
-        maxx=0,maxline=i;
-        for(re int j=1;j&lt;=n;++j)
-            if(!vis[j]&amp;&amp;abs(a[j][i])&gt;maxx)maxx=abs(a[j][i]),maxline=j;//找最大的
-
-        if(maxx&lt;=eps)continue;//如果太小了，我们可以认为是0，并且把他跳过去，因为已经是0了不需要再操作
-        if(maxline!=i)swap(a[i],a[maxline]);//将系数最大的换到i行
-        vis[i]=1;
-
-        for(re int j=1;j&lt;=n;++j)//对其他行关于i列进行消元
-            if(j!=i)&#123;
-                double t=a[j][i]/a[i][i];
-                for(re int k=i;k&lt;=n+1;++k)&#123;
-                    a[j][k]-=t*a[i][k];
-                &#125;
-            &#125;
-    &#125; 
-
-    bool flag=0;//因为在消元完成后，只有主对角线上系数不是零，所以我们只需要检查一下，如果主对角线上出现了0的那一行的常数是不是0就可以了
-    for(re int i=1;i&lt;=n;++i)
-        if(abs(a[i][i])&lt;=eps)&#123;
-            flag=1;//如果发现主对角线上有0存在，那么一定出了特殊情况，要么是无解，要么是无穷解
-            abs(a[i][n+1])&gt;eps?puts(&quot;-1&quot;):puts(&quot;0&quot;);//如果常数不是零，那么可以认定就是无解，如果主对角线上有0，并且常数是0，那么就一定有无穷多解
-                return 0;
-        &#125;
-
-
-    for(re int i=1;i&lt;=n;i++)&#123;//不然我们就要输出每一项的解是多少
-        printf(&quot;x%d=%.2lf\n&quot;,i,a[i][n+1]/a[i][i]);//这里解释一下，为什么要用常数除以系数：因为我们在消元以后，系数并不一定变成了1，也可能是其他的常数，那么就成了kx=b的形式，所以我们拿b/k就是x了
-    &#125;
-
-    return 0;
-&#125;
-</code></pre>
-<p>附上经典高斯：</p>
-<pre><code class="lang-cpp">inline void Gauss()&#123;
-    int maxline=0;
-    double maxx=0;
-    for(re int i=1;i&lt;=n;i++)&#123;
-        maxline=i,maxx=0;
-        for(re int j=i+1;j&lt;=n;j++)&#123;
-            if(fabs(a[j][i])&gt;maxx)maxx=fabs(a[j][i]),maxline=j;
-        &#125;
-        if(fabs(a[maxline][i])&lt;eps)&#123;
-            puts(&quot;No Solution&quot;);
-            exit(0);
-        &#125;
-        if(maxline!=i)swap(a[i],a[maxline]);
-        for(re int j=n+1;j&gt;=i;j--)&#123;
-            for(re int k=i+1;k&lt;=n;k++)&#123;
-                a[k][j]-=a[k][i]/a[i][i]*a[i][j];
-            &#125;
-        &#125;
-    &#125;
-
-    for(re int i=n;i;i--)&#123;
-        for(re int j=i+1;j&lt;=n;j++)&#123;
-            a[i][n+1]-=a[j][n+1]*a[i][j];
-        &#125;
-        a[i][n+1]/=a[i][i];
-    &#125;
-&#125;
-</code></pre>
-]]></content>
-  </entry>
-  <entry>
     <title>决策单调性小结</title>
     <url>/2021/07/04/%E5%86%B3%E7%AD%96%E5%8D%95%E8%B0%83%E6%80%A7%E5%B0%8F%E7%BB%93/</url>
     <content><![CDATA[<h1 id="决策单调性小结"><a href="#决策单调性小结" class="headerlink" title="决策单调性小结"></a>决策单调性小结</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>学了这一块我才明白原来以前的 DP 都是过家家。。。</p>
@@ -7422,15 +7422,6 @@ int main()&#123;
       </tags>
   </entry>
   <entry>
-    <title>悦读</title>
-    <url>/2021/06/05/%E6%82%A6%E8%AF%BB/</url>
-    <content><![CDATA[<p>还没想好写什么</p>
-]]></content>
-      <tags>
-        <tag>悦读</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>快速莫比乌斯&amp;沃尔什变换(FMT&amp;FWT)学习笔记</title>
     <url>/2021/08/25/%E5%BF%AB%E9%80%9F%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF&amp;%E6%B2%83%E5%B0%94%E4%BB%80%E5%8F%98%E6%8D%A2(FMT&amp;FWT)%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="快速莫比乌斯-amp-沃尔什变换-FMT-amp-FWT-学习笔记"><a href="#快速莫比乌斯-amp-沃尔什变换-FMT-amp-FWT-学习笔记" class="headerlink" title="快速莫比乌斯&amp;沃尔什变换(FMT&amp;FWT)学习笔记"></a>快速莫比乌斯&amp;沃尔什变换(FMT&amp;FWT)学习笔记</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>就是这个混蛋玩意我学了<del>两个晚上</del>15天才搞定 /fn</p>
@@ -7715,6 +7706,15 @@ signed main()&#123;
 ]]></content>
       <tags>
         <tag>快速莫比乌斯变换,快速沃尔什变换,FWT,FMT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>悦读</title>
+    <url>/2021/06/05/%E6%82%A6%E8%AF%BB/</url>
+    <content><![CDATA[<p>还没想好写什么</p>
+]]></content>
+      <tags>
+        <tag>悦读</tag>
       </tags>
   </entry>
   <entry>
@@ -10102,24 +10102,6 @@ int main() &#123;
 ]]></content>
   </entry>
   <entry>
-    <title>转载</title>
-    <url>/2018/05/28/%E8%BD%AC%E8%BD%BD/</url>
-    <content><![CDATA[<p>这个页面用来存放转载</p>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>资源</title>
-    <url>/2018/05/28/%E8%B5%84%E6%BA%90/</url>
-    <content><![CDATA[<p>这个页面用来存放资源</p>
-]]></content>
-      <categories>
-        <category>资源</category>
-      </categories>
-  </entry>
-  <entry>
     <title>莫队全家桶</title>
     <url>/2021/04/22/%E8%8E%AB%E9%98%9F%E5%85%A8%E5%AE%B6%E6%A1%B6/</url>
     <content><![CDATA[<p><strong>今天学习了莫队</strong><br><del>实在是太有魅力了</del></p>
@@ -11707,6 +11689,24 @@ int main() &#123;
 &#125;
 </code></pre>
 ]]></content>
+  </entry>
+  <entry>
+    <title>资源</title>
+    <url>/2018/05/28/%E8%B5%84%E6%BA%90/</url>
+    <content><![CDATA[<p>这个页面用来存放资源</p>
+]]></content>
+      <categories>
+        <category>资源</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>转载</title>
+    <url>/2018/05/28/%E8%BD%AC%E8%BD%BD/</url>
+    <content><![CDATA[<p>这个页面用来存放转载</p>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
   </entry>
   <entry>
     <title>随想</title>
