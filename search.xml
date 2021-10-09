@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>2021年10月月记</title>
+    <url>/2021/10/01/2021%E5%B9%B410%E6%9C%88%E6%9C%88%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="2021-年-10-月月记"><a href="#2021-年-10-月月记" class="headerlink" title="$2021$ 年 $10$ 月月记"></a>$2021$ 年 $10$ 月月记</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>谔谔</p>
+<h2 id="10-月-1-日"><a href="#10-月-1-日" class="headerlink" title="$10$ 月 $1$ 日"></a>$10$ 月 $1$ 日</h2><p>新的一个月。</p>
+<p>起晚了，被教练 D 了。</p>
+<h2 id="10-月-2-日"><a href="#10-月-2-日" class="headerlink" title="$10$ 月 $2$ 日"></a>$10$ 月 $2$ 日</h2><p>nekko 讲课。</p>
+<p>自闭场。</p>
+<p>下午考试。</p>
+<p>自闭场。</p>
+<p>晚上熬夜补题。</p>
+<p>还挺顺心的，一会就写完了。</p>
+<h2 id="10-月-3-日"><a href="#10-月-3-日" class="headerlink" title="$10$ 月 $3$ 日"></a>$10$ 月 $3$ 日</h2><p>补题。</p>
+<h2 id="10-月-4-日"><a href="#10-月-4-日" class="headerlink" title="$10$ 月 $4$ 日"></a>$10$ 月 $4$ 日</h2><p>出出出带带带问题。</p>
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+  </entry>
+  <entry>
     <title>2021 二南新生报到必备物品指南~（第二版）</title>
     <url>/2021/07/27/2021%20%E4%BA%8C%E5%8D%97%E6%96%B0%E7%94%9F%E6%8A%A5%E5%88%B0%E5%BF%85%E5%A4%87%E7%89%A9%E5%93%81%E6%8C%87%E5%8D%97~%EF%BC%88%E7%AC%AC%E4%BA%8C%E7%89%88%EF%BC%89/</url>
     <content><![CDATA[<h1 id="2021-二南新生报到必备物品指南-（第二版）"><a href="#2021-二南新生报到必备物品指南-（第二版）" class="headerlink" title="2021 二南新生报到必备物品指南~（第二版）"></a>2021 二南新生报到必备物品指南~（第二版）</h1><p>本篇文章主要针对报道之前需要准备的物品进行小小的总结。</p>
@@ -1974,78 +1993,6 @@ int main()&#123;
 ]]></content>
   </entry>
   <entry>
-    <title>Huffman树（荷马史诗）</title>
-    <url>/2021/02/05/Huffman%E6%A0%91%EF%BC%88%E8%8D%B7%E9%A9%AC%E5%8F%B2%E8%AF%97%EF%BC%89/</url>
-    <content><![CDATA[<p>hi </p>
-<p>晚上好啊</p>
-<p>今天讲了基本算法（基本听不懂的算法）——</p>
-<p><del>又被学长虐了呢</del>~~~</p>
-<p>终于在下课前学长讲了一道能写得出来的题，</p>
-<p>为了庆祝，</p>
-<p>我们来写一篇博客。</p>
-<h2 id="Huffman-树"><a href="#Huffman-树" class="headerlink" title="$Huffman$树"></a>$Huffman$树</h2><p>首先，我们来考虑这样一个问题：</p>
-<p>构造一棵包含 $n$ 个叶子节点的 $k$ 叉树，其中第 $i$ 个叶子节点带有权值 $w_i$，要求最小化 $\sum w_i * l_i$，其中 $l_i$ 表示第 $i$ 个叶子节点到根节点的距离。</p>
-<p>该问题的解被称为 $k$ 叉 $Huffman$ 树（哈夫曼树）</p>
-<p>为了最小化 $\sum w_i * l_i$，应该让权值大的叶子节点的深度尽量小（这应该十分显然了）。</p>
-<p>当 $k==2$ 时，我们就可以维护一个小根堆（出门左转合并果子）</p>
-<p>对于 $k&gt;2 $的 $k$ 叉 $Huffman$ 树的求解，直观的想法是在贪心的基础上，改为每次取出最小的 $k$ 个权值。</p>
-<p>然鹅，经过仔细思考，可以发现：</p>
-<p>如果在执行最后一轮循环时，堆的大小在 $2-k$ 之间（也就是说，不足以取出 $k$ 个），那么整棵$Huffman$ 树的根的子节点数就小于 $k$。这显然不是最优解——我们取 $Huffman$ 树中任意一个深度最大的节点，把他改为树根的子节点，就会使 $\sum w_i * l_i$ 变小。</p>
-<p>因此，我们在执行贪心步骤之前，首先要补充一些额外的权值为 $0$ 的叶节点，使得叶节点的个数 $n$ 满足$(n-1)mod(k-1)==0$.</p>
-<p>也就是说，我们让子节点不足k的情况发生在最底层，而不是在根结点处，在 $(n-1)mod(k-1)==0$ 时，执行“每次从堆中取出最小的 $k$ 个权值”的贪心思路是正确的。</p>
-<hr>
-<p>那么，我们现在来看 $p2168$ 荷马史诗</p>
-<p>其实看了上面的，题目自然就很显然了</p>
-<p><del>啊淦为什么我也这么爱说显然了</del></p>
-<p>那我们把单词出现的次数作为权值，然后直接构造 $k$ 叉 $Huffman$ 树，对于每个节点的第 $k$ 个分支，分别标记为 $0-k-1$；</p>
-<p>下面我们需要一点跟 $trie$ 有关的东西</p>
-<p>如果把这个 $Huffman $树看作是一颗 $trie$，那么就得到了总长度最小的编码方式——单词 $i$ 的编码就是从根节点到叶节点 $i$ 上各个字符相连（如果没学过 $trie$ 建议去看一看，反正也不难，一举两得）。</p>
-<p>那么如何保证一个单词不是另一个单词的前缀呢？</p>
-<p>我们只需要保证，单词的结尾是叶子节点就好了啊（这是 $trie $的性质，如果一个串是另一个串的前缀的话，那么这个串的结尾一定还可以向后延伸，也就是可以经变长变为另一个更长的单词。）</p>
-<p>如何保证 $s_i$ 最短呢？</p>
-<p>只需要在构造 $Huffman$ 树的时候，对于权值相同的节，我们优先合并当前深度小（也就是合并次数小的）即可。</p>
-<p>CODE：</p>
-<pre><code class="lang-cpp">#include&quot;bits/stdc++.h&quot;
-using namespace std;
-#define ll long long
-struct node&#123;//结构体，这个是节点，里面有两个域，分别是权值和当前深度（也就代表着合并次数）
-    ll w,h;
-    node(ll w,ll h):w(w),h(h)&#123;&#125;//构造函数赋初值
-    bool operator &lt; (const node &amp;a)const&#123;//我们重载小于号，使之成为一个优先按照权值大小排序，深度（即合并次数）为第二关键字的小根堆
-        return w==a.w?h&gt;a.h:w&gt;a.w;
-    &#125;
-&#125;;
-ll ans;//答案
-priority_queue &lt;node&gt; q;//小根堆
-int main()&#123;
-    ios::sync_with_stdio(false);
-    ll n,k,ans=0;
-    cin&gt;&gt;n&gt;&gt;k;//可以想一下，k进制代表每个数字都是不超过k-1的，那么我们可以联想到，这不就是k叉Huffman的k吗？
-    for(int i=1;i&lt;=n;i++)&#123;
-        ll w;
-        cin&gt;&gt;w;//我们把出现次数看成权值
-        q.push((node)&#123;w,1&#125;);
-    &#125;
-    while((q.size()-1)%(k-1)!=0)q.push((node)&#123;0,1&#125;);//判断是不是要补上空节点
-    while(q.size()&gt;=k)&#123;//合并操作
-        ll h=-1,w=0;
-        for(int i=1;i&lt;=k;i//取出最小的k个
-            node t=q.top();
-            q.pop();
-            h=max(h,t.h);
-            w+=t.w;
-        &#125;
-        ans+=w;
-        q.push((node)&#123;w,h+1&#125;);
-    &#125;
-    cout&lt;&lt;ans&lt;&lt;endl&lt;&lt;q.top().h-1&lt;&lt;endl;
-
-    return 0;
-&#125;
-</code></pre>
-]]></content>
-  </entry>
-  <entry>
     <title>FFT快速傅里叶变换学习笔记</title>
     <url>/2021/08/06/FFT%E5%BF%AB%E9%80%9F%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="FFT-快速傅里叶变换学习笔记"><a href="#FFT-快速傅里叶变换学习笔记" class="headerlink" title="FFT 快速傅里叶变换学习笔记"></a>FFT 快速傅里叶变换学习笔记</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>考虑到时间及能力有限，并且诸位大佬写的学习笔记已经是十分详尽，本人目前不可能也不打算写一篇详细度超越各位先人的学习笔记，只是帮助自己理清思路，整理过程并且贯彻一些证明。</p>
@@ -2645,6 +2592,268 @@ links:
       <categories>
         <category>技术</category>
       </categories>
+  </entry>
+  <entry>
+    <title>Huffman树（荷马史诗）</title>
+    <url>/2021/02/05/Huffman%E6%A0%91%EF%BC%88%E8%8D%B7%E9%A9%AC%E5%8F%B2%E8%AF%97%EF%BC%89/</url>
+    <content><![CDATA[<p>hi </p>
+<p>晚上好啊</p>
+<p>今天讲了基本算法（基本听不懂的算法）——</p>
+<p><del>又被学长虐了呢</del>~~~</p>
+<p>终于在下课前学长讲了一道能写得出来的题，</p>
+<p>为了庆祝，</p>
+<p>我们来写一篇博客。</p>
+<h2 id="Huffman-树"><a href="#Huffman-树" class="headerlink" title="$Huffman$树"></a>$Huffman$树</h2><p>首先，我们来考虑这样一个问题：</p>
+<p>构造一棵包含 $n$ 个叶子节点的 $k$ 叉树，其中第 $i$ 个叶子节点带有权值 $w_i$，要求最小化 $\sum w_i * l_i$，其中 $l_i$ 表示第 $i$ 个叶子节点到根节点的距离。</p>
+<p>该问题的解被称为 $k$ 叉 $Huffman$ 树（哈夫曼树）</p>
+<p>为了最小化 $\sum w_i * l_i$，应该让权值大的叶子节点的深度尽量小（这应该十分显然了）。</p>
+<p>当 $k==2$ 时，我们就可以维护一个小根堆（出门左转合并果子）</p>
+<p>对于 $k&gt;2 $的 $k$ 叉 $Huffman$ 树的求解，直观的想法是在贪心的基础上，改为每次取出最小的 $k$ 个权值。</p>
+<p>然鹅，经过仔细思考，可以发现：</p>
+<p>如果在执行最后一轮循环时，堆的大小在 $2-k$ 之间（也就是说，不足以取出 $k$ 个），那么整棵$Huffman$ 树的根的子节点数就小于 $k$。这显然不是最优解——我们取 $Huffman$ 树中任意一个深度最大的节点，把他改为树根的子节点，就会使 $\sum w_i * l_i$ 变小。</p>
+<p>因此，我们在执行贪心步骤之前，首先要补充一些额外的权值为 $0$ 的叶节点，使得叶节点的个数 $n$ 满足$(n-1)mod(k-1)==0$.</p>
+<p>也就是说，我们让子节点不足k的情况发生在最底层，而不是在根结点处，在 $(n-1)mod(k-1)==0$ 时，执行“每次从堆中取出最小的 $k$ 个权值”的贪心思路是正确的。</p>
+<hr>
+<p>那么，我们现在来看 $p2168$ 荷马史诗</p>
+<p>其实看了上面的，题目自然就很显然了</p>
+<p><del>啊淦为什么我也这么爱说显然了</del></p>
+<p>那我们把单词出现的次数作为权值，然后直接构造 $k$ 叉 $Huffman$ 树，对于每个节点的第 $k$ 个分支，分别标记为 $0-k-1$；</p>
+<p>下面我们需要一点跟 $trie$ 有关的东西</p>
+<p>如果把这个 $Huffman $树看作是一颗 $trie$，那么就得到了总长度最小的编码方式——单词 $i$ 的编码就是从根节点到叶节点 $i$ 上各个字符相连（如果没学过 $trie$ 建议去看一看，反正也不难，一举两得）。</p>
+<p>那么如何保证一个单词不是另一个单词的前缀呢？</p>
+<p>我们只需要保证，单词的结尾是叶子节点就好了啊（这是 $trie $的性质，如果一个串是另一个串的前缀的话，那么这个串的结尾一定还可以向后延伸，也就是可以经变长变为另一个更长的单词。）</p>
+<p>如何保证 $s_i$ 最短呢？</p>
+<p>只需要在构造 $Huffman$ 树的时候，对于权值相同的节，我们优先合并当前深度小（也就是合并次数小的）即可。</p>
+<p>CODE：</p>
+<pre><code class="lang-cpp">#include&quot;bits/stdc++.h&quot;
+using namespace std;
+#define ll long long
+struct node&#123;//结构体，这个是节点，里面有两个域，分别是权值和当前深度（也就代表着合并次数）
+    ll w,h;
+    node(ll w,ll h):w(w),h(h)&#123;&#125;//构造函数赋初值
+    bool operator &lt; (const node &amp;a)const&#123;//我们重载小于号，使之成为一个优先按照权值大小排序，深度（即合并次数）为第二关键字的小根堆
+        return w==a.w?h&gt;a.h:w&gt;a.w;
+    &#125;
+&#125;;
+ll ans;//答案
+priority_queue &lt;node&gt; q;//小根堆
+int main()&#123;
+    ios::sync_with_stdio(false);
+    ll n,k,ans=0;
+    cin&gt;&gt;n&gt;&gt;k;//可以想一下，k进制代表每个数字都是不超过k-1的，那么我们可以联想到，这不就是k叉Huffman的k吗？
+    for(int i=1;i&lt;=n;i++)&#123;
+        ll w;
+        cin&gt;&gt;w;//我们把出现次数看成权值
+        q.push((node)&#123;w,1&#125;);
+    &#125;
+    while((q.size()-1)%(k-1)!=0)q.push((node)&#123;0,1&#125;);//判断是不是要补上空节点
+    while(q.size()&gt;=k)&#123;//合并操作
+        ll h=-1,w=0;
+        for(int i=1;i&lt;=k;i//取出最小的k个
+            node t=q.top();
+            q.pop();
+            h=max(h,t.h);
+            w+=t.w;
+        &#125;
+        ans+=w;
+        q.push((node)&#123;w,h+1&#125;);
+    &#125;
+    cout&lt;&lt;ans&lt;&lt;endl&lt;&lt;q.top().h-1&lt;&lt;endl;
+
+    return 0;
+&#125;
+</code></pre>
+]]></content>
+  </entry>
+  <entry>
+    <title>NTT快速数论变换学习笔记</title>
+    <url>/2021/08/15/NTT%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="NTT-快速数论变换学习笔记"><a href="#NTT-快速数论变换学习笔记" class="headerlink" title="NTT 快速数论变换学习笔记"></a>NTT 快速数论变换学习笔记</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>向多项式迈出的勇敢第二步！</p>
+<p><del>虽然也是基础的东西</del>    </p>
+<p>写了这个博客真的是对数论内容有了很多新的认识，也学到了很多新东西。</p>
+<p>甚至解决了很多之前遗留的没有解决的问题。</p>
+<ul>
+<li>以下内容均在剩余系意义下讨论。</li>
+</ul>
+<h2 id="阶"><a href="#阶" class="headerlink" title="阶"></a>阶</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>$a$ 在模 $p$ 意义下的阶：</p>
+<p>最小的整数 $k$ 使得 $a^k\equiv1\ (\mod p)$。</p>
+<p>记为 $δ_p(a)$ 。</p>
+<p>更通俗的说法是幂的最小循环节。</p>
+<h3 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h3><p>上限是 $\varphi(p)$。</p>
+<p>模 $p$ 的阶如果存在，那么一定是 $\varphi(p)$ 的约数。</p>
+<p>证明：</p>
+<ul>
+<li>定理 1：若 $p&gt;1$ 且 $a\perp p$ ，且 $a^n \equiv 1\ (\mod p)$ ，$n&gt;0$ ，则 $δ_p(a)|n$</li>
+<li>定理 2：结合欧拉定理：当 $a,p \in N^+$，并且 $a \perp p$ ，那么有 $a^{\varphi(p)}\equiv 1\ (\mod p)$，并结合定理 1 可知 $δ_p(a)|\varphi(p)$。</li>
+</ul>
+<p>证毕。</p>
+<p>或者以另外一种方式来说：</p>
+<p>如果这个数有阶，那么这个数可以表示为 $g^k$ 的形式。</p>
+<p>能够在 $\varphi(p)$ 大小的环上得到一个 $\dfrac{\varphi(p)}{\gcd(k,\varphi(p))}$ 大小的环，这就是它的阶，这显然是 $\varphi(p)$ 的约数。</p>
+<p>可以从这种角度来理解定理 1 和定理 2。 </p>
+<p>对于 $a \not\perp p$ 的情况，阶认为是 $∞$ 或者不存在。</p>
+<h2 id="原根"><a href="#原根" class="headerlink" title="原根"></a>原根</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>满足 $δ_p(g)=\varphi(p)$ 的 $g$ （达到上界），我们称之为 $p$ 的原根。</p>
+<h3 id="定理-1"><a href="#定理-1" class="headerlink" title="定理"></a>定理</h3><ul>
+<li>只有形如 $2,4,p^x,2p^x$ 才有原根，其中 $p$ 是奇质数。</li>
+</ul>
+<p>一旦求出了其中一个原根，就可以构造出其他的原根。</p>
+<p>所有的 $g^k$ 当 $(k \perp \varphi(p))$ 时，恰好能够构造出 $\varphi(\varphi(p))$ 个，且不重不漏。</p>
+<ul>
+<li>定理 1：若 $g$ 是 $m$ 的原根，则</li>
+</ul>
+<script type="math/tex; mode=display">g,g^2...g^{\varphi(p)}</script><p>各数模 $p$ 的最小剩余，恰好是小于 $p$ 并且与 $p$ 互素的 $\varphi(p)$ 个正整数的一个排列。</p>
+<ul>
+<li>定理 2：每一个质数 $p$ 都有 $\varphi(p-1)$ 个原根。事实上每一个数 $x$ 都有 $\varphi(\varphi(x)$ 个原根（如果他有原根的话）</li>
+</ul>
+<p>推论</p>
+<ul>
+<li>若 $d|(p-1)$ ，则 $x^d \equiv 1\ (\mod p)$ 恰好有 $d$ 个解</li>
+<li>若 $p$ 是质数，且 $d|(p-1)$ ，则阶为 $d$ 的最小剩余 $\mod p$ 的个数为 $\varphi(d)$。</li>
+</ul>
+<h3 id="求法"><a href="#求法" class="headerlink" title="求法"></a>求法</h3><p>由于原根一般不会很大（可以证明 $n$ 的最小原根在 $\mathcal{O(n^{0.25})}$ 级别），因此我们暴力枚举+验证的方法。</p>
+<p>上面我们提到，模 $p$ 的阶如果存在，那么一定是 $\varphi(p)$ 的约数。（详情看上文中 ：阶/定理）</p>
+<p>于是计算阶时，只需要验证 $\varphi(p)$ 的约数即可。</p>
+<p>其实并不需要算出阶是多少,只需要查看阶是否是 $\varphi(p)$ 即可。</p>
+<p>首先将 $\varphi(p)$ 分解质因数：</p>
+<script type="math/tex; mode=display">\varphi(p)=p_1^{c_1}p_2^{c_2}p_3^{c_3}...p_x^{c_x}</script><p>注意到 $a^k \equiv 1\ (\mod p)$ ，那么 $a^{ck}\equiv 1\ (\mod p)$。</p>
+<p>可以取出 $ \varphi(p)$ 的所有质因数 $p_1,p_2,p_3…p_x$ ，要判断 $g$ 是否是原根，只需要判断 $g^{\frac{\varphi(p)}{p_i}}\not\equiv 1\ (\mod p)$ 恒成立，那么 $g$ 就是 $p$ 的一个原根。</p>
+<p>这样可以保证不重不漏地覆盖所有其他约数的倍数，并且达不到 $\varphi(p)$ 本身。</p>
+<p>数据不大的时候枚举所有 $\varphi(p)$ 的因子(除本身)也可。</p>
+<h2 id="原根与单位根"><a href="#原根与单位根" class="headerlink" title="原根与单位根"></a>原根与单位根</h2><p>经过对 FFT 的学习，我们发现由于 FFT 需要使用单位根在复平面上进行系列运算，所以决定它必须要使用浮点数，从而引发精度误差。 </p>
+<p>但是在复数域 $\C$ 中，单位根是唯一满足要求的一类数。</p>
+<p>在剩余系意义下我们可以找到单位根的类似物——<strong>原根</strong></p>
+<p>首先考虑一下单位根的独特性质：</p>
+<ol>
+<li><p>$\omega_n^k=(\omega_n^1)^k$</p>
+</li>
+<li><p>$\omega_n^{0\sim(n-1)}$ 必须互不相同</p>
+<p>否则点值重复，插值不正确。</p>
+</li>
+<li><p>$\omega_n^k=\omega_n^{k\mod n}$</p>
+<p>$n$ 是偶数的时候，可以根据对称引理得出求和引理。</p>
+</li>
+</ol>
+<p>通过以上几条性质可以得出，$\omega_n^1$ 在模意义下的阶恰好是 $n$。</p>
+<ol>
+<li><p>$\omega_{2n}^{2k}=\omega_n^k$</p>
+<p>等价于 $(\omega_{2n})^2=\omega_n$</p>
+</li>
+</ol>
+<p>回顾原根的定义，对于一个<strong>素数</strong> $p$ ，如果 $g$ 的阶达到了 $p-1$ 的上界，则称 $g$ 是 $p$ 的原根。</p>
+<p>显然 $n$ 不一定等于 $p-1$ ，所以原根并不能直接使用。</p>
+<p>上面我们提到阶的两个定理以及另一种证明方法。</p>
+<p>$g^k$ 的阶数恰为 $\dfrac{p-1}{\gcd(k,p-1)}$，这个数仍然是 $p-1$ 的约数。</p>
+<p>所以当 $n\not|\ (p-1)$ 时，找不到阶恰好为 $n$ 的数。</p>
+<p>当 $n|(p-1)$ 时，$g^\frac{(p-1)}{n}$ 的阶恰好是 $\dfrac{p-1}{\gcd(\frac{p-1}{n},p-1)}=n$</p>
+<p>$(\omega_{2n})^2=(g^{\frac{p-1}{2n}})^2=g^{\frac{p-1}{n}}=(\omega_n^1)^k=\omega_n$</p>
+<p>所以 $g^{\frac{p-1}{n}}$ 满足了上述所有要求！</p>
+<p>至于 $n|(p-1)$ 的要求，事实上在分治过程中，$n$ 往往会被补成 $2$ 的次幂，于是我们只需要保证 $p-1$ 包含很多个因子 $2$ 即可。</p>
+<p>常见的 NTT 模数有 </p>
+<script type="math/tex; mode=display">P=998244353=479∗2^{21}+1,g=3</script><script type="math/tex; mode=display">P=1004535809=7∗17∗2^{23}+1,g=3</script><h2 id="get-NTT"><a href="#get-NTT" class="headerlink" title="get_NTT!"></a>get_NTT!</h2><pre><code class="lang-cpp">//#define LawrenceSivan
+
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+typedef unsigned long long ull;
+
+#define INF 0x3f3f3f3f
+#define re register
+
+const int maxn=1e7+5;
+const int mod=998244353;
+const int G=3;
+
+ll qpow(ll a,ll b)&#123;
+    ll res=1;
+    for(;b;b&gt;&gt;=1,a=a*a%mod)&#123;
+        if(b&amp;1)res=res*a%mod;
+    &#125;
+    return res%mod;
+&#125;
+
+const ll invG=qpow(G,mod-2);
+
+ll f[maxn],p[maxn];
+
+int trans[maxn];
+
+int n,m,invn;
+
+inline void NTT(ll *f,bool op)&#123;
+    for(re int i=0;i&lt;n;i++)&#123;
+        if(i&lt;trans[i])swap(f[i],f[trans[i]]);
+    &#125;
+    for(re int p=2;p&lt;=n;p&lt;&lt;=1)&#123;
+        int len=p&gt;&gt;1;
+        int tG=qpow(op?G:invG,(mod-1)/p);
+        for(re int k=0;k&lt;n;k+=p)&#123;
+            ll buf=1;
+            for(re int l=k;l&lt;k+len;l++)&#123;
+                ll tmp=buf*f[l+len]%mod;
+                f[l+len]=f[l]-tmp;
+                if(f[l+len]&lt;0)f[l+len]+=mod;
+                f[l]=f[l]+tmp;
+                if(f[l]&gt;mod)f[l]-=mod;
+                buf=buf*tG%mod;
+            &#125;
+        &#125;
+    &#125;
+&#125;
+
+namespace IO&#123;
+    template&lt;typename T&gt;
+    inline void read(T &amp;x)&#123;
+        x=0;T f=1;char ch=getchar();
+        while (!isdigit(ch)) &#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+        while (isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+        x*=f;
+    &#125;
+
+    template &lt;typename T, typename... Args&gt;
+    inline void read(T&amp; t, Args&amp;... args) &#123;
+        read(t); read(args...);
+    &#125;
+
+    template&lt;typename T&gt;
+    void write(T x)&#123;
+        if(x&lt;0)putchar(&#39;-&#39;),x=-x;
+        if(x&gt;9)write(x/10);
+        putchar(x%10+&#39;0&#39;);
+    &#125;
+
+    template&lt;typename T,typename... Args&gt;
+    void write(T t,Args... args)&#123;
+        write(t);putchar(&#39; &#39;);write(args...);
+    &#125;
+&#125;
+
+using namespace IO;
+
+signed main() &#123;
+#ifdef LawrenceSivan
+    freopen(&quot;aa.in&quot;,&quot;r&quot;, stdin);
+    freopen(&quot;aa.out&quot;,&quot;w&quot;, stdout);
+#endif
+    read(n,m);n++,m++;
+    for(re int i=0;i&lt;n;i++)read(f[i]);
+    for(re int i=0;i&lt;m;i++)read(p[i]);
+    for(m+=n,n=1;n&lt;m;n&lt;&lt;=1);
+    for(re int i=0;i&lt;n;i++)&#123;
+        trans[i]=(trans[i&gt;&gt;1]&gt;&gt;1)|((i&amp;1)?n&gt;&gt;1:0);
+    &#125;
+    NTT(f,1),NTT(p,1);
+    for(re int i=0;i&lt;n;i++)f[i]=f[i]*p[i]%mod;
+    NTT(f,0);invn=qpow(n,mod-2);
+    for(re int i=0;i&lt;m-1;i++)write((f[i]*invn)%mod),putchar(&#39; &#39;);
+    puts(&quot;&quot;);
+
+    return 0;
+&#125;
+</code></pre>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://www.luogu.com.cn/blog/command-block/ntt-yu-duo-xiang-shi-quan-jia-tong">NTT与多项式全家桶 by command_block</a></p>
+<p><a href="https://blog.csdn.net/a27038/article/details/77203892">阶 和 原根 by _duadua</a></p>
+]]></content>
   </entry>
   <entry>
     <title>Kruskal 重构树总结</title>
@@ -3494,332 +3703,6 @@ int main() &#123;
 ]]></content>
   </entry>
   <entry>
-    <title>NTT快速数论变换学习笔记</title>
-    <url>/2021/08/15/NTT%E5%BF%AB%E9%80%9F%E6%95%B0%E8%AE%BA%E5%8F%98%E6%8D%A2%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="NTT-快速数论变换学习笔记"><a href="#NTT-快速数论变换学习笔记" class="headerlink" title="NTT 快速数论变换学习笔记"></a>NTT 快速数论变换学习笔记</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>向多项式迈出的勇敢第二步！</p>
-<p><del>虽然也是基础的东西</del>    </p>
-<p>写了这个博客真的是对数论内容有了很多新的认识，也学到了很多新东西。</p>
-<p>甚至解决了很多之前遗留的没有解决的问题。</p>
-<ul>
-<li>以下内容均在剩余系意义下讨论。</li>
-</ul>
-<h2 id="阶"><a href="#阶" class="headerlink" title="阶"></a>阶</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>$a$ 在模 $p$ 意义下的阶：</p>
-<p>最小的整数 $k$ 使得 $a^k\equiv1\ (\mod p)$。</p>
-<p>记为 $δ_p(a)$ 。</p>
-<p>更通俗的说法是幂的最小循环节。</p>
-<h3 id="定理"><a href="#定理" class="headerlink" title="定理"></a>定理</h3><p>上限是 $\varphi(p)$。</p>
-<p>模 $p$ 的阶如果存在，那么一定是 $\varphi(p)$ 的约数。</p>
-<p>证明：</p>
-<ul>
-<li>定理 1：若 $p&gt;1$ 且 $a\perp p$ ，且 $a^n \equiv 1\ (\mod p)$ ，$n&gt;0$ ，则 $δ_p(a)|n$</li>
-<li>定理 2：结合欧拉定理：当 $a,p \in N^+$，并且 $a \perp p$ ，那么有 $a^{\varphi(p)}\equiv 1\ (\mod p)$，并结合定理 1 可知 $δ_p(a)|\varphi(p)$。</li>
-</ul>
-<p>证毕。</p>
-<p>或者以另外一种方式来说：</p>
-<p>如果这个数有阶，那么这个数可以表示为 $g^k$ 的形式。</p>
-<p>能够在 $\varphi(p)$ 大小的环上得到一个 $\dfrac{\varphi(p)}{\gcd(k,\varphi(p))}$ 大小的环，这就是它的阶，这显然是 $\varphi(p)$ 的约数。</p>
-<p>可以从这种角度来理解定理 1 和定理 2。 </p>
-<p>对于 $a \not\perp p$ 的情况，阶认为是 $∞$ 或者不存在。</p>
-<h2 id="原根"><a href="#原根" class="headerlink" title="原根"></a>原根</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>满足 $δ_p(g)=\varphi(p)$ 的 $g$ （达到上界），我们称之为 $p$ 的原根。</p>
-<h3 id="定理-1"><a href="#定理-1" class="headerlink" title="定理"></a>定理</h3><ul>
-<li>只有形如 $2,4,p^x,2p^x$ 才有原根，其中 $p$ 是奇质数。</li>
-</ul>
-<p>一旦求出了其中一个原根，就可以构造出其他的原根。</p>
-<p>所有的 $g^k$ 当 $(k \perp \varphi(p))$ 时，恰好能够构造出 $\varphi(\varphi(p))$ 个，且不重不漏。</p>
-<ul>
-<li>定理 1：若 $g$ 是 $m$ 的原根，则</li>
-</ul>
-<script type="math/tex; mode=display">g,g^2...g^{\varphi(p)}</script><p>各数模 $p$ 的最小剩余，恰好是小于 $p$ 并且与 $p$ 互素的 $\varphi(p)$ 个正整数的一个排列。</p>
-<ul>
-<li>定理 2：每一个质数 $p$ 都有 $\varphi(p-1)$ 个原根。事实上每一个数 $x$ 都有 $\varphi(\varphi(x)$ 个原根（如果他有原根的话）</li>
-</ul>
-<p>推论</p>
-<ul>
-<li>若 $d|(p-1)$ ，则 $x^d \equiv 1\ (\mod p)$ 恰好有 $d$ 个解</li>
-<li>若 $p$ 是质数，且 $d|(p-1)$ ，则阶为 $d$ 的最小剩余 $\mod p$ 的个数为 $\varphi(d)$。</li>
-</ul>
-<h3 id="求法"><a href="#求法" class="headerlink" title="求法"></a>求法</h3><p>由于原根一般不会很大（可以证明 $n$ 的最小原根在 $\mathcal{O(n^{0.25})}$ 级别），因此我们暴力枚举+验证的方法。</p>
-<p>上面我们提到，模 $p$ 的阶如果存在，那么一定是 $\varphi(p)$ 的约数。（详情看上文中 ：阶/定理）</p>
-<p>于是计算阶时，只需要验证 $\varphi(p)$ 的约数即可。</p>
-<p>其实并不需要算出阶是多少,只需要查看阶是否是 $\varphi(p)$ 即可。</p>
-<p>首先将 $\varphi(p)$ 分解质因数：</p>
-<script type="math/tex; mode=display">\varphi(p)=p_1^{c_1}p_2^{c_2}p_3^{c_3}...p_x^{c_x}</script><p>注意到 $a^k \equiv 1\ (\mod p)$ ，那么 $a^{ck}\equiv 1\ (\mod p)$。</p>
-<p>可以取出 $ \varphi(p)$ 的所有质因数 $p_1,p_2,p_3…p_x$ ，要判断 $g$ 是否是原根，只需要判断 $g^{\frac{\varphi(p)}{p_i}}\not\equiv 1\ (\mod p)$ 恒成立，那么 $g$ 就是 $p$ 的一个原根。</p>
-<p>这样可以保证不重不漏地覆盖所有其他约数的倍数，并且达不到 $\varphi(p)$ 本身。</p>
-<p>数据不大的时候枚举所有 $\varphi(p)$ 的因子(除本身)也可。</p>
-<h2 id="原根与单位根"><a href="#原根与单位根" class="headerlink" title="原根与单位根"></a>原根与单位根</h2><p>经过对 FFT 的学习，我们发现由于 FFT 需要使用单位根在复平面上进行系列运算，所以决定它必须要使用浮点数，从而引发精度误差。 </p>
-<p>但是在复数域 $\C$ 中，单位根是唯一满足要求的一类数。</p>
-<p>在剩余系意义下我们可以找到单位根的类似物——<strong>原根</strong></p>
-<p>首先考虑一下单位根的独特性质：</p>
-<ol>
-<li><p>$\omega_n^k=(\omega_n^1)^k$</p>
-</li>
-<li><p>$\omega_n^{0\sim(n-1)}$ 必须互不相同</p>
-<p>否则点值重复，插值不正确。</p>
-</li>
-<li><p>$\omega_n^k=\omega_n^{k\mod n}$</p>
-<p>$n$ 是偶数的时候，可以根据对称引理得出求和引理。</p>
-</li>
-</ol>
-<p>通过以上几条性质可以得出，$\omega_n^1$ 在模意义下的阶恰好是 $n$。</p>
-<ol>
-<li><p>$\omega_{2n}^{2k}=\omega_n^k$</p>
-<p>等价于 $(\omega_{2n})^2=\omega_n$</p>
-</li>
-</ol>
-<p>回顾原根的定义，对于一个<strong>素数</strong> $p$ ，如果 $g$ 的阶达到了 $p-1$ 的上界，则称 $g$ 是 $p$ 的原根。</p>
-<p>显然 $n$ 不一定等于 $p-1$ ，所以原根并不能直接使用。</p>
-<p>上面我们提到阶的两个定理以及另一种证明方法。</p>
-<p>$g^k$ 的阶数恰为 $\dfrac{p-1}{\gcd(k,p-1)}$，这个数仍然是 $p-1$ 的约数。</p>
-<p>所以当 $n\not|\ (p-1)$ 时，找不到阶恰好为 $n$ 的数。</p>
-<p>当 $n|(p-1)$ 时，$g^\frac{(p-1)}{n}$ 的阶恰好是 $\dfrac{p-1}{\gcd(\frac{p-1}{n},p-1)}=n$</p>
-<p>$(\omega_{2n})^2=(g^{\frac{p-1}{2n}})^2=g^{\frac{p-1}{n}}=(\omega_n^1)^k=\omega_n$</p>
-<p>所以 $g^{\frac{p-1}{n}}$ 满足了上述所有要求！</p>
-<p>至于 $n|(p-1)$ 的要求，事实上在分治过程中，$n$ 往往会被补成 $2$ 的次幂，于是我们只需要保证 $p-1$ 包含很多个因子 $2$ 即可。</p>
-<p>常见的 NTT 模数有 </p>
-<script type="math/tex; mode=display">P=998244353=479∗2^{21}+1,g=3</script><script type="math/tex; mode=display">P=1004535809=7∗17∗2^{23}+1,g=3</script><h2 id="get-NTT"><a href="#get-NTT" class="headerlink" title="get_NTT!"></a>get_NTT!</h2><pre><code class="lang-cpp">//#define LawrenceSivan
-
-#include &lt;bits/stdc++.h&gt;
-using namespace std;
-
-typedef long long ll;
-typedef unsigned long long ull;
-
-#define INF 0x3f3f3f3f
-#define re register
-
-const int maxn=1e7+5;
-const int mod=998244353;
-const int G=3;
-
-ll qpow(ll a,ll b)&#123;
-    ll res=1;
-    for(;b;b&gt;&gt;=1,a=a*a%mod)&#123;
-        if(b&amp;1)res=res*a%mod;
-    &#125;
-    return res%mod;
-&#125;
-
-const ll invG=qpow(G,mod-2);
-
-ll f[maxn],p[maxn];
-
-int trans[maxn];
-
-int n,m,invn;
-
-inline void NTT(ll *f,bool op)&#123;
-    for(re int i=0;i&lt;n;i++)&#123;
-        if(i&lt;trans[i])swap(f[i],f[trans[i]]);
-    &#125;
-    for(re int p=2;p&lt;=n;p&lt;&lt;=1)&#123;
-        int len=p&gt;&gt;1;
-        int tG=qpow(op?G:invG,(mod-1)/p);
-        for(re int k=0;k&lt;n;k+=p)&#123;
-            ll buf=1;
-            for(re int l=k;l&lt;k+len;l++)&#123;
-                ll tmp=buf*f[l+len]%mod;
-                f[l+len]=f[l]-tmp;
-                if(f[l+len]&lt;0)f[l+len]+=mod;
-                f[l]=f[l]+tmp;
-                if(f[l]&gt;mod)f[l]-=mod;
-                buf=buf*tG%mod;
-            &#125;
-        &#125;
-    &#125;
-&#125;
-
-namespace IO&#123;
-    template&lt;typename T&gt;
-    inline void read(T &amp;x)&#123;
-        x=0;T f=1;char ch=getchar();
-        while (!isdigit(ch)) &#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
-        while (isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
-        x*=f;
-    &#125;
-
-    template &lt;typename T, typename... Args&gt;
-    inline void read(T&amp; t, Args&amp;... args) &#123;
-        read(t); read(args...);
-    &#125;
-
-    template&lt;typename T&gt;
-    void write(T x)&#123;
-        if(x&lt;0)putchar(&#39;-&#39;),x=-x;
-        if(x&gt;9)write(x/10);
-        putchar(x%10+&#39;0&#39;);
-    &#125;
-
-    template&lt;typename T,typename... Args&gt;
-    void write(T t,Args... args)&#123;
-        write(t);putchar(&#39; &#39;);write(args...);
-    &#125;
-&#125;
-
-using namespace IO;
-
-signed main() &#123;
-#ifdef LawrenceSivan
-    freopen(&quot;aa.in&quot;,&quot;r&quot;, stdin);
-    freopen(&quot;aa.out&quot;,&quot;w&quot;, stdout);
-#endif
-    read(n,m);n++,m++;
-    for(re int i=0;i&lt;n;i++)read(f[i]);
-    for(re int i=0;i&lt;m;i++)read(p[i]);
-    for(m+=n,n=1;n&lt;m;n&lt;&lt;=1);
-    for(re int i=0;i&lt;n;i++)&#123;
-        trans[i]=(trans[i&gt;&gt;1]&gt;&gt;1)|((i&amp;1)?n&gt;&gt;1:0);
-    &#125;
-    NTT(f,1),NTT(p,1);
-    for(re int i=0;i&lt;n;i++)f[i]=f[i]*p[i]%mod;
-    NTT(f,0);invn=qpow(n,mod-2);
-    for(re int i=0;i&lt;m-1;i++)write((f[i]*invn)%mod),putchar(&#39; &#39;);
-    puts(&quot;&quot;);
-
-    return 0;
-&#125;
-</code></pre>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://www.luogu.com.cn/blog/command-block/ntt-yu-duo-xiang-shi-quan-jia-tong">NTT与多项式全家桶 by command_block</a></p>
-<p><a href="https://blog.csdn.net/a27038/article/details/77203892">阶 和 原根 by _duadua</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>P4363 [九省联考2018]一双木棋chess（轮廓线状压）</title>
-    <url>/2021/06/22/P4363%20%5B%E4%B9%9D%E7%9C%81%E8%81%94%E8%80%832018%5D%E4%B8%80%E5%8F%8C%E6%9C%A8%E6%A3%8Bchess%EF%BC%88%E8%BD%AE%E5%BB%93%E7%BA%BF%E7%8A%B6%E5%8E%8B%EF%BC%89/</url>
-    <content><![CDATA[<p><a href="https://www.luogu.com.cn/problem/P4363">P4363 [九省联考2018]一双木棋chess</a></p>
-<p>这两天学了这个。</p>
-<p>是轮廓线状压的或许算是裸题。</p>
-<p>关键在于怎么压状态。</p>
-<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><ul>
-<li><p>有一个 $n \times m$ 的棋盘，两个人轮流下棋。</p>
-</li>
-<li><p>一个位置可以落子当且仅当这个位置的左侧和上面都有棋子。</p>
-</li>
-<li><p>两个人落在对应的位置会收获各自的贡献值。</p>
-</li>
-<li><p>最大化自己的得分减去对方的得分。</p>
-</li>
-</ul>
-<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>博弈论？</p>
-<p>是有 max_min搜索还有一些别的做法的。</p>
-<p><a href="https://blog.csdn.net/qq_39297053/article/details/112130921">max_min搜索</a></p>
-<p>看眼数据范围，都是 $10$ 以内的。</p>
-<p>于是考虑状压。</p>
-<p>问题随之而来：如何存状态？</p>
-<p>由于落子是有限制的，所以需要考虑在什么情况下可以落子。</p>
-<p>由于落子是合法的需要满足左边和上边都有棋子，于是在整个过程中必然会有这样的情况：</p>
-<p><img src="https://i.loli.net/2021/06/22/8r3T4wOgjdlYFvq.png" alt=""></p>
-<p>可以发现这样的轮廓一定是连续的。</p>
-<p>于是这就是我们需要的轮廓线。</p>
-<p>可以考虑存储右下角的轮廓线作为状态。</p>
-<p>如何存储呢？</p>
-<p>首先这个轮廓线的长度肯定是 $n+m$ 的。</p>
-<p>我们用 $0$ 来表示横边，用 $1$ 来表示竖边。</p>
-<p>可以举个例子：</p>
-<p><img src="https://i.loli.net/2021/06/22/cWLYrXvbmUxG4Q2.png" alt=""></p>
-<p>对于当前的状态，从右上角开始，向左下角延伸，如果有横边那么当前位就是 $0$，有竖边就是 $1$；</p>
-<p>所以状态串就是 $000101010101010101$</p>
-<p>之后对于状态的判断以及转移过程，都可以利用这个轮廓线。</p>
-<p>可以发现，经过这样的状压之后，判断是否可以落子的条件就变成了：是否存在一个位置，满足串中有 $01$ 这样的两位，如果有，那么就可以落子。</p>
-<p>落子以后，该位置的 $01$ 就会变成 $10$。</p>
-<p>对于转移过程中的具体操作，由于需要判断状态串中是否存在 $01$，可以采用一种手法：</p>
-<pre><code class="lang-cpp">if(((now&gt;&gt;i)&amp;3)!=1)continue;
-</code></pre>
-<p>由于 $3$ 的二进制是 $011$ ，如果也就是判断是否存在 $01$的情况。</p>
-<p>之后改变状态：</p>
-<pre><code class="lang-cpp">int nxt=now^(3&lt;&lt;i);
-</code></pre>
-<p>之后起始状态和终止状态就很明显了：</p>
-<p>起始状态：$000…00111…11$</p>
-<p>终止状态：$111…11000…00$</p>
-<p>之后就是关于如何 DP 的问题了。</p>
-<p>其实这个事情是不好办的。</p>
-<p>首先这个题目要求我们两个人都要走最优策略。</p>
-<p>如果按照我们常规的 DP 思路的话，自然是要设 $f[S]$ 为在 $S$ 这个状态下可以获得多少得分差。</p>
-<p>但是对于这种博弈论 DP 的题目是不可以这样做的。</p>
-<p>由于两方都要采取最优策略，所以我们不得不考虑将来的行动对现在现在的影响。</p>
-<p>如果正序 dp 的话也许会发生当前确实取到了最大值但是其实并不是最优策略。</p>
-<p>于是我们可以考虑倒过来 dp。</p>
-<p>可以假装我们可以一步看到结局，然后选择对自己最有利的状态。</p>
-<p>显然棋盘被布满的状态下没有人可以获得新的分数，那么如果我们用 $f[S]$ 表示从 $S$ 轮廓线的状态距离游戏结束还能得多少分。</p>
-<p>那么我们会发现，如果这个局面是先手下完以后形成的，那么如何这个局面如何转移的主动权显然是攥在后手的手里，所以此时这个 dp 值应该由所有后继状态的相对于先手最劣的状态转移过来，也就是所有的后继状态取个 $\min$。</p>
-<p>如果是后手的话，dp值就应该是对于后手最劣的状态转移过来，也就是所有的后继状态取个 $\max$。</p>
-<p>也就是第一个人想要最大化两者的差值，第二个人想要最小化这个差值。</p>
-<pre><code class="lang-cpp">//#define LawrenceSivan
-
-#include&lt;bits/stdc++.h&gt;
-using namespace std;
-
-typedef long long ll;
-#define re register
-const int maxn=1e5+5;
-#define INF 0x3f3f3f3f
-
-int n,m;
-
-int f[1&lt;&lt;21];
-
-int a[15][15],b[15][15];
-
-bool vis[1&lt;&lt;21];
-
-int dfs(int now,int who)&#123;
-    if(vis[now])return f[now];//记忆化搜索
-    vis[now]=true;
-    f[now]= who?-INF:INF;//先手取max，所以初始最小，后手取min，所以初始最大
-
-    int x=n,y=0;
-    for(re int i=0;i&lt;n+m-1;i++)&#123;
-        if((now&gt;&gt;i)&amp;1)x--;
-        else y++;
-        if(((now&gt;&gt;i)&amp;3)!=1)continue;
-        int nxt=now^(3&lt;&lt;i);
-        if(who)f[now]=max(f[now],dfs(nxt,0)+a[x][y]);
-        else f[now]=min(f[now],dfs(nxt,1)-b[x][y]);
-    &#125;
-
-    return f[now];
-&#125;
-
-inline int read()&#123;
-    int x=0,f=1;char ch=getchar();
-    while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
-    while(isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
-    return x*f;
-&#125;
-
-int main()&#123;
-#ifdef LawrenceSivan
-    freopen(&quot;aa.in&quot;,&quot;r&quot;,stdin);
-    freopen(&quot;aa.out&quot;,&quot;w&quot;,stdout);
-#endif
-    n=read();m=read();
-    for(re int i=0;i&lt;n;i++)&#123;
-        for(re int j=0;j&lt;m;j++)&#123;
-            a[i][j]=read();
-        &#125;
-    &#125;
-    for(re int i=0;i&lt;n;i++)&#123;
-        for(re int j=0;j&lt;m;j++)&#123;
-            b[i][j]=read();
-        &#125;
-    &#125;
-
-    vis[((1&lt;&lt;n)-1)&lt;&lt;m]=true;//倒过来DP，即从结束状态开始
-    f[((1&lt;&lt;n)-1)&lt;&lt;m]=0;
-
-    dfs((1&lt;&lt;n)-1,1);
-
-    printf(&quot;%d\n&quot;,f[(1&lt;&lt;n)-1]);//最后找到开始状态下对应的答案
-
-
-
-    return 0;
-&#125;
-</code></pre>
-]]></content>
-  </entry>
-  <entry>
     <title>P3960 列队（动态开点线段树）</title>
     <url>/2021/04/21/P3960%20%E5%88%97%E9%98%9F%EF%BC%88%E5%8A%A8%E6%80%81%E5%BC%80%E7%82%B9%E7%BA%BF%E6%AE%B5%E6%A0%91%EF%BC%89/</url>
     <content><![CDATA[<p>我们都知道，线段树是一种效率较高的数据结构。但是它有一个缺点，就是我们需要的空间比较大。对于权值线段树，如果我们的值域比较大，那么我们所需要的空间就是惊人的，于是我们需要采取一些策略来解决这个问题。</p>
@@ -4339,6 +4222,142 @@ signed main()&#123;
 ]]></content>
   </entry>
   <entry>
+    <title>P4363 [九省联考2018]一双木棋chess（轮廓线状压）</title>
+    <url>/2021/06/22/P4363%20%5B%E4%B9%9D%E7%9C%81%E8%81%94%E8%80%832018%5D%E4%B8%80%E5%8F%8C%E6%9C%A8%E6%A3%8Bchess%EF%BC%88%E8%BD%AE%E5%BB%93%E7%BA%BF%E7%8A%B6%E5%8E%8B%EF%BC%89/</url>
+    <content><![CDATA[<p><a href="https://www.luogu.com.cn/problem/P4363">P4363 [九省联考2018]一双木棋chess</a></p>
+<p>这两天学了这个。</p>
+<p>是轮廓线状压的或许算是裸题。</p>
+<p>关键在于怎么压状态。</p>
+<h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><ul>
+<li><p>有一个 $n \times m$ 的棋盘，两个人轮流下棋。</p>
+</li>
+<li><p>一个位置可以落子当且仅当这个位置的左侧和上面都有棋子。</p>
+</li>
+<li><p>两个人落在对应的位置会收获各自的贡献值。</p>
+</li>
+<li><p>最大化自己的得分减去对方的得分。</p>
+</li>
+</ul>
+<h2 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h2><p>博弈论？</p>
+<p>是有 max_min搜索还有一些别的做法的。</p>
+<p><a href="https://blog.csdn.net/qq_39297053/article/details/112130921">max_min搜索</a></p>
+<p>看眼数据范围，都是 $10$ 以内的。</p>
+<p>于是考虑状压。</p>
+<p>问题随之而来：如何存状态？</p>
+<p>由于落子是有限制的，所以需要考虑在什么情况下可以落子。</p>
+<p>由于落子是合法的需要满足左边和上边都有棋子，于是在整个过程中必然会有这样的情况：</p>
+<p><img src="https://i.loli.net/2021/06/22/8r3T4wOgjdlYFvq.png" alt=""></p>
+<p>可以发现这样的轮廓一定是连续的。</p>
+<p>于是这就是我们需要的轮廓线。</p>
+<p>可以考虑存储右下角的轮廓线作为状态。</p>
+<p>如何存储呢？</p>
+<p>首先这个轮廓线的长度肯定是 $n+m$ 的。</p>
+<p>我们用 $0$ 来表示横边，用 $1$ 来表示竖边。</p>
+<p>可以举个例子：</p>
+<p><img src="https://i.loli.net/2021/06/22/cWLYrXvbmUxG4Q2.png" alt=""></p>
+<p>对于当前的状态，从右上角开始，向左下角延伸，如果有横边那么当前位就是 $0$，有竖边就是 $1$；</p>
+<p>所以状态串就是 $000101010101010101$</p>
+<p>之后对于状态的判断以及转移过程，都可以利用这个轮廓线。</p>
+<p>可以发现，经过这样的状压之后，判断是否可以落子的条件就变成了：是否存在一个位置，满足串中有 $01$ 这样的两位，如果有，那么就可以落子。</p>
+<p>落子以后，该位置的 $01$ 就会变成 $10$。</p>
+<p>对于转移过程中的具体操作，由于需要判断状态串中是否存在 $01$，可以采用一种手法：</p>
+<pre><code class="lang-cpp">if(((now&gt;&gt;i)&amp;3)!=1)continue;
+</code></pre>
+<p>由于 $3$ 的二进制是 $011$ ，如果也就是判断是否存在 $01$的情况。</p>
+<p>之后改变状态：</p>
+<pre><code class="lang-cpp">int nxt=now^(3&lt;&lt;i);
+</code></pre>
+<p>之后起始状态和终止状态就很明显了：</p>
+<p>起始状态：$000…00111…11$</p>
+<p>终止状态：$111…11000…00$</p>
+<p>之后就是关于如何 DP 的问题了。</p>
+<p>其实这个事情是不好办的。</p>
+<p>首先这个题目要求我们两个人都要走最优策略。</p>
+<p>如果按照我们常规的 DP 思路的话，自然是要设 $f[S]$ 为在 $S$ 这个状态下可以获得多少得分差。</p>
+<p>但是对于这种博弈论 DP 的题目是不可以这样做的。</p>
+<p>由于两方都要采取最优策略，所以我们不得不考虑将来的行动对现在现在的影响。</p>
+<p>如果正序 dp 的话也许会发生当前确实取到了最大值但是其实并不是最优策略。</p>
+<p>于是我们可以考虑倒过来 dp。</p>
+<p>可以假装我们可以一步看到结局，然后选择对自己最有利的状态。</p>
+<p>显然棋盘被布满的状态下没有人可以获得新的分数，那么如果我们用 $f[S]$ 表示从 $S$ 轮廓线的状态距离游戏结束还能得多少分。</p>
+<p>那么我们会发现，如果这个局面是先手下完以后形成的，那么如何这个局面如何转移的主动权显然是攥在后手的手里，所以此时这个 dp 值应该由所有后继状态的相对于先手最劣的状态转移过来，也就是所有的后继状态取个 $\min$。</p>
+<p>如果是后手的话，dp值就应该是对于后手最劣的状态转移过来，也就是所有的后继状态取个 $\max$。</p>
+<p>也就是第一个人想要最大化两者的差值，第二个人想要最小化这个差值。</p>
+<pre><code class="lang-cpp">//#define LawrenceSivan
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+#define re register
+const int maxn=1e5+5;
+#define INF 0x3f3f3f3f
+
+int n,m;
+
+int f[1&lt;&lt;21];
+
+int a[15][15],b[15][15];
+
+bool vis[1&lt;&lt;21];
+
+int dfs(int now,int who)&#123;
+    if(vis[now])return f[now];//记忆化搜索
+    vis[now]=true;
+    f[now]= who?-INF:INF;//先手取max，所以初始最小，后手取min，所以初始最大
+
+    int x=n,y=0;
+    for(re int i=0;i&lt;n+m-1;i++)&#123;
+        if((now&gt;&gt;i)&amp;1)x--;
+        else y++;
+        if(((now&gt;&gt;i)&amp;3)!=1)continue;
+        int nxt=now^(3&lt;&lt;i);
+        if(who)f[now]=max(f[now],dfs(nxt,0)+a[x][y]);
+        else f[now]=min(f[now],dfs(nxt,1)-b[x][y]);
+    &#125;
+
+    return f[now];
+&#125;
+
+inline int read()&#123;
+    int x=0,f=1;char ch=getchar();
+    while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+    while(isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+    return x*f;
+&#125;
+
+int main()&#123;
+#ifdef LawrenceSivan
+    freopen(&quot;aa.in&quot;,&quot;r&quot;,stdin);
+    freopen(&quot;aa.out&quot;,&quot;w&quot;,stdout);
+#endif
+    n=read();m=read();
+    for(re int i=0;i&lt;n;i++)&#123;
+        for(re int j=0;j&lt;m;j++)&#123;
+            a[i][j]=read();
+        &#125;
+    &#125;
+    for(re int i=0;i&lt;n;i++)&#123;
+        for(re int j=0;j&lt;m;j++)&#123;
+            b[i][j]=read();
+        &#125;
+    &#125;
+
+    vis[((1&lt;&lt;n)-1)&lt;&lt;m]=true;//倒过来DP，即从结束状态开始
+    f[((1&lt;&lt;n)-1)&lt;&lt;m]=0;
+
+    dfs((1&lt;&lt;n)-1,1);
+
+    printf(&quot;%d\n&quot;,f[(1&lt;&lt;n)-1]);//最后找到开始状态下对应的答案
+
+
+
+    return 0;
+&#125;
+</code></pre>
+]]></content>
+  </entry>
+  <entry>
     <title>P4556 雨天的尾巴（线段树合并）</title>
     <url>/2021/04/20/P4556%20%E9%9B%A8%E5%A4%A9%E7%9A%84%E5%B0%BE%E5%B7%B4%EF%BC%88%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%90%88%E5%B9%B6%EF%BC%89/</url>
     <content><![CDATA[<p>对于值域线段树，如果他们维护相同的值域，那么他们对各个子区间的划分是一致的，于是暗示着我们这些线段树是具有可合并性的。</p>
@@ -4556,297 +4575,180 @@ int main() &#123;
 ]]></content>
   </entry>
   <entry>
-    <title>P5494 【模板】线段树分裂</title>
-    <url>/2021/05/25/P5494%20%E3%80%90%E6%A8%A1%E6%9D%BF%E3%80%91%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%88%86%E8%A3%82/</url>
-    <content><![CDATA[<p>刚写了线段树分裂的板子。</p>
-<h1 id="线段树分裂"><a href="#线段树分裂" class="headerlink" title="线段树分裂"></a>线段树分裂</h1><p><a href="https://www.luogu.com.cn/problem/P5494">传送门</a></p>
-<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>1.权值线段树</p>
-<p>有一个很好的博客可以看看：<a href="https://www.luogu.com.cn/blog/bfqaq/qian-tan-quan-zhi-xian-duan-shu">传送门</a></p>
-<p>2.动态开点线段树：<a href="https://www.cnblogs.com/LawrenceSivan/p/14686207.html">传送门</a></p>
-<p>3.线段树合并：<a href="https://www.cnblogs.com/LawrenceSivan/p/14681680.html">传送门</a></p>
-<p>4.主席树：<a href="https://www.cnblogs.com/LawrenceSivan/p/14772483.html">传送门</a></p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>线段树分裂，顾名思义就是将线段树分裂开。为了维护线段树合并所维护的可重集，我们需要将权值线段树中前 $k$ 小的数和其余数分在两颗权值线段树上进行维护。</p>
-<h2 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h2><p>其实很简单，线段树分裂是线段树合并的逆操作。对于待分裂区域与其他区域的公有节点，复制一份；对于独有节点，直接拿过来挂上去；最后记得 pushup。</p>
-<p>其实和主席树是有很高相似度的。</p>
-<pre><code class="lang-cpp">int split(int rt,int l,int r,int ql,int qr)&#123;
-    int o=++tot;
+    <title>p2455 线性方程组（高斯消元）</title>
+    <url>/2021/02/18/p2455%20%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84%EF%BC%88%E9%AB%98%E6%96%AF%E6%B6%88%E5%85%83%EF%BC%89/</url>
+    <content><![CDATA[<p>p2455才是高斯消元的真模板题好吧</p>
+<h1 id="高斯消元"><a href="#高斯消元" class="headerlink" title="高斯消元"></a>高斯消元</h1><p>题面：<a href="https://www.luogu.com.cn/problem/P2455">传送门</a></p>
+<p><del>对不起我真的是太懒了</del></p>
+<p>先来明确高斯消元是干什么的：</p>
+<p>高斯消元是一种求解线性方程组的方法。</p>
+<p>所谓线性方程组，就是由$M$个$N$元一次方程组共同构成的。</p>
+<p>线性方程组的所有系数可以写成一个$M$行$N$列的系数矩阵，再加上每个方程等号右侧的常数，可以写成一个$M$行$N+1$列的“增广矩阵”。</p>
+<p>$\begin{cases}x_1+2x_2-x_3=-6\\2x_1+x_2-3x_3=-9\\{-x_1-x_2+2x_3=7}\end{cases}\Rightarrow\left[\begin{array}{ccc|c}1 &amp;2&amp;-1&amp;-6\\2&amp;1&amp;-3&amp;-9\\{-1}&amp;-1&amp;2&amp;7 \end{array}\right]<br>$ </p>
+<p>相信各位小学或者初中一定学过二元一次方程组吧</p>
+<p><del>如果没学过那我觉得宁可以退役了</del></p>
+<p>有个消元的方法相信你记忆犹新：加减消元法；</p>
+<p>其实高斯消元法干的事情和加减消元法是差不多的；</p>
+<p>步骤大概就是：</p>
+<p>我们将一行加上另一行的若干倍，这样就可以消去其中一行的某一个系数；</p>
+<p>我们可以来看一下下面的过程：</p>
+<p>$\begin{bmatrix} 1&amp;2&amp;-1&amp;-6\\2&amp;1&amp;-3&amp;-9\\{-1}&amp;-1&amp;2&amp;7\end{bmatrix}$</p>
+<p>我们将第二行每一项分别加上第一行的$-2$倍，于是我们发现，第二行的第一项系数被消成$0$了。如下</p>
+<p>$\begin{bmatrix} 1&amp;2&amp;-1&amp;-6\\0&amp;-3&amp;-1&amp;3\\{-1}&amp;-1&amp;2&amp;7\end{bmatrix}$</p>
+<p>接下来我们都这么操作。</p>
+<p>对于第$n$行，我们让该行的第$n$个元素作为“主元”，并且将其他行的同列的系数都消掉，最后我们可以得到下面的形式：</p>
+<p>$\left[<br>    \begin{array}{ccc|c}<br>    1&amp;0&amp;0&amp;1\\0&amp;1&amp;0&amp;-2\\0&amp;0&amp;1&amp;3<br>    \end{array}<br>\right]$</p>
+<p>是的，成了这样以后，发现主对角线上的数和常数一般都不是$0$，其他位置都是$0$了（后面还有一些特殊情况与判定技巧），我们就可以愉快的写出答案：</p>
+<p>$x_1=1$，$x_2=-2$，$x_3=3$；</p>
+<p>是的，这就是高斯消元算法。</p>
+<p>但是在实际应用中，我们也许会碰到很多奇奇怪怪的情况。</p>
+<p>就例如你只掌握上面说到的东西是远远不够通过这道题的。</p>
+<p>题目中还有一些更高端的东西：什么时候有无穷多的实数解？什么时候无解？这都是我们需要考虑的；</p>
+<p>首先，在高斯消元的过程中，可能出现$0=d$这样的方程，其中$d$是一个非零常数，这表明这些方程中出现了矛盾，方程组无解。</p>
+<p>其次，我们也可能出现这样的情况：</p>
+<p>我们高斯消元结束以后，发现某一行系数全都是$0$，并且常数也是$0$.</p>
+<p>啊就是出现了$0==0$的情况？？</p>
+<p>是的，此时方程组有无数解，如下图：</p>
+<p>$\left[<br>    \begin{array}{ccc|c}<br>    1&amp;2&amp;0&amp;4\\0&amp;0&amp;1&amp;1\\0&amp;0&amp;0&amp;0<br>    \end{array}<br>\right]$</p>
+<p>那么我们总结一下：</p>
+<p><strong>1.当高斯消元结束以后，如果存在系数全是$0$，但是常数不是$0$的行，那么方程组无解</strong></p>
+<p><strong>2.在高斯消元结束以后，如果存在系数全是$0$，并且常数也是$0$的行，那么方程组有无数解</strong></p>
+<p>学会了这些就能通过这些题了吗？</p>
+<p><strong>当然不是！</strong></p>
+<p>还有一个东西你没有注意到：精度损失</p>
+<p>精度损失是怎么来的?如何降低精度损失呢?</p>
+<p>我们在加减消元的时候，有的时候需要加的也许不是一个整数，可能是某一行的几分之几倍。</p>
+<p>于是，考虑到这，我们发现精度损失的原因了。</p>
+<p>所以，我们就要让产生几分之几倍（确切的说：当式子一的系数是$a_1$，式子二的系数是$a_2$时，我们加的这个数就是$a_2/a_1$倍（注意我们主元系数是在分母上））的这个过程有较小的精度损失</p>
+<p>我们可以思考一下，我们在消元的时候一定要刻意按照题目中给的顺序一行一行来嘛？</p>
+<p>也许可以不这样。</p>
+<p>在什么情况下，我们能产生较小的精度损失呢？</p>
+<p>我们举个例子来看：</p>
+<p>考虑这样的一个方程组：</p>
+<p>$1000x_1+ax_2+bx_3=c$;（这几个都是x不是乘号）</p>
+<p>$0.5x_1+dx_2+ex_3=f$</p>
+<p>我们设精度误差$eps=1e-8$；</p>
+<p>如果我们选择$1000$作为主元，</p>
+<p>那么理论值$ima_1=0.5/1000$</p>
+<p>实际值$rea_1=0.5+eps/1000+eps$</p>
+<p>误差值Δ在$rea_1-ima_1=$一个超级小的数</p>
+<hr>
+<p>如果我们选择$0.5$作为主元，那么理论值$ima_2=1000/0.5$</p>
+<p>实际值$rea_2=1000+eps/0.5+eps$；</p>
+<p>误差值Δ在$rea_2-ima_2=40$左右</p>
+<p>发现差距了吗？？</p>
+<p>知道该怎么做了吗？？</p>
+<p>是的，我们每次选择较大的作为主元就好了！</p>
+<p>代码实现嘛，长这样的;</p>
+<pre><code class="lang-cpp">    double maxx;//最大值
+    int maxline;//最大值所在行
+    for(re int i=1;i&lt;=n;++i)&#123;//枚举每一列
+        maxx=0,maxline=i;
+        for(re int j=1;j&lt;=n;++j)//枚举每一行的同一列位置
+            if(!vis[j]&amp;&amp;abs(a[j][i])&gt;maxx)&#123;//如果没来过并且很大（因为我们加的数正负都可以，所以我们取绝对值
+                maxx=abs(a[j][i]),maxline=j;//记录最大值以及所在的行数
+            &#125;
 
-    if(ql==l&amp;&amp;qr==r)&#123;
-        st[o]=st[rt];
-        st[rt].v=ls(rt)=rs(rt)=0;
-        return o;
+        //........
+
+        if(maxline!=i)swap(a[i],a[maxline]);//如果发现我们在消元过程中，这个位置不是需要的最大的，我们就把这一行和最大的那一行换一下位置
+        vis[i]=1;//来过了
     &#125;
-
-    int mid=(l+r)&gt;&gt;1;
-
-    if(qr&lt;=mid)&#123;
-        ls(o)=split(ls(rt),l,mid,ql,qr);
-    &#125;else if(ql&gt;mid)&#123;
-        rs(o)=split(rs(rt),mid+1,r,ql,qr);
-    &#125;else&#123;
-        ls(o)=split(ls(rt),l,mid,ql,mid);
-        rs(o)=split(rs(rt),mid+1,r,mid+1,qr);
-    &#125;
-
-    push_up(rt);push_up(o);
-    return o;
-&#125;
 </code></pre>
-<p><del>然后这玩意就讲完了</del></p>
-<p>这么说其实权值线段树的操作啥的几乎就都搞定了，再结合别的东西就可以把权值线段树<del>放在手里把玩了</del>运用得得心应手了。</p>
-<h2 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h2><h3 id="单点修改和区间修改"><a href="#单点修改和区间修改" class="headerlink" title="单点修改和区间修改"></a>单点修改和区间修改</h3><p>和普通线段树是一样的，都是 $O(logn)$.</p>
-<h3 id="找第-k-小"><a href="#找第-k-小" class="headerlink" title="找第 k 小"></a>找第 k 小</h3><p>每层只会访问 $1$ 个节点，时间复杂度为 $O(logn)$.</p>
-<h3 id="线段树合并"><a href="#线段树合并" class="headerlink" title="线段树合并"></a>线段树合并</h3><p>仅当两颗线段树在相同的节点都有值时，合并才需要花费时间，否则可以直接返回有值的一边. $O(nlogn)$</p>
-<p>这玩意复杂度确实很玄学，大家的说法也不太一样，于是我摘取了几位大佬的说法：</p>
-<p>@<a href="https://www.luogu.com.cn/blog/gxy001/p5494-solution">gxy001</a>:显然，我们每次只会访问重合节点，那么单次合并的时间复杂度就可以认为是较小树的节点个数，那么显然，多次合并的总复杂度为总点数级别，$O(nlogn)$</p>
-<p>注：不能简单的认为其复杂度为单次合并的最坏复杂度乘询问次数。感性理解，在本题中，显然我们可以花费一次询问使树的节点加一条链，让合并的复杂度增大，但也会失去一次进行线段树合并的机会，这样就保证了其总复杂度不会过高。</p>
-<p>@<a href="https://www.luogu.com.cn/blog/chenxinyang2006/solution-p5494">chenxinyang2006</a>:</p>
-<p>仅当两颗线段树在相同的节点都有值时，合并才需要花费时间，否则可以直接返回有值的一边</p>
-<p>也就是说，合并一次，总节点数量减少1</p>
-<p>一操作会在新线段树上，增加 $logn$ 个节点</p>
-<p>三操作会增加一条链的节点，也是 $logn$ 个</p>
-<p>所以总节点数不超过 $n+mlogn$，合并总复杂度不超过 $n+mlogn$</p>
-<h3 id="线段树分裂-1"><a href="#线段树分裂-1" class="headerlink" title="线段树分裂"></a>线段树分裂</h3><p>我们可以看到，这个操作访问的节点和区间查询是一致的，复制边缘节点，直接拿走完整节点。时间复杂度 $O(logn)$</p>
-<p>之后就是本题：</p>
-<h2 id="本题："><a href="#本题：" class="headerlink" title="本题："></a>本题：</h2><p>对于每个操作我们分着看：</p>
-<h3 id="操作零"><a href="#操作零" class="headerlink" title="操作零"></a>操作零</h3><p>就是分裂了：</p>
-<pre><code class="lang-cpp">int split(int rt,int l,int r,int ql,int qr)&#123;
-    int o=++tot;
-
-    if(ql==l&amp;&amp;qr==r)&#123;
-        st[o]=st[rt];
-        st[rt].v=ls(rt)=rs(rt)=0;
-        return o;
-    &#125;
-
-    int mid=(l+r)&gt;&gt;1;
-
-    if(qr&lt;=mid)&#123;
-        ls(o)=split(ls(rt),l,mid,ql,qr);
-    &#125;else if(ql&gt;mid)&#123;
-        rs(o)=split(rs(rt),mid+1,r,ql,qr);
-    &#125;else&#123;
-        ls(o)=split(ls(rt),l,mid,ql,mid);
-        rs(o)=split(rs(rt),mid+1,r,mid+1,qr);
-    &#125;
-
-    push_up(rt);push_up(o);
-    return o;
-&#125;
-</code></pre>
-<h3 id="操作一"><a href="#操作一" class="headerlink" title="操作一"></a>操作一</h3><p>合并两棵树即可：</p>
-<pre><code class="lang-cpp">int merge(int p,int q)&#123;
-    if(!p||!q)return p|q;
-
-    int rt=++tot;
-    st[rt].v=st[p].v+st[q].v;
-    ls(rt)=merge(ls(p),ls(q));
-    rs(rt)=merge(rs(p),rs(q));
-
-    return rt;
-&#125;
-</code></pre>
-<h3 id="操作二"><a href="#操作二" class="headerlink" title="操作二"></a>操作二</h3><p>单点修改</p>
-<pre><code class="lang-cpp">void modify(int rt,int l,int r,int pos,int val)&#123;
-    if(l==r)&#123;
-        st[rt].v+=val;
-        return;
-    &#125;
-
-    int mid=(l+r)&gt;&gt;1;
-    if(pos&lt;=mid)&#123;
-        if(ls(rt)==0)ls(rt)=++tot;
-        modify(ls(rt),l,mid,pos,val);
-    &#125;
-    else &#123;
-        if(rs(rt)==0)rs(rt)=++tot;
-        modify(rs(rt),mid+1,r,pos,val);
-    &#125;
-
-    push_up(rt);
-&#125;
-</code></pre>
-<h3 id="操作三"><a href="#操作三" class="headerlink" title="操作三"></a>操作三</h3><p>区间查询</p>
-<pre><code class="lang-cpp">ll query(int rt,int l,int r,int ql,int qr)&#123;
-    if(ql&gt;r||qr&lt;l)return 0;
-    if(ql&lt;=l&amp;&amp;qr&gt;=r)&#123;
-        return st[rt].v;
-    &#125;
-
-    int mid=(l+r)&gt;&gt;1;
-    return query(ls(rt),l,mid,ql,qr)+query(rs(rt),mid+1,r,ql,qr);
-&#125;
-</code></pre>
-<h3 id="操作四"><a href="#操作四" class="headerlink" title="操作四"></a>操作四</h3><p>查找第 $k$ 小，直接线段树上二分就行了</p>
-<pre><code class="lang-cpp">int kth(int rt,int l,int r,int k)&#123;
-    if(l==r)return l;
-
-    int mid=(l+r)&gt;&gt;1;
-    if(st[ls(rt)].v&gt;=k)return kth(ls(rt),l,mid,k);
-    else return kth(rs(rt),mid+1,r,k-st[ls(rt)].v);
-&#125;
-</code></pre>
-<p><del>这么来看这题没啥技术含量，充其量就是学了个分裂函数</del></p>
-<h2 id="CODE"><a href="#CODE" class="headerlink" title="CODE"></a>CODE</h2><pre><code class="lang-cpp">//#define LawrenceSivan
-
-#include&lt;bits/stdc++.h&gt;
+<p>掌握了这些，这个题就可以$A$了</p>
+<p>CODE：</p>
+<pre><code class="lang-cpp">#include&lt;bits/stdc++.h&gt;
 using namespace std;
 
-typedef long long ll;
 #define re register
-const int maxn=2e5+5;
-#define INF 0x3f3f3f3f
 
-#define ls(x) st[x].l
-#define rs(x) st[x].r
+const int N=105;
+const double eps=1e-8;//精度误差
 
-int n,m,tot,op,p,c=1;
-int root[maxn];
+double a[N][N];//矩阵
+bool vis[N];
+int n;
 
-ll a[maxn];
-
-struct SegmentTree&#123;
-    ll v;
-    int l,r;
-&#125;st[maxn&lt;&lt;6];
-
-inline void push_up(int rt)&#123;
-    st[rt].v=st[ls(rt)].v+st[rs(rt)].v;
-&#125;
-
-int build(int l,int r)&#123;
-    int rt=++tot;
-    if(l==r)&#123;
-        st[rt].v=a[l];
-        return rt;
-    &#125;
-
-    int mid=(l+r)&gt;&gt;1;
-    ls(rt)=build(l,mid);
-    rs(rt)=build(mid+1,r);
-
-    push_up(rt);
-    return rt;
-&#125;
-
-int split(int rt,int l,int r,int ql,int qr)&#123;
-    int o=++tot;
-
-    if(ql==l&amp;&amp;qr==r)&#123;
-        st[o]=st[rt];
-        st[rt].v=ls(rt)=rs(rt)=0;
-        return o;
-    &#125;
-
-    int mid=(l+r)&gt;&gt;1;
-
-    if(qr&lt;=mid)&#123;
-        ls(o)=split(ls(rt),l,mid,ql,qr);
-    &#125;else if(ql&gt;mid)&#123;
-        rs(o)=split(rs(rt),mid+1,r,ql,qr);
-    &#125;else&#123;
-        ls(o)=split(ls(rt),l,mid,ql,mid);
-        rs(o)=split(rs(rt),mid+1,r,mid+1,qr);
-    &#125;
-
-    push_up(rt);push_up(o);
-    return o;
-&#125;
-
-int merge(int p,int q)&#123;
-    if(!p||!q)return p|q;
-
-    int rt=++tot;
-    st[rt].v=st[p].v+st[q].v;
-    ls(rt)=merge(ls(p),ls(q));
-    rs(rt)=merge(rs(p),rs(q));
-
-    return rt;
-&#125;
-
-void modify(int rt,int l,int r,int pos,int val)&#123;
-    if(l==r)&#123;
-        st[rt].v+=val;
-        return;
-    &#125;
-
-    int mid=(l+r)&gt;&gt;1;
-    if(pos&lt;=mid)&#123;
-        if(ls(rt)==0)ls(rt)=++tot;
-        modify(ls(rt),l,mid,pos,val);
-    &#125;
-    else &#123;
-        if(rs(rt)==0)rs(rt)=++tot;
-        modify(rs(rt),mid+1,r,pos,val);
-    &#125;
-
-    push_up(rt);
-&#125;
-
-ll query(int rt,int l,int r,int ql,int qr)&#123;
-    if(ql&gt;r||qr&lt;l)return 0;
-    if(ql&lt;=l&amp;&amp;qr&gt;=r)&#123;
-        return st[rt].v;
-    &#125;
-
-    int mid=(l+r)&gt;&gt;1;
-    return query(ls(rt),l,mid,ql,qr)+query(rs(rt),mid+1,r,ql,qr);
-&#125;
-
-int kth(int rt,int l,int r,int k)&#123;
-    if(l==r)return l;
-
-    int mid=(l+r)&gt;&gt;1;
-    if(st[ls(rt)].v&gt;=k)return kth(ls(rt),l,mid,k);
-    else return kth(rs(rt),mid+1,r,k-st[ls(rt)].v);
-&#125;
-
-inline ll read()&#123;
-    ll x=0,f=1;char ch=getchar();
+inline int read()&#123;
+    int x=0,f=1;char ch=getchar();
     while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
-    while(isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+    while(isdigit(ch))&#123;x=x*10+ch-48;ch=getchar();&#125;
     return x*f;
 &#125;
 
 int main()&#123;
-#ifdef LawrenceSivan
-    freopen(&quot;aa.in&quot;,&quot;r&quot;,stdin);
-    freopen(&quot;aa.out&quot;,&quot;w&quot;,stdout);
-#endif
-    n=read();m=read();
-    for(re int i=1;i&lt;=n;i++)&#123;
-        a[i]=read();
-    &#125;
+    n=read();
 
-    root[1]=build(1,n);
+    for(re int i=1;i&lt;=n;++i)&#123;
+        for(re int j=1;j&lt;=n+1;++j)&#123;//读入矩阵，把常数也读进去所以是n+1
 
-    for(re int i=1;i&lt;=m;i++)&#123;
-        op=read();p=read();
-        if(op==0)&#123;
-            int x=read(),y=read();
-            root[++c]=split(root[p],1,n,x,y);
-        &#125;
-        if(op==1)&#123;
-            int x=read();
-            root[p]=merge(root[p],root[x]);
-        &#125;
-        if(op==2)&#123;
-            int x=read(),y=read();
-            modify(root[p],1,n,y,x);
-        &#125;
-        if(op==3)&#123;
-            int x=read(),y=read();
-            printf(&quot;%lld\n&quot;,query(root[p],1,n,x,y));
-        &#125;
-        if(op==4)&#123;
-            ll k=read();
-            if(query(root[p],1,n,1,n)&lt;k)printf(&quot;-1\n&quot;);
-            else printf(&quot;%d\n&quot;,kth(root[p],1,n,k));
+            a[i][j]=read();
         &#125;
     &#125;
 
+    double maxx;
+    int maxline;
+    for(re int i=1;i&lt;=n;++i)&#123;
+        maxx=0,maxline=i;
+        for(re int j=1;j&lt;=n;++j)
+            if(!vis[j]&amp;&amp;abs(a[j][i])&gt;maxx)maxx=abs(a[j][i]),maxline=j;//找最大的
+
+        if(maxx&lt;=eps)continue;//如果太小了，我们可以认为是0，并且把他跳过去，因为已经是0了不需要再操作
+        if(maxline!=i)swap(a[i],a[maxline]);//将系数最大的换到i行
+        vis[i]=1;
+
+        for(re int j=1;j&lt;=n;++j)//对其他行关于i列进行消元
+            if(j!=i)&#123;
+                double t=a[j][i]/a[i][i];
+                for(re int k=i;k&lt;=n+1;++k)&#123;
+                    a[j][k]-=t*a[i][k];
+                &#125;
+            &#125;
+    &#125; 
+
+    bool flag=0;//因为在消元完成后，只有主对角线上系数不是零，所以我们只需要检查一下，如果主对角线上出现了0的那一行的常数是不是0就可以了
+    for(re int i=1;i&lt;=n;++i)
+        if(abs(a[i][i])&lt;=eps)&#123;
+            flag=1;//如果发现主对角线上有0存在，那么一定出了特殊情况，要么是无解，要么是无穷解
+            abs(a[i][n+1])&gt;eps?puts(&quot;-1&quot;):puts(&quot;0&quot;);//如果常数不是零，那么可以认定就是无解，如果主对角线上有0，并且常数是0，那么就一定有无穷多解
+                return 0;
+        &#125;
+
+
+    for(re int i=1;i&lt;=n;i++)&#123;//不然我们就要输出每一项的解是多少
+        printf(&quot;x%d=%.2lf\n&quot;,i,a[i][n+1]/a[i][i]);//这里解释一下，为什么要用常数除以系数：因为我们在消元以后，系数并不一定变成了1，也可能是其他的常数，那么就成了kx=b的形式，所以我们拿b/k就是x了
+    &#125;
 
     return 0;
+&#125;
+</code></pre>
+<p>附上经典高斯：</p>
+<pre><code class="lang-cpp">inline void Gauss()&#123;
+    int maxline=0;
+    double maxx=0;
+    for(re int i=1;i&lt;=n;i++)&#123;
+        maxline=i,maxx=0;
+        for(re int j=i+1;j&lt;=n;j++)&#123;
+            if(fabs(a[j][i])&gt;maxx)maxx=fabs(a[j][i]),maxline=j;
+        &#125;
+        if(fabs(a[maxline][i])&lt;eps)&#123;
+            puts(&quot;No Solution&quot;);
+            exit(0);
+        &#125;
+        if(maxline!=i)swap(a[i],a[maxline]);
+        for(re int j=n+1;j&gt;=i;j--)&#123;
+            for(re int k=i+1;k&lt;=n;k++)&#123;
+                a[k][j]-=a[k][i]/a[i][i]*a[i][j];
+            &#125;
+        &#125;
+    &#125;
+
+    for(re int i=n;i;i--)&#123;
+        for(re int j=i+1;j&lt;=n;j++)&#123;
+            a[i][n+1]-=a[j][n+1]*a[i][j];
+        &#125;
+        a[i][n+1]/=a[i][i];
+    &#125;
 &#125;
 </code></pre>
 ]]></content>
@@ -6287,318 +6189,262 @@ int main() &#123;
 ]]></content>
   </entry>
   <entry>
-    <title>p2455 线性方程组（高斯消元）</title>
-    <url>/2021/02/18/p2455%20%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84%EF%BC%88%E9%AB%98%E6%96%AF%E6%B6%88%E5%85%83%EF%BC%89/</url>
-    <content><![CDATA[<p>p2455才是高斯消元的真模板题好吧</p>
-<h1 id="高斯消元"><a href="#高斯消元" class="headerlink" title="高斯消元"></a>高斯消元</h1><p>题面：<a href="https://www.luogu.com.cn/problem/P2455">传送门</a></p>
-<p><del>对不起我真的是太懒了</del></p>
-<p>先来明确高斯消元是干什么的：</p>
-<p>高斯消元是一种求解线性方程组的方法。</p>
-<p>所谓线性方程组，就是由$M$个$N$元一次方程组共同构成的。</p>
-<p>线性方程组的所有系数可以写成一个$M$行$N$列的系数矩阵，再加上每个方程等号右侧的常数，可以写成一个$M$行$N+1$列的“增广矩阵”。</p>
-<p>$\begin{cases}x_1+2x_2-x_3=-6\\2x_1+x_2-3x_3=-9\\{-x_1-x_2+2x_3=7}\end{cases}\Rightarrow\left[\begin{array}{ccc|c}1 &amp;2&amp;-1&amp;-6\\2&amp;1&amp;-3&amp;-9\\{-1}&amp;-1&amp;2&amp;7 \end{array}\right]<br>$ </p>
-<p>相信各位小学或者初中一定学过二元一次方程组吧</p>
-<p><del>如果没学过那我觉得宁可以退役了</del></p>
-<p>有个消元的方法相信你记忆犹新：加减消元法；</p>
-<p>其实高斯消元法干的事情和加减消元法是差不多的；</p>
-<p>步骤大概就是：</p>
-<p>我们将一行加上另一行的若干倍，这样就可以消去其中一行的某一个系数；</p>
-<p>我们可以来看一下下面的过程：</p>
-<p>$\begin{bmatrix} 1&amp;2&amp;-1&amp;-6\\2&amp;1&amp;-3&amp;-9\\{-1}&amp;-1&amp;2&amp;7\end{bmatrix}$</p>
-<p>我们将第二行每一项分别加上第一行的$-2$倍，于是我们发现，第二行的第一项系数被消成$0$了。如下</p>
-<p>$\begin{bmatrix} 1&amp;2&amp;-1&amp;-6\\0&amp;-3&amp;-1&amp;3\\{-1}&amp;-1&amp;2&amp;7\end{bmatrix}$</p>
-<p>接下来我们都这么操作。</p>
-<p>对于第$n$行，我们让该行的第$n$个元素作为“主元”，并且将其他行的同列的系数都消掉，最后我们可以得到下面的形式：</p>
-<p>$\left[<br>    \begin{array}{ccc|c}<br>    1&amp;0&amp;0&amp;1\\0&amp;1&amp;0&amp;-2\\0&amp;0&amp;1&amp;3<br>    \end{array}<br>\right]$</p>
-<p>是的，成了这样以后，发现主对角线上的数和常数一般都不是$0$，其他位置都是$0$了（后面还有一些特殊情况与判定技巧），我们就可以愉快的写出答案：</p>
-<p>$x_1=1$，$x_2=-2$，$x_3=3$；</p>
-<p>是的，这就是高斯消元算法。</p>
-<p>但是在实际应用中，我们也许会碰到很多奇奇怪怪的情况。</p>
-<p>就例如你只掌握上面说到的东西是远远不够通过这道题的。</p>
-<p>题目中还有一些更高端的东西：什么时候有无穷多的实数解？什么时候无解？这都是我们需要考虑的；</p>
-<p>首先，在高斯消元的过程中，可能出现$0=d$这样的方程，其中$d$是一个非零常数，这表明这些方程中出现了矛盾，方程组无解。</p>
-<p>其次，我们也可能出现这样的情况：</p>
-<p>我们高斯消元结束以后，发现某一行系数全都是$0$，并且常数也是$0$.</p>
-<p>啊就是出现了$0==0$的情况？？</p>
-<p>是的，此时方程组有无数解，如下图：</p>
-<p>$\left[<br>    \begin{array}{ccc|c}<br>    1&amp;2&amp;0&amp;4\\0&amp;0&amp;1&amp;1\\0&amp;0&amp;0&amp;0<br>    \end{array}<br>\right]$</p>
-<p>那么我们总结一下：</p>
-<p><strong>1.当高斯消元结束以后，如果存在系数全是$0$，但是常数不是$0$的行，那么方程组无解</strong></p>
-<p><strong>2.在高斯消元结束以后，如果存在系数全是$0$，并且常数也是$0$的行，那么方程组有无数解</strong></p>
-<p>学会了这些就能通过这些题了吗？</p>
-<p><strong>当然不是！</strong></p>
-<p>还有一个东西你没有注意到：精度损失</p>
-<p>精度损失是怎么来的?如何降低精度损失呢?</p>
-<p>我们在加减消元的时候，有的时候需要加的也许不是一个整数，可能是某一行的几分之几倍。</p>
-<p>于是，考虑到这，我们发现精度损失的原因了。</p>
-<p>所以，我们就要让产生几分之几倍（确切的说：当式子一的系数是$a_1$，式子二的系数是$a_2$时，我们加的这个数就是$a_2/a_1$倍（注意我们主元系数是在分母上））的这个过程有较小的精度损失</p>
-<p>我们可以思考一下，我们在消元的时候一定要刻意按照题目中给的顺序一行一行来嘛？</p>
-<p>也许可以不这样。</p>
-<p>在什么情况下，我们能产生较小的精度损失呢？</p>
-<p>我们举个例子来看：</p>
-<p>考虑这样的一个方程组：</p>
-<p>$1000x_1+ax_2+bx_3=c$;（这几个都是x不是乘号）</p>
-<p>$0.5x_1+dx_2+ex_3=f$</p>
-<p>我们设精度误差$eps=1e-8$；</p>
-<p>如果我们选择$1000$作为主元，</p>
-<p>那么理论值$ima_1=0.5/1000$</p>
-<p>实际值$rea_1=0.5+eps/1000+eps$</p>
-<p>误差值Δ在$rea_1-ima_1=$一个超级小的数</p>
-<hr>
-<p>如果我们选择$0.5$作为主元，那么理论值$ima_2=1000/0.5$</p>
-<p>实际值$rea_2=1000+eps/0.5+eps$；</p>
-<p>误差值Δ在$rea_2-ima_2=40$左右</p>
-<p>发现差距了吗？？</p>
-<p>知道该怎么做了吗？？</p>
-<p>是的，我们每次选择较大的作为主元就好了！</p>
-<p>代码实现嘛，长这样的;</p>
-<pre><code class="lang-cpp">    double maxx;//最大值
-    int maxline;//最大值所在行
-    for(re int i=1;i&lt;=n;++i)&#123;//枚举每一列
-        maxx=0,maxline=i;
-        for(re int j=1;j&lt;=n;++j)//枚举每一行的同一列位置
-            if(!vis[j]&amp;&amp;abs(a[j][i])&gt;maxx)&#123;//如果没来过并且很大（因为我们加的数正负都可以，所以我们取绝对值
-                maxx=abs(a[j][i]),maxline=j;//记录最大值以及所在的行数
-            &#125;
-
-        //........
-
-        if(maxline!=i)swap(a[i],a[maxline]);//如果发现我们在消元过程中，这个位置不是需要的最大的，我们就把这一行和最大的那一行换一下位置
-        vis[i]=1;//来过了
-    &#125;
-</code></pre>
-<p>掌握了这些，这个题就可以$A$了</p>
-<p>CODE：</p>
-<pre><code class="lang-cpp">#include&lt;bits/stdc++.h&gt;
-using namespace std;
-
-#define re register
-
-const int N=105;
-const double eps=1e-8;//精度误差
-
-double a[N][N];//矩阵
-bool vis[N];
-int n;
-
-inline int read()&#123;
-    int x=0,f=1;char ch=getchar();
-    while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
-    while(isdigit(ch))&#123;x=x*10+ch-48;ch=getchar();&#125;
-    return x*f;
-&#125;
-
-int main()&#123;
-    n=read();
-
-    for(re int i=1;i&lt;=n;++i)&#123;
-        for(re int j=1;j&lt;=n+1;++j)&#123;//读入矩阵，把常数也读进去所以是n+1
-
-            a[i][j]=read();
-        &#125;
-    &#125;
-
-    double maxx;
-    int maxline;
-    for(re int i=1;i&lt;=n;++i)&#123;
-        maxx=0,maxline=i;
-        for(re int j=1;j&lt;=n;++j)
-            if(!vis[j]&amp;&amp;abs(a[j][i])&gt;maxx)maxx=abs(a[j][i]),maxline=j;//找最大的
-
-        if(maxx&lt;=eps)continue;//如果太小了，我们可以认为是0，并且把他跳过去，因为已经是0了不需要再操作
-        if(maxline!=i)swap(a[i],a[maxline]);//将系数最大的换到i行
-        vis[i]=1;
-
-        for(re int j=1;j&lt;=n;++j)//对其他行关于i列进行消元
-            if(j!=i)&#123;
-                double t=a[j][i]/a[i][i];
-                for(re int k=i;k&lt;=n+1;++k)&#123;
-                    a[j][k]-=t*a[i][k];
-                &#125;
-            &#125;
-    &#125; 
-
-    bool flag=0;//因为在消元完成后，只有主对角线上系数不是零，所以我们只需要检查一下，如果主对角线上出现了0的那一行的常数是不是0就可以了
-    for(re int i=1;i&lt;=n;++i)
-        if(abs(a[i][i])&lt;=eps)&#123;
-            flag=1;//如果发现主对角线上有0存在，那么一定出了特殊情况，要么是无解，要么是无穷解
-            abs(a[i][n+1])&gt;eps?puts(&quot;-1&quot;):puts(&quot;0&quot;);//如果常数不是零，那么可以认定就是无解，如果主对角线上有0，并且常数是0，那么就一定有无穷多解
-                return 0;
-        &#125;
-
-
-    for(re int i=1;i&lt;=n;i++)&#123;//不然我们就要输出每一项的解是多少
-        printf(&quot;x%d=%.2lf\n&quot;,i,a[i][n+1]/a[i][i]);//这里解释一下，为什么要用常数除以系数：因为我们在消元以后，系数并不一定变成了1，也可能是其他的常数，那么就成了kx=b的形式，所以我们拿b/k就是x了
-    &#125;
-
-    return 0;
-&#125;
-</code></pre>
-<p>附上经典高斯：</p>
-<pre><code class="lang-cpp">inline void Gauss()&#123;
-    int maxline=0;
-    double maxx=0;
-    for(re int i=1;i&lt;=n;i++)&#123;
-        maxline=i,maxx=0;
-        for(re int j=i+1;j&lt;=n;j++)&#123;
-            if(fabs(a[j][i])&gt;maxx)maxx=fabs(a[j][i]),maxline=j;
-        &#125;
-        if(fabs(a[maxline][i])&lt;eps)&#123;
-            puts(&quot;No Solution&quot;);
-            exit(0);
-        &#125;
-        if(maxline!=i)swap(a[i],a[maxline]);
-        for(re int j=n+1;j&gt;=i;j--)&#123;
-            for(re int k=i+1;k&lt;=n;k++)&#123;
-                a[k][j]-=a[k][i]/a[i][i]*a[i][j];
-            &#125;
-        &#125;
-    &#125;
-
-    for(re int i=n;i;i--)&#123;
-        for(re int j=i+1;j&lt;=n;j++)&#123;
-            a[i][n+1]-=a[j][n+1]*a[i][j];
-        &#125;
-        a[i][n+1]/=a[i][i];
-    &#125;
-&#125;
-</code></pre>
+    <title>代码</title>
+    <url>/2018/05/28/%E4%BB%A3%E7%A0%81/</url>
+    <content><![CDATA[<p>这个页面用来存放代码</p>
 ]]></content>
+      <categories>
+        <category>代码</category>
+      </categories>
   </entry>
   <entry>
-    <title>十五数码问题（IDA*）</title>
-    <url>/2021/04/15/%E5%8D%81%E4%BA%94%E6%95%B0%E7%A0%81%E9%97%AE%E9%A2%98%EF%BC%88IDA-%EF%BC%89/</url>
-    <content><![CDATA[<p><del>这个题可真是快调死我了</del></p>
-<p>题面很简单，就是十五个数字的华容道，然后问最少几步可以还原成初始状态<br>（貌似是人工智能经典问题？</p>
-<p>有了八数码问题的经验，我们知道这玩意肯定是要各种玄学做法（比如什么要人命的康托展开双向广搜$A<em>$迭代加深$IDA</em>$  $bulabula$~</p>
-<p>康托展开就算了吧，那玩意真心懒得写，而且十五数码问题用这种东西貌似不合适（其实是不会</p>
-<p>$A<em>$写起来太麻烦，于是写写$IDA</em>$罢,貌似这题双向广搜会快一些？</p>
-<p>其实$IDA*$也没有很慢好吧 <del>（不开$O_2$根本过不了</del></p>
-<p>对于估价函数，我们可以考虑曼哈顿距离，估价函数的值等同于当前状态下所有非 $0$ 的数字到目标位置的曼哈顿距离之和。</p>
-<p>而且对于$15$数码问题，我们可以得出以下结论：十五数码和八数码判断是否有解的方法不同，八数码$0$的移动不影响其余$7$个数字逆序数的奇偶性，而十五数码$0$的左右移动不影响其余$15$个数逆序数的奇偶性 （顺序不变），但上下移动改变奇偶（移动三次），加上$0$的话$16$个数逆序数左右改变（移动一次），上下也改变（移动$7$次），需要注意每次移动$0$的距离奇偶性也改变（$0$到目标位置的曼哈顿距离不是加1就是减一），所以$16$个数逆序数与$0$的距离之和$s$的奇偶性不因$0$的滑动而改变，初始时$s$是奇数，所以只有$s$是奇数的状态才是可到达的.</p>
-<p>于是我们在搜之前先判一下有没有解：</p>
-<pre><code class="lang-cpp">inline bool check()&#123;//check it is the ans or not
-    int cnt=0,tot=0;
-    for (int i=1;i&lt;=4;++i)&#123;
-        for (int j=1;j&lt;=4;++j)&#123;
-            puz[tot]=tmp[i][j];
-            tot++;
-        &#125;
+    <title>P5494 【模板】线段树分裂</title>
+    <url>/2021/05/25/P5494%20%E3%80%90%E6%A8%A1%E6%9D%BF%E3%80%91%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%88%86%E8%A3%82/</url>
+    <content><![CDATA[<p>刚写了线段树分裂的板子。</p>
+<h1 id="线段树分裂"><a href="#线段树分裂" class="headerlink" title="线段树分裂"></a>线段树分裂</h1><p><a href="https://www.luogu.com.cn/problem/P5494">传送门</a></p>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>1.权值线段树</p>
+<p>有一个很好的博客可以看看：<a href="https://www.luogu.com.cn/blog/bfqaq/qian-tan-quan-zhi-xian-duan-shu">传送门</a></p>
+<p>2.动态开点线段树：<a href="https://www.cnblogs.com/LawrenceSivan/p/14686207.html">传送门</a></p>
+<p>3.线段树合并：<a href="https://www.cnblogs.com/LawrenceSivan/p/14681680.html">传送门</a></p>
+<p>4.主席树：<a href="https://www.cnblogs.com/LawrenceSivan/p/14772483.html">传送门</a></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>线段树分裂，顾名思义就是将线段树分裂开。为了维护线段树合并所维护的可重集，我们需要将权值线段树中前 $k$ 小的数和其余数分在两颗权值线段树上进行维护。</p>
+<h2 id="具体操作"><a href="#具体操作" class="headerlink" title="具体操作"></a>具体操作</h2><p>其实很简单，线段树分裂是线段树合并的逆操作。对于待分裂区域与其他区域的公有节点，复制一份；对于独有节点，直接拿过来挂上去；最后记得 pushup。</p>
+<p>其实和主席树是有很高相似度的。</p>
+<pre><code class="lang-cpp">int split(int rt,int l,int r,int ql,int qr)&#123;
+    int o=++tot;
+
+    if(ql==l&amp;&amp;qr==r)&#123;
+        st[o]=st[rt];
+        st[rt].v=ls(rt)=rs(rt)=0;
+        return o;
     &#125;
-    for (int i=0;i&lt;16;++i)&#123;
-        if (puz[i]==0)
-            cnt+=3-i/4;
-        else&#123;
-            for (int j=0;j&lt;i;++j)&#123;
-                if (puz[j] &amp;&amp; puz[j]&gt;puz[i])&#123;
-                    cnt++;
-                &#125;
-            &#125;
-        &#125;
+
+    int mid=(l+r)&gt;&gt;1;
+
+    if(qr&lt;=mid)&#123;
+        ls(o)=split(ls(rt),l,mid,ql,qr);
+    &#125;else if(ql&gt;mid)&#123;
+        rs(o)=split(rs(rt),mid+1,r,ql,qr);
+    &#125;else&#123;
+        ls(o)=split(ls(rt),l,mid,ql,mid);
+        rs(o)=split(rs(rt),mid+1,r,mid+1,qr);
     &#125;
-    return !(cnt&amp;1);
+
+    push_up(rt);push_up(o);
+    return o;
 &#125;
 </code></pre>
-<p>之后我们还需要加入一个剪枝：永远不要走和上一步相反的路；</p>
-<p>大概就这些</p>
-<pre><code class="lang-cpp">//#define LawrenceSivan
+<p><del>然后这玩意就讲完了</del></p>
+<p>这么说其实权值线段树的操作啥的几乎就都搞定了，再结合别的东西就可以把权值线段树<del>放在手里把玩了</del>运用得得心应手了。</p>
+<h2 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h2><h3 id="单点修改和区间修改"><a href="#单点修改和区间修改" class="headerlink" title="单点修改和区间修改"></a>单点修改和区间修改</h3><p>和普通线段树是一样的，都是 $O(logn)$.</p>
+<h3 id="找第-k-小"><a href="#找第-k-小" class="headerlink" title="找第 k 小"></a>找第 k 小</h3><p>每层只会访问 $1$ 个节点，时间复杂度为 $O(logn)$.</p>
+<h3 id="线段树合并"><a href="#线段树合并" class="headerlink" title="线段树合并"></a>线段树合并</h3><p>仅当两颗线段树在相同的节点都有值时，合并才需要花费时间，否则可以直接返回有值的一边. $O(nlogn)$</p>
+<p>这玩意复杂度确实很玄学，大家的说法也不太一样，于是我摘取了几位大佬的说法：</p>
+<p>@<a href="https://www.luogu.com.cn/blog/gxy001/p5494-solution">gxy001</a>:显然，我们每次只会访问重合节点，那么单次合并的时间复杂度就可以认为是较小树的节点个数，那么显然，多次合并的总复杂度为总点数级别，$O(nlogn)$</p>
+<p>注：不能简单的认为其复杂度为单次合并的最坏复杂度乘询问次数。感性理解，在本题中，显然我们可以花费一次询问使树的节点加一条链，让合并的复杂度增大，但也会失去一次进行线段树合并的机会，这样就保证了其总复杂度不会过高。</p>
+<p>@<a href="https://www.luogu.com.cn/blog/chenxinyang2006/solution-p5494">chenxinyang2006</a>:</p>
+<p>仅当两颗线段树在相同的节点都有值时，合并才需要花费时间，否则可以直接返回有值的一边</p>
+<p>也就是说，合并一次，总节点数量减少1</p>
+<p>一操作会在新线段树上，增加 $logn$ 个节点</p>
+<p>三操作会增加一条链的节点，也是 $logn$ 个</p>
+<p>所以总节点数不超过 $n+mlogn$，合并总复杂度不超过 $n+mlogn$</p>
+<h3 id="线段树分裂-1"><a href="#线段树分裂-1" class="headerlink" title="线段树分裂"></a>线段树分裂</h3><p>我们可以看到，这个操作访问的节点和区间查询是一致的，复制边缘节点，直接拿走完整节点。时间复杂度 $O(logn)$</p>
+<p>之后就是本题：</p>
+<h2 id="本题："><a href="#本题：" class="headerlink" title="本题："></a>本题：</h2><p>对于每个操作我们分着看：</p>
+<h3 id="操作零"><a href="#操作零" class="headerlink" title="操作零"></a>操作零</h3><p>就是分裂了：</p>
+<pre><code class="lang-cpp">int split(int rt,int l,int r,int ql,int qr)&#123;
+    int o=++tot;
+
+    if(ql==l&amp;&amp;qr==r)&#123;
+        st[o]=st[rt];
+        st[rt].v=ls(rt)=rs(rt)=0;
+        return o;
+    &#125;
+
+    int mid=(l+r)&gt;&gt;1;
+
+    if(qr&lt;=mid)&#123;
+        ls(o)=split(ls(rt),l,mid,ql,qr);
+    &#125;else if(ql&gt;mid)&#123;
+        rs(o)=split(rs(rt),mid+1,r,ql,qr);
+    &#125;else&#123;
+        ls(o)=split(ls(rt),l,mid,ql,mid);
+        rs(o)=split(rs(rt),mid+1,r,mid+1,qr);
+    &#125;
+
+    push_up(rt);push_up(o);
+    return o;
+&#125;
+</code></pre>
+<h3 id="操作一"><a href="#操作一" class="headerlink" title="操作一"></a>操作一</h3><p>合并两棵树即可：</p>
+<pre><code class="lang-cpp">int merge(int p,int q)&#123;
+    if(!p||!q)return p|q;
+
+    int rt=++tot;
+    st[rt].v=st[p].v+st[q].v;
+    ls(rt)=merge(ls(p),ls(q));
+    rs(rt)=merge(rs(p),rs(q));
+
+    return rt;
+&#125;
+</code></pre>
+<h3 id="操作二"><a href="#操作二" class="headerlink" title="操作二"></a>操作二</h3><p>单点修改</p>
+<pre><code class="lang-cpp">void modify(int rt,int l,int r,int pos,int val)&#123;
+    if(l==r)&#123;
+        st[rt].v+=val;
+        return;
+    &#125;
+
+    int mid=(l+r)&gt;&gt;1;
+    if(pos&lt;=mid)&#123;
+        if(ls(rt)==0)ls(rt)=++tot;
+        modify(ls(rt),l,mid,pos,val);
+    &#125;
+    else &#123;
+        if(rs(rt)==0)rs(rt)=++tot;
+        modify(rs(rt),mid+1,r,pos,val);
+    &#125;
+
+    push_up(rt);
+&#125;
+</code></pre>
+<h3 id="操作三"><a href="#操作三" class="headerlink" title="操作三"></a>操作三</h3><p>区间查询</p>
+<pre><code class="lang-cpp">ll query(int rt,int l,int r,int ql,int qr)&#123;
+    if(ql&gt;r||qr&lt;l)return 0;
+    if(ql&lt;=l&amp;&amp;qr&gt;=r)&#123;
+        return st[rt].v;
+    &#125;
+
+    int mid=(l+r)&gt;&gt;1;
+    return query(ls(rt),l,mid,ql,qr)+query(rs(rt),mid+1,r,ql,qr);
+&#125;
+</code></pre>
+<h3 id="操作四"><a href="#操作四" class="headerlink" title="操作四"></a>操作四</h3><p>查找第 $k$ 小，直接线段树上二分就行了</p>
+<pre><code class="lang-cpp">int kth(int rt,int l,int r,int k)&#123;
+    if(l==r)return l;
+
+    int mid=(l+r)&gt;&gt;1;
+    if(st[ls(rt)].v&gt;=k)return kth(ls(rt),l,mid,k);
+    else return kth(rs(rt),mid+1,r,k-st[ls(rt)].v);
+&#125;
+</code></pre>
+<p><del>这么来看这题没啥技术含量，充其量就是学了个分裂函数</del></p>
+<h2 id="CODE"><a href="#CODE" class="headerlink" title="CODE"></a>CODE</h2><pre><code class="lang-cpp">//#define LawrenceSivan
 
 #include&lt;bits/stdc++.h&gt;
 using namespace std;
 
 typedef long long ll;
 #define re register
+const int maxn=2e5+5;
+#define INF 0x3f3f3f3f
 
-int x,y,cnt; 
-int tmp[5][5];
-int puz[16]; 
+#define ls(x) st[x].l
+#define rs(x) st[x].r
 
-const int goal[5][5]=&#123;
-    &#123;0,0,0,0,0&#125;,
-    &#123;0,1,2,3,4&#125;,
-    &#123;0,5,6,7,8&#125;,
-    &#123;0,9,10,11,12&#125;,
-    &#123;0,13,14,15,0&#125;
-&#125;;
+int n,m,tot,op,p,c=1;
+int root[maxn];
 
-const int dx[4]=&#123;0,1,-1,0&#125;;
-const int dy[4]=&#123;1,0,0,-1&#125;;
+ll a[maxn];
 
-const int px[16]=&#123;4,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4&#125;;
-const int py[16]=&#123;4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3&#125;;
+struct SegmentTree&#123;
+    ll v;
+    int l,r;
+&#125;st[maxn&lt;&lt;6];
 
-inline int mabs(int a)&#123;
-    return a&gt;0?a:-a;
+inline void push_up(int rt)&#123;
+    st[rt].v=st[ls(rt)].v+st[rs(rt)].v;
 &#125;
 
-inline bool check()&#123;//check it is the ans or not
-    int cnt=0,tot=0;
-    for (int i=1;i&lt;=4;++i)&#123;
-        for (int j=1;j&lt;=4;++j)&#123;
-            puz[tot]=tmp[i][j];
-            tot++;
-        &#125;
+int build(int l,int r)&#123;
+    int rt=++tot;
+    if(l==r)&#123;
+        st[rt].v=a[l];
+        return rt;
     &#125;
-    for (int i=0;i&lt;16;++i)&#123;
-        if (puz[i]==0)
-            cnt+=3-i/4;
-        else&#123;
-            for (int j=0;j&lt;i;++j)&#123;
-                if (puz[j] &amp;&amp; puz[j]&gt;puz[i])&#123;
-                    cnt++;
-                &#125;
-            &#125;
-        &#125;
+
+    int mid=(l+r)&gt;&gt;1;
+    ls(rt)=build(l,mid);
+    rs(rt)=build(mid+1,r);
+
+    push_up(rt);
+    return rt;
+&#125;
+
+int split(int rt,int l,int r,int ql,int qr)&#123;
+    int o=++tot;
+
+    if(ql==l&amp;&amp;qr==r)&#123;
+        st[o]=st[rt];
+        st[rt].v=ls(rt)=rs(rt)=0;
+        return o;
     &#125;
-    return !(cnt&amp;1);
-&#125;
 
-inline int evaluate()&#123;//judge it can get the ans or not
-    int res=0;
-    for(int i=1;i&lt;=4;i++)&#123;
-        for(int j=1;j&lt;=4;j++)&#123;
-            if(tmp[i][j]==0)continue;
-                res+=mabs(i-px[tmp[i][j]])+mabs(j-py[tmp[i][j]]);
-        &#125;
+    int mid=(l+r)&gt;&gt;1;
+
+    if(qr&lt;=mid)&#123;
+        ls(o)=split(ls(rt),l,mid,ql,qr);
+    &#125;else if(ql&gt;mid)&#123;
+        rs(o)=split(rs(rt),mid+1,r,ql,qr);
+    &#125;else&#123;
+        ls(o)=split(ls(rt),l,mid,ql,mid);
+        rs(o)=split(rs(rt),mid+1,r,mid+1,qr);
     &#125;
-    return res;
-&#125; 
 
-inline int getway(int i)&#123;
-    if(dx[i]==-1)return 2;
-    if(dx[i]==1)return 1;
-    if(dy[i]==-1)return 4;
-    if(dy[i]==1)return 3;
+    push_up(rt);push_up(o);
+    return o;
 &#125;
 
-inline bool test(int i,int pre)&#123;
-    if(dx[i]==-1&amp;&amp;pre==1)return true;
-    if(dx[i]==1&amp;&amp;pre==2)return true;
-    if(dy[i]==-1&amp;&amp;pre==3)return true;
-    if(dy[i]==1&amp;&amp;pre==4)return true;
+int merge(int p,int q)&#123;
+    if(!p||!q)return p|q;
 
-    return false;
+    int rt=++tot;
+    st[rt].v=st[p].v+st[q].v;
+    ls(rt)=merge(ls(p),ls(q));
+    rs(rt)=merge(rs(p),rs(q));
+
+    return rt;
 &#125;
 
-bool IDA_star(int step,int x,int y,int pre)&#123;//do it
-    int eva=evaluate();
-    if(!eva)return true;
-
-    if(step+eva&gt;cnt)return false;
-
-    for(int i=0;i&lt;4;i++)&#123; 
-        int xx=x+dx[i];
-        int yy=y+dy[i];
-        if(xx&gt;4||xx&lt;1||yy&gt;4||yy&lt;1||test(i,pre))continue;
-        swap(tmp[xx][yy],tmp[x][y]);
-        if(IDA_star(step+1,xx,yy,getway(i)))return true;        
-        swap(tmp[xx][yy],tmp[x][y]);
+void modify(int rt,int l,int r,int pos,int val)&#123;
+    if(l==r)&#123;
+        st[rt].v+=val;
+        return;
     &#125;
-    return false;
+
+    int mid=(l+r)&gt;&gt;1;
+    if(pos&lt;=mid)&#123;
+        if(ls(rt)==0)ls(rt)=++tot;
+        modify(ls(rt),l,mid,pos,val);
+    &#125;
+    else &#123;
+        if(rs(rt)==0)rs(rt)=++tot;
+        modify(rs(rt),mid+1,r,pos,val);
+    &#125;
+
+    push_up(rt);
 &#125;
 
-inline int read()&#123;
-    int x=0,f=1;char ch=getchar();
+ll query(int rt,int l,int r,int ql,int qr)&#123;
+    if(ql&gt;r||qr&lt;l)return 0;
+    if(ql&lt;=l&amp;&amp;qr&gt;=r)&#123;
+        return st[rt].v;
+    &#125;
+
+    int mid=(l+r)&gt;&gt;1;
+    return query(ls(rt),l,mid,ql,qr)+query(rs(rt),mid+1,r,ql,qr);
+&#125;
+
+int kth(int rt,int l,int r,int k)&#123;
+    if(l==r)return l;
+
+    int mid=(l+r)&gt;&gt;1;
+    if(st[ls(rt)].v&gt;=k)return kth(ls(rt),l,mid,k);
+    else return kth(rs(rt),mid+1,r,k-st[ls(rt)].v);
+&#125;
+
+inline ll read()&#123;
+    ll x=0,f=1;char ch=getchar();
     while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
     while(isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
     return x*f;
@@ -6606,42 +6452,41 @@ inline int read()&#123;
 
 int main()&#123;
 #ifdef LawrenceSivan
-    freopen(&quot;puzzle.in&quot;,&quot;r&quot;,stdin);
-    freopen(&quot;puzzle.out&quot;,&quot;w&quot;,stdout);
+    freopen(&quot;aa.in&quot;,&quot;r&quot;,stdin);
+    freopen(&quot;aa.out&quot;,&quot;w&quot;,stdout);
 #endif
-    for(re int i=1;i&lt;=4;i++)&#123;
-        for(re int j=1;j&lt;=4;j++)&#123;
-            tmp[i][j]=read();
-            if(tmp[i][j]==0)x=i,y=j;
-        &#125;
-    &#125;
-    /*for(re int i=1;i&lt;=4;i++)&#123;
-        for(re int j=1;j&lt;=4;j++)&#123;
-            cout&lt;&lt;tmp[i][j]&lt;&lt;&quot; &quot;;
-        &#125;
-        cout&lt;&lt;endl;
-    &#125;*/
-
-    if(!evaluate())&#123;//if the begin is the end
-        printf(&quot;%d\n&quot;,0);
-        return 0;
+    n=read();m=read();
+    for(re int i=1;i&lt;=n;i++)&#123;
+        a[i]=read();
     &#125;
 
-    if(!check())&#123;//if the begin is the end
-        printf(&quot;No\n&quot;);
-        return 0;
+    root[1]=build(1,n);
+
+    for(re int i=1;i&lt;=m;i++)&#123;
+        op=read();p=read();
+        if(op==0)&#123;
+            int x=read(),y=read();
+            root[++c]=split(root[p],1,n,x,y);
+        &#125;
+        if(op==1)&#123;
+            int x=read();
+            root[p]=merge(root[p],root[x]);
+        &#125;
+        if(op==2)&#123;
+            int x=read(),y=read();
+            modify(root[p],1,n,y,x);
+        &#125;
+        if(op==3)&#123;
+            int x=read(),y=read();
+            printf(&quot;%lld\n&quot;,query(root[p],1,n,x,y));
+        &#125;
+        if(op==4)&#123;
+            ll k=read();
+            if(query(root[p],1,n,1,n)&lt;k)printf(&quot;-1\n&quot;);
+            else printf(&quot;%d\n&quot;,kth(root[p],1,n,k));
+        &#125;
     &#125;
 
-    while(++cnt)&#123;
-        if(IDA_star(0,x,y,0))&#123;
-            printf(&quot;%d\n&quot;,cnt);
-            return 0;
-        &#125;
-        if(cnt&gt;50)&#123;
-            printf(&quot;No\n&quot;);
-            return 0;    
-        &#125;
-    &#125;
 
     return 0;
 &#125;
@@ -7065,15 +6910,6 @@ int main() &#123;
 ]]></content>
   </entry>
   <entry>
-    <title>悦读</title>
-    <url>/2021/06/05/%E6%82%A6%E8%AF%BB/</url>
-    <content><![CDATA[<p>还没想好写什么</p>
-]]></content>
-      <tags>
-        <tag>悦读</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>动态区间第 k 小 （树套树）</title>
     <url>/2021/06/30/%E5%8A%A8%E6%80%81%E5%8C%BA%E9%97%B4%E7%AC%AC%20k%20%E5%B0%8F%20%EF%BC%88%E6%A0%91%E5%A5%97%E6%A0%91%EF%BC%89/</url>
     <content><![CDATA[<h1 id="P2617-Dynamic-Rankings"><a href="#P2617-Dynamic-Rankings" class="headerlink" title="P2617 Dynamic Rankings"></a>P2617 Dynamic Rankings</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这是一道已经咕了很久的题。</p>
@@ -7410,6 +7246,189 @@ int main() &#123;
 ]]></content>
   </entry>
   <entry>
+    <title>十五数码问题（IDA*）</title>
+    <url>/2021/04/15/%E5%8D%81%E4%BA%94%E6%95%B0%E7%A0%81%E9%97%AE%E9%A2%98%EF%BC%88IDA-%EF%BC%89/</url>
+    <content><![CDATA[<p><del>这个题可真是快调死我了</del></p>
+<p>题面很简单，就是十五个数字的华容道，然后问最少几步可以还原成初始状态<br>（貌似是人工智能经典问题？</p>
+<p>有了八数码问题的经验，我们知道这玩意肯定是要各种玄学做法（比如什么要人命的康托展开双向广搜$A<em>$迭代加深$IDA</em>$  $bulabula$~</p>
+<p>康托展开就算了吧，那玩意真心懒得写，而且十五数码问题用这种东西貌似不合适（其实是不会</p>
+<p>$A<em>$写起来太麻烦，于是写写$IDA</em>$罢,貌似这题双向广搜会快一些？</p>
+<p>其实$IDA*$也没有很慢好吧 <del>（不开$O_2$根本过不了</del></p>
+<p>对于估价函数，我们可以考虑曼哈顿距离，估价函数的值等同于当前状态下所有非 $0$ 的数字到目标位置的曼哈顿距离之和。</p>
+<p>而且对于$15$数码问题，我们可以得出以下结论：十五数码和八数码判断是否有解的方法不同，八数码$0$的移动不影响其余$7$个数字逆序数的奇偶性，而十五数码$0$的左右移动不影响其余$15$个数逆序数的奇偶性 （顺序不变），但上下移动改变奇偶（移动三次），加上$0$的话$16$个数逆序数左右改变（移动一次），上下也改变（移动$7$次），需要注意每次移动$0$的距离奇偶性也改变（$0$到目标位置的曼哈顿距离不是加1就是减一），所以$16$个数逆序数与$0$的距离之和$s$的奇偶性不因$0$的滑动而改变，初始时$s$是奇数，所以只有$s$是奇数的状态才是可到达的.</p>
+<p>于是我们在搜之前先判一下有没有解：</p>
+<pre><code class="lang-cpp">inline bool check()&#123;//check it is the ans or not
+    int cnt=0,tot=0;
+    for (int i=1;i&lt;=4;++i)&#123;
+        for (int j=1;j&lt;=4;++j)&#123;
+            puz[tot]=tmp[i][j];
+            tot++;
+        &#125;
+    &#125;
+    for (int i=0;i&lt;16;++i)&#123;
+        if (puz[i]==0)
+            cnt+=3-i/4;
+        else&#123;
+            for (int j=0;j&lt;i;++j)&#123;
+                if (puz[j] &amp;&amp; puz[j]&gt;puz[i])&#123;
+                    cnt++;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+    return !(cnt&amp;1);
+&#125;
+</code></pre>
+<p>之后我们还需要加入一个剪枝：永远不要走和上一步相反的路；</p>
+<p>大概就这些</p>
+<pre><code class="lang-cpp">//#define LawrenceSivan
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+#define re register
+
+int x,y,cnt; 
+int tmp[5][5];
+int puz[16]; 
+
+const int goal[5][5]=&#123;
+    &#123;0,0,0,0,0&#125;,
+    &#123;0,1,2,3,4&#125;,
+    &#123;0,5,6,7,8&#125;,
+    &#123;0,9,10,11,12&#125;,
+    &#123;0,13,14,15,0&#125;
+&#125;;
+
+const int dx[4]=&#123;0,1,-1,0&#125;;
+const int dy[4]=&#123;1,0,0,-1&#125;;
+
+const int px[16]=&#123;4,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4&#125;;
+const int py[16]=&#123;4,1,2,3,4,1,2,3,4,1,2,3,4,1,2,3&#125;;
+
+inline int mabs(int a)&#123;
+    return a&gt;0?a:-a;
+&#125;
+
+inline bool check()&#123;//check it is the ans or not
+    int cnt=0,tot=0;
+    for (int i=1;i&lt;=4;++i)&#123;
+        for (int j=1;j&lt;=4;++j)&#123;
+            puz[tot]=tmp[i][j];
+            tot++;
+        &#125;
+    &#125;
+    for (int i=0;i&lt;16;++i)&#123;
+        if (puz[i]==0)
+            cnt+=3-i/4;
+        else&#123;
+            for (int j=0;j&lt;i;++j)&#123;
+                if (puz[j] &amp;&amp; puz[j]&gt;puz[i])&#123;
+                    cnt++;
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+    return !(cnt&amp;1);
+&#125;
+
+inline int evaluate()&#123;//judge it can get the ans or not
+    int res=0;
+    for(int i=1;i&lt;=4;i++)&#123;
+        for(int j=1;j&lt;=4;j++)&#123;
+            if(tmp[i][j]==0)continue;
+                res+=mabs(i-px[tmp[i][j]])+mabs(j-py[tmp[i][j]]);
+        &#125;
+    &#125;
+    return res;
+&#125; 
+
+inline int getway(int i)&#123;
+    if(dx[i]==-1)return 2;
+    if(dx[i]==1)return 1;
+    if(dy[i]==-1)return 4;
+    if(dy[i]==1)return 3;
+&#125;
+
+inline bool test(int i,int pre)&#123;
+    if(dx[i]==-1&amp;&amp;pre==1)return true;
+    if(dx[i]==1&amp;&amp;pre==2)return true;
+    if(dy[i]==-1&amp;&amp;pre==3)return true;
+    if(dy[i]==1&amp;&amp;pre==4)return true;
+
+    return false;
+&#125;
+
+bool IDA_star(int step,int x,int y,int pre)&#123;//do it
+    int eva=evaluate();
+    if(!eva)return true;
+
+    if(step+eva&gt;cnt)return false;
+
+    for(int i=0;i&lt;4;i++)&#123; 
+        int xx=x+dx[i];
+        int yy=y+dy[i];
+        if(xx&gt;4||xx&lt;1||yy&gt;4||yy&lt;1||test(i,pre))continue;
+        swap(tmp[xx][yy],tmp[x][y]);
+        if(IDA_star(step+1,xx,yy,getway(i)))return true;        
+        swap(tmp[xx][yy],tmp[x][y]);
+    &#125;
+    return false;
+&#125;
+
+inline int read()&#123;
+    int x=0,f=1;char ch=getchar();
+    while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+    while(isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+    return x*f;
+&#125;
+
+int main()&#123;
+#ifdef LawrenceSivan
+    freopen(&quot;puzzle.in&quot;,&quot;r&quot;,stdin);
+    freopen(&quot;puzzle.out&quot;,&quot;w&quot;,stdout);
+#endif
+    for(re int i=1;i&lt;=4;i++)&#123;
+        for(re int j=1;j&lt;=4;j++)&#123;
+            tmp[i][j]=read();
+            if(tmp[i][j]==0)x=i,y=j;
+        &#125;
+    &#125;
+    /*for(re int i=1;i&lt;=4;i++)&#123;
+        for(re int j=1;j&lt;=4;j++)&#123;
+            cout&lt;&lt;tmp[i][j]&lt;&lt;&quot; &quot;;
+        &#125;
+        cout&lt;&lt;endl;
+    &#125;*/
+
+    if(!evaluate())&#123;//if the begin is the end
+        printf(&quot;%d\n&quot;,0);
+        return 0;
+    &#125;
+
+    if(!check())&#123;//if the begin is the end
+        printf(&quot;No\n&quot;);
+        return 0;
+    &#125;
+
+    while(++cnt)&#123;
+        if(IDA_star(0,x,y,0))&#123;
+            printf(&quot;%d\n&quot;,cnt);
+            return 0;
+        &#125;
+        if(cnt&gt;50)&#123;
+            printf(&quot;No\n&quot;);
+            return 0;    
+        &#125;
+    &#125;
+
+    return 0;
+&#125;
+</code></pre>
+]]></content>
+  </entry>
+  <entry>
     <title>另一方面的我 and something to say</title>
     <url>/2021/08/20/%E5%8F%A6%E4%B8%80%E6%96%B9%E9%9D%A2%E7%9A%84%E6%88%91%20and%20something%20to%20say/</url>
     <content><![CDATA[<div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Sorry, this password doesn't look right. Please try again" data-whm="Sorry, this article can't be verified, but you can still see the decrypted content">
@@ -7722,6 +7741,15 @@ signed main()&#123;
 ]]></content>
       <tags>
         <tag>快速莫比乌斯变换,快速沃尔什变换,FWT,FMT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>悦读</title>
+    <url>/2021/06/05/%E6%82%A6%E8%AF%BB/</url>
+    <content><![CDATA[<p>还没想好写什么</p>
+]]></content>
+      <tags>
+        <tag>悦读</tag>
       </tags>
   </entry>
   <entry>
@@ -8705,6 +8733,415 @@ signed main() &#123;
 ]]></content>
   </entry>
   <entry>
+    <title>替罪羊树学习笔记</title>
+    <url>/2021/05/31/%E6%9B%BF%E7%BD%AA%E7%BE%8A%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="替罪羊树"><a href="#替罪羊树" class="headerlink" title="替罪羊树"></a>替罪羊树</h1><p><a href="https://www.luogu.com.cn/problem/P3369">模板题地址</a></p>
+<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>首先平衡树写法真的是太多了</p>
+<p>据不完全统计</p>
+<p>比较知名的有 红黑树 （$RB_Tree$）,替罪羊树，$Treap$，$fhq_Treap$ , $Splay$ , $AVL$ , $SBT$ , $0/1\ Trie$ 等等</p>
+<p>自然我是没有时间把这些玩意都学一遍的</p>
+<p><del>而且有些不当人的玩意确实不是人学的</del></p>
+<p>今天要说说替罪羊，也是近期学会的。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>替罪羊树是计算机科学中，一种基于部分重建的自平衡二叉搜索树。在替罪羊树上，插入或删除节点的平摊最坏时间复杂度是 $O(log n)$ ，搜索节点的最坏时间复杂度是 $O(log n)$。——百度百科</p>
+<p>首先我们都知道，$Treap$ , $Splay$ ，等平衡树都是需要旋转操作来维持树的平衡结构。</p>
+<p>带旋转的平衡树一般存在以下问题：</p>
+<ul>
+<li><p>可持久化几乎就是不可能（$Treap$ 可以用 $fhq_Treap$ 来搞，而且貌似还很主流）（虽然替罪羊树可持久化也极其困难，貌似就算实现了复杂度也是假的）</p>
+</li>
+<li><p>对于一个平衡树的每个节点上维护一个集合，存储子树内所有的数。此时一次旋转操作的代价可能会达到  $O(n)$ ，传统的旋转平衡树就无法发挥作用</p>
+</li>
+</ul>
+<p>于是，我们就需要一些不带旋转操作的平衡树。</p>
+<p>作为重量平衡树的一种的替罪羊树就满足这样的条件。</p>
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>替罪羊是一种基于暴力重构来维持树的平衡的数据结构。</p>
+<p>我们定义一个平衡树因子 $\alpha$ ，对替罪羊树的每个节点 $t$ ，我们都需要满足：$\max(l-&gt;size,r-&gt;size )&lt;=\alpha\times t-&gt;size$其中 $l$ , $r$ 分别是 $t$ 的左右子树。这个性质称为平衡性质。</p>
+<p>一旦出现了违背这个满足性质，就把这棵子树暴力拍扁重构。</p>
+<p><img src="https://i.loli.net/2021/06/02/TQ3Kfik1vzmRnOX.png" alt="ftw2i93g.png"></p>
+<p>（图片来自百度）</p>
+<h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><h3 id="重构"><a href="#重构" class="headerlink" title="重构"></a>重构</h3><p>拍扁具体是什么意思呢？</p>
+<p>我们只需要对需要进行重构的子树执行一次中序遍历，然后把它存到一个数组里（为了方便下面我们使用了$std::vector$）</p>
+<p>然后我们再每次取中点，向左右两边递归建树就好了。</p>
+<p>代码实现很简单：</p>
+<pre><code class="lang-cpp">void dfs(node* o,vector&lt;node*&gt; &amp;v)&#123;
+    if(o==null)return;
+    dfs(o-&gt;l,v);
+    if(!o-&gt;del)v.push_back(o);
+    dfs(o-&gt;r,v);
+    if(o-&gt;del)delete o;
+&#125;
+
+node* build(vector&lt;node*&gt; &amp;v,int l,int r)&#123;
+    if(l&gt;=r)return null;
+
+    int mid=(l+r)&gt;&gt;1;
+    node *o=v[mid];
+    o-&gt;l=build(v,l,mid);
+    o-&gt;r=build(v,mid+1,r);
+
+    o-&gt;update();
+    return o;
+&#125;
+
+void rebuild(node* &amp;o)&#123;
+    vector&lt;node*&gt; v;
+    dfs(o,v);
+    o=build(v,0,v.size());
+&#125;
+</code></pre>
+<h3 id="关于复杂度"><a href="#关于复杂度" class="headerlink" title="关于复杂度"></a>关于复杂度</h3><p>这样重构一次的时间复杂度为 $O(n)$（n为子树大小），但是实际上替罪羊树的单次插入时间复杂度并不会达到 $O(nlogn)$，因为一个 $size=t$ 的子树需要插入 $Ω(t)$ 个点才会被重构，所以可以通过势能分析来证明替罪羊树的单次操作的均摊时间复杂度为 $O(logn)$，具体证明这里不详细展开。</p>
+<p>关于势能分析可以参考<a href="https://www.zhihu.com/question/51891585/answer/234930161">这篇文章</a>.</p>
+<h3 id="关于-alpha-的取值"><a href="#关于-alpha-的取值" class="headerlink" title="关于 $\alpha$ 的取值"></a>关于 $\alpha$ 的取值</h3><p>一般来说，$\alpha$ 的取值一般在 $0.5 - 1$ 之间。</p>
+<p>根据定义我们可以发现，当 $\alpha$ 太小可能会导致重构次数太多，当 $\alpha$ 太大可能会导致重构次数太少，导致树高度不平衡，在查找操作的时候会导致浪费大量的时间。</p>
+<p>一般取 $7$ 或者 $7.5$ 就足够了。</p>
+<h3 id="关于写法"><a href="#关于写法" class="headerlink" title="关于写法"></a>关于写法</h3><p>没错，我个 $SB$ 又写了指针。</p>
+<p>刚开始学的时候是跟着洛谷板子题第一页写的，但是那个题解有一些缺点，这个问题我们在下面会进行说明。</p>
+<p>其实指针也蛮好写的。</p>
+<p>结构体的定义如下：</p>
+<pre><code class="lang-cpp">struct node&#123;
+    node *l,*r;
+
+    int val,size,cnt;//val 值  size存在的节点数  cnt 全部的节点数 
+
+    bool del;
+
+    bool isbad()&#123;
+        return l-&gt;cnt&gt;alpha*cnt||r-&gt;cnt&gt;alpha*cnt;
+    &#125;
+
+    void update()&#123;
+        size=!del+l-&gt;size+r-&gt;size;
+        cnt=l-&gt;cnt+r-&gt;cnt+1;
+    &#125;
+&#125;;
+</code></pre>
+<p>在上面的片段中，出现了<strong>存在的节点数</strong>和<strong>全部的节点数</strong>这样的变量，这也是一个需要强调的点，至于为什么这么写，这需要涉及到替罪羊树的一种基本操作。</p>
+<p>至于使用了 $new$ 来动态申请内存很慢这件事，我们可以使用手写内存池的方式，这样既快而且还可以节约空间</p>
+<pre><code class="lang-cpp">node mempol[maxn];           //内存池 
+node *tail;                  //tail为指向内存池元素的指针 
+node *bc[maxn];              //内存回收池（栈） 
+int bc_top;                  //内存回收池（栈）顶指针 
+
+node* newnode(int val) &#123;                     //返回一个新节点
+     node* p=bc_top?bc[--bc_top]:tail++;      //分配内存
+     p-&gt;l=p-&gt;r=null;
+     p-&gt;cnt=p-&gt;size=1;
+     p-&gt;val=val;
+     p-&gt;del=0;
+     return p;
+ &#125;
+</code></pre>
+<p>不过最终我还是没有使用，如果有需要的话可以自行添加。</p>
+<h3 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h3><p>我们在替罪羊树中的删除操作并不是把它真的从替罪羊树中删除，而是给要删除的节点打上一个标记，代表我们要把他删除了。</p>
+<p>在统计的时候我们要分开统计。</p>
+<p>真正的节点数（用于查排名之类的操作）</p>
+<p>全部的节点数（用来判断是否需要重构）</p>
+<p>其实网上还有很多写法，比如当一个子树中坏点太多了严重影响树的平衡，就也需要重构之类的事情。</p>
+<p>这么写其实在一定程度上可以减少这种情况的发生。</p>
+<p>值得一提的是，我这里写的删除操作并不是把某个值为 $x$ 的节点删去，而是把排名为 $x$ ，的节点删去，所以在 $remove$ 之前，我们首先要进行一次查排名的操作。</p>
+<pre><code class="lang-cpp">void remove(node *o,int k)&#123;
+    if(!o-&gt;del&amp;&amp;k==o-&gt;l-&gt;size+1)&#123;
+        o-&gt;del=1;
+        o-&gt;size--;
+        return;
+    &#125;
+
+    o-&gt;size--;
+    if(k&lt;=o-&gt;l-&gt;size+!o-&gt;del)remove(o-&gt;l,k);
+
+    else remove(o-&gt;r,k-o-&gt;l-&gt;size-!o-&gt;del);
+&#125;
+
+int main()&#123;
+    null=new node;
+    root=null;
+
+    n=read();
+    while(n--)&#123;
+        op=read();x=read();
+        if(op==2)remove(root,Rank(root,x));
+    &#125;
+&#125;
+</code></pre>
+<h3 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h3><p>对于插入操作，一般来讲是没什么可说的</p>
+<pre><code class="lang-cpp">void Insert(node* &amp;o,int x)&#123;
+    if(o==null)&#123;
+        o=new node;
+        o-&gt;l=o-&gt;r=null;
+        o-&gt;del=false;
+        o-&gt;size=o-&gt;cnt=1;
+        o-&gt;val=x;
+        return;
+    &#125;
+
+    else&#123;
+        o-&gt;size++;
+        o-&gt;cnt++;
+        if(x&gt;=o-&gt;val)insert(o-&gt;r,x);
+        else insert(o-&gt;l,x);
+
+        if(o-&gt;isbad())rebuild(o);
+    &#125;
+&#125;
+</code></pre>
+<p>但其实这样是稍微有点问题的（虽然这并不影响你通过模板题）</p>
+<p>我们可以发现这个片段：</p>
+<pre><code class="lang-cpp">    else&#123;
+        o-&gt;size++;
+        o-&gt;cnt++;
+        if(x&gt;=o-&gt;val)insert(o-&gt;r,x);
+        else insert(o-&gt;l,x);
+
+        if(o-&gt;isbad())rebuild(o);
+    &#125;
+</code></pre>
+<p>意思是如果发现了坏点我们就是直接重构。</p>
+<p>其实会带来一些问题</p>
+<p>如果在一颗子树内有很多坏点，而我们恰好最早发现的却是深度最大的一棵，于是我们很鸡儿蠢的从最底下开始一点一点一点的往上爬，一次一次一次的重构，导致其实这一个子树这么大一棵我们要重构到昏天黑地，直接导致有可能 $T$ 飞。（然而模板题并不会）</p>
+<p>于是我们可以考虑用一个指针记录一下深度最小的坏点，然后重构的时候直接把一整棵树全都重构了，这样就省下了大把的时间<del>用来颓废</del></p>
+<p>这里我的实现方式是用一个指向指针地址的指针来记录。</p>
+<p><del>虽然这样看起来很鸡儿蠢</del></p>
+<pre><code class="lang-cpp">node *null,*root,**badtag;
+
+void Insert(node* &amp;o,int x)&#123;
+    if(o==null)&#123;
+        o=new node;
+        o-&gt;l=o-&gt;r=null;
+        o-&gt;del=false;
+        o-&gt;size=o-&gt;cnt=1;
+        o-&gt;val=x;
+        return;
+    &#125;
+
+    else&#123;
+        o-&gt;size++;
+        o-&gt;cnt++;
+        if(x&gt;=o-&gt;val)Insert(o-&gt;r,x);
+        else Insert(o-&gt;l,x);
+
+        if(o-&gt;isbad())badtag=&amp;o;
+        else if(badtag!=&amp;null) o-&gt;cnt-=(*badtag)-&gt;cnt-(*badtag)-&gt;size;
+    &#125;
+&#125;
+
+void insert(node* &amp;o,int x)&#123;
+    badtag=&amp;null;
+    Insert(o,x);
+    if(badtag!=&amp;null)rebuild(*badtag);
+&#125;
+
+int main()&#123;
+    null=new node;
+    root=null;
+
+    n=read();
+    while(n--)&#123;
+        op=read();x=read();
+        if(op==1)insert(root,x);
+    &#125;
+&#125;
+</code></pre>
+<h3 id="前驱与后继操作"><a href="#前驱与后继操作" class="headerlink" title="前驱与后继操作"></a>前驱与后继操作</h3><p>这里的求前驱和求后继与别的平衡树略有不同</p>
+<p>对于查找前驱，我们可以直接查找比它的排名低一位的元素；</p>
+<p>对于后继，我们可以查找比它大1的元素的排名，再查找该排名所对的元素。</p>
+<p>然后这样模板题的所有操作我们就都资瓷了！</p>
+<pre><code class="lang-cpp">int Rank(node *o,int x)&#123;
+    int ans=1;
+    while(o!=null)&#123;
+        if(o-&gt;val&gt;=x)o=o-&gt;l;
+        else&#123;
+            ans+=o-&gt;l-&gt;size+!o-&gt;del;
+            o=o-&gt;r;
+        &#125;
+    &#125;
+    return ans;
+&#125;
+
+int kth(node *o,int x)&#123;
+    while(o!=null)&#123;
+        if(!o-&gt;del&amp;&amp;o-&gt;l-&gt;size+1==x)return o-&gt;val;
+
+        if(o-&gt;l-&gt;size&gt;=x)o=o-&gt;l;
+
+        else&#123;
+            x-=o-&gt;l-&gt;size+!o-&gt;del;
+            o=o-&gt;r;
+        &#125;
+    &#125;
+&#125;
+
+int main()&#123;
+    null=new node;
+    root=null;
+
+    n=read();
+    while(n--)&#123;
+        op=read();x=read();
+
+        if(op==5)printf(&quot;%d\n&quot;,kth(root,Rank(root,x)-1));
+        if(op==6)printf(&quot;%d\n&quot;,kth(root,Rank(root,x+1)));
+    &#125;
+
+
+    return 0;
+&#125;
+</code></pre>
+<p>要说的就这么多了。</p>
+<p>放一下模板题的代码：</p>
+<h2 id="CODE："><a href="#CODE：" class="headerlink" title="CODE："></a>CODE：</h2><pre><code class="lang-cpp">//#define LawrenceSivan
+
+#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+#define re register
+const double alpha=0.7;
+#define INF 0x3f3f3f3f
+
+int n,op,x;
+
+struct node&#123;
+    node *l,*r;
+
+    int val,size,cnt;//val 值  size存在的节点数  cnt 全部的节点数 
+
+    bool del;
+
+    bool isbad()&#123;
+        return l-&gt;cnt&gt;alpha*cnt||r-&gt;cnt&gt;alpha*cnt;
+    &#125;
+
+    void update()&#123;
+        size=!del+l-&gt;size+r-&gt;size;
+        cnt=l-&gt;cnt+r-&gt;cnt+1;
+    &#125;
+&#125;;
+
+node *null,*root,**badtag;
+
+void dfs(node* o,vector&lt;node*&gt; &amp;v)&#123;
+    if(o==null)return;
+    dfs(o-&gt;l,v);
+    if(!o-&gt;del)v.push_back(o);
+    dfs(o-&gt;r,v);
+    if(o-&gt;del)delete o;
+&#125;
+
+node* build(vector&lt;node*&gt; &amp;v,int l,int r)&#123;
+    if(l&gt;=r)return null;
+
+    int mid=(l+r)&gt;&gt;1;
+    node *o=v[mid];
+    o-&gt;l=build(v,l,mid);
+    o-&gt;r=build(v,mid+1,r);
+
+    o-&gt;update();
+    return o;
+&#125;
+
+void rebuild(node* &amp;o)&#123;
+    vector&lt;node*&gt; v;
+    dfs(o,v);
+    o=build(v,0,v.size());
+&#125;
+
+void Insert(node* &amp;o,int x)&#123;
+    if(o==null)&#123;
+        o=new node;
+        o-&gt;l=o-&gt;r=null;
+        o-&gt;del=false;
+        o-&gt;size=o-&gt;cnt=1;
+        o-&gt;val=x;
+        return;
+    &#125;
+
+    else&#123;
+        o-&gt;size++;
+        o-&gt;cnt++;
+        if(x&gt;=o-&gt;val)Insert(o-&gt;r,x);
+        else Insert(o-&gt;l,x);
+
+        if(o-&gt;isbad())badtag=&amp;o;
+        else if(badtag!=&amp;null) o-&gt;cnt-=(*badtag)-&gt;cnt-(*badtag)-&gt;size;
+    &#125;
+&#125;
+
+void insert(node* &amp;o,int x)&#123;
+    badtag=&amp;null;
+    Insert(o,x);
+    if(badtag!=&amp;null)rebuild(*badtag);
+&#125;
+
+int Rank(node *o,int x)&#123;
+    int ans=1;
+    while(o!=null)&#123;
+        if(o-&gt;val&gt;=x)o=o-&gt;l;
+        else&#123;
+            ans+=o-&gt;l-&gt;size+!o-&gt;del;
+            o=o-&gt;r;
+        &#125;
+    &#125;
+    return ans;
+&#125;
+
+int kth(node *o,int x)&#123;
+    while(o!=null)&#123;
+        if(!o-&gt;del&amp;&amp;o-&gt;l-&gt;size+1==x)return o-&gt;val;
+
+        if(o-&gt;l-&gt;size&gt;=x)o=o-&gt;l;
+
+        else&#123;
+            x-=o-&gt;l-&gt;size+!o-&gt;del;
+            o=o-&gt;r;
+        &#125;
+    &#125;
+&#125;
+
+void remove(node *o,int k)&#123;
+    if(!o-&gt;del&amp;&amp;k==o-&gt;l-&gt;size+1)&#123;
+        o-&gt;del=1;
+        o-&gt;size--;
+        return;
+    &#125;
+
+    o-&gt;size--;
+    if(k&lt;=o-&gt;l-&gt;size+!o-&gt;del)remove(o-&gt;l,k);
+
+    else remove(o-&gt;r,k-o-&gt;l-&gt;size-!o-&gt;del);
+&#125;
+
+inline int read()&#123;
+    int x=0,f=1;char ch=getchar();
+    while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+    while(isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+    return x*f;
+&#125;
+
+int main()&#123;
+#ifdef LawrenceSivan
+    freopen(&quot;aa.in&quot;,&quot;r&quot;,stdin);
+    freopen(&quot;aa.out&quot;,&quot;w&quot;,stdout);
+#endif
+    null=new node;
+    root=null;
+
+    n=read();
+    while(n--)&#123;
+        op=read();x=read();
+        if(op==1)insert(root,x);
+        if(op==2)remove(root,Rank(root,x));
+        if(op==3)printf(&quot;%d\n&quot;,Rank(root,x));
+        if(op==4)printf(&quot;%d\n&quot;,kth(root,x));
+        if(op==5)printf(&quot;%d\n&quot;,kth(root,Rank(root,x)-1));
+        if(op==6)printf(&quot;%d\n&quot;,kth(root,Rank(root,x+1)));
+    &#125;
+
+
+    return 0;
+&#125;
+</code></pre>
+]]></content>
+  </entry>
+  <entry>
     <title>树上差分总结</title>
     <url>/2021/06/14/%E6%A0%91%E4%B8%8A%E5%B7%AE%E5%88%86%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<p>是时候总结一下树上差分一类题目的套路了。</p>
@@ -9364,433 +9801,6 @@ int main()&#123;
 &#125;
 </code></pre>
 ]]></content>
-  </entry>
-  <entry>
-    <title>替罪羊树学习笔记</title>
-    <url>/2021/05/31/%E6%9B%BF%E7%BD%AA%E7%BE%8A%E6%A0%91%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="替罪羊树"><a href="#替罪羊树" class="headerlink" title="替罪羊树"></a>替罪羊树</h1><p><a href="https://www.luogu.com.cn/problem/P3369">模板题地址</a></p>
-<h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>首先平衡树写法真的是太多了</p>
-<p>据不完全统计</p>
-<p>比较知名的有 红黑树 （$RB_Tree$）,替罪羊树，$Treap$，$fhq_Treap$ , $Splay$ , $AVL$ , $SBT$ , $0/1\ Trie$ 等等</p>
-<p>自然我是没有时间把这些玩意都学一遍的</p>
-<p><del>而且有些不当人的玩意确实不是人学的</del></p>
-<p>今天要说说替罪羊，也是近期学会的。</p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>替罪羊树是计算机科学中，一种基于部分重建的自平衡二叉搜索树。在替罪羊树上，插入或删除节点的平摊最坏时间复杂度是 $O(log n)$ ，搜索节点的最坏时间复杂度是 $O(log n)$。——百度百科</p>
-<p>首先我们都知道，$Treap$ , $Splay$ ，等平衡树都是需要旋转操作来维持树的平衡结构。</p>
-<p>带旋转的平衡树一般存在以下问题：</p>
-<ul>
-<li><p>可持久化几乎就是不可能（$Treap$ 可以用 $fhq_Treap$ 来搞，而且貌似还很主流）（虽然替罪羊树可持久化也极其困难，貌似就算实现了复杂度也是假的）</p>
-</li>
-<li><p>对于一个平衡树的每个节点上维护一个集合，存储子树内所有的数。此时一次旋转操作的代价可能会达到  $O(n)$ ，传统的旋转平衡树就无法发挥作用</p>
-</li>
-</ul>
-<p>于是，我们就需要一些不带旋转操作的平衡树。</p>
-<p>作为重量平衡树的一种的替罪羊树就满足这样的条件。</p>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>替罪羊是一种基于暴力重构来维持树的平衡的数据结构。</p>
-<p>我们定义一个平衡树因子 $\alpha$ ，对替罪羊树的每个节点 $t$ ，我们都需要满足：$\max(l-&gt;size,r-&gt;size )&lt;=\alpha\times t-&gt;size$其中 $l$ , $r$ 分别是 $t$ 的左右子树。这个性质称为平衡性质。</p>
-<p>一旦出现了违背这个满足性质，就把这棵子树暴力拍扁重构。</p>
-<p><img src="https://i.loli.net/2021/06/02/TQ3Kfik1vzmRnOX.png" alt="ftw2i93g.png"></p>
-<p>（图片来自百度）</p>
-<h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><h3 id="重构"><a href="#重构" class="headerlink" title="重构"></a>重构</h3><p>拍扁具体是什么意思呢？</p>
-<p>我们只需要对需要进行重构的子树执行一次中序遍历，然后把它存到一个数组里（为了方便下面我们使用了$std::vector$）</p>
-<p>然后我们再每次取中点，向左右两边递归建树就好了。</p>
-<p>代码实现很简单：</p>
-<pre><code class="lang-cpp">void dfs(node* o,vector&lt;node*&gt; &amp;v)&#123;
-    if(o==null)return;
-    dfs(o-&gt;l,v);
-    if(!o-&gt;del)v.push_back(o);
-    dfs(o-&gt;r,v);
-    if(o-&gt;del)delete o;
-&#125;
-
-node* build(vector&lt;node*&gt; &amp;v,int l,int r)&#123;
-    if(l&gt;=r)return null;
-
-    int mid=(l+r)&gt;&gt;1;
-    node *o=v[mid];
-    o-&gt;l=build(v,l,mid);
-    o-&gt;r=build(v,mid+1,r);
-
-    o-&gt;update();
-    return o;
-&#125;
-
-void rebuild(node* &amp;o)&#123;
-    vector&lt;node*&gt; v;
-    dfs(o,v);
-    o=build(v,0,v.size());
-&#125;
-</code></pre>
-<h3 id="关于复杂度"><a href="#关于复杂度" class="headerlink" title="关于复杂度"></a>关于复杂度</h3><p>这样重构一次的时间复杂度为 $O(n)$（n为子树大小），但是实际上替罪羊树的单次插入时间复杂度并不会达到 $O(nlogn)$，因为一个 $size=t$ 的子树需要插入 $Ω(t)$ 个点才会被重构，所以可以通过势能分析来证明替罪羊树的单次操作的均摊时间复杂度为 $O(logn)$，具体证明这里不详细展开。</p>
-<p>关于势能分析可以参考<a href="https://www.zhihu.com/question/51891585/answer/234930161">这篇文章</a>.</p>
-<h3 id="关于-alpha-的取值"><a href="#关于-alpha-的取值" class="headerlink" title="关于 $\alpha$ 的取值"></a>关于 $\alpha$ 的取值</h3><p>一般来说，$\alpha$ 的取值一般在 $0.5 - 1$ 之间。</p>
-<p>根据定义我们可以发现，当 $\alpha$ 太小可能会导致重构次数太多，当 $\alpha$ 太大可能会导致重构次数太少，导致树高度不平衡，在查找操作的时候会导致浪费大量的时间。</p>
-<p>一般取 $7$ 或者 $7.5$ 就足够了。</p>
-<h3 id="关于写法"><a href="#关于写法" class="headerlink" title="关于写法"></a>关于写法</h3><p>没错，我个 $SB$ 又写了指针。</p>
-<p>刚开始学的时候是跟着洛谷板子题第一页写的，但是那个题解有一些缺点，这个问题我们在下面会进行说明。</p>
-<p>其实指针也蛮好写的。</p>
-<p>结构体的定义如下：</p>
-<pre><code class="lang-cpp">struct node&#123;
-    node *l,*r;
-
-    int val,size,cnt;//val 值  size存在的节点数  cnt 全部的节点数 
-
-    bool del;
-
-    bool isbad()&#123;
-        return l-&gt;cnt&gt;alpha*cnt||r-&gt;cnt&gt;alpha*cnt;
-    &#125;
-
-    void update()&#123;
-        size=!del+l-&gt;size+r-&gt;size;
-        cnt=l-&gt;cnt+r-&gt;cnt+1;
-    &#125;
-&#125;;
-</code></pre>
-<p>在上面的片段中，出现了<strong>存在的节点数</strong>和<strong>全部的节点数</strong>这样的变量，这也是一个需要强调的点，至于为什么这么写，这需要涉及到替罪羊树的一种基本操作。</p>
-<p>至于使用了 $new$ 来动态申请内存很慢这件事，我们可以使用手写内存池的方式，这样既快而且还可以节约空间</p>
-<pre><code class="lang-cpp">node mempol[maxn];           //内存池 
-node *tail;                  //tail为指向内存池元素的指针 
-node *bc[maxn];              //内存回收池（栈） 
-int bc_top;                  //内存回收池（栈）顶指针 
-
-node* newnode(int val) &#123;                     //返回一个新节点
-     node* p=bc_top?bc[--bc_top]:tail++;      //分配内存
-     p-&gt;l=p-&gt;r=null;
-     p-&gt;cnt=p-&gt;size=1;
-     p-&gt;val=val;
-     p-&gt;del=0;
-     return p;
- &#125;
-</code></pre>
-<p>不过最终我还是没有使用，如果有需要的话可以自行添加。</p>
-<h3 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h3><p>我们在替罪羊树中的删除操作并不是把它真的从替罪羊树中删除，而是给要删除的节点打上一个标记，代表我们要把他删除了。</p>
-<p>在统计的时候我们要分开统计。</p>
-<p>真正的节点数（用于查排名之类的操作）</p>
-<p>全部的节点数（用来判断是否需要重构）</p>
-<p>其实网上还有很多写法，比如当一个子树中坏点太多了严重影响树的平衡，就也需要重构之类的事情。</p>
-<p>这么写其实在一定程度上可以减少这种情况的发生。</p>
-<p>值得一提的是，我这里写的删除操作并不是把某个值为 $x$ 的节点删去，而是把排名为 $x$ ，的节点删去，所以在 $remove$ 之前，我们首先要进行一次查排名的操作。</p>
-<pre><code class="lang-cpp">void remove(node *o,int k)&#123;
-    if(!o-&gt;del&amp;&amp;k==o-&gt;l-&gt;size+1)&#123;
-        o-&gt;del=1;
-        o-&gt;size--;
-        return;
-    &#125;
-
-    o-&gt;size--;
-    if(k&lt;=o-&gt;l-&gt;size+!o-&gt;del)remove(o-&gt;l,k);
-
-    else remove(o-&gt;r,k-o-&gt;l-&gt;size-!o-&gt;del);
-&#125;
-
-int main()&#123;
-    null=new node;
-    root=null;
-
-    n=read();
-    while(n--)&#123;
-        op=read();x=read();
-        if(op==2)remove(root,Rank(root,x));
-    &#125;
-&#125;
-</code></pre>
-<h3 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h3><p>对于插入操作，一般来讲是没什么可说的</p>
-<pre><code class="lang-cpp">void Insert(node* &amp;o,int x)&#123;
-    if(o==null)&#123;
-        o=new node;
-        o-&gt;l=o-&gt;r=null;
-        o-&gt;del=false;
-        o-&gt;size=o-&gt;cnt=1;
-        o-&gt;val=x;
-        return;
-    &#125;
-
-    else&#123;
-        o-&gt;size++;
-        o-&gt;cnt++;
-        if(x&gt;=o-&gt;val)insert(o-&gt;r,x);
-        else insert(o-&gt;l,x);
-
-        if(o-&gt;isbad())rebuild(o);
-    &#125;
-&#125;
-</code></pre>
-<p>但其实这样是稍微有点问题的（虽然这并不影响你通过模板题）</p>
-<p>我们可以发现这个片段：</p>
-<pre><code class="lang-cpp">    else&#123;
-        o-&gt;size++;
-        o-&gt;cnt++;
-        if(x&gt;=o-&gt;val)insert(o-&gt;r,x);
-        else insert(o-&gt;l,x);
-
-        if(o-&gt;isbad())rebuild(o);
-    &#125;
-</code></pre>
-<p>意思是如果发现了坏点我们就是直接重构。</p>
-<p>其实会带来一些问题</p>
-<p>如果在一颗子树内有很多坏点，而我们恰好最早发现的却是深度最大的一棵，于是我们很鸡儿蠢的从最底下开始一点一点一点的往上爬，一次一次一次的重构，导致其实这一个子树这么大一棵我们要重构到昏天黑地，直接导致有可能 $T$ 飞。（然而模板题并不会）</p>
-<p>于是我们可以考虑用一个指针记录一下深度最小的坏点，然后重构的时候直接把一整棵树全都重构了，这样就省下了大把的时间<del>用来颓废</del></p>
-<p>这里我的实现方式是用一个指向指针地址的指针来记录。</p>
-<p><del>虽然这样看起来很鸡儿蠢</del></p>
-<pre><code class="lang-cpp">node *null,*root,**badtag;
-
-void Insert(node* &amp;o,int x)&#123;
-    if(o==null)&#123;
-        o=new node;
-        o-&gt;l=o-&gt;r=null;
-        o-&gt;del=false;
-        o-&gt;size=o-&gt;cnt=1;
-        o-&gt;val=x;
-        return;
-    &#125;
-
-    else&#123;
-        o-&gt;size++;
-        o-&gt;cnt++;
-        if(x&gt;=o-&gt;val)Insert(o-&gt;r,x);
-        else Insert(o-&gt;l,x);
-
-        if(o-&gt;isbad())badtag=&amp;o;
-        else if(badtag!=&amp;null) o-&gt;cnt-=(*badtag)-&gt;cnt-(*badtag)-&gt;size;
-    &#125;
-&#125;
-
-void insert(node* &amp;o,int x)&#123;
-    badtag=&amp;null;
-    Insert(o,x);
-    if(badtag!=&amp;null)rebuild(*badtag);
-&#125;
-
-int main()&#123;
-    null=new node;
-    root=null;
-
-    n=read();
-    while(n--)&#123;
-        op=read();x=read();
-        if(op==1)insert(root,x);
-    &#125;
-&#125;
-</code></pre>
-<h3 id="前驱与后继操作"><a href="#前驱与后继操作" class="headerlink" title="前驱与后继操作"></a>前驱与后继操作</h3><p>这里的求前驱和求后继与别的平衡树略有不同</p>
-<p>对于查找前驱，我们可以直接查找比它的排名低一位的元素；</p>
-<p>对于后继，我们可以查找比它大1的元素的排名，再查找该排名所对的元素。</p>
-<p>然后这样模板题的所有操作我们就都资瓷了！</p>
-<pre><code class="lang-cpp">int Rank(node *o,int x)&#123;
-    int ans=1;
-    while(o!=null)&#123;
-        if(o-&gt;val&gt;=x)o=o-&gt;l;
-        else&#123;
-            ans+=o-&gt;l-&gt;size+!o-&gt;del;
-            o=o-&gt;r;
-        &#125;
-    &#125;
-    return ans;
-&#125;
-
-int kth(node *o,int x)&#123;
-    while(o!=null)&#123;
-        if(!o-&gt;del&amp;&amp;o-&gt;l-&gt;size+1==x)return o-&gt;val;
-
-        if(o-&gt;l-&gt;size&gt;=x)o=o-&gt;l;
-
-        else&#123;
-            x-=o-&gt;l-&gt;size+!o-&gt;del;
-            o=o-&gt;r;
-        &#125;
-    &#125;
-&#125;
-
-int main()&#123;
-    null=new node;
-    root=null;
-
-    n=read();
-    while(n--)&#123;
-        op=read();x=read();
-
-        if(op==5)printf(&quot;%d\n&quot;,kth(root,Rank(root,x)-1));
-        if(op==6)printf(&quot;%d\n&quot;,kth(root,Rank(root,x+1)));
-    &#125;
-
-
-    return 0;
-&#125;
-</code></pre>
-<p>要说的就这么多了。</p>
-<p>放一下模板题的代码：</p>
-<h2 id="CODE："><a href="#CODE：" class="headerlink" title="CODE："></a>CODE：</h2><pre><code class="lang-cpp">//#define LawrenceSivan
-
-#include&lt;bits/stdc++.h&gt;
-using namespace std;
-
-typedef long long ll;
-#define re register
-const double alpha=0.7;
-#define INF 0x3f3f3f3f
-
-int n,op,x;
-
-struct node&#123;
-    node *l,*r;
-
-    int val,size,cnt;//val 值  size存在的节点数  cnt 全部的节点数 
-
-    bool del;
-
-    bool isbad()&#123;
-        return l-&gt;cnt&gt;alpha*cnt||r-&gt;cnt&gt;alpha*cnt;
-    &#125;
-
-    void update()&#123;
-        size=!del+l-&gt;size+r-&gt;size;
-        cnt=l-&gt;cnt+r-&gt;cnt+1;
-    &#125;
-&#125;;
-
-node *null,*root,**badtag;
-
-void dfs(node* o,vector&lt;node*&gt; &amp;v)&#123;
-    if(o==null)return;
-    dfs(o-&gt;l,v);
-    if(!o-&gt;del)v.push_back(o);
-    dfs(o-&gt;r,v);
-    if(o-&gt;del)delete o;
-&#125;
-
-node* build(vector&lt;node*&gt; &amp;v,int l,int r)&#123;
-    if(l&gt;=r)return null;
-
-    int mid=(l+r)&gt;&gt;1;
-    node *o=v[mid];
-    o-&gt;l=build(v,l,mid);
-    o-&gt;r=build(v,mid+1,r);
-
-    o-&gt;update();
-    return o;
-&#125;
-
-void rebuild(node* &amp;o)&#123;
-    vector&lt;node*&gt; v;
-    dfs(o,v);
-    o=build(v,0,v.size());
-&#125;
-
-void Insert(node* &amp;o,int x)&#123;
-    if(o==null)&#123;
-        o=new node;
-        o-&gt;l=o-&gt;r=null;
-        o-&gt;del=false;
-        o-&gt;size=o-&gt;cnt=1;
-        o-&gt;val=x;
-        return;
-    &#125;
-
-    else&#123;
-        o-&gt;size++;
-        o-&gt;cnt++;
-        if(x&gt;=o-&gt;val)Insert(o-&gt;r,x);
-        else Insert(o-&gt;l,x);
-
-        if(o-&gt;isbad())badtag=&amp;o;
-        else if(badtag!=&amp;null) o-&gt;cnt-=(*badtag)-&gt;cnt-(*badtag)-&gt;size;
-    &#125;
-&#125;
-
-void insert(node* &amp;o,int x)&#123;
-    badtag=&amp;null;
-    Insert(o,x);
-    if(badtag!=&amp;null)rebuild(*badtag);
-&#125;
-
-int Rank(node *o,int x)&#123;
-    int ans=1;
-    while(o!=null)&#123;
-        if(o-&gt;val&gt;=x)o=o-&gt;l;
-        else&#123;
-            ans+=o-&gt;l-&gt;size+!o-&gt;del;
-            o=o-&gt;r;
-        &#125;
-    &#125;
-    return ans;
-&#125;
-
-int kth(node *o,int x)&#123;
-    while(o!=null)&#123;
-        if(!o-&gt;del&amp;&amp;o-&gt;l-&gt;size+1==x)return o-&gt;val;
-
-        if(o-&gt;l-&gt;size&gt;=x)o=o-&gt;l;
-
-        else&#123;
-            x-=o-&gt;l-&gt;size+!o-&gt;del;
-            o=o-&gt;r;
-        &#125;
-    &#125;
-&#125;
-
-void remove(node *o,int k)&#123;
-    if(!o-&gt;del&amp;&amp;k==o-&gt;l-&gt;size+1)&#123;
-        o-&gt;del=1;
-        o-&gt;size--;
-        return;
-    &#125;
-
-    o-&gt;size--;
-    if(k&lt;=o-&gt;l-&gt;size+!o-&gt;del)remove(o-&gt;l,k);
-
-    else remove(o-&gt;r,k-o-&gt;l-&gt;size-!o-&gt;del);
-&#125;
-
-inline int read()&#123;
-    int x=0,f=1;char ch=getchar();
-    while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
-    while(isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
-    return x*f;
-&#125;
-
-int main()&#123;
-#ifdef LawrenceSivan
-    freopen(&quot;aa.in&quot;,&quot;r&quot;,stdin);
-    freopen(&quot;aa.out&quot;,&quot;w&quot;,stdout);
-#endif
-    null=new node;
-    root=null;
-
-    n=read();
-    while(n--)&#123;
-        op=read();x=read();
-        if(op==1)insert(root,x);
-        if(op==2)remove(root,Rank(root,x));
-        if(op==3)printf(&quot;%d\n&quot;,Rank(root,x));
-        if(op==4)printf(&quot;%d\n&quot;,kth(root,x));
-        if(op==5)printf(&quot;%d\n&quot;,kth(root,Rank(root,x)-1));
-        if(op==6)printf(&quot;%d\n&quot;,kth(root,Rank(root,x+1)));
-    &#125;
-
-
-    return 0;
-&#125;
-</code></pre>
-]]></content>
-  </entry>
-  <entry>
-    <title>转载</title>
-    <url>/2018/05/28/%E8%BD%AC%E8%BD%BD/</url>
-    <content><![CDATA[<p>这个页面用来存放转载</p>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>随想</title>
-    <url>/2018/05/28/%E9%9A%8F%E6%83%B3/</url>
-    <content><![CDATA[<p>这个页面用来存放随想</p>
-]]></content>
-      <categories>
-        <category>随想</category>
-      </categories>
   </entry>
   <entry>
     <title>莫队全家桶</title>
@@ -11716,31 +11726,21 @@ int main() &#123;
 ]]></content>
   </entry>
   <entry>
-    <title>2021年10月月记</title>
-    <url>/2021/10/01/2021%E5%B9%B410%E6%9C%88%E6%9C%88%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="2021-年-10-月月记"><a href="#2021-年-10-月月记" class="headerlink" title="$2021$ 年 $10$ 月月记"></a>$2021$ 年 $10$ 月月记</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>谔谔</p>
-<h2 id="10-月-1-日"><a href="#10-月-1-日" class="headerlink" title="$10$ 月 $1$ 日"></a>$10$ 月 $1$ 日</h2><p>新的一个月。</p>
-<p>起晚了，被教练 D 了。</p>
-<h2 id="10-月-2-日"><a href="#10-月-2-日" class="headerlink" title="$10$ 月 $2$ 日"></a>$10$ 月 $2$ 日</h2><p>nekko 讲课。</p>
-<p>自闭场。</p>
-<p>下午考试。</p>
-<p>自闭场。</p>
-<p>晚上熬夜补题。</p>
-<p>还挺顺心的，一会就写完了。</p>
-<h2 id="10-月-3-日"><a href="#10-月-3-日" class="headerlink" title="$10$ 月 $3$ 日"></a>$10$ 月 $3$ 日</h2><p>补题。</p>
-<h2 id="10-月-4-日"><a href="#10-月-4-日" class="headerlink" title="$10$ 月 $4$ 日"></a>$10$ 月 $4$ 日</h2><p>出出出带带带问题。</p>
+    <title>随想</title>
+    <url>/2018/05/28/%E9%9A%8F%E6%83%B3/</url>
+    <content><![CDATA[<p>这个页面用来存放随想</p>
 ]]></content>
       <categories>
-        <category>生活</category>
+        <category>随想</category>
       </categories>
   </entry>
   <entry>
-    <title>代码</title>
-    <url>/2018/05/28/%E4%BB%A3%E7%A0%81/</url>
-    <content><![CDATA[<p>这个页面用来存放代码</p>
+    <title>转载</title>
+    <url>/2018/05/28/%E8%BD%AC%E8%BD%BD/</url>
+    <content><![CDATA[<p>这个页面用来存放转载</p>
 ]]></content>
       <categories>
-        <category>代码</category>
+        <category>转载</category>
       </categories>
   </entry>
 </search>
