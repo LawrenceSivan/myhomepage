@@ -1644,18 +1644,6 @@
       </categories>
   </entry>
   <entry>
-    <title>2021年9月月记</title>
-    <url>/2021/09/01/2021%E5%B9%B49%E6%9C%88%E6%9C%88%E8%AE%B0/</url>
-    <content><![CDATA[<h1 id="2021-年-9-月月记"><a href="#2021-年-9-月月记" class="headerlink" title="$2021$ 年 $9$ 月月记"></a>$2021$ 年 $9$ 月月记</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>说明，由于本人真的是咕咕咕太长时间了，所以导致月记极有可能补不上来。</p>
-<p>于是择重要之事书之。</p>
-<h2 id="9-​-月-26-​-日"><a href="#9-​-月-26-​-日" class="headerlink" title="$9$​ 月 $26$​ 日"></a>$9$​ 月 $26$​ 日</h2><p>傻逼日。</p>
-<p>可以说是一整个月以来运气最差的一天。</p>
-]]></content>
-      <categories>
-        <category>生活</category>
-      </categories>
-  </entry>
-  <entry>
     <title>CF545E Paths and Trees（最短路径树）</title>
     <url>/2021/06/07/CF545E%20Paths%20and%20Trees%EF%BC%88%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E6%A0%91%EF%BC%89/</url>
     <content><![CDATA[<h1 id="CF545E-Paths-and-Trees"><a href="#CF545E-Paths-and-Trees" class="headerlink" title="_CF545E Paths and Trees_"></a>_CF545E Paths and Trees_</h1><h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>学这个的时候看了一些博客，感觉其实这一块网上很多博客和题解其实一些细节没有说太清楚。于是今天主要想说一下关于最短路径树的一些细节与处理问题。</p>
@@ -1993,6 +1981,18 @@ int main()&#123;
 &#125;
 </code></pre>
 ]]></content>
+  </entry>
+  <entry>
+    <title>2021年9月月记</title>
+    <url>/2021/09/01/2021%E5%B9%B49%E6%9C%88%E6%9C%88%E8%AE%B0/</url>
+    <content><![CDATA[<h1 id="2021-年-9-月月记"><a href="#2021-年-9-月月记" class="headerlink" title="$2021$ 年 $9$ 月月记"></a>$2021$ 年 $9$ 月月记</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>说明，由于本人真的是咕咕咕太长时间了，所以导致月记极有可能补不上来。</p>
+<p>于是择重要之事书之。</p>
+<h2 id="9-​-月-26-​-日"><a href="#9-​-月-26-​-日" class="headerlink" title="$9$​ 月 $26$​ 日"></a>$9$​ 月 $26$​ 日</h2><p>傻逼日。</p>
+<p>可以说是一整个月以来运气最差的一天。</p>
+]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
   </entry>
   <entry>
     <title>FFT快速傅里叶变换学习笔记</title>
@@ -7441,6 +7441,15 @@ int main()&#123;
       </categories>
   </entry>
   <entry>
+    <title>图集</title>
+    <url>/2018/05/28/%E5%9B%BE%E9%9B%86/</url>
+    <content><![CDATA[<p>这个页面是图集</p>
+]]></content>
+      <tags>
+        <tag>图集</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>快速莫比乌斯&amp;沃尔什变换(FMT&amp;FWT)学习笔记</title>
     <url>/2021/08/25/%E5%BF%AB%E9%80%9F%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF&amp;%E6%B2%83%E5%B0%94%E4%BB%80%E5%8F%98%E6%8D%A2(FMT&amp;FWT)%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<h1 id="快速莫比乌斯-amp-沃尔什变换-FMT-amp-FWT-学习笔记"><a href="#快速莫比乌斯-amp-沃尔什变换-FMT-amp-FWT-学习笔记" class="headerlink" title="快速莫比乌斯&amp;沃尔什变换(FMT&amp;FWT)学习笔记"></a>快速莫比乌斯&amp;沃尔什变换(FMT&amp;FWT)学习笔记</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>就是这个混蛋玩意我学了<del>两个晚上</del>15天才搞定 /fn</p>
@@ -7734,15 +7743,6 @@ signed main()&#123;
 ]]></content>
       <tags>
         <tag>悦读</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>图集</title>
-    <url>/2018/05/28/%E5%9B%BE%E9%9B%86/</url>
-    <content><![CDATA[<p>这个页面是图集</p>
-]]></content>
-      <tags>
-        <tag>图集</tag>
       </tags>
   </entry>
   <entry>
@@ -9796,349 +9796,6 @@ int main()&#123;
 ]]></content>
   </entry>
   <entry>
-    <title>计算几何小结</title>
-    <url>/2021/04/29/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%B0%8F%E7%BB%93/</url>
-    <content><![CDATA[<h1 id="计算几何小结"><a href="#计算几何小结" class="headerlink" title="计算几何小结"></a>计算几何小结</h1><h2 id="向量线段相关"><a href="#向量线段相关" class="headerlink" title="向量线段相关"></a>向量线段相关</h2><h3 id="点积："><a href="#点积：" class="headerlink" title="点积："></a>点积：</h3><p>$a.x <em> b.x+a.y</em>b.y$</p>
-<h3 id="叉积："><a href="#叉积：" class="headerlink" title="叉积："></a>叉积：</h3><p>$a.x<em>b.y-a.y</em>b.x$</p>
-<p><img src="https://i.loli.net/2021/06/02/psAiKfeI5baqoLY.png" alt="35txwufh.png"></p>
-<h3 id="转角公式："><a href="#转角公式：" class="headerlink" title="转角公式："></a>转角公式：</h3><p>逆时针旋转角度$B$</p>
-<p>原：$(cosAr,sinAr)$</p>
-<p>现：$(cos(A+B)r,sin(A+B)r)=((cosAcosB-sinAsinB)r,(sinAcosB+cosAsinB)r)$</p>
-<p>即：$(x,y)-&gt;(xcosB-ysinB,xsinB+ycosB)$</p>
-<h3 id="极角排序："><a href="#极角排序：" class="headerlink" title="极角排序："></a>极角排序：</h3><p>两种方法：</p>
-<h4 id="方法一：-atan2"><a href="#方法一：-atan2" class="headerlink" title="方法一：$atan2()$"></a>方法一：$atan2()$</h4><p>这是一个给定三角形对边和邻边算角的函数，在$cmath$库中<br>对每个向量求$angle=atan2(a.y,a.x)$后直接排序即可</p>
-<h4 id="方法二：叉积"><a href="#方法二：叉积" class="headerlink" title="方法二：叉积"></a>方法二：叉积</h4><p>叉积的正负可以判断左右关系，所以在最大跨角不超过180度的时候可以非常好地实现，否则有可能随机一个起点绕好几圈（我比较倾向于这个）</p>
-<h3 id="两直线夹角："><a href="#两直线夹角：" class="headerlink" title="两直线夹角："></a>两直线夹角：</h3><p>若两个向量都是从原点出发，则可以很方便地用<br>$\theta=atan2(x \times y,x*y)$</p>
-<p>叉积是平行四边形，底乘高；点积是底乘投影。<br>更特殊点，该夹角是有向夹角，从$x$向量旋转到$y$，逆时针是正角、顺时针是负角。</p>
-<h3 id="两直线交点："><a href="#两直线交点：" class="headerlink" title="两直线交点："></a>两直线交点：</h3><p>面积比-&gt;线段比-&gt;定比分点</p>
-<pre><code class="lang-cpp">node crosss(node a1,node a2,node b1,node b2)&#123;
-    node a=a2-a1,b=b2-b1,c=b1-a1;
-    if(fabs(b*a)&lt;1e-12) return (node)&#123;-1e9,-1e9&#125;;//平行
-    double t=(b*c)/(b*a);
-    return a1+(a^t);
-&#125;
-</code></pre>
-<p><img src="https://i.loli.net/2021/06/02/Zpez9UratE12uVH.png" alt="3o8fi5tk.png"></p>
-<h3 id="判断两直线是否相交："><a href="#判断两直线是否相交：" class="headerlink" title="判断两直线是否相交："></a>判断两直线是否相交：</h3><p>$a1,a2,b1,b2$为两条直线的两个端点<br>如果满足$(b1-a1)×(b1-a2)$和$(b2-a1)×(b2-a2)$不同号，并且$(a1-b1)×(a1-b2)$和$(a2-b1)×(a2-b2)$不同号，则两线段相交，叫跨立实验。</p>
-<h2 id="多边形相关："><a href="#多边形相关：" class="headerlink" title="多边形相关："></a>多边形相关：</h2><h3 id="凸包："><a href="#凸包：" class="headerlink" title="凸包："></a>凸包：</h3><p>找到最下的点设为原点，将剩下的点用叉积极角排序<br>用单调栈维护凸包，当叉积为非负时需要弹栈</p>
-<pre><code class="lang-cpp">struct node&#123;
-    double x,y;
-    inline bool operator &lt; (node a)const&#123;return x&lt;a.x||(x==a.x&amp;&amp;y&lt;a.y);&#125;
-&#125;p[maxn],st[maxn];
-
-inline double v_pro(node a,node b,node c)&#123;
-    return (b.x-a.x)*(c.y-a.y)-(c.x-a.x)*(b.y-a.y);
-&#125;
-
-int main()&#123;
-    sort(p+1,p+1+n);
-
-    st[0]=p[1];
-    for(re int i=1;i&lt;=n;i++)&#123;
-        while(top&amp;&amp;v_pro(st[top],st[top-1],p[i])&gt;=0)--top;
-        st[++top]=p[i];
-    &#125;
-
-       st[top=0]=p[n];
-    for(re int i=n-1;i;i--)&#123;
-        while(top&amp;&amp;v_pro(st[top],st[top-1],p[i])&gt;=0)--top;
-        st[++top]=p[i];    
-    &#125; 
-&#125;
-</code></pre>
-<h3 id="判断点是否在多边形内："><a href="#判断点是否在多边形内：" class="headerlink" title="判断点是否在多边形内："></a>判断点是否在多边形内：</h3><p>从该点向右引射线，与多边形交奇数次即在其内。<br>顺时针$+1$，逆时针$-1$，注意与顶点重合的情况</p>
-<p>$CF375C\ \ \ \ \  Circling Round Treasures$</p>
-<h3 id="判断点是否在凸包内："><a href="#判断点是否在凸包内：" class="headerlink" title="判断点是否在凸包内："></a>判断点是否在凸包内：</h3><p>先判定和边界的关系<br>然后找到与其极角相邻的两点，凭此判断<br>须保证$A[1]=(0,0)$</p>
-<pre><code class="lang-cpp">ll inside(node a)&#123;
-    if(a*A[1]&gt;0||A[tot]*a&gt;0) return 0;
-    ll pos=lower_bound(A+1,A+tot+1,a,cmp2)-A-1;
-    return (a-A[pos])*(A[pos%tot+1]-A[pos])&lt;=0;
-&#125;
-</code></pre>
-<h3 id="求多边形面积："><a href="#求多边形面积：" class="headerlink" title="求多边形面积："></a>求多边形面积：</h3><p>逆时针极角排序后直接用叉积求</p>
-<pre><code class="lang-cpp">double CalcS()&#123;
-    double res=0;
-    for(int i=2;i&lt;node;i++) res+=(A[i]-A[1])*(A[i+1]-A[1]);
-    return res/2;
-&#125;
-</code></pre>
-<h3 id="三角形重心："><a href="#三角形重心：" class="headerlink" title="三角形重心："></a>三角形重心：</h3><p>三点各坐标的平均值$(\frac{x_1+x_2+x_3}{3},\frac{y_1+y_2+y_3}{3})$</p>
-<h2 id="算法："><a href="#算法：" class="headerlink" title="算法："></a>算法：</h2><h3 id="旋转卡壳："><a href="#旋转卡壳：" class="headerlink" title="旋转卡壳："></a>旋转卡壳：</h3><p>利用凸包上一些奇妙的单调性，求解</p>
-<p>多边形直径</p>
-<p>多边形宽度</p>
-<p>最小面积矩形覆盖</p>
-<p>等等</p>
-<pre><code class="lang-cpp">#include&lt;bits/stdc++.h&gt;
-using namespace std;
-
-typedef long long ll;
-#define re register
-const int maxn=5e4+5;
-#define INF 0x3f3f3f3f3f3f3f3f
-
-struct node&#123;
-    int x,y;
-
-&#125;p[maxn],p0,s[maxn];
-
-int n,top;
-
-ll ans=INF;
-
-inline bool cmp(node a,node b)&#123;
-    double A=atan2(a.y-p0.y,a.x-p0.x);
-    double B=atan2(b.y-p0.y,b.x-p0.x);
-    if(A!=B)return A&lt;B;
-    return a.x&lt;b.x;
-&#125;
-
-inline ll V_pro(int x1,int y1,int x2,int y2)&#123;//Vector product
-    return (1ll*x1*y2-1ll*x2*y1);
-&#125;
-
-inline ll compare(node a,node b,node c)&#123;
-    return V_pro((b.x-a.x),(b.y-a.y),(c.x-a.x),(c.y-a.y));
-&#125;
-
-inline void find()&#123;
-    p0=(node)&#123;INF,INF&#125;;
-    int k=0;
-    for(re int i=0;i&lt;n;i++)&#123;
-        if(p0.y&gt;p[i].y||(p0.y==p[i].y&amp;&amp;p0.x&gt;p[i].x))&#123;
-            p0=p[i];
-            k=i;
-        &#125;
-    &#125;
-    swap(p[k],p[0]);
-    sort(p+1,p+n,cmp);
-    s[0]=p[0],s[1]=p[1];
-    top=1;
-    for(re int i=2;i&lt;n;i++)&#123;
-        while(top&amp;&amp;compare(s[top-1],p[i],s[top])&gt;=0)top--;
-        s[++top]=p[i];
-    &#125;
-&#125;
-
-inline ll dis(node a,node b)&#123;
-    return 1ll*(a.x-b.x)*(a.x-b.x)+1ll*(a.y-b.y)*(a.y-b.y);
-&#125;
-
-ll getmax()&#123;
-    ll tmp=0;
-    if(top==1)&#123;
-        return dis(s[0],s[1]);
-    &#125;
-    s[++top]=s[0];
-    int j=2;
-    for(re int i=0;i&lt;top;i++)&#123;
-        while(compare(s[i],s[i+1],s[j])&lt;compare(s[i],s[i+1],s[j+1]))&#123;
-            j=(j+1)%top;
-        &#125;
-        tmp=max(tmp,max(dis(s[i],s[j]),dis(s[i+1],s[j])));
-    &#125;
-    return tmp;
-&#125;
-
-inline int read()&#123;
-    int x=0,f=1;char ch=getchar();
-    while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
-    while(isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
-    return x*f;
-&#125;
-
-int main()&#123;
-#ifdef LawrenceSivan
-    freopen(&quot;aa.in&quot;,&quot;r&quot;,stdin);
-    freopen(&quot;aa.out&quot;,&quot;w&quot;,stdout);
-#endif
-
-    n=read();
-    for(re int i=0;i&lt;n;i++)&#123;
-        p[i].x=read();p[i].y=read();
-    &#125;
-
-    find();
-    ans=getmax();
-
-    printf(&quot;%lld\n&quot;,ans);
-
-    return 0;
-&#125;
-</code></pre>
-<h3 id="闵可夫斯基和"><a href="#闵可夫斯基和" class="headerlink" title="闵可夫斯基和:"></a>闵可夫斯基和:</h3><h4 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h4><p>闵可夫斯基和 $(Minkowski\ sum)$是两个欧几里得空间的点集的和，也称为这两个空间的膨胀集，以德国数学家闵可夫斯基命名。点集A与B的闵可夫斯基和被定义为：</p>
-<p>$A+B=\{ a+b|a∈A,b∈B\}$</p>
-<p>若推广至流形的连续集，闵可夫斯基和从几何上的直观体现即是A集合沿B的边际连续运动一周扫过的区域与B集合本身的并集，也可以是B沿着A的边界连续运动扫过区域与A自身的并集。</p>
-<p><img src="https://i.loli.net/2021/06/02/1A3inyQOSWXvJHC.png" alt="w1jracm7.png"></p>
-<h4 id="求法："><a href="#求法：" class="headerlink" title="求法："></a>求法：</h4><p>通过几何直观体现我们可以发现，其实闵可夫斯基和上的每一个边都是由原来的凸包平移得来的。于是我们的闵可夫斯基和其实就是要合并两个凸包。</p>
-<p>针对其中任意一个凸包，首先极角已经是有序的了，于是在合并过程中，我们只需要进行归并排序，将两个凸包进行合并就可以了。</p>
-<p>例题：<a href="https://www.luogu.com.cn/problem/P4557">P4557 [JSOI2018]战争</a></p>
-<p>题意：给出两个点集A,B，以及q次询问。对于每次询问，给出一个向量，然后点集B向向量平移，若平移后的点集A与点集B构成的两个多边形存在交点则输出1，否则输出0。</p>
-<p>通过读题我们可以知道，如果平移其中一个凸包后与另一个凸包有交点，那么一定满足：$a∈A,b∈B$,若移动向量为$c$,则存在$b+c=a$,移项得到$c=a-b$,,于是我们可以构造出一个闵可夫斯基和$C=\{ a+(-b)\}$，之后我们只需要判断移动向量是否在我们构造的$C$中就可以了。</p>
-<h5 id="判断向量是否在凸包内："><a href="#判断向量是否在凸包内：" class="headerlink" title="判断向量是否在凸包内："></a>判断向量是否在凸包内：</h5><p>判断方法：首先判断和边界的关系，之后找到与其极角相邻的两点，凭此判断即可。</p>
-<p><strong>需要注意的是，我们的原点$(0,0)$是A[1]</strong></p>
-<pre><code class="lang-cpp">ll inside(node a)&#123;
-    if(a*A[1]&gt;0||A[tot]*a&gt;0) return 0;
-    ll pos=lower_bound(A+1,A+tot+1,a,cmp2)-A-1;
-    return (a-A[pos])*(A[pos%tot+1]-A[pos])&lt;=0;
-&#125;
-</code></pre>
-<h5 id="求凸包："><a href="#求凸包：" class="headerlink" title="求凸包："></a>求凸包：</h5><pre><code class="lang-cpp">inline void convex(node *B,ll &amp;n)&#123;
-    sort(B+1,B+1+n,cmp1);
-    p=B[1];
-    st[top=1]=1;
-    for(re ll i=1;i&lt;=n;i++)&#123;
-        B[i]=B[i]-p;
-    &#125;
-    sort(B+2,B+1+n,cmp2);
-    for(re ll i=2;i&lt;=n;i++)&#123;
-        while(top&gt;1&amp;&amp;(B[i]-B[st[top-1]])*(B[st[top]]-B[st[top-1]])&gt;=0)top--;
-        st[++top]=i;
-    &#125;
-    for(re ll i=1;i&lt;=top;i++)&#123;
-        B[i]=B[st[i]]+p;
-    &#125;
-    n=top,B[n+1]=B[1];
-&#125;
-</code></pre>
-<h5 id="合并两个凸包："><a href="#合并两个凸包：" class="headerlink" title="合并两个凸包："></a>合并两个凸包：</h5><pre><code class="lang-cpp">inline void Minkowski()&#123;
-    for(re ll i=1;i&lt;n;i++)&#123;
-        s1[i]=C1[i+1]-C1[i];
-        s1[n]=C1[1]-C1[n];
-    &#125;
-    for(re ll i=1;i&lt;m;i++)&#123;
-        s2[i]=C2[i+1]-C2[i];
-        s2[m]=C2[1]-C2[m];
-    &#125;
-    A[tot=1]=C1[1]+C2[1];
-    ll cnt1=1,cnt2=1;
-    while(cnt1&lt;=n&amp;&amp;cnt2&lt;=m)++tot,A[tot]=A[tot-1]+(s1[cnt1]*s2[cnt2]&gt;=0?s1[cnt1++]:s2[cnt2++]);
-    while(cnt1&lt;=n)++tot,A[tot]=A[tot-1]+s1[cnt1++];
-    while(cnt2&lt;=m)++tot,A[tot]=A[tot-1]+s2[cnt2++];
-&#125;
-</code></pre>
-<h4 id="CODE"><a href="#CODE" class="headerlink" title="CODE:"></a>CODE:</h4><pre><code class="lang-cpp">//#define LawrenceSivan
-
-#include &lt;bits/stdc++.h&gt;
-using namespace std;
-
-typedef long long ll;
-typedef unsigned long long ull;
-#define INF 0x3f3f3f3f
-#define re register
-const int maxn=1e5+5;
-const int maxm=1;
-
-ll n,m,q;
-ll st[maxn],top=1,tot;
-
-
-struct node&#123;
-    ll x,y;
-    node operator - (node A) &#123;return (node)&#123;x-A.x,y-A.y&#125;;&#125;
-    node operator + (node A) &#123;return (node)&#123;x+A.x,y+A.y&#125;;&#125;
-    ll operator * (node A) const &#123;return x*A.y-y*A.x;&#125;//vector_product
-    ll len() const &#123;return x*x+y*y;&#125;
-&#125;s1[maxn],s2[maxn],A[maxn],C1[maxn],C2[maxn],p;
-
-inline bool cmp1(node A,node B)&#123;
-    return A.y&lt;B.y||(A.y==B.y&amp;&amp;A.x&lt;B.x);
-&#125;
-inline bool cmp2(node A,node B)&#123;
-    return A*B&gt;0||(A*B==0&amp;&amp;A.len()&lt;B.len());
-&#125;
-
-inline void convex(node *B,ll &amp;n)&#123;
-    sort(B+1,B+1+n,cmp1);
-    p=B[1];
-    st[top=1]=1;
-    for(re ll i=1;i&lt;=n;i++)&#123;
-        B[i]=B[i]-p;
-    &#125;
-    sort(B+2,B+1+n,cmp2);
-    for(re ll i=2;i&lt;=n;i++)&#123;
-        while(top&gt;1&amp;&amp;(B[i]-B[st[top-1]])*(B[st[top]]-B[st[top-1]])&gt;=0)top--;
-        st[++top]=i;
-    &#125;
-    for(re ll i=1;i&lt;=top;i++)&#123;
-        B[i]=B[st[i]]+p;
-    &#125;
-    n=top,B[n+1]=B[1];
-&#125;
-
-inline void Minkowski()&#123;
-    for(re ll i=1;i&lt;n;i++)&#123;
-        s1[i]=C1[i+1]-C1[i];
-        s1[n]=C1[1]-C1[n];
-    &#125;
-    for(re ll i=1;i&lt;m;i++)&#123;
-        s2[i]=C2[i+1]-C2[i];
-        s2[m]=C2[1]-C2[m];
-    &#125;
-    A[tot=1]=C1[1]+C2[1];
-    ll cnt1=1,cnt2=1;
-    while(cnt1&lt;=n&amp;&amp;cnt2&lt;=m)++tot,A[tot]=A[tot-1]+(s1[cnt1]*s2[cnt2]&gt;=0?s1[cnt1++]:s2[cnt2++]);
-    while(cnt1&lt;=n)++tot,A[tot]=A[tot-1]+s1[cnt1++];
-    while(cnt2&lt;=m)++tot,A[tot]=A[tot-1]+s2[cnt2++];
-&#125;
-
-ll inside(node a)&#123;
-    if(a*A[1]&gt;0||A[tot]*a&gt;0) return 0;
-    ll pos=lower_bound(A+1,A+tot+1,a,cmp2)-A-1;
-    return (a-A[pos])*(A[pos%tot+1]-A[pos])&lt;=0;
-&#125;
-
-inline ll read()&#123;
-    ll x=0, f=1;char ch=getchar();
-    while (!isdigit(ch)) &#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
-    while (isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
-    return x*f;
-&#125;
-
-int main() &#123;
-#ifdef LawrenceSivan
-    freopen(&quot;aa.in&quot;, &quot;r&quot;, stdin);
-    freopen(&quot;aa.out&quot;, &quot;w&quot;, stdout);
-#endif
-    n=read();m=read();q=read();
-
-    for(re ll i=1;i&lt;=n;i++)&#123;
-        C1[i].x=read();C1[i].y=read();
-    &#125;
-    convex(C1,n);
-
-    for(re ll i=1;i&lt;=m;i++)&#123;
-        C2[i].x=-read();C2[i].y=-read();
-    &#125;
-    convex(C2,m);
-
-    Minkowski();
-
-    convex(A,tot);
-
-    p=A[1];
-    for(re ll i=tot;i&gt;=1;i--)A[i]=A[i]-A[1];
-
-    while(q--)&#123;
-        A[0].x=read();A[0].y=read();
-        printf(&quot;%lld\n&quot;,inside(A[0]-p));
-
-    &#125;
-
-    return 0;
-&#125;
-</code></pre>
-]]></content>
-  </entry>
-  <entry>
-    <title>转载</title>
-    <url>/2018/05/28/%E8%BD%AC%E8%BD%BD/</url>
-    <content><![CDATA[<p>这个页面用来存放转载</p>
-]]></content>
-      <categories>
-        <category>转载</category>
-      </categories>
-  </entry>
-  <entry>
     <title>莫队全家桶</title>
     <url>/2021/04/22/%E8%8E%AB%E9%98%9F%E5%85%A8%E5%AE%B6%E6%A1%B6/</url>
     <content><![CDATA[<p><strong>今天学习了莫队</strong><br><del>实在是太有魅力了</del></p>
@@ -11726,6 +11383,349 @@ int main() &#123;
 &#125;
 </code></pre>
 ]]></content>
+  </entry>
+  <entry>
+    <title>计算几何小结</title>
+    <url>/2021/04/29/%E8%AE%A1%E7%AE%97%E5%87%A0%E4%BD%95%E5%B0%8F%E7%BB%93/</url>
+    <content><![CDATA[<h1 id="计算几何小结"><a href="#计算几何小结" class="headerlink" title="计算几何小结"></a>计算几何小结</h1><h2 id="向量线段相关"><a href="#向量线段相关" class="headerlink" title="向量线段相关"></a>向量线段相关</h2><h3 id="点积："><a href="#点积：" class="headerlink" title="点积："></a>点积：</h3><p>$a.x <em> b.x+a.y</em>b.y$</p>
+<h3 id="叉积："><a href="#叉积：" class="headerlink" title="叉积："></a>叉积：</h3><p>$a.x<em>b.y-a.y</em>b.x$</p>
+<p><img src="https://i.loli.net/2021/06/02/psAiKfeI5baqoLY.png" alt="35txwufh.png"></p>
+<h3 id="转角公式："><a href="#转角公式：" class="headerlink" title="转角公式："></a>转角公式：</h3><p>逆时针旋转角度$B$</p>
+<p>原：$(cosAr,sinAr)$</p>
+<p>现：$(cos(A+B)r,sin(A+B)r)=((cosAcosB-sinAsinB)r,(sinAcosB+cosAsinB)r)$</p>
+<p>即：$(x,y)-&gt;(xcosB-ysinB,xsinB+ycosB)$</p>
+<h3 id="极角排序："><a href="#极角排序：" class="headerlink" title="极角排序："></a>极角排序：</h3><p>两种方法：</p>
+<h4 id="方法一：-atan2"><a href="#方法一：-atan2" class="headerlink" title="方法一：$atan2()$"></a>方法一：$atan2()$</h4><p>这是一个给定三角形对边和邻边算角的函数，在$cmath$库中<br>对每个向量求$angle=atan2(a.y,a.x)$后直接排序即可</p>
+<h4 id="方法二：叉积"><a href="#方法二：叉积" class="headerlink" title="方法二：叉积"></a>方法二：叉积</h4><p>叉积的正负可以判断左右关系，所以在最大跨角不超过180度的时候可以非常好地实现，否则有可能随机一个起点绕好几圈（我比较倾向于这个）</p>
+<h3 id="两直线夹角："><a href="#两直线夹角：" class="headerlink" title="两直线夹角："></a>两直线夹角：</h3><p>若两个向量都是从原点出发，则可以很方便地用<br>$\theta=atan2(x \times y,x*y)$</p>
+<p>叉积是平行四边形，底乘高；点积是底乘投影。<br>更特殊点，该夹角是有向夹角，从$x$向量旋转到$y$，逆时针是正角、顺时针是负角。</p>
+<h3 id="两直线交点："><a href="#两直线交点：" class="headerlink" title="两直线交点："></a>两直线交点：</h3><p>面积比-&gt;线段比-&gt;定比分点</p>
+<pre><code class="lang-cpp">node crosss(node a1,node a2,node b1,node b2)&#123;
+    node a=a2-a1,b=b2-b1,c=b1-a1;
+    if(fabs(b*a)&lt;1e-12) return (node)&#123;-1e9,-1e9&#125;;//平行
+    double t=(b*c)/(b*a);
+    return a1+(a^t);
+&#125;
+</code></pre>
+<p><img src="https://i.loli.net/2021/06/02/Zpez9UratE12uVH.png" alt="3o8fi5tk.png"></p>
+<h3 id="判断两直线是否相交："><a href="#判断两直线是否相交：" class="headerlink" title="判断两直线是否相交："></a>判断两直线是否相交：</h3><p>$a1,a2,b1,b2$为两条直线的两个端点<br>如果满足$(b1-a1)×(b1-a2)$和$(b2-a1)×(b2-a2)$不同号，并且$(a1-b1)×(a1-b2)$和$(a2-b1)×(a2-b2)$不同号，则两线段相交，叫跨立实验。</p>
+<h2 id="多边形相关："><a href="#多边形相关：" class="headerlink" title="多边形相关："></a>多边形相关：</h2><h3 id="凸包："><a href="#凸包：" class="headerlink" title="凸包："></a>凸包：</h3><p>找到最下的点设为原点，将剩下的点用叉积极角排序<br>用单调栈维护凸包，当叉积为非负时需要弹栈</p>
+<pre><code class="lang-cpp">struct node&#123;
+    double x,y;
+    inline bool operator &lt; (node a)const&#123;return x&lt;a.x||(x==a.x&amp;&amp;y&lt;a.y);&#125;
+&#125;p[maxn],st[maxn];
+
+inline double v_pro(node a,node b,node c)&#123;
+    return (b.x-a.x)*(c.y-a.y)-(c.x-a.x)*(b.y-a.y);
+&#125;
+
+int main()&#123;
+    sort(p+1,p+1+n);
+
+    st[0]=p[1];
+    for(re int i=1;i&lt;=n;i++)&#123;
+        while(top&amp;&amp;v_pro(st[top],st[top-1],p[i])&gt;=0)--top;
+        st[++top]=p[i];
+    &#125;
+
+       st[top=0]=p[n];
+    for(re int i=n-1;i;i--)&#123;
+        while(top&amp;&amp;v_pro(st[top],st[top-1],p[i])&gt;=0)--top;
+        st[++top]=p[i];    
+    &#125; 
+&#125;
+</code></pre>
+<h3 id="判断点是否在多边形内："><a href="#判断点是否在多边形内：" class="headerlink" title="判断点是否在多边形内："></a>判断点是否在多边形内：</h3><p>从该点向右引射线，与多边形交奇数次即在其内。<br>顺时针$+1$，逆时针$-1$，注意与顶点重合的情况</p>
+<p>$CF375C\ \ \ \ \  Circling Round Treasures$</p>
+<h3 id="判断点是否在凸包内："><a href="#判断点是否在凸包内：" class="headerlink" title="判断点是否在凸包内："></a>判断点是否在凸包内：</h3><p>先判定和边界的关系<br>然后找到与其极角相邻的两点，凭此判断<br>须保证$A[1]=(0,0)$</p>
+<pre><code class="lang-cpp">ll inside(node a)&#123;
+    if(a*A[1]&gt;0||A[tot]*a&gt;0) return 0;
+    ll pos=lower_bound(A+1,A+tot+1,a,cmp2)-A-1;
+    return (a-A[pos])*(A[pos%tot+1]-A[pos])&lt;=0;
+&#125;
+</code></pre>
+<h3 id="求多边形面积："><a href="#求多边形面积：" class="headerlink" title="求多边形面积："></a>求多边形面积：</h3><p>逆时针极角排序后直接用叉积求</p>
+<pre><code class="lang-cpp">double CalcS()&#123;
+    double res=0;
+    for(int i=2;i&lt;node;i++) res+=(A[i]-A[1])*(A[i+1]-A[1]);
+    return res/2;
+&#125;
+</code></pre>
+<h3 id="三角形重心："><a href="#三角形重心：" class="headerlink" title="三角形重心："></a>三角形重心：</h3><p>三点各坐标的平均值$(\frac{x_1+x_2+x_3}{3},\frac{y_1+y_2+y_3}{3})$</p>
+<h2 id="算法："><a href="#算法：" class="headerlink" title="算法："></a>算法：</h2><h3 id="旋转卡壳："><a href="#旋转卡壳：" class="headerlink" title="旋转卡壳："></a>旋转卡壳：</h3><p>利用凸包上一些奇妙的单调性，求解</p>
+<p>多边形直径</p>
+<p>多边形宽度</p>
+<p>最小面积矩形覆盖</p>
+<p>等等</p>
+<pre><code class="lang-cpp">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+#define re register
+const int maxn=5e4+5;
+#define INF 0x3f3f3f3f3f3f3f3f
+
+struct node&#123;
+    int x,y;
+
+&#125;p[maxn],p0,s[maxn];
+
+int n,top;
+
+ll ans=INF;
+
+inline bool cmp(node a,node b)&#123;
+    double A=atan2(a.y-p0.y,a.x-p0.x);
+    double B=atan2(b.y-p0.y,b.x-p0.x);
+    if(A!=B)return A&lt;B;
+    return a.x&lt;b.x;
+&#125;
+
+inline ll V_pro(int x1,int y1,int x2,int y2)&#123;//Vector product
+    return (1ll*x1*y2-1ll*x2*y1);
+&#125;
+
+inline ll compare(node a,node b,node c)&#123;
+    return V_pro((b.x-a.x),(b.y-a.y),(c.x-a.x),(c.y-a.y));
+&#125;
+
+inline void find()&#123;
+    p0=(node)&#123;INF,INF&#125;;
+    int k=0;
+    for(re int i=0;i&lt;n;i++)&#123;
+        if(p0.y&gt;p[i].y||(p0.y==p[i].y&amp;&amp;p0.x&gt;p[i].x))&#123;
+            p0=p[i];
+            k=i;
+        &#125;
+    &#125;
+    swap(p[k],p[0]);
+    sort(p+1,p+n,cmp);
+    s[0]=p[0],s[1]=p[1];
+    top=1;
+    for(re int i=2;i&lt;n;i++)&#123;
+        while(top&amp;&amp;compare(s[top-1],p[i],s[top])&gt;=0)top--;
+        s[++top]=p[i];
+    &#125;
+&#125;
+
+inline ll dis(node a,node b)&#123;
+    return 1ll*(a.x-b.x)*(a.x-b.x)+1ll*(a.y-b.y)*(a.y-b.y);
+&#125;
+
+ll getmax()&#123;
+    ll tmp=0;
+    if(top==1)&#123;
+        return dis(s[0],s[1]);
+    &#125;
+    s[++top]=s[0];
+    int j=2;
+    for(re int i=0;i&lt;top;i++)&#123;
+        while(compare(s[i],s[i+1],s[j])&lt;compare(s[i],s[i+1],s[j+1]))&#123;
+            j=(j+1)%top;
+        &#125;
+        tmp=max(tmp,max(dis(s[i],s[j]),dis(s[i+1],s[j])));
+    &#125;
+    return tmp;
+&#125;
+
+inline int read()&#123;
+    int x=0,f=1;char ch=getchar();
+    while(!isdigit(ch))&#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+    while(isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+    return x*f;
+&#125;
+
+int main()&#123;
+#ifdef LawrenceSivan
+    freopen(&quot;aa.in&quot;,&quot;r&quot;,stdin);
+    freopen(&quot;aa.out&quot;,&quot;w&quot;,stdout);
+#endif
+
+    n=read();
+    for(re int i=0;i&lt;n;i++)&#123;
+        p[i].x=read();p[i].y=read();
+    &#125;
+
+    find();
+    ans=getmax();
+
+    printf(&quot;%lld\n&quot;,ans);
+
+    return 0;
+&#125;
+</code></pre>
+<h3 id="闵可夫斯基和"><a href="#闵可夫斯基和" class="headerlink" title="闵可夫斯基和:"></a>闵可夫斯基和:</h3><h4 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h4><p>闵可夫斯基和 $(Minkowski\ sum)$是两个欧几里得空间的点集的和，也称为这两个空间的膨胀集，以德国数学家闵可夫斯基命名。点集A与B的闵可夫斯基和被定义为：</p>
+<p>$A+B=\{ a+b|a∈A,b∈B\}$</p>
+<p>若推广至流形的连续集，闵可夫斯基和从几何上的直观体现即是A集合沿B的边际连续运动一周扫过的区域与B集合本身的并集，也可以是B沿着A的边界连续运动扫过区域与A自身的并集。</p>
+<p><img src="https://i.loli.net/2021/06/02/1A3inyQOSWXvJHC.png" alt="w1jracm7.png"></p>
+<h4 id="求法："><a href="#求法：" class="headerlink" title="求法："></a>求法：</h4><p>通过几何直观体现我们可以发现，其实闵可夫斯基和上的每一个边都是由原来的凸包平移得来的。于是我们的闵可夫斯基和其实就是要合并两个凸包。</p>
+<p>针对其中任意一个凸包，首先极角已经是有序的了，于是在合并过程中，我们只需要进行归并排序，将两个凸包进行合并就可以了。</p>
+<p>例题：<a href="https://www.luogu.com.cn/problem/P4557">P4557 [JSOI2018]战争</a></p>
+<p>题意：给出两个点集A,B，以及q次询问。对于每次询问，给出一个向量，然后点集B向向量平移，若平移后的点集A与点集B构成的两个多边形存在交点则输出1，否则输出0。</p>
+<p>通过读题我们可以知道，如果平移其中一个凸包后与另一个凸包有交点，那么一定满足：$a∈A,b∈B$,若移动向量为$c$,则存在$b+c=a$,移项得到$c=a-b$,,于是我们可以构造出一个闵可夫斯基和$C=\{ a+(-b)\}$，之后我们只需要判断移动向量是否在我们构造的$C$中就可以了。</p>
+<h5 id="判断向量是否在凸包内："><a href="#判断向量是否在凸包内：" class="headerlink" title="判断向量是否在凸包内："></a>判断向量是否在凸包内：</h5><p>判断方法：首先判断和边界的关系，之后找到与其极角相邻的两点，凭此判断即可。</p>
+<p><strong>需要注意的是，我们的原点$(0,0)$是A[1]</strong></p>
+<pre><code class="lang-cpp">ll inside(node a)&#123;
+    if(a*A[1]&gt;0||A[tot]*a&gt;0) return 0;
+    ll pos=lower_bound(A+1,A+tot+1,a,cmp2)-A-1;
+    return (a-A[pos])*(A[pos%tot+1]-A[pos])&lt;=0;
+&#125;
+</code></pre>
+<h5 id="求凸包："><a href="#求凸包：" class="headerlink" title="求凸包："></a>求凸包：</h5><pre><code class="lang-cpp">inline void convex(node *B,ll &amp;n)&#123;
+    sort(B+1,B+1+n,cmp1);
+    p=B[1];
+    st[top=1]=1;
+    for(re ll i=1;i&lt;=n;i++)&#123;
+        B[i]=B[i]-p;
+    &#125;
+    sort(B+2,B+1+n,cmp2);
+    for(re ll i=2;i&lt;=n;i++)&#123;
+        while(top&gt;1&amp;&amp;(B[i]-B[st[top-1]])*(B[st[top]]-B[st[top-1]])&gt;=0)top--;
+        st[++top]=i;
+    &#125;
+    for(re ll i=1;i&lt;=top;i++)&#123;
+        B[i]=B[st[i]]+p;
+    &#125;
+    n=top,B[n+1]=B[1];
+&#125;
+</code></pre>
+<h5 id="合并两个凸包："><a href="#合并两个凸包：" class="headerlink" title="合并两个凸包："></a>合并两个凸包：</h5><pre><code class="lang-cpp">inline void Minkowski()&#123;
+    for(re ll i=1;i&lt;n;i++)&#123;
+        s1[i]=C1[i+1]-C1[i];
+        s1[n]=C1[1]-C1[n];
+    &#125;
+    for(re ll i=1;i&lt;m;i++)&#123;
+        s2[i]=C2[i+1]-C2[i];
+        s2[m]=C2[1]-C2[m];
+    &#125;
+    A[tot=1]=C1[1]+C2[1];
+    ll cnt1=1,cnt2=1;
+    while(cnt1&lt;=n&amp;&amp;cnt2&lt;=m)++tot,A[tot]=A[tot-1]+(s1[cnt1]*s2[cnt2]&gt;=0?s1[cnt1++]:s2[cnt2++]);
+    while(cnt1&lt;=n)++tot,A[tot]=A[tot-1]+s1[cnt1++];
+    while(cnt2&lt;=m)++tot,A[tot]=A[tot-1]+s2[cnt2++];
+&#125;
+</code></pre>
+<h4 id="CODE"><a href="#CODE" class="headerlink" title="CODE:"></a>CODE:</h4><pre><code class="lang-cpp">//#define LawrenceSivan
+
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+typedef long long ll;
+typedef unsigned long long ull;
+#define INF 0x3f3f3f3f
+#define re register
+const int maxn=1e5+5;
+const int maxm=1;
+
+ll n,m,q;
+ll st[maxn],top=1,tot;
+
+
+struct node&#123;
+    ll x,y;
+    node operator - (node A) &#123;return (node)&#123;x-A.x,y-A.y&#125;;&#125;
+    node operator + (node A) &#123;return (node)&#123;x+A.x,y+A.y&#125;;&#125;
+    ll operator * (node A) const &#123;return x*A.y-y*A.x;&#125;//vector_product
+    ll len() const &#123;return x*x+y*y;&#125;
+&#125;s1[maxn],s2[maxn],A[maxn],C1[maxn],C2[maxn],p;
+
+inline bool cmp1(node A,node B)&#123;
+    return A.y&lt;B.y||(A.y==B.y&amp;&amp;A.x&lt;B.x);
+&#125;
+inline bool cmp2(node A,node B)&#123;
+    return A*B&gt;0||(A*B==0&amp;&amp;A.len()&lt;B.len());
+&#125;
+
+inline void convex(node *B,ll &amp;n)&#123;
+    sort(B+1,B+1+n,cmp1);
+    p=B[1];
+    st[top=1]=1;
+    for(re ll i=1;i&lt;=n;i++)&#123;
+        B[i]=B[i]-p;
+    &#125;
+    sort(B+2,B+1+n,cmp2);
+    for(re ll i=2;i&lt;=n;i++)&#123;
+        while(top&gt;1&amp;&amp;(B[i]-B[st[top-1]])*(B[st[top]]-B[st[top-1]])&gt;=0)top--;
+        st[++top]=i;
+    &#125;
+    for(re ll i=1;i&lt;=top;i++)&#123;
+        B[i]=B[st[i]]+p;
+    &#125;
+    n=top,B[n+1]=B[1];
+&#125;
+
+inline void Minkowski()&#123;
+    for(re ll i=1;i&lt;n;i++)&#123;
+        s1[i]=C1[i+1]-C1[i];
+        s1[n]=C1[1]-C1[n];
+    &#125;
+    for(re ll i=1;i&lt;m;i++)&#123;
+        s2[i]=C2[i+1]-C2[i];
+        s2[m]=C2[1]-C2[m];
+    &#125;
+    A[tot=1]=C1[1]+C2[1];
+    ll cnt1=1,cnt2=1;
+    while(cnt1&lt;=n&amp;&amp;cnt2&lt;=m)++tot,A[tot]=A[tot-1]+(s1[cnt1]*s2[cnt2]&gt;=0?s1[cnt1++]:s2[cnt2++]);
+    while(cnt1&lt;=n)++tot,A[tot]=A[tot-1]+s1[cnt1++];
+    while(cnt2&lt;=m)++tot,A[tot]=A[tot-1]+s2[cnt2++];
+&#125;
+
+ll inside(node a)&#123;
+    if(a*A[1]&gt;0||A[tot]*a&gt;0) return 0;
+    ll pos=lower_bound(A+1,A+tot+1,a,cmp2)-A-1;
+    return (a-A[pos])*(A[pos%tot+1]-A[pos])&lt;=0;
+&#125;
+
+inline ll read()&#123;
+    ll x=0, f=1;char ch=getchar();
+    while (!isdigit(ch)) &#123;if(ch==&#39;-&#39;)f=-1;ch=getchar();&#125;
+    while (isdigit(ch))&#123;x=x*10+(ch^48);ch=getchar();&#125;
+    return x*f;
+&#125;
+
+int main() &#123;
+#ifdef LawrenceSivan
+    freopen(&quot;aa.in&quot;, &quot;r&quot;, stdin);
+    freopen(&quot;aa.out&quot;, &quot;w&quot;, stdout);
+#endif
+    n=read();m=read();q=read();
+
+    for(re ll i=1;i&lt;=n;i++)&#123;
+        C1[i].x=read();C1[i].y=read();
+    &#125;
+    convex(C1,n);
+
+    for(re ll i=1;i&lt;=m;i++)&#123;
+        C2[i].x=-read();C2[i].y=-read();
+    &#125;
+    convex(C2,m);
+
+    Minkowski();
+
+    convex(A,tot);
+
+    p=A[1];
+    for(re ll i=tot;i&gt;=1;i--)A[i]=A[i]-A[1];
+
+    while(q--)&#123;
+        A[0].x=read();A[0].y=read();
+        printf(&quot;%lld\n&quot;,inside(A[0]-p));
+
+    &#125;
+
+    return 0;
+&#125;
+</code></pre>
+]]></content>
+  </entry>
+  <entry>
+    <title>转载</title>
+    <url>/2018/05/28/%E8%BD%AC%E8%BD%BD/</url>
+    <content><![CDATA[<p>这个页面用来存放转载</p>
+]]></content>
+      <categories>
+        <category>转载</category>
+      </categories>
   </entry>
   <entry>
     <title>随想</title>
