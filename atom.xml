@@ -6,7 +6,7 @@
   <link href="https://lawrencesivan.github.io/atom.xml" rel="self"/>
   
   <link href="https://lawrencesivan.github.io/"/>
-  <updated>2021-11-28T07:44:06.148Z</updated>
+  <updated>2022-02-10T08:07:14.511Z</updated>
   <id>https://lawrencesivan.github.io/</id>
   
   <author>
@@ -15,6 +15,19 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2022年2月随笔</title>
+    <link href="https://lawrencesivan.github.io/2022/02/06/2022%E5%B9%B42%E6%9C%88%E9%9A%8F%E7%AC%94/"/>
+    <id>https://lawrencesivan.github.io/2022/02/06/2022%E5%B9%B42%E6%9C%88%E9%9A%8F%E7%AC%94/</id>
+    <published>2022-02-06T06:49:41.000Z</published>
+    <updated>2022-02-10T08:07:14.511Z</updated>
+    
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>OI 回忆录</title>
@@ -321,21 +334,6 @@
     
     
     <summary type="html">树上差分以及一些题目讲解</summary>
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>CF545E Paths and Trees（最短路径树）</title>
-    <link href="https://lawrencesivan.github.io/2021/06/07/CF545E%20Paths%20and%20Trees%EF%BC%88%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E6%A0%91%EF%BC%89/"/>
-    <id>https://lawrencesivan.github.io/2021/06/07/CF545E%20Paths%20and%20Trees%EF%BC%88%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84%E6%A0%91%EF%BC%89/</id>
-    <published>2021-06-07T03:38:07.000Z</published>
-    <updated>2021-09-26T02:07:42.415Z</updated>
-    
-    
-    <summary type="html">最短路径树的详细讲解与一些思考</summary>
     
     
     
