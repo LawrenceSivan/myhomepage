@@ -6,7 +6,7 @@
   <link href="https://blog.lawrencesivan.cn/atom.xml" rel="self"/>
   
   <link href="https://blog.lawrencesivan.cn/"/>
-  <updated>2023-01-22T16:19:01.950Z</updated>
+  <updated>2023-12-31T15:08:48.788Z</updated>
   <id>https://blog.lawrencesivan.cn/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2023年终总结</title>
+    <link href="https://blog.lawrencesivan.cn/2023/12/31/2023%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"/>
+    <id>https://blog.lawrencesivan.cn/2023/12/31/2023%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/</id>
+    <published>2023-12-31T13:02:04.000Z</published>
+    <updated>2023-12-31T15:08:48.788Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;2023-的最后一夜，我随便写写。&quot;&gt;&lt;a href=&quot;#2023-的最后一夜，我随便写写。&quot; class=&quot;headerlink&quot; title=&quot;2023 的最后一夜，我随便写写。&quot;&gt;&lt;/a&gt;2023</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>却道云淡也风轻——生日专刊</title>
@@ -338,21 +359,6 @@
     
     
     <summary type="html">轮廓线状压好题</summary>
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Kruskal 重构树总结</title>
-    <link href="https://blog.lawrencesivan.cn/2021/06/21/Kruskal%20%E9%87%8D%E6%9E%84%E6%A0%91%E6%80%BB%E7%BB%93/"/>
-    <id>https://blog.lawrencesivan.cn/2021/06/21/Kruskal%20%E9%87%8D%E6%9E%84%E6%A0%91%E6%80%BB%E7%BB%93/</id>
-    <published>2021-06-21T04:57:06.000Z</published>
-    <updated>2022-08-04T15:37:54.000Z</updated>
-    
-    
-    <summary type="html">Kruskal重构树总结以及一些题目</summary>
     
     
     
